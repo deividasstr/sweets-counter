@@ -45,7 +45,7 @@ jobs:
         name: pre-check
         command: ./gradlew ktlint lint --no-daemon
 
-        - run:
+      - run:
         name: Run Tests
         command: ./gradlew test --no-daemon
 
@@ -58,6 +58,3 @@ jobs:
 
       - store_test_results:
       path: app/build/test-results
-
-
-
