@@ -42,19 +42,16 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
       - run:
-        name: pre-check
-        command: ./gradlew ktlint lint --no-daemon
+          name: pre-check
+          command: ./gradlew ktlint lint --no-daemon
 
       - run:
-        name: Run Tests
-        command: ./gradlew test --no-daemon
-
-      # run tests!
-      - run: gradle test
+          name: Run Tests
+          command: ./gradlew test --no-daemon
 
       - store_artifacts:
-      path: app/build/reports
-      destination: reports
+          path: app/build/reports
+          destination: reports
 
       - store_test_results:
-      path: app/build/test-results
+          path: app/build/test-results
