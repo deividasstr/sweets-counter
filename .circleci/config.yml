@@ -7,13 +7,11 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      #- image: circleci/openjdk:8-jdk
       - image: circleci/android:api-27-alpha
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -43,11 +41,11 @@ jobs:
 
       - run:
           name: Pre-check
-          command: ./gradlew ktlint lint #--no-daemon
+          command: ./gradlew ktlint lint
 
       - run:
           name: Run Tests
-          command: ./gradlew test #--no-daemon
+          command: ./gradlew test
 
       - store_artifacts:
           path: app/build/reports
