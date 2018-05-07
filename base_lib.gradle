@@ -1,26 +1,31 @@
-apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.objectbox'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
 
 android {
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
-        applicationId "com.deividasstr.sweetscounter"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode versionCode
+        versionName versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     dataBinding {
         enabled = true
     }
@@ -28,20 +33,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support.constraint:constraint-layout:1.1.0"
-
-    implementation "android.arch.lifecycle:extensions:$androidArchComponents"
-    implementation "android.arch.lifecycle:reactivestreams:$androidArchComponents"
-    implementation "android.arch.lifecycle:common-java8:$androidArchComponents"
-    testImplementation "android.arch.core:core-testing:$androidArchComponents"
-
-    implementation "com.jakewharton.timber:timber:$timberVersion"
-
-    kapt "com.android.databinding:compiler:$gradleVersion"
 
     // Tests
     testImplementation "junit:junit:$jUnitVersion"

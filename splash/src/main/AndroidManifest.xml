@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.deividasstr.sweetscounter">
+    package="com.deividasstr.splash">
 
     <application
         android:allowBackup="false"
@@ -13,7 +12,8 @@
         android:name=".MainApplication"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name="com.deividasstr.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -21,12 +21,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name">
-        </activity>
     </application>
-
 </manifest>
