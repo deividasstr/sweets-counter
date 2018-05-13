@@ -49,10 +49,14 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
     // Tests
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:rules:$runnerVersion"
     androidTestImplementation "com.android.support.test:runner:$runnerVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation 'org.mockito:mockito-inline:' + mockitoAndroidVersion
 }
 
 task ktlint(type: JavaExec, group: "verification") {
