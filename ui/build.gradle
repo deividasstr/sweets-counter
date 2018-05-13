@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+apply from: rootDir.absolutePath + '/base_lib.gradle'
+
+android {
+    defaultConfig {
+        applicationId "com.deividasstr.sweetscounter"
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    implementation project(':data')
+    implementation project(':devices')
+    implementation project(':domain')
+
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
+    implementation "android.arch.lifecycle:extensions:$androidArchComponents"
+    implementation "android.arch.lifecycle:reactivestreams:$androidArchComponents"
+    implementation "android.arch.lifecycle:common-java8:$androidArchComponents"
+    implementation "android.arch.paging:runtime:$paging"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    kapt "com.android.databinding:compiler:$gradleVersion"
+
+    //Tests
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+
+    testImplementation "android.arch.core:core-testing:$androidArchComponents"
+}

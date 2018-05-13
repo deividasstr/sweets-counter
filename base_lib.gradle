@@ -2,10 +2,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-targetCompatibility = 1.8
-sourceCompatibility = 1.8
-
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
         minSdkVersion androidMinSdkVersion
@@ -29,18 +31,28 @@ android {
     dataBinding {
         enabled = true
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        String sharedTestDir = 'src/sharedTest/kotlin'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
+        }
+    }
 }
 
 dependencies {
+    implementation project(':domain')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
     // Tests
     testImplementation "junit:junit:$jUnitVersion"
+    androidTestImplementation "com.android.support.test:rules:$runnerVersion"
     androidTestImplementation "com.android.support.test:runner:$runnerVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 }
 
 task ktlint(type: JavaExec, group: "verification") {
