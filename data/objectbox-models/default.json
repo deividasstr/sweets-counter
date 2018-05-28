@@ -1,0 +1,102 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6613061620204035198",
+      "lastPropertyId": "4:5452774493264510594",
+      "name": "ConsumedSweetModel",
+      "properties": [
+        {
+          "id": "1:3826339768707656050",
+          "name": "id"
+        },
+        {
+          "id": "2:6745001275069338293",
+          "name": "sweetId"
+        },
+        {
+          "id": "3:6581596689850349090",
+          "name": "g"
+        },
+        {
+          "id": "4:5452774493264510594",
+          "name": "date"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:3863291584517153950",
+      "lastPropertyId": "8:1090785338886402074",
+      "name": "SweetModel",
+      "properties": [
+        {
+          "id": "1:2739462855574941390",
+          "name": "id"
+        },
+        {
+          "id": "2:7158620219540222278",
+          "name": "name"
+        },
+        {
+          "id": "3:903374062891589096",
+          "name": "calsPer100"
+        },
+        {
+          "id": "4:6576606833104549336",
+          "name": "fatG"
+        },
+        {
+          "id": "5:8557640157383155615",
+          "name": "carbsG"
+        },
+        {
+          "id": "6:2949616972014845653",
+          "name": "proteinG"
+        },
+        {
+          "id": "7:8990321861050548773",
+          "name": "servingG"
+        },
+        {
+          "id": "8:1090785338886402074",
+          "name": "addedTimestamp"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:4197684925020745054",
+      "lastPropertyId": "3:5421659518181868255",
+      "name": "FactModel",
+      "properties": [
+        {
+          "id": "1:3895531729866145374",
+          "name": "id"
+        },
+        {
+          "id": "2:3842640498490089219",
+          "name": "text"
+        },
+        {
+          "id": "3:5421659518181868255",
+          "name": "addedTimestamp"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "3:4197684925020745054",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

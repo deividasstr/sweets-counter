@@ -6,3 +6,10 @@
 /build
 /captures
 .externalNativeBuild
+/gradle.properties
+/data/objectbox-models/default.json.bak
+libobjectbox-linux-x64.so
+libs/
+objectbox-models/default.json.bak
+src/main/res/drawable/
+/utils.gradle

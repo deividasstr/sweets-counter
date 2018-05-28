@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.deividasstr.splash">
+    package="com.deividasstr.ui">
 
     <application
         android:allowBackup="false"
@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.deividasstr.MainApplication"
+        android:name="com.deividasstr.ui.base.MainApplication"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.deividasstr.splash.SplashActivity"
+            android:name="com.deividasstr.ui.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name="com.deividasstr.main.MainActivity"
+            android:name="com.deividasstr.ui.base.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>

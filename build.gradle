@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 buildscript {
 
@@ -8,7 +10,6 @@ buildscript {
 
     repositories {
         google()
-        mavenCentral()
         jcenter()
     }
 
@@ -22,11 +23,10 @@ buildscript {
 apply from: 'dependencies.gradle'
 
 allprojects {
-
     repositories {
-        google()
-        mavenCentral()
         jcenter()
+        google()
+        maven { url "http://objectbox.net/beta-repo/" }
     }
 
     configurations {
@@ -34,13 +34,27 @@ allprojects {
     }
 
     dependencies {
-        ktlint "com.github.shyiko:ktlint:0.23.0"
+        ktlint "com.github.shyiko:ktlint:0.23.1"
     }
 
     // https://github.com/google/dagger/issues/306
     afterEvaluate {
         tasks.withType(JavaCompile.class) {
             options.compilerArgs << "-Xmaxerrs" << "500"
+        }
+    }
+
+    tasks.withType(Test) {
+        testLogging {
+            events TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
+                    TestLogEvent.STANDARD_ERROR,
+                    TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+            showCauses true
+            showExceptions true
+            showStackTraces true
         }
     }
 }

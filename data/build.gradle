@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-kapt'
-
+apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply plugin: 'io.objectbox'
 
-apply from: rootDir.absolutePath + '/base_lib.gradle'
 
 dependencies {
-
+    //implementation "android.arch.paging:runtime:$paging"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 }

@@ -1,20 +1,24 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-kapt'
+
 
 apply from: rootDir.absolutePath + '/base_lib.gradle'
+apply from: rootDir.absolutePath + '/utils.gradle'
 
 android {
     defaultConfig {
+        buildConfigField 'String', 'BASE_API', getString(BASE_API)
+        //buildConfigField 'String', 'API_KEY', toJavaCodeString(API_KEY)
         applicationId "com.deividasstr.sweetscounter"
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    dataBinding {
+        enabled = true
     }
 }
 
 dependencies {
     implementation project(':data')
     implementation project(':devices')
-    implementation project(':domain')
 
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
@@ -29,8 +33,12 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
     kapt "com.android.databinding:compiler:$gradleVersion"
 
+    implementation "android.arch.work:work-runtime-ktx:$work_version"
+
+
     //Tests
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "android.arch.work:work-testing:$work_version"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
     testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
