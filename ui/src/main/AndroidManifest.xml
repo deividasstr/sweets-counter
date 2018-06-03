@@ -13,7 +13,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.deividasstr.ui.splash.SplashActivity"
+            android:name="com.deividasstr.ui.features.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>

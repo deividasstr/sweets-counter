@@ -1,4 +1,4 @@
-package com.deividasstr.ui.splash
+package com.deividasstr.ui.features.splash
 
 import android.app.Activity
 import android.content.Intent

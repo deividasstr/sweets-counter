@@ -17,14 +17,19 @@ ext {
 
     //Other
     daggerVersion = '2.16'
-    //okHttpVersion = '3.8.1'
+    okHttpVersion = '3.10.0'
     retrofitVersion = '2.4.0'
     glideVersion = '4.0.0'
     moshiVersion = '1.6.0'
 
     //Debugging
     timberVersion = '4.7.0'
-    leakCanaryVersion = '1.5'
+    leakCanaryVersion = '1.5.4'
+
+    //Rx
+    rxJavaVersion = '2.1.14'
+    rxAndroidVersion = '2.0.2'
+    rxLintVersion = '1.6.1'
 
     //Testing
     robolectricVersion = '3.8'
