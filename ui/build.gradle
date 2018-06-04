@@ -26,6 +26,7 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:$androidArchComponents"
     implementation "android.arch.lifecycle:common-java8:$androidArchComponents"
     implementation "android.arch.paging:runtime:$paging"
+    //implementation "com.google.android.material:material:$materialVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"

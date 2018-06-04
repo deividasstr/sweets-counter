@@ -1,4 +1,4 @@
-package com.deividasstr.ui.base
+package com.deividasstr.ui.features.main
 
 import android.os.Bundle
 import com.deividasstr.ui.R

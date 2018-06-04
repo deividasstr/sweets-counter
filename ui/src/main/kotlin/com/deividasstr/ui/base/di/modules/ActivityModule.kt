@@ -1,6 +1,6 @@
 package com.deividasstr.ui.base.di.modules
 
-import com.deividasstr.ui.base.MainActivity
+import com.deividasstr.ui.features.main.MainActivity
 import com.deividasstr.ui.base.di.scopes.ActivityScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

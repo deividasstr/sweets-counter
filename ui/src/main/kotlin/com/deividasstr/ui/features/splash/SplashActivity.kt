@@ -3,7 +3,7 @@ package com.deividasstr.ui.features.splash
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.deividasstr.ui.base.MainActivity
+import com.deividasstr.ui.features.main.MainActivity
 
 class SplashActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

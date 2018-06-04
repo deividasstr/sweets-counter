@@ -9,7 +9,7 @@ import com.squareup.leakcanary.LeakCanary
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class MainApplication : DaggerApplication() {
+class SweetsApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()

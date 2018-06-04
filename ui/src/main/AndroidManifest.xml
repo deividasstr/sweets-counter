@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.deividasstr.ui.base.MainApplication"
+        android:name="com.deividasstr.ui.base.SweetsApplication"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name="com.deividasstr.ui.base.MainActivity"
+            android:name="com.deividasstr.ui.features.main.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>
