@@ -8,4 +8,6 @@
     <string name="menu_facts">Facts</string>
     <string name="search_hint">Enter sweet name</string>
     <string name="cals_per_100g">%d kcal/100g</string>
+    <string name="error_network">Could not download sweets, please try again later</string>
+    <string name="error_network_unavailable">Network is not available, cannot download sweets</string>
 </resources>

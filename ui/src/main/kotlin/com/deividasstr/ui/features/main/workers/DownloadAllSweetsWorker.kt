@@ -1,4 +1,4 @@
-package com.deividasstr.ui.features.splash.workers
+package com.deividasstr.ui.features.main.workers
 
 
 import androidx.work.Data
@@ -21,10 +21,10 @@ class DownloadAllSweetsWorker : Worker() {
         val throwable = downloadAllSweetsUseCase.execute().blockingGet()
         if (throwable != null) {
             val output = Data.Builder()
-                .putString(KEY_ERROR, throwable.message)
+                .putBoolean(KEY_ERROR, true)
                 .build()
             outputData = output
-            return Result.RETRY
+            return Result.FAILURE
         }
         return Result.SUCCESS
     }

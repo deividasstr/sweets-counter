@@ -19,7 +19,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
-import com.deividasstr.ui.features.splash.SplashActivityViewModel
+import com.deividasstr.ui.features.main.MainActivityViewModel
 import com.deividasstr.ui.features.perioddetails.PeriodDetailsViewModel
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListViewModel
@@ -64,7 +64,7 @@ internal abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SplashActivityViewModel::class)
-    internal abstract fun bindsSplashActivityViewModel(splashActivityViewModel: SplashActivityViewModel)
+    @ViewModelKey(MainActivityViewModel::class)
+    internal abstract fun bindsSplashActivityViewModel(mainActivityViewModel: MainActivityViewModel)
         : ViewModel
 }

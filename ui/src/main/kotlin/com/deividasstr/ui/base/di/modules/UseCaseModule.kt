@@ -3,6 +3,7 @@ package com.deividasstr.ui.base.di.modules
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.repositories.FactRepo
+import com.deividasstr.domain.repositories.PrefsRepo
 import com.deividasstr.domain.repositories.SweetsRepo
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.AddNewSweetUseCase
@@ -12,6 +13,7 @@ import com.deividasstr.domain.usecases.GetAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetConsumedSweetsInPeriodUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
+import com.deividasstr.domain.usecases.SaveDownloadDateUseCase
 import com.deividasstr.domain.usecases.SearchSweetUseCase
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
@@ -69,5 +71,10 @@ class UseCaseModule {
     @Provides
     fun provideSweetSearchDataSourceFactory(store: BoxStore): SweetSearchDataSourceFactory {
         return SweetSearchDataSourceFactory(store.boxFor(SweetDb::class.java))
+    }
+
+    @Provides
+    fun provideSaveDownloadDateUseCase(repo: PrefsRepo): SaveDownloadDateUseCase {
+        return SaveDownloadDateUseCase(repo)
     }
 }

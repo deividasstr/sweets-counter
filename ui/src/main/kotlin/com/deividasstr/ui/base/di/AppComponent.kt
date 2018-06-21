@@ -4,8 +4,8 @@ import android.app.Application
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.ui.base.di.modules.ActivityModule
 import com.deividasstr.ui.base.di.modules.AppModule
-import com.deividasstr.ui.features.splash.workers.DownloadAllSweetsWorker
-import com.deividasstr.ui.features.splash.workers.SaveDownloadDateWorker
+import com.deividasstr.ui.features.main.workers.DownloadAllSweetsWorker
+import com.deividasstr.ui.features.main.workers.SaveDownloadDateWorker
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
