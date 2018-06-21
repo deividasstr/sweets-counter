@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel" />
+            type="com.deividasstr.ui.features.facts.FactsViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

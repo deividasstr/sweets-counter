@@ -1,6 +1,6 @@
 package com.deividasstr.data.networking.models
 
-import com.deividasstr.data.store.models.SweetModel
+import com.deividasstr.data.store.models.SweetDb
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -15,6 +15,6 @@ data class ResponseSweet(
     val timestamp: Long
 )
 
-fun List<ResponseSweet>.toSweetModels(): List<SweetModel> {
-    return this.map { SweetModel(it) }
+fun List<ResponseSweet>.toSweetModels(): List<SweetDb> {
+    return this.map { SweetDb(it) }
 }

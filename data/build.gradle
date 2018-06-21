@@ -2,11 +2,15 @@ apply plugin: 'com.android.library'
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply plugin: 'io.objectbox'
 
-
 dependencies {
-    //implementation "android.arch.paging:runtime:$paging"
+    implementation "android.arch.paging:runtime:$paging"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.moshi:moshi:$moshiVersion"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 }

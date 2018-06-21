@@ -1,18 +1,22 @@
 package com.deividasstr.ui.base.di.modules
 
+import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.repositories.SweetsRepo
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.AddNewSweetUseCase
+import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsCalsUseCase
 import com.deividasstr.domain.usecases.GetAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetConsumedSweetsInPeriodUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.usecases.SearchSweetUseCase
+import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
 import dagger.Provides
+import io.objectbox.BoxStore
 
 @Module
 class UseCaseModule {
@@ -55,5 +59,15 @@ class UseCaseModule {
     @Provides
     fun provideGetConsumedSweetsInPeriodUseCase(repo: ConsumedSweetsRepo): GetConsumedSweetsInPeriodUseCase {
         return GetConsumedSweetsInPeriodUseCase(repo)
+    }
+
+    @Provides
+    fun provideDownloadAllSweetsUseCase(repo: SweetsRepo): DownloadAllSweetsUseCase {
+        return DownloadAllSweetsUseCase(repo)
+    }
+
+    @Provides
+    fun provideSweetSearchDataSourceFactory(store: BoxStore): SweetSearchDataSourceFactory {
+        return SweetSearchDataSourceFactory(store.boxFor(SweetDb::class.java))
     }
 }

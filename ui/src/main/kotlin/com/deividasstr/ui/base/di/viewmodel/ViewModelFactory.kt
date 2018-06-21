@@ -34,10 +34,11 @@ class ViewModelFactory
             modelClass.isAssignableFrom(it.key)
         }?.value ?: throw IllegalArgumentException("Unknown ViewModel class $modelClass")
 
-        return try {
-            creator.get() as T
+        return creator.get() as T
+
+        /*return try {
         } catch (e: Exception) {
             throw RuntimeException(e)
-        }
+        }*/
     }
 }

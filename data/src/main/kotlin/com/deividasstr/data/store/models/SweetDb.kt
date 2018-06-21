@@ -6,7 +6,7 @@ import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 
 @Entity
-data class SweetModel(
+data class SweetDb(
     @Id(assignable = true) var id: Long,
     val name: String,
     val calsPer100: Double,
@@ -26,10 +26,10 @@ data class SweetModel(
     )
 }
 
-fun List<SweetModel>.toSweets(): List<Sweet> {
+fun List<SweetDb>.toSweets(): List<Sweet> {
     return this.map { it.toSweet() }
 }
 
-fun SweetModel.toSweet(): Sweet {
+fun SweetDb.toSweet(): Sweet {
     return Sweet(id, name, calsPer100, servingG, fatG, carbsG, proteinG)
 }

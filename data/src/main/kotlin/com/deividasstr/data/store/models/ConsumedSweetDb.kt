@@ -5,7 +5,7 @@ import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 
 @Entity
-data class ConsumedSweetModel(
+data class ConsumedSweetDb(
     @Id(assignable = true) var id: Long,
     val sweetId: Int,
     val g: Int,
@@ -14,14 +14,14 @@ data class ConsumedSweetModel(
     constructor(sweet: ConsumedSweet) : this(sweet.id, sweet.sweetId, sweet.g, sweet.date)
 }
 
-fun List<ConsumedSweetModel>.toConsumedSweets(): List<ConsumedSweet> {
+fun List<ConsumedSweetDb>.toConsumedSweets(): List<ConsumedSweet> {
     return this.map { it.toConsumedSweet() }
 }
 
-fun ConsumedSweetModel.toConsumedSweet(): ConsumedSweet {
+fun ConsumedSweetDb.toConsumedSweet(): ConsumedSweet {
     return ConsumedSweet(id, sweetId, g, date)
 }
 
-fun List<ConsumedSweet>.toConsumedSweetModels(): List<ConsumedSweetModel> {
-    return this.map { ConsumedSweetModel(it) }
+fun List<ConsumedSweet>.toConsumedSweetModels(): List<ConsumedSweetDb> {
+    return this.map { ConsumedSweetDb(it) }
 }

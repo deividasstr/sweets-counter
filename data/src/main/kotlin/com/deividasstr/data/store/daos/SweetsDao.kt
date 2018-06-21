@@ -1,20 +1,20 @@
 package com.deividasstr.data.store.daos
 
-import com.deividasstr.data.store.models.SweetModel
+import com.deividasstr.data.store.models.SweetDb
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface SweetsDao {
 
-    fun getSweetById(id: Long): Single<SweetModel>
+    fun getSweetById(id: Long): Single<SweetDb>
 
-    fun getAllSweets(): Single<List<SweetModel>>
+    fun getAllSweets(): Single<List<SweetDb>>
 
-    fun search(name: String): Single<List<SweetModel>>
+    fun search(name: String): Single<List<SweetDb>>
 
-    fun addSweets(sweets: List<SweetModel>): Completable
+    fun addSweets(sweets: List<SweetDb>): Completable
 
-    fun addSweet(sweet: SweetModel): Completable
+    fun addSweet(sweet: SweetDb): Completable
 
     fun getLastUpdateTimeStamp(): Single<Long>
 }

@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
+import com.deividasstr.ui.features.main.MainActivityViewModel
 import com.deividasstr.ui.features.perioddetails.PeriodDetailsViewModel
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListViewModel
@@ -59,5 +60,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SweetsSearchListViewModel::class)
     internal abstract fun bindsSweetsSearchListViewModel(sweetsSearchListViewModel: SweetsSearchListViewModel)
+        : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainActivityViewModel::class)
+    internal abstract fun bindsMainActivityViewModel(mainActivityViewModel: MainActivityViewModel)
         : ViewModel
 }

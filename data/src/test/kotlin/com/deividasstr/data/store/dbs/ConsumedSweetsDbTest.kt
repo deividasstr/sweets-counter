@@ -2,7 +2,7 @@ package com.deividasstr.data.store.dbs
 
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
-import com.deividasstr.data.store.models.ConsumedSweetModel
+import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.domain.common.assertResultValue
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -15,7 +15,7 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
 
     @Before
     fun setup() {
-        db = ConsumedSweetsDb(store.boxFor(ConsumedSweetModel::class.java))
+        db = ConsumedSweetsDb(store.boxFor(ConsumedSweetDb::class.java))
         testSubscriber = TestObserver()
     }
 
@@ -58,6 +58,6 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
     fun shouldGetAllConsumedSweets_returnsEmptyList() {
         db.getAllConsumedSweets().subscribe(testSubscriber)
 
-        testSubscriber.assertResultValue(emptyList<ConsumedSweetModel>())
+        testSubscriber.assertResultValue(emptyList<ConsumedSweetDb>())
     }
 }

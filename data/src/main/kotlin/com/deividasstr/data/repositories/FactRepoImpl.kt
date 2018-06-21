@@ -2,13 +2,15 @@ package com.deividasstr.data.repositories
 
 import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.store.daos.FactsDao
-import com.deividasstr.data.store.models.FactModel
+import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.toFact
 import com.deividasstr.domain.entities.Fact
 import com.deividasstr.domain.repositories.FactRepo
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Singleton
 
+@Singleton
 class FactRepoImpl(private val factsDb: FactsDao, private val factsService: FactsService) :
     FactRepo {
 
@@ -26,7 +28,7 @@ class FactRepoImpl(private val factsDb: FactsDao, private val factsService: Fact
             .flatMapCompletable { saveFacts(it) }
     }
 
-    private fun saveFacts(facts: List<FactModel>) : Completable {
+    private fun saveFacts(facts: List<FactDb>) : Completable {
         return factsDb.addFacts(facts)
     }
 }

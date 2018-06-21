@@ -1,47 +1,49 @@
 package com.deividasstr.data.store.dbs
 
 import com.deividasstr.data.store.daos.SweetsDao
-import com.deividasstr.data.store.models.SweetModel
-import com.deividasstr.data.store.models.SweetModel_
+import com.deividasstr.data.store.models.SweetDb
+import com.deividasstr.data.store.models.SweetDb_
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
 import io.objectbox.Box
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Singleton
 
-class SweetsDb(val db: Box<SweetModel>) : SweetsDao {
+@Singleton
+class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
 
     override fun getLastUpdateTimeStamp(): Single<Long> {
-        val query = db.query().orderDesc(SweetModel_.addedTimestamp).build()
+        val query = db.query().orderDesc(SweetDb_.addedTimestamp).build()
         return RxObjectBoxQuery.singleItem(query).map { it.addedTimestamp }
     }
 
-    override fun addSweet(sweet: SweetModel): Completable {
+    override fun addSweet(sweet: SweetDb): Completable {
         return Completable.fromAction {
             db.put(sweet)
         }
     }
 
-    override fun getAllSweets(): Single<List<SweetModel>> {
-        val query = db.query().order(SweetModel_.name).build()
+    override fun getAllSweets(): Single<List<SweetDb>> {
+        val query = db.query().order(SweetDb_.name).build()
         return RxObjectBoxQuery.singleList(query)
     }
 
-    override fun addSweets(sweets: List<SweetModel>): Completable {
+    override fun addSweets(sweets: List<SweetDb>): Completable {
         return Completable.fromAction {
             db.put(sweets)
         }
     }
 
-    override fun getSweetById(id: Long): Single<SweetModel> {
-        val query = db.query().equal(SweetModel_.id, id).build()
+    override fun getSweetById(id: Long): Single<SweetDb> {
+        val query = db.query().equal(SweetDb_.id, id).build()
         return RxObjectBoxQuery.singleItem(query)
     }
 
-    override fun search(name: String): Single<List<SweetModel>> {
+    override fun search(name: String): Single<List<SweetDb>> {
         return if (name.isEmpty()) {
             getAllSweets()
         } else {
-            val query = db.query().equal(SweetModel_.name, name).build()
+            val query = db.query().equal(SweetDb_.name, name).build()
             RxObjectBoxQuery.singleList(query)
         }
     }

@@ -2,7 +2,7 @@ package com.deividasstr.data.store.dbs
 
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
-import com.deividasstr.data.store.models.SweetModel
+import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.assertResultValue
 import io.reactivex.observers.TestObserver
@@ -16,7 +16,7 @@ class SweetsDbTest : AbstractObjectBoxTest() {
 
     @Before
     fun setup() {
-        db = SweetsDb(store.boxFor(SweetModel::class.java))
+        db = SweetsDb(store.boxFor(SweetDb::class.java))
         testSubscriber = TestObserver()
     }
 
@@ -89,7 +89,7 @@ class SweetsDbTest : AbstractObjectBoxTest() {
         testSubscriber.await()
 
         testSubscriber.assertComplete()
-        testSubscriber.assertValue(emptyList<SweetModel>())
+        testSubscriber.assertValue(emptyList<SweetDb>())
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.deividasstr.data.store.dbs
 
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
-import com.deividasstr.data.store.models.FactModel
+import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.domain.common.assertResultValue
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -15,7 +15,7 @@ class FactsDbTest : AbstractObjectBoxTest() {
 
     @Before
     fun setup() {
-        db = FactsDb(store.boxFor(FactModel::class.java))
+        db = FactsDb(store.boxFor(FactDb::class.java))
         testSubscriber = TestObserver()
     }
 

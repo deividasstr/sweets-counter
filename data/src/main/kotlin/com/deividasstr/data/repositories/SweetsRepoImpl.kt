@@ -2,14 +2,16 @@ package com.deividasstr.data.repositories
 
 import com.deividasstr.data.networking.services.SweetsService
 import com.deividasstr.data.store.daos.SweetsDao
-import com.deividasstr.data.store.models.SweetModel
+import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.data.store.models.toSweets
 import com.deividasstr.domain.entities.Sweet
 import com.deividasstr.domain.repositories.SweetsRepo
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Singleton
 
+@Singleton
 class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService: SweetsService)
     : SweetsRepo {
 
@@ -24,7 +26,7 @@ class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService:
     }
 
     override fun newSweet(sweet: Sweet): Completable {
-        return sweetsDb.addSweet(SweetModel(sweet))
+        return sweetsDb.addSweet(SweetDb(sweet))
     }
 
     override fun getAllSweets(): Single<List<Sweet>> {
@@ -39,7 +41,7 @@ class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService:
         return sweetsDb.search(name).map { it.toSweets() }
     }
 
-    private fun saveSweets(sweets: List<SweetModel>): Completable {
+    private fun saveSweets(sweets: List<SweetDb>): Completable {
         return sweetsDb.addSweets(sweets)
     }
 }

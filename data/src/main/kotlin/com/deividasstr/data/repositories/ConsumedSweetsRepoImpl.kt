@@ -2,7 +2,7 @@ package com.deividasstr.data.repositories
 
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.daos.SweetsDao
-import com.deividasstr.data.store.models.ConsumedSweetModel
+import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.toConsumedSweets
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.domain.entities.ConsumedSweet
@@ -11,8 +11,10 @@ import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.utils.DateRange
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Singleton
 import kotlin.math.roundToInt
 
+@Singleton
 class ConsumedSweetsRepoImpl(
     val consumedSweetsDb: ConsumedSweetsDao,
     val sweetsDb: SweetsDao
@@ -21,7 +23,7 @@ class ConsumedSweetsRepoImpl(
     override fun getTotalCalsConsumed(): Single<Int> {
         return Single.create { emitter ->
             consumedSweetsDb.getAllConsumedSweets().subscribe {
-                list: List<ConsumedSweetModel> ->
+                list: List<ConsumedSweetDb> ->
                 var calCount = 0
                 list.forEach {
                     getCalsPer100GBySweetId(it.sweetId).subscribe { sweet: Sweet ->
@@ -34,7 +36,7 @@ class ConsumedSweetsRepoImpl(
     }
 
     override fun addSweet(sweet: ConsumedSweet): Completable {
-        return consumedSweetsDb.addSweet(ConsumedSweetModel(sweet))
+        return consumedSweetsDb.addSweet(ConsumedSweetDb(sweet))
     }
 
     override fun getConsumedSweetsByPeriod(dateRange: DateRange): Single<List<ConsumedSweet>> {

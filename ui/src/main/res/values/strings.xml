@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Sweets counter</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -6,4 +6,6 @@
     <string name="menu_data">Data</string>
     <string name="menu_list">Candies</string>
     <string name="menu_facts">Facts</string>
+    <string name="search_hint">Enter sweet name</string>
+    <string name="cals_per_100g">%d kcal/100g</string>
 </resources>

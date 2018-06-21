@@ -2,7 +2,9 @@ package com.deividasstr.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Singleton
 
+@Singleton
 class SharedPrefs(private val ctx: Context) {
 
     companion object {
