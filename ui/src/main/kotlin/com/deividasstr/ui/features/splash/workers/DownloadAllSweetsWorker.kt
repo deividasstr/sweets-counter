@@ -1,4 +1,4 @@
-package com.deividasstr.ui.features.main.workers
+package com.deividasstr.ui.features.splash.workers
 
 
 import androidx.work.Data

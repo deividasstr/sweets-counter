@@ -1,4 +1,4 @@
-package com.deividasstr.ui.features.main
+package com.deividasstr.ui.features.splash
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -10,10 +10,11 @@ import androidx.work.WorkManager
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.framework.SingleEvent
-import com.deividasstr.ui.features.main.workers.DownloadAllSweetsWorker
+import com.deividasstr.ui.features.splash.workers.DownloadAllSweetsWorker
+import com.deividasstr.ui.features.splash.workers.SaveDownloadDateWorker
 import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(private val sharedPrefs: SharedPrefs) :
+class SplashActivityViewModel @Inject constructor(private val sharedPrefs: SharedPrefs) :
     BaseViewModel() {
 
     private var _errorMessage: LiveData<SingleEvent<Throwable>> = MutableLiveData()
@@ -31,13 +32,15 @@ class MainActivityViewModel @Inject constructor(private val sharedPrefs: SharedP
                 .setConstraints(constraints)
                 .build()
 
+            val saveDownloadDate = OneTimeWorkRequestBuilder<SaveDownloadDateWorker>().build()
+
             val workManager = WorkManager.getInstance()
-            workManager.enqueue(request)
-            _errorMessage = Transformations.map(workManager.getStatusById(request.id), {
+            workManager.beginWith(request).then(saveDownloadDate)
+            _errorMessage = Transformations.map(workManager.getStatusById(request.id)) {
                 it.outputData.keyValueMap[DownloadAllSweetsWorker.KEY_ERROR]?.let {
                     SingleEvent(Throwable(it as String?))
                 }
-            })
+            }
         }
     }
 }
