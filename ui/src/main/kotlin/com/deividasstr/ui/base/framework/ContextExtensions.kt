@@ -15,5 +15,4 @@ fun Context.alert(message: String) {
 
 val Context.networkAvailable: Boolean get() =
         (this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
-            .activeNetworkInfo
-            .isConnected
+            .activeNetworkInfo?.isConnected ?: false

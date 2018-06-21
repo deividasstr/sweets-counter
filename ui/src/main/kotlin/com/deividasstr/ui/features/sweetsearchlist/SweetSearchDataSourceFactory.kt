@@ -6,11 +6,13 @@ import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.SweetDb_
 import com.deividasstr.ui.base.models.SweetUi
 import io.objectbox.Box
+import javax.inject.Singleton
 
+@Singleton
 class SweetSearchDataSourceFactory(private val box: Box<SweetDb>) :
     DataSource.Factory<Int, SweetUi>() {
 
-    var query = ""
+    private var query = ""
 
     override fun create(): DataSource<Int, SweetUi> {
         val lazyList = box.query().contains(SweetDb_.name, query).build().findLazyCached()

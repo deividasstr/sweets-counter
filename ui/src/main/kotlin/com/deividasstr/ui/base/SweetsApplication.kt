@@ -6,6 +6,7 @@ import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.ui.BuildConfig
 import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.support.DaggerApplication
@@ -30,6 +31,7 @@ class SweetsApplication : DaggerApplication() {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
+            AndroidDevMetrics.initWith(this);
             Handler().postAtFrontOfQueue(::initStrictMode)
         }
     }

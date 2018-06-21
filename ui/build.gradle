@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.frogermcs.androiddevmetrics'
 
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply from: rootDir.absolutePath + '/utils.gradle'
