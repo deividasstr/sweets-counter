@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.frogermcs.androiddevmetrics'
+apply plugin: 'androidx.navigation.safeargs'
 
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply from: rootDir.absolutePath + '/utils.gradle'
@@ -19,15 +20,15 @@ dependencies {
     implementation project(':data')
     implementation project(':devices')
 
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
-    implementation "android.arch.lifecycle:extensions:$androidArchComponents"
-    implementation "android.arch.lifecycle:reactivestreams:$androidArchComponents"
-    implementation "android.arch.lifecycle:common-java8:$androidArchComponents"
-    implementation "android.arch.paging:runtime:$paging"
-    //implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -41,20 +42,21 @@ dependencies {
 
     implementation "android.arch.work:work-runtime-ktx:$work_version"
 
-    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion" // use -ktx for Kotlin
-    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
     //androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
     //Tests
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "android.arch.work:work-testing:$work_version"
-    androidTestImplementation "com.android.support.test:rules:$runnerVersion"
-    androidTestImplementation "com.android.support.test:runner:$runnerVersion"
+    androidTestImplementation "androidx.test:orchestrator:$runnerVersion"
+    androidTestImplementation "androidx.test:rules:$runnerVersion"
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
-    testImplementation "android.arch.core:core-testing:$androidArchComponents"
+    testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
 }

@@ -1,8 +1,9 @@
 package com.deividasstr.ui.features.sweetsearchlist
 
-import android.arch.paging.PagedList
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.Navigation.findNavController
+import androidx.paging.PagedList
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.observe
@@ -31,6 +32,11 @@ class SweetsSearchListFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.sweetsList.setHasFixedSize(true)
+        adapter.clickListener = { sweetId ->
+            val action = SweetsSearchListFragmentDirections.action_sweet_details()
+            action.setSweetId(sweetId.toInt())
+            findNavController(view).navigate(action)
+        }
         binding.sweetsList.adapter = adapter
         if (!viewModel.query.isEmpty()) {
             binding.sweetsSearchView.requestFocus()

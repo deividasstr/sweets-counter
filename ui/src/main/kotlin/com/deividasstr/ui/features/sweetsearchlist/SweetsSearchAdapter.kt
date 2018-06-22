@@ -1,11 +1,11 @@
 package com.deividasstr.ui.features.sweetsearchlist
 
-import android.arch.paging.PagedListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.SweetUi
 import kotlinx.android.synthetic.main.sweet_list_item.view.*
@@ -13,6 +13,8 @@ import kotlin.math.roundToInt
 
 class SweetsSearchAdapter :
     PagedListAdapter<SweetUi, SweetsSearchAdapter.SweetViewHolder>(DIFF_CALLBACK) {
+
+    var clickListener: (Long) -> Unit = { _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SweetViewHolder {
         val view =
@@ -23,7 +25,7 @@ class SweetsSearchAdapter :
     override fun onBindViewHolder(holder: SweetViewHolder, position: Int) {
         val concert = getItem(position)
         if (concert != null) {
-            holder.bind(concert)
+            holder.bind(concert, clickListener)
         } /*else {
             // Null defines a placeholder item - PagedListAdapter automatically
             // invalidates this row when the actual object is loaded from the
@@ -33,11 +35,12 @@ class SweetsSearchAdapter :
     }
 
     class SweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(sweet: SweetUi) {
+        fun bind(sweet: SweetUi, clickListener: (Long) -> Unit) {
             with(itemView) {
                 candy_name.text = sweet.name
                 candy_cals.text =
                     context.getString(R.string.cals_per_100g, sweet.calsPer100.roundToInt())
+                setOnClickListener { clickListener(sweet.id) }
             }
         }
 

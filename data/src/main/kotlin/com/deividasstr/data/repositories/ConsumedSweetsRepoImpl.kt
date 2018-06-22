@@ -16,11 +16,21 @@ import kotlin.math.roundToInt
 
 @Singleton
 class ConsumedSweetsRepoImpl(
-    val consumedSweetsDb: ConsumedSweetsDao,
-    val sweetsDb: SweetsDao
+    private val consumedSweetsDb: ConsumedSweetsDao,
+    private val sweetsDb: SweetsDao
 ) : ConsumedSweetsRepo {
 
     override fun getTotalCalsConsumed(): Single<Int> {
+        /*consumedSweetsDb.getAllConsumedSweets().map {
+            var calCount = 0
+            it.forEach {
+                getCalsPer100GBySweetId(it.sweetId).subscribe { sweet: Sweet ->
+                    calCount += (it.g * sweet.calsPer100 / 100).roundToInt()
+                }
+            }
+            calCount
+        }*/
+
         return Single.create { emitter ->
             consumedSweetsDb.getAllConsumedSweets().subscribe {
                 list: List<ConsumedSweetDb> ->

@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    app:startDestination="@id/periodDetailsFragment">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    app:startDestination="@id/consumedSweetHistoryFragment">
 
     <fragment
         android:id="@+id/sweetsSearchListFragment"
         android:name="com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragment"
-        android:label="SweetsSearchListFragment" />
+        android:label="SweetsSearchListFragment">
+        <action
+            android:id="@+id/action_sweet_details"
+            app:destination="@id/sweetDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/consumedSweetDataFragment"
+        android:name="com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment"
+        android:label="ConsumedSweetDataFragment">
+        <action
+            android:id="@+id/action_consumedSweetDataFragment_to_sweetsSearchListFragment"
+            app:destination="@id/sweetsSearchListFragment"
+            app:popUpTo="@+id/consumedSweetDataFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/factsFragment"
@@ -14,11 +29,31 @@
         android:label="FactsFragment" />
 
     <fragment
-        android:id="@+id/periodDetailsFragment"
-        android:name="com.deividasstr.ui.features.perioddetails.PeriodDetailsFragment"
-        android:label="PeriodDetailsFragment" />
-    <action android:id="@+id/action_data" app:destination="@id/periodDetailsFragment" />
-    <action android:id="@+id/action_list" app:destination="@id/sweetsSearchListFragment" />
-    <action android:id="@+id/action_fact" app:destination="@id/factsFragment" />
+        android:id="@+id/consumedSweetHistoryFragment"
+        android:name="com.deividasstr.ui.features.sweethistory.ConsumedSweetHistoryFragment"
+        android:label="ConsumedSweetHistoryFragment">
+        <action
+            android:id="@+id/action_consumedSweetHistoryFragment_to_sweetsSearchListFragment"
+            app:destination="@id/sweetsSearchListFragment"
+            app:popUpTo="@+id/consumedSweetHistoryFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_data"
+        app:destination="@id/consumedSweetDataFragment" />
+    <action
+        android:id="@+id/action_history"
+        app:destination="@id/consumedSweetHistoryFragment" />
+    <action
+        android:id="@+id/action_fact"
+        app:destination="@id/factsFragment" />
+    <fragment
+        android:id="@+id/sweetDetailsFragment"
+        android:name="com.deividasstr.ui.features.sweetdetails.SweetDetailsFragment"
+        android:label="SweetDetailsFragment">
+        <argument
+            android:name="sweetId"
+            android:defaultValue="0"
+            app:type="integer" />
+    </fragment>
 
 </navigation>

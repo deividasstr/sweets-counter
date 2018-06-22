@@ -3,7 +3,6 @@ apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply plugin: 'io.objectbox'
 
 dependencies {
-    implementation "android.arch.paging:runtime:$paging"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.moshi:moshi:$moshiVersion"
@@ -13,4 +12,6 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 }

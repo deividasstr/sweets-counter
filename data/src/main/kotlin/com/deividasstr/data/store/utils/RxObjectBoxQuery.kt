@@ -44,13 +44,13 @@ object RxObjectBoxQuery {
      * The returned Single emits one Query result as a List.
      */
     fun <T> singleList(query: Query<T>): Single<List<T>> {
-        return Single.create({ emitter ->
-            query.subscribe().single().observer({ data ->
+        return Single.create { emitter ->
+            query.subscribe().single().observer { data ->
                 if (!emitter.isDisposed) {
                     emitter.onSuccess(data)
                 }
-            })
-        })
+            }
+        }
     }
 
     /**
@@ -58,7 +58,7 @@ object RxObjectBoxQuery {
      * Throws NullPointerException on error if result is empty.
      */
     fun <T> singleItem(query: Query<T>): Single<T> {
-        return Single.create({ emitter ->
+        return Single.create { emitter ->
             query.subscribe().single().observer({ data ->
                 if (!emitter.isDisposed) {
                     if (!data.isEmpty()) {
@@ -68,6 +68,6 @@ object RxObjectBoxQuery {
                     }
                 }
             })
-        })
+        }
     }
 }

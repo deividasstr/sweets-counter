@@ -6,7 +6,8 @@ buildscript {
 
     ext.kotlin_version = '1.2.50'
     ext.objectboxVersion = '1.5.0'
-    ext.gradleVersion = '3.2.0-alpha16'
+    ext.gradleVersion = '3.2.0-beta01'
+    ext.navigationVersion = '1.0.0-alpha02'
 
     repositories {
         google()
@@ -14,10 +15,11 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.0-alpha18"
+        classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
     }
 }
 
@@ -25,8 +27,8 @@ apply from: 'dependencies.gradle'
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
         maven { url "http://objectbox.net/beta-repo/" }
     }
 

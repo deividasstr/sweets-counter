@@ -15,13 +15,14 @@
  */
 package com.deividasstr.ui.base.di.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
 import com.deividasstr.ui.features.main.MainActivityViewModel
-import com.deividasstr.ui.features.perioddetails.PeriodDetailsViewModel
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel
+import com.deividasstr.ui.features.sweethistory.ConsumedSweetHistoryViewModel
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListViewModel
 import dagger.Binds
 import dagger.Module
@@ -36,7 +37,7 @@ internal abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(FactsViewModel::class)
-     abstract fun bindsFactsViewModel(factsViewModel: FactsViewModel): ViewModel
+    abstract fun bindsFactsViewModel(factsViewModel: FactsViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -46,8 +47,14 @@ internal abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PeriodDetailsViewModel::class)
-    internal abstract fun bindsPeriodDetailsViewModel(periodDetailsViewModel: PeriodDetailsViewModel)
+    @ViewModelKey(ConsumedSweetHistoryViewModel::class)
+    internal abstract fun bindsConsumedSweetHistoryViewModel(consumedSweetHistoryViewModel: ConsumedSweetHistoryViewModel)
+        : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ConsumedSweetDataViewModel::class)
+    internal abstract fun bindsConsumedSweetDataViewModel(consumedSweetDataViewModel: ConsumedSweetDataViewModel)
         : ViewModel
 
     @Binds

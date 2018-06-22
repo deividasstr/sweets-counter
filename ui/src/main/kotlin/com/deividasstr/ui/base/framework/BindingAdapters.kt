@@ -1,7 +1,7 @@
 package com.deividasstr.ui.base.framework
 
-import android.databinding.BindingAdapter
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.SearchView
+import androidx.databinding.BindingAdapter
 
 interface OnSearchQueryChange {
     fun onSearchQueryChange(newText: String)

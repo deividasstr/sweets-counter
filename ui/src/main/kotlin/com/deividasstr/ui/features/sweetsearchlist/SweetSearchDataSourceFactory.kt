@@ -1,6 +1,6 @@
 package com.deividasstr.ui.features.sweetsearchlist
 
-import android.arch.paging.DataSource
+import androidx.paging.DataSource
 import com.deividasstr.data.store.datasource.SweetSearchDataSource
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.SweetDb_

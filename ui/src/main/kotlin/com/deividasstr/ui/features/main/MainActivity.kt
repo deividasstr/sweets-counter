@@ -1,15 +1,15 @@
 package com.deividasstr.ui.features.main
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.alert
 import com.deividasstr.ui.base.framework.networkAvailable
 import com.deividasstr.ui.base.framework.viewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 
@@ -34,9 +34,7 @@ class MainActivity : BaseActivity() {
         }
 
         val navController = findNavController(R.id.fragment_container)
-        findViewById<BottomNavigationView>(R.id.bottom_navigation).setupWithNavController(
-            navController
-        )
+        setupWithNavController(findViewById<BottomNavigationView>(R.id.bottom_navigation), navController)
     }
 
     override fun onSupportNavigateUp(): Boolean =

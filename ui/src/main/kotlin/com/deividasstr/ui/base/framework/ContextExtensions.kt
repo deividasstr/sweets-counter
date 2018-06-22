@@ -2,10 +2,10 @@ package com.deividasstr.ui.base.framework
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.support.annotation.StringRes
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.StringRes
 
 fun Context.alert(@StringRes message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

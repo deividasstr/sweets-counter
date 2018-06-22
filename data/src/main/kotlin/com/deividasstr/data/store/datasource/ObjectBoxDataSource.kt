@@ -1,6 +1,6 @@
 package com.deividasstr.data.store.datasource
 
-import android.arch.paging.PositionalDataSource
+import androidx.paging.PositionalDataSource
 import io.objectbox.query.LazyList
 
 open class ObjectBoxDataSource<T>(
