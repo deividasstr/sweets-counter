@@ -5,10 +5,15 @@ import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
+import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SweetsSearchListViewModel
 @Inject constructor(private val dataSourceFactory: SweetSearchDataSourceFactory) : BaseViewModel() {
+
+    var query: String = ""
 
     companion object {
         private const val PAGE_SIZE = 10
@@ -18,6 +23,7 @@ class SweetsSearchListViewModel
     val sweets: LiveData<PagedList<SweetUi>>
 
     init {
+        Timber.d("on init VM query $query")
         val config = PagedList.Config.Builder()
             .setPageSize(PAGE_SIZE)
             .setPrefetchDistance(PREFETCH_DISTANCE)
@@ -28,6 +34,7 @@ class SweetsSearchListViewModel
     }
 
     fun searchSweets(text: String) {
+        query = text
         dataSourceFactory.search(text)
         sweets.value?.dataSource?.invalidate()
     }

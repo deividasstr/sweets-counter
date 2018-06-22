@@ -34,5 +34,4 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
     override fun saveSweetsDownloadTime(): Completable {
         return Completable.fromAction { sweetsUpdatedDate = System.currentTimeMillis() }
     }
-
 }

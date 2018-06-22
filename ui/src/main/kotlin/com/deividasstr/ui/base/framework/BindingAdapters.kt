@@ -3,22 +3,10 @@ package com.deividasstr.ui.base.framework
 import android.databinding.BindingAdapter
 import android.support.v7.widget.SearchView
 
-/*
-@BindingAdapter("onSearch")
-fun onSearch(view: SearchView, block: (CharSequence)) {
-    view.setOnQueryTextListener(object SearchView.OnQueryTextListener() {
-
-    })
-}*/
-
-/*@BindingAdapter("android:onSearch")
-fun setListener(view: SearchView, listener: OnSearchQueryChange) {
-    view.setOnQueryTextListener(listener)
-}*/
-
 interface OnSearchQueryChange {
     fun onSearchQueryChange(newText: String)
 }
+
 
 @BindingAdapter("android:onSearch")
 fun setSearchQueryListener(
@@ -40,6 +28,11 @@ fun setSearchQueryListener(
             }
         })
     }
+}
+
+@BindingAdapter("android:setQuery")
+fun setQuery(view: SearchView, query: String) {
+    view.setQuery(query, false)
 }
 
 

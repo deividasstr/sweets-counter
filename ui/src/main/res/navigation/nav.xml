@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    app:startDestination="@id/sweetsSearchListFragment">
+    app:startDestination="@id/periodDetailsFragment">
 
     <fragment
         android:id="@+id/sweetsSearchListFragment"
         android:name="com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragment"
         android:label="SweetsSearchListFragment" />
+
+    <fragment
+        android:id="@+id/factsFragment"
+        android:name="com.deividasstr.ui.features.facts.FactsFragment"
+        android:label="FactsFragment" />
+
+    <fragment
+        android:id="@+id/periodDetailsFragment"
+        android:name="com.deividasstr.ui.features.perioddetails.PeriodDetailsFragment"
+        android:label="PeriodDetailsFragment" />
+    <action android:id="@+id/action_data" app:destination="@id/periodDetailsFragment" />
+    <action android:id="@+id/action_list" app:destination="@id/sweetsSearchListFragment" />
+    <action android:id="@+id/action_fact" app:destination="@id/factsFragment" />
+
 </navigation>
