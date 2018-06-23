@@ -7,7 +7,7 @@ import io.objectbox.annotation.Id
 @Entity
 data class ConsumedSweetDb(
     @Id(assignable = true) var id: Long,
-    val sweetId: Int,
+    val sweetId: Long,
     val g: Int,
     val date: Long
 ) {

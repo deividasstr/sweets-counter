@@ -4,9 +4,7 @@ import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.toConsumedSweets
-import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.domain.entities.ConsumedSweet
-import com.deividasstr.domain.entities.Sweet
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.utils.DateRange
 import io.reactivex.Completable
@@ -21,28 +19,20 @@ class ConsumedSweetsRepoImpl(
 ) : ConsumedSweetsRepo {
 
     override fun getTotalCalsConsumed(): Single<Int> {
-        /*consumedSweetsDb.getAllConsumedSweets().map {
-            var calCount = 0
-            it.forEach {
-                getCalsPer100GBySweetId(it.sweetId).subscribe { sweet: Sweet ->
-                    calCount += (it.g * sweet.calsPer100 / 100).roundToInt()
-                }
-            }
-            calCount
-        }*/
+        return consumedSweetsDb.getAllConsumedSweets()
+            .map { consumedSweets ->
+                val ids = consumedSweets.toSet().map { it.sweetId }.toLongArray()
 
-        return Single.create { emitter ->
-            consumedSweetsDb.getAllConsumedSweets().subscribe {
-                list: List<ConsumedSweetDb> ->
-                var calCount = 0
-                list.forEach {
-                    getCalsPer100GBySweetId(it.sweetId).subscribe { sweet: Sweet ->
-                        calCount += (it.g * sweet.calsPer100 / 100).roundToInt()
-                    }
+                var calsCount = 0
+                val uniqueSweets = sweetsDb.getSweetsByIds(ids).blockingGet()
+
+                consumedSweets.forEach { consumedSweet ->
+                    val calsPer100g =
+                        uniqueSweets.find { it.id == consumedSweet.sweetId }?.calsPer100!!
+                    calsCount += (consumedSweet.g * calsPer100g / 100).roundToInt()
                 }
-                emitter.onSuccess(calCount)
+                calsCount
             }
-        }
     }
 
     override fun addSweet(sweet: ConsumedSweet): Completable {
@@ -51,9 +41,5 @@ class ConsumedSweetsRepoImpl(
 
     override fun getConsumedSweetsByPeriod(dateRange: DateRange): Single<List<ConsumedSweet>> {
         return consumedSweetsDb.getConsumedSweetsByPeriod(dateRange).map { it.toConsumedSweets() }
-    }
-
-    private fun getCalsPer100GBySweetId(id: Int): Single<Sweet> {
-        return sweetsDb.getSweetById(id.toLong()).map { it.toSweet() }
     }
 }

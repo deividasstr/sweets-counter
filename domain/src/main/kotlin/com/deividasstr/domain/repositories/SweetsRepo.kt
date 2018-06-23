@@ -10,6 +10,8 @@ interface SweetsRepo {
 
     fun getSweetById(id: Long): Single<Sweet>
 
+    fun getSweetsByIds(ids: LongArray): Single<List<Sweet>>
+
     fun search(name: String): Single<List<Sweet>>
 
     fun newSweet(sweet: Sweet): Completable

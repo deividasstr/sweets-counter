@@ -15,6 +15,10 @@ import javax.inject.Singleton
 class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService: SweetsService)
     : SweetsRepo {
 
+    override fun getSweetsByIds(ids: LongArray): Single<List<Sweet>> {
+        return sweetsDb.getSweetsByIds(ids).map { it.toSweets() }
+    }
+
     override fun downloadAndSaveAllSweets(): Completable {
         return sweetsService.getAllSweets().flatMapCompletable { saveSweets(it) }
     }

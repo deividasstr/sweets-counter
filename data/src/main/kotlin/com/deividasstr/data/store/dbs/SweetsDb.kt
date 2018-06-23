@@ -4,6 +4,7 @@ import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.SweetDb_
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
+import com.deividasstr.domain.entities.Sweet
 import io.objectbox.Box
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -11,6 +12,11 @@ import javax.inject.Singleton
 
 @Singleton
 class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
+
+    override fun getSweetsByIds(ids: LongArray): Single<List<SweetDb>> {
+        val query = db.query().order(SweetDb_.name).`in`(SweetDb_.id, ids) .build()
+        return RxObjectBoxQuery.singleList(query)
+    }
 
     override fun getLastUpdateTimeStamp(): Single<Long> {
         val query = db.query().orderDesc(SweetDb_.addedTimestamp).build()

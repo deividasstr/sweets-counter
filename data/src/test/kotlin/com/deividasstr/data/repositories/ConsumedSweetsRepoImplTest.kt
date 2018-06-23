@@ -1,6 +1,7 @@
 package com.deividasstr.data.repositories
 
 import com.deividasstr.data.DataTestData
+import com.deividasstr.data.DataTestData.Companion.TEST_LIST_SWEETMODELS
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.toConsumedSweet
@@ -79,15 +80,15 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
             )
         )
 
-        given { sweetsDb.getSweetById(2) }.willReturn(Single.just(DataTestData.TEST_SWEETMODEL))
-        given { sweetsDb.getSweetById(3) }.willReturn(Single.just(DataTestData.TEST_SWEETMODEL2))
+        given { sweetsDb.getSweetsByIds(longArrayOf(2, 3)) }.willReturn(
+            Single.just(TEST_LIST_SWEETMODELS))
 
         sweetsRepo.getTotalCalsConsumed().subscribe(testSubscriber)
 
         val result =
             ((DataTestData.TEST_CONSUMED_SWEETMODEL.g * DataTestData.TEST_SWEETMODEL.calsPer100 / 100) +
                 (DataTestData.TEST_CONSUMED_SWEETMODEL2.g * DataTestData.TEST_SWEETMODEL2.calsPer100 / 100))
-                    .roundToInt()
+                .roundToInt()
 
         testSubscriber.assertResultValue(result)
     }
