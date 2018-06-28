@@ -2,6 +2,20 @@ apply plugin: 'com.android.library'
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply plugin: 'io.objectbox'
 
+/*sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+    androidTest.java.srcDirs += 'src/androidTest/kotlin'
+
+    *//*String sharedTestDir = 'src/sharedTest/kotlin'
+    test {
+        java.srcDir sharedTestDir
+    }
+    androidTest {
+        java.srcDir sharedTestDir
+    }*//*
+}*/
+
 dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
@@ -9,9 +23,21 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-
-    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "androidx.paging:paging-common:$pagingVersion"
 }
+/*
+
+task testJar(type: Jar) {
+    baseName = "${project.name}-test"
+    from sourceSets.test.output
+}
+
+configurations {
+    testArtifacts
+}
+
+artifacts {
+    testArtifacts testJar
+}*/

@@ -13,3 +13,4 @@ libs/
 objectbox-models/default.json.bak
 src/main/res/drawable/
 /utils.gradle
+/ajcore.*

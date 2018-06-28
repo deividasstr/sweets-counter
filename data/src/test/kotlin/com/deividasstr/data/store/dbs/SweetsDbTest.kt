@@ -82,6 +82,29 @@ class SweetsDbTest : AbstractObjectBoxTest() {
     }
 
     @Test
+    fun queryEmpty_returnsAll() {
+        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+
+        val sweets = db.query("")
+        sweets.loadRemaining()
+
+        assert(DataTestData.TEST_LIST_SWEETMODELS[0] == sweets[0])
+        assert(DataTestData.TEST_LIST_SWEETMODELS[1] == sweets[1])
+        assert(DataTestData.TEST_LIST_SWEETMODELS.size == sweets.size)
+    }
+
+    @Test
+    fun queryCorrectName_returnsOne() {
+        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+
+        val sweets = db.query(DataTestData.TEST_LIST_SWEETMODELS[1].name)
+        sweets.loadRemaining()
+
+        assert(DataTestData.TEST_LIST_SWEETMODELS[1] == sweets[0])
+        assert(sweets.size == 1)
+    }
+
+    @Test
     fun searchIncorrectName_returnsNone() {
         db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
 

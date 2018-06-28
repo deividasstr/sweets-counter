@@ -5,7 +5,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 buildscript {
 
     ext.kotlin_version = '1.2.50'
-    ext.objectboxVersion = '1.5.0'
+    ext.objectboxVersion = '2.0.0-beta'
     ext.gradleVersion = '3.2.0-beta01'
     ext.navigationVersion = '1.0.0-alpha02'
 
@@ -20,9 +20,11 @@ buildscript {
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "com.vanniktech:gradle-dependency-graph-generator-plugin:0.5.0"
     }
 }
 
+apply plugin: "com.vanniktech.dependency.graph.generator"
 apply from: 'dependencies.gradle'
 
 allprojects {
@@ -30,6 +32,7 @@ allprojects {
         google()
         jcenter()
         maven { url "http://objectbox.net/beta-repo/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 
     configurations {
@@ -37,7 +40,7 @@ allprojects {
     }
 
     dependencies {
-        ktlint "com.github.shyiko:ktlint:0.23.1"
+        ktlint "com.github.shyiko:ktlint:0.24.0"
     }
 
     // https://github.com/google/dagger/issues/306

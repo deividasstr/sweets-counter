@@ -7,6 +7,8 @@ import com.deividasstr.ui.databinding.FragmentSweetDetailsBinding
 
 class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDetailsViewModel>() {
 
+    override fun getViewModelClass(): Class<SweetDetailsViewModel> = SweetDetailsViewModel::class.java
+
     override fun layoutId(): Int = R.layout.fragment_sweet_details
 
     private var sweetId: Long = 0

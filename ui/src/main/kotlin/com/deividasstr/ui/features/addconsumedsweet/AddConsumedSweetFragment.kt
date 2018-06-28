@@ -3,17 +3,15 @@ package com.deividasstr.ui.features.addconsumedsweet
 import android.os.Bundle
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
-import com.deividasstr.ui.base.framework.viewModel
 import com.deividasstr.ui.databinding.FragmentAddConsumedSweetBinding
 
 class AddConsumedSweetFragment : BaseFragment<FragmentAddConsumedSweetBinding, AddConsumedSweetViewModel>() {
 
-    override fun layoutId(): Int = R.layout.fragment_add_consumed_sweet
+    override fun getViewModelClass(): Class<AddConsumedSweetViewModel> = AddConsumedSweetViewModel::class.java
 
-    private lateinit var addConsumedSweetViewModel: AddConsumedSweetViewModel
+    override fun layoutId(): Int = R.layout.fragment_add_consumed_sweet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addConsumedSweetViewModel = viewModel(viewModelFactory) {}
     }
 }

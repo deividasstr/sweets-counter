@@ -4,8 +4,8 @@ import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.SweetDb_
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
-import com.deividasstr.domain.entities.Sweet
 import io.objectbox.Box
+import io.objectbox.query.LazyList
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Singleton
@@ -13,8 +13,12 @@ import javax.inject.Singleton
 @Singleton
 class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
 
+    fun query(query: String): LazyList<SweetDb> {
+        return db.query().contains(SweetDb_.name, query).build().findLazyCached()
+    }
+
     override fun getSweetsByIds(ids: LongArray): Single<List<SweetDb>> {
-        val query = db.query().order(SweetDb_.name).`in`(SweetDb_.id, ids) .build()
+        val query = db.query().order(SweetDb_.name).`in`(SweetDb_.id, ids).build()
         return RxObjectBoxQuery.singleList(query)
     }
 
@@ -49,7 +53,7 @@ class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
         return if (name.isEmpty()) {
             getAllSweets()
         } else {
-            val query = db.query().equal(SweetDb_.name, name).build()
+            val query = db.query().contains(SweetDb_.name, name).build()
             RxObjectBoxQuery.singleList(query)
         }
     }

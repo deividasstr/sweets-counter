@@ -18,7 +18,7 @@
         app:navGraph="@navigation/nav"
         app:defaultNavHost="true"/>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.tbuonomo.morphbottomnavigation.MorphBottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +26,10 @@
         app:itemIconTint="@color/bottom_navigation"
         app:itemTextColor="@color/bottom_navigation"
         app:labelVisibilityMode="selected"
+        app:morphCornerRadius="128dp"
+        app:morphItemRadius="64dp"
+        app:morphVerticalOffset="8dp"
+        app:itemHorizontalTranslationEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -13,7 +13,6 @@ import kotlin.math.roundToInt
 
 class SweetsSearchAdapter :
     PagedListAdapter<SweetUi, SweetsSearchAdapter.SweetViewHolder>(DIFF_CALLBACK) {
-
     var clickListener: (Long) -> Unit = { _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SweetViewHolder {

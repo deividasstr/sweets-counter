@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -15,12 +14,19 @@ import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    abstract fun getViewModelClass(): Class<VM>
+
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     abstract fun layoutId(): Int
 
     protected lateinit var binding: VB
+    protected lateinit var viewModel: VM
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[getViewModelClass()]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,13 +36,4 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragme
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         return binding.root
     }
-}
-
-inline fun <reified T : ViewModel> Fragment.viewModel(
-    factory: ViewModelProvider.Factory,
-    body: T.() -> Unit
-): T {
-    val vm = ViewModelProviders.of(this, factory)[T::class.java]
-    vm.body()
-    return vm
 }

@@ -6,5 +6,7 @@ import com.deividasstr.ui.databinding.FragmentConsumedSweetDataBinding
 
 class ConsumedSweetDataFragment : BaseFragment<FragmentConsumedSweetDataBinding, ConsumedSweetDataViewModel>() {
 
+    override fun getViewModelClass(): Class<ConsumedSweetDataViewModel> = ConsumedSweetDataViewModel::class.java
+
     override fun layoutId(): Int = R.layout.fragment_consumed_sweet_data
 }

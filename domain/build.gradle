@@ -44,7 +44,7 @@ task ktlintFormat(type: JavaExec, group: "formatting") {
     args "-F", "src/**/*.kt"
 }
 
-task copyTestClasses(type: Copy) {
+task copyDomainTestClasses(type: Copy) {
     from "build/classes/kotlin"
     into "build/classes/java"
 }

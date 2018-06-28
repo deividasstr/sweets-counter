@@ -39,7 +39,7 @@ class MainActivityViewModel @Inject constructor(private val sharedPrefs: SharedP
 
             val saveDownloadDateWork = OneTimeWorkRequestBuilder<SaveDownloadDateWorker>().build()
 
-            val workManager = WorkManager.getInstance()
+            val workManager = WorkManager.getInstance() ?: return
 
             workManager.beginUniqueWork(
                 SWEETS_DOWNLOAD_NAME,

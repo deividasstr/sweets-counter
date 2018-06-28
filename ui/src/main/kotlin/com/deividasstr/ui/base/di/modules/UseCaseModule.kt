@@ -1,6 +1,6 @@
 package com.deividasstr.ui.base.di.modules
 
-import com.deividasstr.data.store.models.SweetDb
+import com.deividasstr.data.store.dbs.SweetsDb
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.repositories.PrefsRepo
@@ -18,7 +18,6 @@ import com.deividasstr.domain.usecases.SearchSweetUseCase
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
 import dagger.Provides
-import io.objectbox.BoxStore
 
 @Module
 class UseCaseModule {
@@ -69,8 +68,8 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideSweetSearchDataSourceFactory(store: BoxStore): SweetSearchDataSourceFactory {
-        return SweetSearchDataSourceFactory(store.boxFor(SweetDb::class.java))
+    fun provideSweetSearchDataSourceFactory(db: SweetsDb): SweetSearchDataSourceFactory {
+        return SweetSearchDataSourceFactory(db)
     }
 
     @Provides

@@ -22,14 +22,15 @@ class ConsumedSweetsRepoImpl(
         return consumedSweetsDb.getAllConsumedSweets()
             .map { consumedSweets ->
                 val ids = consumedSweets.toSet().map { it.sweetId }.toLongArray()
-
                 var calsCount = 0
-                val uniqueSweets = sweetsDb.getSweetsByIds(ids).blockingGet()
+                if (ids.isNotEmpty()) {
+                    val uniqueSweets = sweetsDb.getSweetsByIds(ids).blockingGet()
 
-                consumedSweets.forEach { consumedSweet ->
-                    val calsPer100g =
-                        uniqueSweets.find { it.id == consumedSweet.sweetId }?.calsPer100!!
-                    calsCount += (consumedSweet.g * calsPer100g / 100).roundToInt()
+                    consumedSweets.forEach { consumedSweet ->
+                        val calsPer100g =
+                            uniqueSweets.find { it.id == consumedSweet.sweetId }?.calsPer100!!
+                        calsCount += (consumedSweet.g * calsPer100g / 100).roundToInt()
+                    }
                 }
                 calsCount
             }

@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.frogermcs.androiddevmetrics'
+//apply plugin: 'com.frogermcs.androiddevmetrics'
 apply plugin: 'androidx.navigation.safeargs'
 
 apply from: rootDir.absolutePath + '/base_lib.gradle'
@@ -14,6 +14,11 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -21,10 +26,10 @@ dependencies {
     implementation project(':devices')
 
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
+
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
@@ -40,23 +45,30 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
-    implementation "android.arch.work:work-runtime-ktx:$work_version"
+    implementation ("android.arch.work:work-runtime-ktx:$work_version")
 
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
-    //androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
+    androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
+
+    implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
     //Tests
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "android.arch.work:work-testing:$work_version"
-    androidTestImplementation "androidx.test:orchestrator:$runnerVersion"
+    androidTestImplementation ("android.arch.work:work-testing:$work_version")
+
     androidTestImplementation "androidx.test:rules:$runnerVersion"
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+    androidTestImplementation 'com.agoda.kakao:kakao:1.3.0'
+
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
+    testImplementation "org.amshove.kluent:kluent:$kluentVersion"
+    //testImplementation project(path: ':data', configuration: 'testArtifacts')
+
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }

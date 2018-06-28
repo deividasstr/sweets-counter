@@ -8,11 +8,7 @@ open class ObjectBoxDataSource<T>(
     private val converter: (Any) -> T
 ) : PositionalDataSource<T>() {
 
-    private var size: Int = 0
-
-    init {
-        size = lazyList.size
-    }
+    private val size: Int = lazyList.size
 
     override fun loadInitial(
         params: PositionalDataSource.LoadInitialParams,
