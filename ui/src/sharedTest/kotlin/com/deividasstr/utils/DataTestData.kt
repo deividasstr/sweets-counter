@@ -59,7 +59,7 @@ class DataTestData {
                 12.0, 98461298
             )
 
-        val TEST_LIST_SWEETMODELS = listOf(TEST_SWEETMODEL, TEST_SWEETMODEL2)
+        val TEST_LIST_SWEETMODELS = mutableListOf(TEST_SWEETMODEL, TEST_SWEETMODEL2)
 
         val TEST_RESPONSE_SWEET1 = ResponseSweet(
             2, "Choco", 500.0, 25.0, 50.0, 12.0,

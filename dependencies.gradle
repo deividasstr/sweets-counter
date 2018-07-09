@@ -10,9 +10,8 @@ ext {
     versionName = "1.0.0"
 
     //Framework
-    lifecycleVersion = '2.0.0-alpha1'
-    pagingVersion =  '2.0.0-alpha1'
-    supportLibraryVersion = '1.0.0-alpha3'
+    lifecycleVersion = '2.0.0-beta01'
+    supportLibraryVersion = '1.0.0-beta01'
     work_version = "1.0.0-alpha04"
     materialVersion = "1.0.0-alpha3"
     navigationVersion = "1.0.0-alpha02"
@@ -35,14 +34,11 @@ ext {
     rxLintVersion = '1.6.1'
 
     //Testing
-    robolectricVersion = '4.0-alpha-3-SNAPSHOT'
     jUnitVersion = '4.12'
     espressoVersion = '3.1.0-alpha3'
     testingSupportLibVersion = '0.1'
     mockitoKotlinVersion = '1.5.0'
-    mockitoAndroidVersion = '2.18.3'
-    androidSupportRunnerVersion = '1.0.0'
-    androidSupportRulesVersion = '1.0.0'
+    mockitoAndroidVersion = '2.19.0'
     runnerVersion = '1.1.0-alpha3'
     kluentVersion = '1.14'
 }

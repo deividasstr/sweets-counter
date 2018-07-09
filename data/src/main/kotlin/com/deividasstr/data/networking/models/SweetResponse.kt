@@ -15,6 +15,6 @@ data class ResponseSweet(
     val timestamp: Long
 )
 
-fun List<ResponseSweet>.toSweetModels(): List<SweetDb> {
+fun List<ResponseSweet>.toSweetDbs(): List<SweetDb> {
     return this.map { SweetDb(it) }
 }

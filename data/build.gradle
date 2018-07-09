@@ -1,20 +1,31 @@
 apply plugin: 'com.android.library'
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply plugin: 'io.objectbox'
+apply plugin: 'kotlin-allopen'
 
-/*sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
-    test.java.srcDirs += 'src/test/kotlin'
-    androidTest.java.srcDirs += 'src/androidTest/kotlin'
-
-    *//*String sharedTestDir = 'src/sharedTest/kotlin'
-    test {
-        java.srcDir sharedTestDir
+buildscript {
+    repositories {
+        jcenter()
     }
-    androidTest {
-        java.srcDir sharedTestDir
-    }*//*
-}*/
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+    }
+}
+
+allOpen {
+    annotation 'com.deividasstr.data.utils.OpenClass'
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+android {
+    sourceSets {
+        debug.java.srcDirs += 'src/debug/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+    }
+}
 
 dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -25,8 +36,11 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    implementation "androidx.paging:paging-common:$pagingVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "androidx.paging:paging-common:$lifecycleVersion"
+    androidTestImplementation "androidx.annotation:annotation:$supportLibraryVersion"
 }
+
 /*
 
 task testJar(type: Jar) {

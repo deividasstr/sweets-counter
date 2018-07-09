@@ -2,6 +2,7 @@ package com.deividasstr.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StrictModePermitter
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
 import com.deividasstr.domain.repositories.PrefsRepo
@@ -9,6 +10,7 @@ import io.reactivex.Completable
 import javax.inject.Singleton
 
 @Singleton
+@DebugOpenClass
 class SharedPrefs(private val ctx: Context) : PrefsRepo {
 
     companion object {

@@ -1,9 +1,12 @@
 package com.deividasstr.data.di.modules
 
+import android.content.Context
 import com.deividasstr.data.networking.apis.FactsApi
 import com.deividasstr.data.networking.apis.SweetsApi
+import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.networking.services.SweetsService
+import com.deividasstr.data.utils.DebugOpenClass
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -15,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
+@DebugOpenClass
 class NetworkModule(private val baseUrl: String) {
 
     @Singleton
@@ -63,5 +67,11 @@ class NetworkModule(private val baseUrl: String) {
     @Provides
     fun provideFactsService(retrofit: Retrofit): FactsService {
         return FactsService(retrofit.create(FactsApi::class.java))
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkManager(context: Context): NetworkManager {
+        return NetworkManager(context)
     }
 }

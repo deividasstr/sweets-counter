@@ -11,12 +11,14 @@ import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.MyObjectBox
 import com.deividasstr.data.store.models.SweetDb
+import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
 import dagger.Module
 import dagger.Provides
 import io.objectbox.BoxStore
 import javax.inject.Singleton
 
+@DebugOpenClass
 @Module
 class DbModule {
 

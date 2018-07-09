@@ -12,8 +12,8 @@ class DownloadAllSweetsWorker : Worker() {
     companion object {
         const val KEY_ERROR = "KEY_ERROR"
     }
-    @Inject
-    lateinit var downloadAllSweetsUseCase: DownloadAllSweetsUseCase
+
+    @Inject lateinit var downloadAllSweetsUseCase: DownloadAllSweetsUseCase
 
     override fun doWork(): Result {
         (applicationContext as SweetsApplication).appComponent.inject(this)

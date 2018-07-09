@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.alert
-import com.deividasstr.ui.base.framework.networkAvailable
 import com.deividasstr.ui.base.framework.viewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
+
+    @Inject lateinit var networkManager: NetworkManager
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
 
@@ -21,11 +24,11 @@ class MainActivity : BaseActivity() {
 
         mainActivityViewModel = viewModel(viewModelFactory) {
             when {
-                networkAvailable -> {
+                networkManager.networkAvailable -> {
                     tryDownloadSweets()
                     errorMessage.observe(this@MainActivity, Observer {
                         it?.getContentIfNotHandled()?.let {
-                            alert(getString(R.string.error_network))
+                            alert(getString(R.string.error_network_server))
                         }
                     })
                 }

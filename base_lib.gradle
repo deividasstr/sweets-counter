@@ -14,11 +14,6 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode versionCode
         versionName versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    testOptions {
-        execution 'ANDROID_TEST_ORCHESTRATOR'
     }
 
     buildTypes {
@@ -36,14 +31,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
-
-        /*String sharedTestDir = 'src/sharedTest/kotlin'
-        test {
-            java.srcDir sharedTestDir
-        }
-        androidTest {
-            java.srcDir sharedTestDir
-        }*/
     }
 }
 
@@ -63,7 +50,7 @@ dependencies {
     // Tests
     testImplementation "junit:junit:$jUnitVersion"
     testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation 'org.mockito:mockito-inline:' + mockitoAndroidVersion
+    //testImplementation 'org.mockito:mockito-inline:' + mockitoAndroidVersion
     testImplementation 'org.threeten:threetenbp:1.3.6'
 }
 

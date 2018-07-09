@@ -1,7 +1,8 @@
-package com.deividasstr.utils.di
+package com.deividasstr.ui.utils.di
 
 import android.app.Application
 import android.content.Context
+import com.deividasstr.data.di.modules.DbModule
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.di.modules.RepoModule
 import com.deividasstr.data.di.modules.SharedPrefsModule
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 @Module(
     includes = [(ThreadingModule::class),
-        (TestDbModule::class),
+        (DbModule::class),
         (NetworkModule::class),
         (RepoModule::class),
         (UseCaseModule::class),
