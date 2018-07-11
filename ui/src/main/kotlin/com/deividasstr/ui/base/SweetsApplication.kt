@@ -3,6 +3,7 @@ package com.deividasstr.ui.base
 import android.os.Handler
 import android.os.StrictMode
 import com.deividasstr.data.di.modules.NetworkModule
+import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.BuildConfig
 import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
@@ -11,9 +12,10 @@ import com.squareup.leakcanary.LeakCanary
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class SweetsApplication : DaggerApplication() {
+@DebugOpenClass
+open class SweetsApplication : DaggerApplication() {
 
-    val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
+    open val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
         .application(this)
         .network(NetworkModule(BuildConfig.BASE_API_URL))
         .build() }

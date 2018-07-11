@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Mars",
+    "serving_grams": 30.05,
+    "kcal_100": 250.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526365441"
+  },
+  {
+    "id": 3,
+    "name": "Kirminas",
+    "serving_grams": 1522.0,
+    "kcal_100": 250.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526365575"
+  },
+  {
+    "id": 4,
+    "name": "string",
+    "serving_grams": 0.0,
+    "kcal_100": 0.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526377319"
+  },
+  {
+    "id": 5,
+    "name": "bananas",
+    "serving_grams": 1000.0,
+    "kcal_100": 999.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526377321"
+  },
+  {
+    "id": 6,
+    "name": "Mars-double",
+    "serving_grams": 300.0,
+    "kcal_100": 250.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526383825"
+  },
+  {
+    "id": 7,
+    "name": "Mars-double",
+    "serving_grams": 301.0,
+    "kcal_100": 250.0,
+    "fat_100": 0.0,
+    "carbohydrate_100": 0.0,
+    "protein_100": 0.0,
+    "timestamp": "1526383844"
+  },
+  {
+    "id": 8,
+    "name": "Super Mars",
+    "serving_grams": 5000.05,
+    "kcal_100": 8900.0,
+    "fat_100": 50.0,
+    "carbohydrate_100": 500.0,
+    "protein_100": 0.0,
+    "timestamp": "1526385609"
+  },
+  {
+    "id": 9,
+    "name": "Bulvenokas",
+    "serving_grams": 520.0,
+    "kcal_100": 1253.0,
+    "fat_100": 123.0,
+    "carbohydrate_100": 12.0,
+    "protein_100": 12.0,
+    "timestamp": "1527253298"
+  },
+  {
+    "id": 10,
+    "name": "Sreiuba",
+    "serving_grams": 24.0,
+    "kcal_100": 752.0,
+    "fat_100": 9.0,
+    "carbohydrate_100": 85.0,
+    "protein_100": 7.0,
+    "timestamp": "1529500092"
+  }
+]

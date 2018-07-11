@@ -16,6 +16,7 @@ android {
     dataBinding {
         enabled = true
     }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -24,8 +25,11 @@ android {
 
     sourceSets {
         String sharedTestDir = 'src/sharedTest/kotlin'
+        String sharedTestResDir = 'src/sharedTest/res'
         test.java.srcDirs += sharedTestDir
+
         androidTest.java.srcDirs += sharedTestDir
+        androidTest.res.srcDirs += sharedTestResDir
     }
 }
 

@@ -1,23 +1,26 @@
 package com.deividasstr.ui.utils.di
 
+import com.deividasstr.ui.base.SweetsApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
-import dagger.android.support.DaggerApplication
+import okhttp3.HttpUrl
 
-class TestApplication : DaggerApplication() {
+class TestApplication : SweetsApplication() {
 
-    val appComponent: TestAppComponent by lazy {
+    override val appComponent: TestAppComponent by lazy {
         DaggerTestAppComponent.builder()
             .application(this)
             .dbModule(TestDbModule())
-            .networkModule(TestNetworkModule())
+            .networkModule(TestNetworkModule("https://hello.world.com/api/"))
             .sharedPrefsModule(TestSharedPrefsModule())
             .build()
     }
+
+    lateinit var mockUrl: HttpUrl
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
     }
 
-    override fun applicationInjector() = appComponent
+    //override fun applicationInjector() = appComponent
 }

@@ -5,7 +5,6 @@ import androidx.test.filters.SmallTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.deividasstr.data.networking.manager.NetworkManager
-import com.deividasstr.data.networking.services.SweetsService
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.repositories.PrefsRepo
 import com.deividasstr.ui.utils.di.TestApplication
@@ -30,8 +29,8 @@ class MainActivityViewModelTest {
     @Inject
     lateinit var sharedPrefs: SharedPrefs
 
-    @Inject
-    lateinit var sharedPrefs: SweetsService
+    /*@Inject
+    lateinit var sharedPrefs: SweetsService*/
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, true, false)

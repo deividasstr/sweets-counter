@@ -6,7 +6,7 @@ import com.deividasstr.data.di.modules.DbModule
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.di.modules.RepoModule
 import com.deividasstr.data.di.modules.SharedPrefsModule
-import com.deividasstr.ui.base.di.modules.ThreadingModule
+import com.deividasstr.ui.base.di.modules.BackgroundModule
 import com.deividasstr.ui.base.di.modules.UseCaseModule
 import com.deividasstr.ui.base.di.viewmodel.ViewModelModule
 import dagger.Module
@@ -14,7 +14,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module(
-    includes = [(ThreadingModule::class),
+    includes = [(BackgroundModule::class),
         (DbModule::class),
         (NetworkModule::class),
         (RepoModule::class),

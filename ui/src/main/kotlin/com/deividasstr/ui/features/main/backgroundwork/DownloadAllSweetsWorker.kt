@@ -1,4 +1,4 @@
-package com.deividasstr.ui.features.main.workers
+package com.deividasstr.ui.features.main.backgroundwork
 
 
 import androidx.work.Data

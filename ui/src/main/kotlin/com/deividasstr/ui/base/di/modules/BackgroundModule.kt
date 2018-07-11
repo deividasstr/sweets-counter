@@ -1,5 +1,6 @@
 package com.deividasstr.ui.base.di.modules
 
+import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -9,7 +10,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class ThreadingModule {
+class BackgroundModule {
 
     companion object {
         const val MAIN_SCHEDULER = "main_scheduler"
@@ -18,15 +19,20 @@ class ThreadingModule {
 
     @Provides
     @Singleton
-    @Named(ThreadingModule.MAIN_SCHEDULER)
+    @Named(BackgroundModule.MAIN_SCHEDULER)
     fun provideMainScheduler(): Scheduler {
         return AndroidSchedulers.mainThread()
     }
 
     @Provides
     @Singleton
-    @Named(ThreadingModule.BACKGROUND_SCHEDULER)
+    @Named(BackgroundModule.BACKGROUND_SCHEDULER)
     fun provideBackgroundScheduler(): Scheduler {
         return Schedulers.io()
+    }
+
+    @Provides
+    fun provideBackgroundWorkManager(): BackgroundWorkManager {
+        return BackgroundWorkManager()
     }
 }

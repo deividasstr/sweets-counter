@@ -27,4 +27,19 @@ object StrictModePermitter {
             func()
         }
     }
+
+    fun <T>permitAll(func: () -> T) : T {
+        return if (BuildConfig.DEBUG) {
+            val oldThreadPolicy = StrictMode.getThreadPolicy()
+            StrictMode.setThreadPolicy(
+                StrictMode.ThreadPolicy.Builder(oldThreadPolicy)
+                    .permitAll().build())
+            val anyValue = func()
+            StrictMode.setThreadPolicy(oldThreadPolicy)
+
+            anyValue
+        } else {
+            func()
+        }
+    }
 }

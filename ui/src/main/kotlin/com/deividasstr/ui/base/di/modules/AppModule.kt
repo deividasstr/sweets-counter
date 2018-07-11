@@ -12,7 +12,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module(
-    includes = [(ThreadingModule::class),
+    includes = [(BackgroundModule::class),
         (DbModule::class),
         (NetworkModule::class),
         (RepoModule::class),
