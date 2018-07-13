@@ -6,7 +6,7 @@ buildscript {
 
     ext.kotlin_version = '1.2.51'
     ext.objectboxVersion = '2.0.0-beta'
-    ext.gradleVersion = '3.2.0-beta02'
+    ext.gradleVersion = '3.2.0-beta03'
     ext.navigationVersion = '1.0.0-alpha02'
 
     repositories {

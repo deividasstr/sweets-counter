@@ -14,7 +14,7 @@ ext {
     supportLibraryVersion = '1.0.0-beta01'
     work_version = "1.0.0-alpha04"
     materialVersion = "1.0.0-alpha3"
-    navigationVersion = "1.0.0-alpha02"
+    navigationVersion = "1.0.0-alpha03"
     androidXVersion = "1.0.0-alpha3"
 
     //Other
