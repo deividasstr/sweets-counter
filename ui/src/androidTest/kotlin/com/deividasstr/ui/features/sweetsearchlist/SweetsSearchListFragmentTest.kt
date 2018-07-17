@@ -10,14 +10,13 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.filters.SmallTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.ui.R
 import com.deividasstr.ui.features.main.MainActivity
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragment
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragmentArgs
+import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.di.TestApplication
 import com.deividasstr.utils.DataTestData
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,14 +27,11 @@ import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
-@SmallTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class SweetsSearchListFragmentTest {
+class SweetsSearchListFragmentTest : AndroidTest() {
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, true, true)
@@ -45,7 +41,7 @@ class SweetsSearchListFragmentTest {
 
     @Before
     fun setup() {
-        (activityRule.activity.application as TestApplication).appComponent.inject(this)
+        app.appComponent.inject(this)
         activityRule.activity.findNavController(R.id.fragment_container)
             .navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
     }

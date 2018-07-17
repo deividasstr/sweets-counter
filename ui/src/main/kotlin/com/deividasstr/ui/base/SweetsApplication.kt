@@ -1,6 +1,5 @@
 package com.deividasstr.ui.base
 
-import android.os.Handler
 import android.os.StrictMode
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.utils.DebugOpenClass
@@ -13,12 +12,13 @@ import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
 @DebugOpenClass
-open class SweetsApplication : DaggerApplication() {
+class SweetsApplication : DaggerApplication() {
 
-    open val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
+    val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
         .application(this)
         .network(NetworkModule(BuildConfig.BASE_API_URL))
-        .build() }
+        .build()
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -31,7 +31,8 @@ open class SweetsApplication : DaggerApplication() {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
             //AndroidDevMetrics.initWith(this);
-            Handler().postAtFrontOfQueue(::initStrictMode)
+            //Handler().postAtFrontOfQueue(::initStrictMode)
+            initStrictMode()
         }
     }
 

@@ -41,8 +41,7 @@ class MainActivityTest {
     val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
 
     @Before
-    fun setUp() {
-    }
+    fun setUp() {}
 
     @Test
     fun pressOn1stBotNavItem_navigateToHistoryFragment() {

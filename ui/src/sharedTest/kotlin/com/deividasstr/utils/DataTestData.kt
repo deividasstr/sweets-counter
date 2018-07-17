@@ -12,7 +12,6 @@ import org.threeten.bp.ZoneOffset
 class DataTestData {
 
     companion object {
-
         val DATETIME = LocalDateTime.of(2018, 5, 27, 10, 10)
 
         val TEST_LOCALDATE_YESTERDAY = DATETIME.minusDays(1).toLocalDate()

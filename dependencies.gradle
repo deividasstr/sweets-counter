@@ -32,6 +32,7 @@ ext {
     rxJavaVersion = '2.1.14'
     rxAndroidVersion = '2.0.2'
     rxLintVersion = '1.6.1'
+    rxKotlinVersion = '2.2.0'
 
     //Testing
     jUnitVersion = '4.12'

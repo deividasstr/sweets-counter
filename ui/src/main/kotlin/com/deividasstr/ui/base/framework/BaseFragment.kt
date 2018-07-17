@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
+abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFragment() {
 
     abstract fun getViewModelClass(): Class<VM>
 
@@ -26,6 +25,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragme
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[getViewModelClass()]
+        observe(viewModel.errorMessage) {
+            it?.getContentIfNotHandled()?.let {
+                context?.alert(getString(it.messageStringRes))
+            }
+        }
     }
 
     override fun onCreateView(

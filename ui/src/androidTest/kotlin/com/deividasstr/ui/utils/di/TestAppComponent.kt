@@ -5,7 +5,10 @@ import com.deividasstr.data.di.modules.DbModule
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.di.modules.SharedPrefsModule
 import com.deividasstr.ui.base.di.AppComponent
+import com.deividasstr.ui.base.di.modules.AppModule
 import com.deividasstr.ui.base.di.modules.FragmentModule
+import com.deividasstr.ui.base.di.modules.UseCaseModule
+import com.deividasstr.ui.features.facts.FactsFragmentTest
 import com.deividasstr.ui.features.main.MainActivityTest
 import com.deividasstr.ui.features.main.MainActivityViewModelTest
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManagerTest
@@ -19,7 +22,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     (AndroidSupportInjectionModule::class),
-    (TestAppModule::class),
+    (AppModule::class),
     (TestActivityModule::class),
     (FragmentModule::class)
 ])
@@ -31,10 +34,9 @@ interface TestAppComponent : AppComponent {
         @BindsInstance
         fun application(application: Application): Builder
         fun dbModule(dbModule: DbModule): Builder
-        //@BindsInstance fun networkModule(networkModule: TestNetworkModule): Builder
         fun networkModule(networkModule: NetworkModule): Builder
         fun sharedPrefsModule(sharedPrefsModule: SharedPrefsModule): Builder
-        //fun network(networkModule: NetworkModule): Builder
+        fun useCaseModule(useCasesModule: UseCaseModule): Builder
         fun build(): TestAppComponent
     }
 
@@ -43,4 +45,6 @@ interface TestAppComponent : AppComponent {
     fun inject(mainActivityTest: MainActivityTest)
     fun inject(mainActivityViewModelTest: MainActivityViewModelTest)
     fun inject(backgroundWorkManagerTest: BackgroundWorkManagerTest)
+    fun inject(factsFragmentTest: FactsFragmentTest) {
+    }
 }

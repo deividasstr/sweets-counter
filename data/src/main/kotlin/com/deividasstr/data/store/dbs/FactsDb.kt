@@ -1,9 +1,11 @@
 package com.deividasstr.data.store.dbs
 
+import com.deividasstr.data.R
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.FactDb_
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
+import com.deividasstr.data.utils.StringResException
 import io.objectbox.Box
 import io.objectbox.query.LazyList
 import io.reactivex.Completable
@@ -37,7 +39,7 @@ class FactsDb(val db: Box<FactDb>) : FactsDao {
             }
 
             if (factLazyList.isEmpty()) {
-                it.onError(NullPointerException("No facts available"))
+                it.onError(StringResException(R.string.error_no_facts_available))
                 return@create
             }
 

@@ -1,6 +1,7 @@
 package com.deividasstr.ui.base.di.modules
 
 import com.deividasstr.data.store.dbs.SweetsDb
+import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.repositories.PrefsRepo
@@ -20,6 +21,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
+@DebugOpenClass
 class UseCaseModule {
 
     @Provides

@@ -1,2 +1,3 @@
 <resources>
+    <string name="error_no_facts_available">No facts available</string>
 </resources>

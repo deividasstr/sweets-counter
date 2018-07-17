@@ -39,7 +39,7 @@ class BackgroundWorkManagerTest : AndroidTest() {
         server = MockWebServer()
         server.start()
 
-        TestVals.mockUrl = server.url("/api/")
+        TestVals.mockUrl = server.url("/api/").toString()
 
         backgroundWorkManager = BackgroundWorkManager()
         app.appComponent.inject(this)

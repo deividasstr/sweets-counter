@@ -6,6 +6,22 @@ apply plugin: 'androidx.navigation.safeargs'
 apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply from: rootDir.absolutePath + '/utils.gradle'
 
+apply plugin: 'kotlin-allopen'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+    }
+}
+allOpen {
+    annotation 'com.deividasstr.data.utils.OpenClass'
+}
+
 android {
     defaultConfig {
         buildConfigField 'String', 'BASE_API_URL', getString(BASE_API_URL)
@@ -45,6 +61,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
     implementation "androidx.paging:paging-runtime:$lifecycleVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -68,6 +85,9 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
     //Tests
+
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
+
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "android.arch.work:work-testing:$work_version"
@@ -87,9 +107,13 @@ dependencies {
 
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     testImplementation "org.amshove.kluent:kluent:$kluentVersion"
     //testImplementation project(path: ':data', configuration: 'testArtifacts')
 
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
+
+    androidTestImplementation 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
+    androidTestImplementation 'com.squareup.rx.idler:rx2-idler:0.9.0'
 }
