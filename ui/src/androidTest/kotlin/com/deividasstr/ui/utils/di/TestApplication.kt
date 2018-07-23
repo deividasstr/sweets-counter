@@ -1,21 +1,13 @@
 package com.deividasstr.ui.utils.di
 
-import com.deividasstr.ui.base.SweetsApplication
+import com.deividasstr.ui.base.framework.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 
-class TestApplication : SweetsApplication() {
+open class TestApplication : BaseApplication() {
 
     override lateinit var appComponent: TestAppComponent
-        /*DaggerTestAppComponent.builder()
-            .application(this)
-            .dbModule(TestDbModule())
-            .networkModule(TestNetworkModule("https://hello.world.com/api/"))
-            .sharedPrefsModule(TestSharedPrefsModule())
-            //.useCaseModule()
-            .build()*/
 
     override fun onCreate() {
-        //super.onCreate()
         AndroidThreeTen.init(this)
     }
 
@@ -23,6 +15,4 @@ class TestApplication : SweetsApplication() {
         appComponent = component
         super.onCreate()
     }
-
-    //override fun applicationInjector(): TestAppComponent = appComponent
 }

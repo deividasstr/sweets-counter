@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Sweets counter</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -9,6 +9,6 @@
     <string name="search_hint">Enter sweet name</string>
     <string name="cals_per_100g">%d kcal/100g</string>
     <string name="error_network_server">Could not download sweets, please try again later</string>
-    <string name="error_network_unavailable">Network is not available, cannot download sweets</string>
+    <string name="error_network_unavailable">Network is not available, cannot download data</string>
     <string name="no_facts_available">No facts are available yet, please try again later</string>
 </resources>

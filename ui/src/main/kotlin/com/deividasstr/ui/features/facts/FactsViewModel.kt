@@ -36,10 +36,13 @@ class FactsViewModel
         val disposable = getRandomFactUseCase.execute(currentFactId)
             .subscribeOn(Schedulers.io())
             .map { FactUi(it) }
-            .subscribeBy(onSuccess = { fact.postValue(it) },
+            .subscribeBy(onSuccess = {
+                fact.postValue(it)
+            },
                 onError = {
                     fact.postValue(null)
-                    _errorMessage.postValue(SingleEvent(it as StringResException)) }
+                    _errorMessage.postValue(SingleEvent(it as StringResException))
+                }
             )
         addDisposable(disposable)
     }

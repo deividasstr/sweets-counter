@@ -1,20 +1,21 @@
 package com.deividasstr.ui.base
 
+import android.os.Handler
 import android.os.StrictMode
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.BuildConfig
 import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
+import com.deividasstr.ui.base.framework.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
-import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
 @DebugOpenClass
-class SweetsApplication : DaggerApplication() {
+class SweetsApplication : BaseApplication() {
 
-    val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
+    override val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
         .application(this)
         .network(NetworkModule(BuildConfig.BASE_API_URL))
         .build()
@@ -31,7 +32,7 @@ class SweetsApplication : DaggerApplication() {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
             //AndroidDevMetrics.initWith(this);
-            //Handler().postAtFrontOfQueue(::initStrictMode)
+            Handler().postAtFrontOfQueue(::initStrictMode)
             initStrictMode()
         }
     }
@@ -49,6 +50,4 @@ class SweetsApplication : DaggerApplication() {
                 .build()
         )
     }
-
-    override fun applicationInjector() = appComponent
 }

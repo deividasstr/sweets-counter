@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "fact": "Saldainiai yra gerai!",
+    "timestamp": "1527253316"
+  },
+  {
+    "id": 2,
+    "fact": "Tortas tris kartus per dieną",
+    "timestamp": "1527253341"
+  },
+  {
+    "id": 3,
+    "fact": "Cukrinė sriuba gydo nuo visų ligų",
+    "timestamp": "1527253368"
+  },
+  {
+    "id": 4,
+    "fact": "Išsitrinti galvą limonadu",
+    "timestamp": "1527253408"
+  }
+]

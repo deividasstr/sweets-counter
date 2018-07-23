@@ -1,3 +1,4 @@
 <resources>
     <string name="error_no_facts_available">No facts available</string>
+    <string name="error_db_no_items">No items in database</string>
 </resources>

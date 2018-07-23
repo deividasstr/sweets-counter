@@ -11,14 +11,19 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
+import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.ui.R
 import com.deividasstr.ui.features.main.MainActivity
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragment
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragmentArgs
 import com.deividasstr.ui.utils.AndroidTest
+import com.deividasstr.ui.utils.di.TestAppComponent
 import com.deividasstr.ui.utils.di.TestApplication
 import com.deividasstr.utils.DataTestData
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.willReturn
+import it.cosenonjaviste.daggermock.DaggerMockRule
 import kotlinx.android.synthetic.main.activity_main.*
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.TypeSafeMatcher
@@ -28,20 +33,33 @@ import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runners.MethodSorters
+import org.mockito.Mock
 import javax.inject.Inject
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SweetsSearchListFragmentTest : AndroidTest() {
 
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java, true, true)
+    val daggerRule: DaggerMockRule<TestAppComponent> = daggerMockRule()
+
+    @get:Rule
+    val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
 
     @Inject
     lateinit var sweetsRepo: SweetsDao
 
+    @Mock
+    lateinit var networkManager: NetworkManager
+
     @Before
     fun setup() {
         app.appComponent.inject(this)
+
+        given { networkManager.networkAvailable } willReturn { false }
+
+        sweetsRepo.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+
+        activityRule.launchActivity(null)
         activityRule.activity.findNavController(R.id.fragment_container)
             .navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
     }
@@ -50,13 +68,12 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     fun shouldTestApplicationName() {
         assertEquals(
             TestApplication::class.java.name,
-            activityRule.activity.application.javaClass.name
+            app.javaClass.name
         )
     }
 
     @Test
     fun a_lists2Items() {
-        sweetsRepo.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
         assertEquals(
             DataTestData.TEST_LIST_SWEETMODELS.size,
             countRecyclerViewItems(R.id.sweets_list)
@@ -65,7 +82,8 @@ class SweetsSearchListFragmentTest : AndroidTest() {
 
     @Test
     fun b_enterSweetName_filters1Val() {
-        onView(withId(androidx.appcompat.R.id.search_src_text)).perform(typeText(DataTestData.TEST_SWEETMODEL.name))
+        onView(withId(androidx.appcompat.R.id.search_src_text))
+            .perform(typeText(DataTestData.TEST_SWEETMODEL.name))
         assertEquals(1, countRecyclerViewItems(R.id.sweets_list))
     }
 
@@ -84,7 +102,8 @@ class SweetsSearchListFragmentTest : AndroidTest() {
 
         assertEquals(SweetDetailsFragment::class.java.simpleName, currentDestination.label)
 
-        val arguments = activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments
+        val arguments =
+            activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments
         val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweetId.toLong()
 
         assertEquals(DataTestData.TEST_SWEETMODEL.id, sweetId)

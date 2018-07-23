@@ -35,10 +35,5 @@ class ViewModelFactory
         }?.value ?: throw IllegalArgumentException("Unknown ViewModel class $modelClass")
 
         return creator.get() as T
-
-        /*return try {
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }*/
     }
 }

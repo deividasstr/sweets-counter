@@ -10,7 +10,6 @@ import com.deividasstr.ui.base.di.modules.FragmentModule
 import com.deividasstr.ui.base.di.modules.UseCaseModule
 import com.deividasstr.ui.features.facts.FactsFragmentTest
 import com.deividasstr.ui.features.main.MainActivityTest
-import com.deividasstr.ui.features.main.MainActivityViewModelTest
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManagerTest
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentTest
 import dagger.BindsInstance
@@ -20,31 +19,32 @@ import dagger.android.support.DaggerApplication
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    (AndroidSupportInjectionModule::class),
-    (AppModule::class),
-    (TestActivityModule::class),
-    (FragmentModule::class)
-])
+@Component(
+    modules = [
+        (AndroidSupportInjectionModule::class),
+        (AppModule::class),
+        (TestActivityModule::class),
+        (FragmentModule::class)
+    ])
 
 interface TestAppComponent : AppComponent {
 
     @Component.Builder
     interface Builder {
+
         @BindsInstance
         fun application(application: Application): Builder
-        fun dbModule(dbModule: DbModule): Builder
+
         fun networkModule(networkModule: NetworkModule): Builder
+        fun dbModule(dbModule: DbModule): Builder
         fun sharedPrefsModule(sharedPrefsModule: SharedPrefsModule): Builder
-        fun useCaseModule(useCasesModule: UseCaseModule): Builder
+        fun useCaseModule(useCaseModule: UseCaseModule): Builder
         fun build(): TestAppComponent
     }
 
     override fun inject(instance: DaggerApplication)
     fun inject(sweetsSearchListFragmentTest: SweetsSearchListFragmentTest)
     fun inject(mainActivityTest: MainActivityTest)
-    fun inject(mainActivityViewModelTest: MainActivityViewModelTest)
     fun inject(backgroundWorkManagerTest: BackgroundWorkManagerTest)
-    fun inject(factsFragmentTest: FactsFragmentTest) {
-    }
+    fun inject(factsFragmentTest: FactsFragmentTest)
 }

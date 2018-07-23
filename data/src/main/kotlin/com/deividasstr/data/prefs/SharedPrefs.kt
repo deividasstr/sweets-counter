@@ -20,7 +20,12 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
     }
 
     private val prefs: SharedPreferences by lazy {
-        StrictModePermitter.permitDiskReads { ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
+        StrictModePermitter.permitDiskReads {
+            ctx.getSharedPreferences(
+                PREFS_NAME,
+                Context.MODE_PRIVATE
+            )
+        }
     }
 
     var factsUpdatedDate: Long
@@ -34,6 +39,11 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
         set(value) = prefs.edit().putLong(PREF_SWEET_DATE, value).apply()
 
     override fun saveSweetsDownloadTime(): Completable {
-        return Completable.fromAction { sweetsUpdatedDate = System.currentTimeMillis() }
+        return Completable.fromAction {
+            sweetsUpdatedDate = System.currentTimeMillis() }
+    }
+
+    override fun saveFactsDownloadTime(): Completable {
+        return Completable.fromAction { factsUpdatedDate = System.currentTimeMillis() }
     }
 }

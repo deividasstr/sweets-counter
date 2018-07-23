@@ -17,6 +17,7 @@ class TestAppRunner : AndroidJUnitRunner() {
         context: Context?
     ): Application {
         return super.newApplication(
-            cl, "com.deividasstr.ui.utils.di.TestApplication", context)
+            cl, "com.deividasstr.ui.utils.di.TestApplication", context
+        )
     }
 }

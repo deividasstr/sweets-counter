@@ -11,6 +11,7 @@ class BackgroundWorkManager {
 
     companion object {
         const val SWEETS_DOWNLOAD_NAME = "SWEETS_DOWNLOAD"
+        const val FACTS_DOWNLOAD_NAME = "FACTS_DOWNLOAD"
     }
 
     fun downloadSweetsAndSaveDownloadDate(): UUID {
@@ -22,7 +23,7 @@ class BackgroundWorkManager {
             .setConstraints(constraints)
             .build()
 
-        val saveDownloadDateWork = OneTimeWorkRequestBuilder<SaveDownloadDateWorker>().build()
+        val saveDownloadSweetsDateWork = OneTimeWorkRequestBuilder<SaveDownloadSweetDateWorker>().build()
 
         val workManager = WorkManager.getInstance()
 
@@ -30,7 +31,29 @@ class BackgroundWorkManager {
             SWEETS_DOWNLOAD_NAME,
             ExistingWorkPolicy.REPLACE,
             downloadWork
-        )?.then(saveDownloadDateWork)?.enqueue()
+        )?.then(saveDownloadSweetsDateWork)?.enqueue()
+
+        return downloadWork.id
+    }
+
+    fun downloadFactsAndSaveDownloadDate(): UUID {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val downloadWork = OneTimeWorkRequestBuilder<DownloadAllFactsWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        val saveDownloadFactsDateWork = OneTimeWorkRequestBuilder<SaveDownloadFactsDateWorker>().build()
+
+        val workManager = WorkManager.getInstance()
+
+        workManager?.beginUniqueWork(
+            FACTS_DOWNLOAD_NAME,
+            ExistingWorkPolicy.REPLACE,
+            downloadWork
+        )?.then(saveDownloadFactsDateWork)?.enqueue()
 
         return downloadWork.id
     }

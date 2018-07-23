@@ -1,12 +1,12 @@
 package com.deividasstr.domain.usecases
 
 import com.deividasstr.domain.framework.CompletableUseCase
-import com.deividasstr.domain.repositories.PrefsRepo
+import com.deividasstr.domain.repositories.FactRepo
 import io.reactivex.Completable
 
-class SaveDownloadDateUseCase(private val repo: PrefsRepo) : CompletableUseCase {
+class DownloadAllFactsUseCase(private val repo: FactRepo) : CompletableUseCase {
 
     override fun execute(): Completable {
-        return repo.saveSweetsDownloadTime()
+        return repo.downloadAllFactsAndSave()
     }
 }
