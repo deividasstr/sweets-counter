@@ -22,11 +22,6 @@ class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
         return RxObjectBoxQuery.singleList(query)
     }
 
-    override fun getLastUpdateTimeStamp(): Single<Long> {
-        val query = db.query().orderDesc(SweetDb_.addedTimestamp).build()
-        return RxObjectBoxQuery.singleItem(query).map { it.addedTimestamp }
-    }
-
     override fun addSweet(sweet: SweetDb): Completable {
         return Completable.fromAction {
             db.put(sweet)

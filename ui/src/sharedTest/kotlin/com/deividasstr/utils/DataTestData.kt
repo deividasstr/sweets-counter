@@ -42,32 +42,38 @@ class DataTestData {
 
         val TEST_SWEETMODEL =
             SweetDb(
-                2, "Choco", 500.0, 25.0, 50.0, 12.0,
-                12.0, 123
+                2, "Choco", 500.0, 25.0, 50.0, 12.0, 8.0,
+                12.0
             )
 
         val TEST_SWEETMODEL_ADDED_BY_USER =
             SweetDb(
-                2, "Choco", 500.0, 25.0, 50.0, 12.0,
-                12.0, 0
+                2, "Choco", 500.0, 25.0, 50.0, 12.0, 8.0,
+                12.0
             )
 
         val TEST_SWEETMODEL2 =
             SweetDb(
-                3, "Milka", 350.0, 25.0, 50.0, 12.0,
-                12.0, 98461298
+                3, "Milka", 350.0, 25.0, 50.0, 12.0, 8.0,
+                12.0
+            )
+
+        val TEST_SWEETMODEL3 =
+            SweetDb(
+                3, "Raisins", 150.0, 25.0, 50.0, 5.0, 8.0,
+                12.0
             )
 
         val TEST_LIST_SWEETMODELS = mutableListOf(TEST_SWEETMODEL, TEST_SWEETMODEL2)
 
         val TEST_RESPONSE_SWEET1 = ResponseSweet(
-            2, "Choco", 500.0, 25.0, 50.0, 12.0,
-            12.0, 123
+            2, "Choco", 500.0, 25.0, 50.0, 12.0, 8.0,
+            12.0
         )
 
         val TEST_RESPONSE_SWEET2 = ResponseSweet(
-            3, "Milka", 350.0, 25.0, 50.0, 12.0,
-            12.0, 98461298
+            3, "Milka", 350.0, 25.0, 50.0, 12.0, 8.0,
+            12.0
         )
 
         val TEST_RESPONSE_SWEET_LIST = listOf(TEST_RESPONSE_SWEET1, TEST_RESPONSE_SWEET2)

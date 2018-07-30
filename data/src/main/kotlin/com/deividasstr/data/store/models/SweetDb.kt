@@ -13,16 +13,16 @@ data class SweetDb(
     val servingG: Double,
     val fatG: Double,
     val carbsG: Double,
-    val proteinG: Double,
-    val addedTimestamp: Long
+    val sugarG: Double,
+    val proteinG: Double
 ) {
     constructor(sweet: Sweet) : this(
         sweet.id, sweet.name, sweet.calsPer100, sweet.servingG,
-        sweet.fatG, sweet.carbsG, sweet.proteinG, 0
+        sweet.fatG, sweet.carbsG, sweet.sugarG, sweet.proteinG
     )
     constructor(sweet: ResponseSweet) : this(
         sweet.id, sweet.name, sweet.kcal_100, sweet.serving_grams,
-        sweet.fat_100, sweet.carbohydrate_100, sweet.protein_100, sweet.timestamp
+        sweet.fat_100, sweet.carbohydrate_100, sweet.sugar_100, sweet.protein_100
     )
 }
 
@@ -31,5 +31,5 @@ fun List<SweetDb>.toSweets(): List<Sweet> {
 }
 
 fun SweetDb.toSweet(): Sweet {
-    return Sweet(id, name, calsPer100, servingG, fatG, carbsG, proteinG)
+    return Sweet(id, name, calsPer100, servingG, fatG, carbsG, sugarG, proteinG)
 }

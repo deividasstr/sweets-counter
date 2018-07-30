@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.core.content.ContextCompat" />
+        <variable
+            name="viewmodel"
+            type="com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cals_per_100_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_cals_per_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Cals per 100:" />
+
+        <TextView
+            android:id="@+id/cals_per_100_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.calsPer100).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/cals_per_100_title"
+            app:layout_constraintTop_toTopOf="@id/cals_per_100_title"
+            tools:text="450" />
+
+        <TextView
+            android:id="@+id/serving_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_serving_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cals_per_100_title"
+            tools:text="Serving size :" />
+
+        <TextView
+            android:id="@+id/serving_size_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.servingG).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/serving_size_title"
+            app:layout_constraintTop_toTopOf="@id/serving_size_title"
+            tools:text="80" />
+
+        <TextView
+            android:id="@+id/rating_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_nutritional_rating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/serving_size_title"
+            tools:text="Rating :" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rating_value"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:background="@{ContextCompat.getColor(context, viewmodel.sweetRating)}"
+            app:layout_constraintStart_toEndOf="@id/rating_title"
+            app:layout_constraintTop_toTopOf="@id/rating_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

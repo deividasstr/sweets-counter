@@ -5,7 +5,6 @@ import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
-import com.deividasstr.ui.base.framework.SingleEvent
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManager
 import com.deividasstr.ui.features.main.backgroundwork.DownloadAllSweetsWorker
 import javax.inject.Inject
@@ -21,16 +20,12 @@ class MainActivityViewModel @Inject constructor(
 
             val workId = backgroundWorkManager.downloadSweetsAndSaveDownloadDate()
 
-            val workStatus = workManager?.getStatusById(workId) ?: return
+            val workStatus = workManager.getStatusById(workId)
 
             _errorMessage.addSource(workStatus) {
-                val error =
-                    if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
-                        SingleEvent(StringResException(R.string.error_network_server))
-                    } else {
-                        null
-                    }
-                _errorMessage.postValue(error)
+                if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
+                    setError(StringResException(R.string.error_network_server))
+                }
             }
         }
     }
@@ -41,16 +36,12 @@ class MainActivityViewModel @Inject constructor(
 
             val workId = backgroundWorkManager.downloadFactsAndSaveDownloadDate()
 
-            val workStatus = workManager?.getStatusById(workId) ?: return
+            val workStatus = workManager.getStatusById(workId)
 
             _errorMessage.addSource(workStatus) {
-                val error =
-                    if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
-                        SingleEvent(StringResException(R.string.error_network_server))
-                    } else {
-                        null
-                    }
-                _errorMessage.postValue(error)
+                if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
+                    setError(StringResException(R.string.error_network_server))
+                }
             }
         }
     }

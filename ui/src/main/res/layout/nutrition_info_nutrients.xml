@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/protein_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_protein"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/protein_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.proteinG).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/protein_title"
+            app:layout_constraintTop_toTopOf="@id/protein_title" />
+
+        <TextView
+            android:id="@+id/fat_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_fat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/protein_title" />
+
+        <TextView
+            android:id="@+id/fat_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.fatG).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/fat_title"
+            app:layout_constraintTop_toTopOf="@id/fat_title" />
+
+        <TextView
+            android:id="@+id/carbs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_carbs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fat_title" />
+
+        <TextView
+            android:id="@+id/carbs_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.carbsG).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/carbs_title"
+            app:layout_constraintTop_toTopOf="@id/carbs_title" />
+
+        <TextView
+            android:id="@+id/sugar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/title_sugars"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carbs_title" />
+
+        <TextView
+            android:id="@+id/sugar_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.sugarG).intValue())}"
+            app:layout_constraintStart_toEndOf="@id/sugar_title"
+            app:layout_constraintTop_toTopOf="@id/sugar_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

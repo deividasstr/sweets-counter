@@ -11,8 +11,8 @@ data class ResponseSweet(
     val serving_grams: Double,
     val fat_100: Double,
     val carbohydrate_100: Double,
-    val protein_100: Double,
-    val timestamp: Long
+    var sugar_100: Double = 5.3,
+    val protein_100: Double
 )
 
 fun List<ResponseSweet>.toSweetDbs(): List<SweetDb> {

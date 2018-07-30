@@ -7,5 +7,6 @@ data class Sweet(
     val servingG: Double,
     val fatG: Double,
     val carbsG: Double,
+    val sugarG: Double,
     val proteinG: Double
 )

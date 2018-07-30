@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation.findNavController
+import com.deividasstr.data.utils.DebugOpenClass
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+@DebugOpenClass
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFragment() {
 
     abstract fun getViewModelClass(): Class<VM>
@@ -40,4 +43,6 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         return binding.root
     }
+
+    fun navController() = findNavController(view!!)
 }

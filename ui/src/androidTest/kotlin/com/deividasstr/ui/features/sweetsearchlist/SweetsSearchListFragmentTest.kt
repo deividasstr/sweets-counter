@@ -29,14 +29,11 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runners.MethodSorters
 import org.mockito.Mock
 import javax.inject.Inject
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SweetsSearchListFragmentTest : AndroidTest() {
 
     @get:Rule
@@ -73,7 +70,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     }
 
     @Test
-    fun a_lists2Items() {
+    fun lists2Items() {
         assertEquals(
             DataTestData.TEST_LIST_SWEETMODELS.size,
             countRecyclerViewItems(R.id.sweets_list)
@@ -81,14 +78,14 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     }
 
     @Test
-    fun b_enterSweetName_filters1Val() {
+    fun enterSweetName_filters1Val() {
         onView(withId(androidx.appcompat.R.id.search_src_text))
             .perform(typeText(DataTestData.TEST_SWEETMODEL.name))
         assertEquals(1, countRecyclerViewItems(R.id.sweets_list))
     }
 
     @Test
-    fun c_clickRecyclerViewItem_goToSweetDetailFragmentWithCorrectSweetId() {
+    fun clickRecyclerViewItem_goToSweetDetailFragmentWithCorrectSweetId() {
         onView(withId(R.id.sweets_list))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<SweetsSearchAdapter.SweetViewHolder>(
@@ -107,19 +104,5 @@ class SweetsSearchListFragmentTest : AndroidTest() {
         val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweetId.toLong()
 
         assertEquals(DataTestData.TEST_SWEETMODEL.id, sweetId)
-    }
-
-    private fun countRecyclerViewItems(recyclerViewId: Int): Int {
-        val count = intArrayOf(0)
-        val matcher = object : TypeSafeMatcher<View>() {
-            override fun describeTo(description: org.hamcrest.Description?) {}
-
-            override fun matchesSafely(item: View): Boolean {
-                count[0] = (item as RecyclerView).adapter!!.itemCount
-                return true
-            }
-        }
-        onView(allOf(withId(recyclerViewId), isDisplayed())).check(matches(matcher))
-        return count[0]
     }
 }

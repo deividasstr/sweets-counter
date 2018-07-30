@@ -13,6 +13,7 @@ import kotlin.math.roundToInt
 
 class SweetsSearchAdapter :
     PagedListAdapter<SweetUi, SweetsSearchAdapter.SweetViewHolder>(DIFF_CALLBACK) {
+
     var clickListener: (Long) -> Unit = { _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SweetViewHolder {
@@ -25,12 +26,9 @@ class SweetsSearchAdapter :
         val concert = getItem(position)
         if (concert != null) {
             holder.bind(concert, clickListener)
-        } /*else {
-            // Null defines a placeholder item - PagedListAdapter automatically
-            // invalidates this row when the actual object is loaded from the
-            // database.
+        } else {
             holder.clear()
-        }*/
+        }
     }
 
     class SweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,8 +41,13 @@ class SweetsSearchAdapter :
             }
         }
 
-        /*fun clear() {
-        }*/
+        fun clear() {
+            with(itemView) {
+                candy_name.text = ""
+                candy_cals.text = ""
+                setOnClickListener { }
+            }
+        }
     }
 
     companion object {

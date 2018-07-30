@@ -43,4 +43,8 @@ class ConsumedSweetsRepoImpl(
     override fun getConsumedSweetsByPeriod(dateRange: DateRange): Single<List<ConsumedSweet>> {
         return consumedSweetsDb.getConsumedSweetsByPeriod(dateRange).map { it.toConsumedSweets() }
     }
+
+    override fun getAllConsumedSweets(): Single<List<ConsumedSweet>> {
+        return consumedSweetsDb.getAllConsumedSweets().map { it.toConsumedSweets() }
+    }
 }

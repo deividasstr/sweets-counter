@@ -19,8 +19,7 @@ fun View.openKeyboard() {
     keyboard.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
 }
 
-/*
 fun View.closeKeyboard() {
     val keyboard = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    keyboard.(InputMethodManager.SHOW_FORCED, 0)
-}*/
+    keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+}

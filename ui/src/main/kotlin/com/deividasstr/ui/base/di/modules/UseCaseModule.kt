@@ -11,13 +11,16 @@ import com.deividasstr.domain.usecases.AddNewSweetUseCase
 import com.deividasstr.domain.usecases.DownloadAllFactsUseCase
 import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsCalsUseCase
+import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetConsumedSweetsInPeriodUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
+import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.domain.usecases.SaveDownloadFactDateUseCase
 import com.deividasstr.domain.usecases.SaveDownloadSweetDateUseCase
 import com.deividasstr.domain.usecases.SearchSweetUseCase
+import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
 import dagger.Provides
@@ -89,5 +92,20 @@ class UseCaseModule {
     @Provides
     fun provideDownloadAllFactsUseCase(repo: FactRepo): DownloadAllFactsUseCase {
         return DownloadAllFactsUseCase(repo)
+    }
+
+    @Provides
+    fun provideGetSweetsByIdsUseCase(repo: SweetsRepo): GetSweetsByIdsUseCase {
+        return GetSweetsByIdsUseCase(repo)
+    }
+
+    @Provides
+    fun provideGetAllConsumedSweetsUseCase(repo: ConsumedSweetsRepo): GetAllConsumedSweetsUseCase {
+        return GetAllConsumedSweetsUseCase(repo)
+    }
+
+    @Provides
+    fun provideDateTimeHandler(): DateTimeHandler {
+        return DateTimeHandler()
     }
 }

@@ -1,6 +1,7 @@
 package com.deividasstr.data.repositories
 
 import com.deividasstr.data.networking.services.SweetsService
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
@@ -12,7 +13,9 @@ import io.reactivex.Single
 import javax.inject.Singleton
 
 @Singleton
-class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService: SweetsService)
+class SweetsRepoImpl(private val sweetsDb: SweetsDao,
+    private val sweetsService: SweetsService,
+    private val sharedPrefs: SharedPrefs)
     : SweetsRepo {
 
     override fun getSweetsByIds(ids: LongArray): Single<List<Sweet>> {
@@ -24,8 +27,7 @@ class SweetsRepoImpl(private val sweetsDb: SweetsDao, private val sweetsService:
     }
 
     override fun downloadAndSaveNewSweets(): Completable {
-        return sweetsDb.getLastUpdateTimeStamp()
-            .flatMap { sweetsService.getNewSweets(it) }
+        return sweetsService.getNewSweets(sharedPrefs.sweetsUpdatedDate)
             .flatMapCompletable { saveSweets(it) }
     }
 

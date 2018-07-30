@@ -6,11 +6,11 @@ import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.di.modules.SharedPrefsModule
 import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.modules.AppModule
-import com.deividasstr.ui.base.di.modules.FragmentModule
 import com.deividasstr.ui.base.di.modules.UseCaseModule
 import com.deividasstr.ui.features.facts.FactsFragmentTest
 import com.deividasstr.ui.features.main.MainActivityTest
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManagerTest
+import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragmentTest
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentTest
 import dagger.BindsInstance
 import dagger.Component
@@ -24,7 +24,7 @@ import javax.inject.Singleton
         (AndroidSupportInjectionModule::class),
         (AppModule::class),
         (TestActivityModule::class),
-        (FragmentModule::class)
+        (TestFragmentModule::class)
     ])
 
 interface TestAppComponent : AppComponent {
@@ -47,4 +47,5 @@ interface TestAppComponent : AppComponent {
     fun inject(mainActivityTest: MainActivityTest)
     fun inject(backgroundWorkManagerTest: BackgroundWorkManagerTest)
     fun inject(factsFragmentTest: FactsFragmentTest)
+    fun inject(consumedSweetHistoryFragmentTest: ConsumedSweetHistoryFragmentTest)
 }

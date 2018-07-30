@@ -7,7 +7,6 @@ interface OnSearchQueryChange {
     fun onSearchQueryChange(newText: String)
 }
 
-
 @BindingAdapter("android:onSearch")
 fun setSearchQueryListener(
     view: SearchView,

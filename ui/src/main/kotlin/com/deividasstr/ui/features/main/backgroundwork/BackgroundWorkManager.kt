@@ -27,11 +27,11 @@ class BackgroundWorkManager {
 
         val workManager = WorkManager.getInstance()
 
-        workManager?.beginUniqueWork(
+        workManager.beginUniqueWork(
             SWEETS_DOWNLOAD_NAME,
             ExistingWorkPolicy.REPLACE,
             downloadWork
-        )?.then(saveDownloadSweetsDateWork)?.enqueue()
+        ).then(saveDownloadSweetsDateWork).enqueue()
 
         return downloadWork.id
     }
@@ -49,11 +49,11 @@ class BackgroundWorkManager {
 
         val workManager = WorkManager.getInstance()
 
-        workManager?.beginUniqueWork(
+        workManager.beginUniqueWork(
             FACTS_DOWNLOAD_NAME,
             ExistingWorkPolicy.REPLACE,
             downloadWork
-        )?.then(saveDownloadFactsDateWork)?.enqueue()
+        ).then(saveDownloadFactsDateWork).enqueue()
 
         return downloadWork.id
     }

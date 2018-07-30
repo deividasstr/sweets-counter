@@ -7,4 +7,5 @@ import javax.inject.Inject
 class ConsumedSweetDataViewModel
 @Inject constructor(private val getConsumedSweetsInPeriodUseCase: GetConsumedSweetsInPeriodUseCase) :
     BaseViewModel() {
+
 }

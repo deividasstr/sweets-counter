@@ -27,4 +27,8 @@ abstract class BaseViewModel: ViewModel() {
     override fun onCleared() {
         clearDisposables()
     }
+
+    protected fun setError(error: StringResException) {
+        _errorMessage.postValue(SingleEvent(error))
+    }
 }

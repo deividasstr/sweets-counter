@@ -2,6 +2,7 @@ package com.deividasstr.data.di.modules
 
 import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.networking.services.SweetsService
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.repositories.ConsumedSweetsRepoImpl
 import com.deividasstr.data.repositories.FactRepoImpl
 import com.deividasstr.data.repositories.SweetsRepoImpl
@@ -20,8 +21,10 @@ class RepoModule {
 
     @Singleton
     @Provides
-    fun provideSweetsRepo(sweetsDao: SweetsDao, sweetsService: SweetsService): SweetsRepo {
-        return SweetsRepoImpl(sweetsDao, sweetsService)
+    fun provideSweetsRepo(sweetsDao: SweetsDao,
+        sweetsService: SweetsService,
+        sharedPrefs: SharedPrefs): SweetsRepo {
+        return SweetsRepoImpl(sweetsDao, sweetsService, sharedPrefs)
     }
 
     @Singleton

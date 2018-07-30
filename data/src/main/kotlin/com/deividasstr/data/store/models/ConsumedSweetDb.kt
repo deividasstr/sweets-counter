@@ -6,11 +6,12 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class ConsumedSweetDb(
-    @Id(assignable = true) var id: Long,
+    @Id var id: Long,
     val sweetId: Long,
     val g: Int,
     val date: Long
 ) {
+
     constructor(sweet: ConsumedSweet) : this(sweet.id, sweet.sweetId, sweet.g, sweet.date)
 }
 

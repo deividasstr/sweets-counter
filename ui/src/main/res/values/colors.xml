@@ -2,9 +2,12 @@
 <resources>
     <color name="colorPrimary">#cf2b30</color>
     <color name="colorPrimaryDark">#b71c1c</color>
-    <color name="colorAccent">@color/white</color>
+    <color name="colorAccent">@color/colorPrimary</color>
     <color name="gray">#b1ffffff</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="rating_bad">#d50000</color>
+    <color name="rating_average">#ffea00</color>
+    <color name="rating_good">#558b2f</color>
 
 </resources>

@@ -22,7 +22,7 @@ import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
 import com.deividasstr.ui.features.main.MainActivityViewModel
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel
-import com.deividasstr.ui.features.sweethistory.ConsumedSweetHistoryViewModel
+import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryViewModel
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListViewModel
 import dagger.Binds
 import dagger.Module

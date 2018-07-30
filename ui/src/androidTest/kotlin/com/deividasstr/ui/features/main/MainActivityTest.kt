@@ -9,7 +9,7 @@ import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.ui.R
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment
 import com.deividasstr.ui.features.facts.FactsFragment
-import com.deividasstr.ui.features.sweethistory.ConsumedSweetHistoryFragment
+import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.di.TestAppComponent
 import com.nhaarman.mockito_kotlin.given

@@ -29,8 +29,7 @@ class ConsumedSweetsDb(val db: Box<ConsumedSweetDb>) : ConsumedSweetsDao {
             ConsumedSweetDb_.date,
             dateRange.start.atStartOfDay().toEpochSecond(ZoneOffset.UTC),
             dateRange.endInclusive.plusDays(1).atStartOfDay().toEpochSecond(ZoneOffset.UTC)
-        )
-            .build()
+        ).build()
         return RxObjectBoxQuery.singleList(query)
     }
 }

@@ -10,7 +10,6 @@ import org.threeten.bp.ZoneOffset
 class TestData {
 
     companion object {
-
         val DATETIME = LocalDateTime.of(2018, 5, 27, 10, 10)
 
         val TEST_CONSUMED_SWEET =
@@ -18,12 +17,14 @@ class TestData {
         val TEST_CONSUMED_SWEET2 =
             ConsumedSweet(2, 3, 65, DATETIME.toEpochSecond(ZoneOffset.UTC))
 
-        val TEST_SWEET = Sweet(2, "Choco", 500.0, 25.0, 50.0, 12.0, 12.0)
-        val TEST_SWEET2 = Sweet(3, "Milka", 350.0, 25.0, 50.0, 12.0, 12.0)
+        val TEST_SWEET = Sweet(2, "Choco", 500.0, 25.0, 50.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET2 = Sweet(3, "Milka", 350.0, 25.0, 50.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET3 = Sweet(8, "Raisins", 150.0, 25.0, 50.0, 12.0, 8.0, 12.0)
 
         val TEST_TOTAL_CALS = 3000
 
         val TEST_LIST_CONSUMED_SWEETS = listOf(TEST_CONSUMED_SWEET, TEST_CONSUMED_SWEET)
+        val TEST_LIST_CONSUMED_SWEETS2 = listOf(TEST_CONSUMED_SWEET, TEST_CONSUMED_SWEET2)
         val TEST_LIST_CONSUMED_SWEETS_EMPTY = listOf<ConsumedSweet>()
         val TEST_ID: Long = 1
         val TEST_FACT_1 = Fact(12, "Sweets are sweet")

@@ -12,4 +12,6 @@ interface ConsumedSweetsRepo {
     fun addSweet(sweet: ConsumedSweet): Completable
 
     fun getConsumedSweetsByPeriod(dateRange: DateRange): Single<List<ConsumedSweet>>
+
+    fun getAllConsumedSweets(): Single<List<ConsumedSweet>>
 }

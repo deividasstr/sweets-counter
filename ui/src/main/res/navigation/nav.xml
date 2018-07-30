@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/consumedSweetHistoryFragment"
-        android:name="com.deividasstr.ui.features.sweethistory.ConsumedSweetHistoryFragment"
+        android:name="com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment"
         android:label="ConsumedSweetHistoryFragment">
         <action
             android:id="@+id/action_consumedSweetHistoryFragment_to_sweetsSearchListFragment"
@@ -53,7 +53,7 @@
         <argument
             android:name="sweetId"
             android:defaultValue="0"
-            app:type="integer" />
+            app:argType="integer" /><action android:id="@+id/action_sweetDetailsFragment_to_consumedSweetHistoryFragment" app:destination="@id/consumedSweetHistoryFragment"/>
     </fragment>
 
 </navigation>
