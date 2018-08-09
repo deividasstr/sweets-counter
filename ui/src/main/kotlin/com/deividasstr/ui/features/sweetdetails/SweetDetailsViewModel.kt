@@ -26,7 +26,7 @@ class SweetDetailsViewModel
     val sweet = MutableLiveData<SweetUi>()
     val sweetRating = MediatorLiveData<Int>().apply {
         value = R.color.white
-        addSource(sweet) {
+        addSource(sweet) { it ->
             it?.let { postValue(rating(it)) }
         }
     }
@@ -76,7 +76,7 @@ class SweetDetailsViewModel
         return ConsumedSweet(
             sweetId = sweet.value!!.id,
             g = units,
-            date = dateTimeHandler.currentDateTimeMillis())
+            date = dateTimeHandler.currentEpochSecs())
     }
 
     private fun validateConsumedSweet(): Boolean {

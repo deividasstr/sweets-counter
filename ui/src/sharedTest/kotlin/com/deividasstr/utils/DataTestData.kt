@@ -6,6 +6,8 @@ import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.utils.DateRange
+import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.utils.Periods
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneOffset
 
@@ -17,9 +19,7 @@ class DataTestData {
         val TEST_LOCALDATE_YESTERDAY = DATETIME.minusDays(1).toLocalDate()
         val TEST_LOCALDATE_TOMORROW = DATETIME.plusDays(1).toLocalDate()
 
-        val YESTERDAY_TOMORROW_DATERANGE = DateRange(
-            TEST_LOCALDATE_YESTERDAY, TEST_LOCALDATE_TOMORROW
-        )
+        val YESTERDAY_TOMORROW_DATERANGE = DateRange(Periods.WEEK, DateTimeHandler())
 
         val TEST_FACTMODEL_1 = FactDb(12, "Sweets are sweet", 123)
         val TEST_FACTMODEL_2 = FactDb(1, "Sweets are bad", 951358)

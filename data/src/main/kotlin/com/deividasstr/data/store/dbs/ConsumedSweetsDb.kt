@@ -8,14 +8,13 @@ import com.deividasstr.domain.utils.DateRange
 import io.objectbox.Box
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.threeten.bp.ZoneOffset
 import javax.inject.Singleton
 
 @Singleton
 class ConsumedSweetsDb(val db: Box<ConsumedSweetDb>) : ConsumedSweetsDao {
 
     override fun getAllConsumedSweets(): Single<List<ConsumedSweetDb>> {
-        return RxObjectBoxQuery.singleList(db.query().build())
+        return RxObjectBoxQuery.singleList(db.query().order(ConsumedSweetDb_.date).build())
     }
 
     override fun addSweet(sweet: ConsumedSweetDb): Completable {
@@ -27,8 +26,8 @@ class ConsumedSweetsDb(val db: Box<ConsumedSweetDb>) : ConsumedSweetsDao {
     override fun getConsumedSweetsByPeriod(dateRange: DateRange): Single<List<ConsumedSweetDb>> {
         val query = db.query().between(
             ConsumedSweetDb_.date,
-            dateRange.start.atStartOfDay().toEpochSecond(ZoneOffset.UTC),
-            dateRange.endInclusive.plusDays(1).atStartOfDay().toEpochSecond(ZoneOffset.UTC)
+            dateRange.start,
+            dateRange.endInclusive
         ).build()
         return RxObjectBoxQuery.singleList(query)
     }

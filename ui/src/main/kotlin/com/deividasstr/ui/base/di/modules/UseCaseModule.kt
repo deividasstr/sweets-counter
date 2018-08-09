@@ -13,7 +13,6 @@ import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsCalsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllSweetsUseCase
-import com.deividasstr.domain.usecases.GetConsumedSweetsInPeriodUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
@@ -62,11 +61,6 @@ class UseCaseModule {
     @Provides
     fun provideSearchSweetUseCase(repo: SweetsRepo): SearchSweetUseCase {
         return SearchSweetUseCase(repo)
-    }
-
-    @Provides
-    fun provideGetConsumedSweetsInPeriodUseCase(repo: ConsumedSweetsRepo): GetConsumedSweetsInPeriodUseCase {
-        return GetConsumedSweetsInPeriodUseCase(repo)
     }
 
     @Provides

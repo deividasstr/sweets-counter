@@ -100,7 +100,7 @@
             android:id="@+id/total_cals_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total_calories_title"
+            android:text="@string/total_calories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_sweet" />

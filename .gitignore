@@ -14,3 +14,9 @@ objectbox-models/default.json.bak
 src/main/res/drawable/
 /utils.gradle
 /ajcore.*
+google-services.json
+src/main/kotlin/com/deividasstr/ui/features/consumedsweetdata/charts/
+src/main/kotlin/com/deividasstr/ui/features/consumedsweetdata/models/
+src/main/kotlin/com/deividasstr/ui/utils/
+src/main/res/drawable-v24/
+src/test/kotlin/com/deividasstr/utils/

@@ -60,7 +60,7 @@ class ConsumedSweetHistoryFragmentTest : AndroidTest() {
 
         // Sticky headers lib makes header views not as containing text
         /*R.id.consumed_sweet_recycler
-            .nthItemHasText(0, dateTimeHandler.formattedDate(TestData.TEST_CONSUMED_SWEET.date))*/
+            .nthItemHasText(0, dateTimeHandler.formattedDateFull(TestData.TEST_CONSUMED_SWEET.date))*/
 
         R.id.consumed_sweet_recycler.nthItemHasText(1, TestData.TEST_SWEET.name)
         R.id.consumed_sweet_recycler

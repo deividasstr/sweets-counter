@@ -1,19 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.deividasstr.domain.utils.Periods" />
 
         <variable
             name="viewmodel"
             type="com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataViewModel" />
+
+        <variable
+            name="chartlistener"
+            type="com.github.mikephil.charting.listener.OnChartValueSelectedListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/consumed_data_period_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onItemSelected="@{(p, v, pos, id) -> viewmodel.changePeriod(pos)}"
+                android:text="@string/consumed_data_title_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/consumed_data_selected_date_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.dateRangeText}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/consumed_data_button_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/image_description_arrow_previous"
+                android:onClick="@{() -> viewmodel.previousRange()}"
+                android:src="@drawable/ic_arrow_left_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/consumed_data_period_chart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/consumed_data_period_chart" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/consumed_data_button_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/image_description_arrow_next"
+                android:onClick="@{() -> viewmodel.nextRange()}"
+                android:src="@drawable/ic_arrow_right_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/consumed_data_period_chart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/consumed_data_period_chart" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/consumed_data_period_chart"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:setConsumedData="@{viewmodel.consumedBarData}"
+                android:chartListener="@{chartlistener}"
+                app:layout_constraintEnd_toStartOf="@id/consumed_data_button_next"
+                app:layout_constraintStart_toEndOf="@id/consumed_data_button_previous"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_period_spinner" />
+
+            <TextView
+                android:id="@+id/consumed_data_period_total_cals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{@string/total_calories(viewmodel.cals)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_period_chart" />
+
+            <TextView
+                android:id="@+id/consumed_data_period_total_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{@string/consumed_data_weight_gained(viewmodel.weight)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_period_total_cals" />
+
+            <TextView
+                android:id="@+id/consumed_data_sweets_popularity_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/consumed_data_title_sweets_popularity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_period_total_weight" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/consumed_data_sweets_popularity_chart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:setPopularityData="@{viewmodel.sweetsPopularityData}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_sweets_popularity_title" />
+
+            <TextView
+                android:id="@+id/consumed_data_sweets_rating_consumed_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/consumed_data_title_sweets_rating_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_sweets_popularity_chart" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/consumed_data_sweets_rating_chart"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:setRatingData="@{viewmodel.sweetsRatingData}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consumed_data_sweets_rating_consumed_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>

@@ -19,7 +19,7 @@ class ConsumedSweetsHistoryAdapter(private val dateTimeHandler: DateTimeHandler)
     fun setSweets(consumedSweets: List<ConsumedSweetUi>, sweets: List<SweetUi>) {
         this.sweets = sweets
         consumedSweetsByDate =
-            consumedSweets.groupBy { dateTimeHandler.formattedDate(it.date) }.toList()
+            consumedSweets.groupBy { dateTimeHandler.formattedDateFull(it.date) }.toList()
         notifyAllSectionsDataSetChanged()
     }
 

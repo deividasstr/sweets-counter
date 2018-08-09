@@ -19,6 +19,10 @@ class UiTestData {
 
         val UI_CONSUMED_SWEET1 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET)
         val UI_CONSUMED_SWEET2 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET2)
+        val UI_CONSUMED_SWEET3 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET3)
+        val UI_CONSUMED_SWEET4 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET4)
+        val UI_CONSUMED_SWEET5 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET5)
+        val UI_CONSUMED_SWEET6 = ConsumedSweetUi(TestData.TEST_CONSUMED_SWEET6)
         val UI_CONSUMED_SWEET_LIST = listOf(UI_CONSUMED_SWEET1, UI_CONSUMED_SWEET2)
     }
 }

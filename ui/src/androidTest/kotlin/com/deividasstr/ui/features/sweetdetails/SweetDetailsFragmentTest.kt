@@ -196,7 +196,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
             Completable.complete()
         }
 
-        given { dateTimeHandler.currentDateTimeMillis() } willReturn { dateTimeMillis }
+        given { dateTimeHandler.currentEpochSecs() } willReturn { dateTimeMillis }
 
         launchFragment()
 
