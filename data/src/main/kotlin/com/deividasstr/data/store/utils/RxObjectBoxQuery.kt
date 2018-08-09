@@ -1,5 +1,7 @@
 package com.deividasstr.data.store.utils
 
+import com.deividasstr.data.R
+import com.deividasstr.data.utils.StringResException
 import io.objectbox.query.Query
 import io.objectbox.reactive.DataObserver
 import io.reactivex.BackpressureStrategy
@@ -64,7 +66,7 @@ object RxObjectBoxQuery {
                     if (!data.isEmpty()) {
                         emitter.onSuccess(data[0])
                     } else {
-                        emitter.onError(NullPointerException("Item not found"))
+                        emitter.onError(StringResException(R.string.error_item_not_found))
                     }
                 }
             }
