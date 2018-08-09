@@ -15,14 +15,13 @@ package com.deividasstr.data.store.utils.rx
 
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
 import com.deividasstr.data.store.utils.query.MockQuery
+import com.deividasstr.data.utils.StringResException
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -121,7 +120,7 @@ class RxObjectBoxQueryTest : Observer<List<String>>, SingleObserver<List<String>
         publisher.queryResult = ArrayList()
         val single = RxObjectBoxQuery.singleItem(mockQuery.query)
         single.subscribe(observer)
-        assertTrue(error != null && error is NullPointerException)
+        assertTrue(error != null && error is StringResException)
         assertEquals(0, receivedChangesItem.size.toLong())
 
         receivedChangesItem.clear()
