@@ -28,19 +28,6 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
     }
 
     @Test
-    fun shouldGetConsumedSweetsByPeriod() {
-        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL).blockingAwait()
-        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL2).blockingAwait()
-        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW).blockingAwait()
-
-        db.getConsumedSweetsByPeriod(DataTestData.YESTERDAY_TOMORROW_DATERANGE)
-                .subscribe(testSubscriber)
-
-        testSubscriber.assertResultValue(listOf(
-            DataTestData.TEST_CONSUMED_SWEETMODEL, DataTestData.TEST_CONSUMED_SWEETMODEL2))
-    }
-
-    @Test
     fun shouldGetAllConsumedSweets() {
         db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL).blockingAwait()
         db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL2).blockingAwait()

@@ -39,7 +39,7 @@ ext {
     espressoVersion = '3.1.0-alpha3'
     testingSupportLibVersion = '0.1'
     mockitoKotlinVersion = '1.5.0'
-    mockitoAndroidVersion = '2.19.0'
+    mockitoAndroidVersion = '2.21.0'
     runnerVersion = '1.1.0-alpha3'
     kluentVersion = '1.14'
 }

@@ -5,7 +5,6 @@ import com.deividasstr.data.DataTestData.Companion.TEST_LIST_SWEETMODELS
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.toConsumedSweet
-import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.common.assertResultValue
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
@@ -44,29 +43,6 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
 
         testSubscriber.await()
         testSubscriber.assertComplete()
-    }
-
-    @Test
-    fun shouldGetConsumedSweetsByPeriod() {
-        given { db.getConsumedSweetsByPeriod(DataTestData.YESTERDAY_TOMORROW_DATERANGE) }
-            .willReturn(
-                Single.just(
-                    listOf(
-                        DataTestData.TEST_CONSUMED_SWEETMODEL,
-                        DataTestData.TEST_CONSUMED_SWEETMODEL2
-                    )
-                )
-            )
-
-        sweetsRepo.getConsumedSweetsByPeriod(DataTestData.YESTERDAY_TOMORROW_DATERANGE)
-            .subscribe(testSubscriber)
-
-        testSubscriber.assertResultValue(
-            listOf(
-                TestData.TEST_CONSUMED_SWEET,
-                TestData.TEST_CONSUMED_SWEET2
-            )
-        )
     }
 
     @Test

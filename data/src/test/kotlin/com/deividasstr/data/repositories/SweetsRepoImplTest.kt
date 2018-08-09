@@ -2,6 +2,7 @@ package com.deividasstr.data.repositories
 
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.networking.services.SweetsService
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
@@ -27,10 +28,11 @@ class SweetsRepoImplTest : UnitTest() {
 
     @Mock private lateinit var sweetsDb: SweetsDao
     @Mock private lateinit var sweetsService: SweetsService
+    @Mock private lateinit var sharedPrefs: SharedPrefs
 
     @Before
     fun setUp() {
-        sweetsRepo = SweetsRepoImpl(sweetsDb, sweetsService)
+        sweetsRepo = SweetsRepoImpl(sweetsDb, sweetsService, sharedPrefs)
         testSubscriber = TestObserver()
     }
 
@@ -105,14 +107,12 @@ class SweetsRepoImplTest : UnitTest() {
     fun shouldDownloadNewSweetsAndSave() {
         given { sweetsService.getNewSweets(any()) }.willReturn(Single.just(DataTestData.TEST_LIST_SWEETMODELS))
         given { sweetsDb.addSweets(any()) }.willReturn(Completable.complete())
-        given { sweetsDb.getLastUpdateTimeStamp() }.willReturn(Single.just(3))
 
         sweetsRepo.downloadAndSaveNewSweets().subscribe(testSubscriber)
 
         testSubscriber.assertComplete()
 
         verify(sweetsDb, Mockito.times(1)).addSweets(DataTestData.TEST_LIST_SWEETMODELS)
-        verify(sweetsDb, Mockito.times(1)).getLastUpdateTimeStamp()
 
         verifyNoMoreInteractions(sweetsDb)
     }

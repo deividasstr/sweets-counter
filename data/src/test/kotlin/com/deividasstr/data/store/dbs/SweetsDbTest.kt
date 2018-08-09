@@ -4,7 +4,6 @@ import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.common.TestData
-import com.deividasstr.domain.common.assertResultValue
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
@@ -113,14 +112,5 @@ class SweetsDbTest : AbstractObjectBoxTest() {
 
         testSubscriber.assertComplete()
         testSubscriber.assertValue(emptyList<SweetDb>())
-    }
-
-    @Test
-    fun shouldGetLastUpdateTimeStamp() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-
-        db.getLastUpdateTimeStamp().subscribe(testSubscriber)
-
-        testSubscriber.assertResultValue(DataTestData.TEST_SWEETMODEL2.addedTimestamp)
     }
 }
