@@ -3,45 +3,57 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+
+references:
+  ## Workspaces
+  workspace: &workspace
+    ~/repo
+
+  ## Docker image configurations
+  android_config: &android_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/android:api-27-alpha
+    environment:
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+
+  ## Cache
+  gradle_key: &gradle_key
+    jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+
+  restore_gradle_cache: &restore_gradle_cache
+    restore_cache:
+      key: *gradle_key
+
+  save_gradle_cache: &save_gradle_cache
+    save_cache:
+      key: *gradle_key
+      paths:
+        - ~/.gradle
+        - ~/.m2
+
+  ## Dependencies
+  android_dependencies: &android_dependencies
+    run:
+      name: Download Android Dependencies
+      command: ./gradlew androidDependencies
+
+
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/android:api-27-alpha
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-
-    working_directory: ~/repo
-
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx8g
-      TERM: dumb
-
+    <<: *android_config
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+      - *restore_gradle_cache
+      - *android_dependencies
+      - *save_gradle_cache
 
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      - run:
-          name: Pre-check
-          command: ./gradlew ktlint lint
+      ##- run:
+      ##    name: Pre-check
+      ##    command: ./gradlew ktlint lint
 
       - run:
           name: Run Tests
