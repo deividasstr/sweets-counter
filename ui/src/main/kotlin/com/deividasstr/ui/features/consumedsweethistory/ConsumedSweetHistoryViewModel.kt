@@ -20,7 +20,8 @@ import javax.inject.Inject
 class ConsumedSweetHistoryViewModel
 @Inject constructor(
     private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase,
-    private val getSweetsByIdsUseCase: GetSweetsByIdsUseCase) : BaseViewModel() {
+    private val getSweetsByIdsUseCase: GetSweetsByIdsUseCase
+) : BaseViewModel() {
 
     private val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
     private val sweets = MutableLiveData<List<SweetUi>>()
@@ -37,10 +38,10 @@ class ConsumedSweetHistoryViewModel
         val disposable = getAllConsumedSweetsUseCase.execute()
             .subscribeOn(Schedulers.io())
             .map { it.toConsumedSweetUis() }
-            .subscribeBy(onSuccess = {
-                val ids = it.map { it.sweetId.toLong() }.toLongArray()
+            .subscribeBy(onSuccess = { sweets ->
+                val ids = sweets.map { it.sweetId.toLong() }.toLongArray()
                 getSweets(ids)
-                consumedSweets.postValue(it)
+                consumedSweets.postValue(sweets)
             },
                 onError = {
                     val ex = it as StringResException

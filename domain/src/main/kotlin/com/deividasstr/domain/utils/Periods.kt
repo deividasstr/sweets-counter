@@ -39,4 +39,3 @@ enum class Periods {
     abstract val timeUnit: TemporalUnit
     abstract fun start(dateTimeHandler: DateTimeHandler): LocalDate
 }
-

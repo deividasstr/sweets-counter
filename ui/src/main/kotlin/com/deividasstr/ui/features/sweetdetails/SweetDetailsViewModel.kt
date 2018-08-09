@@ -21,7 +21,8 @@ class SweetDetailsViewModel
 @Inject constructor(
     private val getSweetByIdUseCase: GetSweetByIdUseCase,
     private val addConsumedSweetUseCase: AddConsumedSweetUseCase,
-    private val dateTimeHandler: DateTimeHandler) : BaseViewModel() {
+    private val dateTimeHandler: DateTimeHandler
+) : BaseViewModel() {
 
     val sweet = MutableLiveData<SweetUi>()
     val sweetRating = MediatorLiveData<Int>().apply {

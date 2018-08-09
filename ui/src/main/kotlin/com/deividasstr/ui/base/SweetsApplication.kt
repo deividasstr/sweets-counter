@@ -31,7 +31,7 @@ class SweetsApplication : BaseApplication() {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
-            //AndroidDevMetrics.initWith(this);
+            // AndroidDevMetrics.initWith(this);
             Handler().postAtFrontOfQueue(::initStrictMode)
             initStrictMode()
         }

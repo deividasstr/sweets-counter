@@ -21,9 +21,11 @@ class RepoModule {
 
     @Singleton
     @Provides
-    fun provideSweetsRepo(sweetsDao: SweetsDao,
+    fun provideSweetsRepo(
+        sweetsDao: SweetsDao,
         sweetsService: SweetsService,
-        sharedPrefs: SharedPrefs): SweetsRepo {
+        sharedPrefs: SharedPrefs
+    ): SweetsRepo {
         return SweetsRepoImpl(sweetsDao, sweetsService, sharedPrefs)
     }
 

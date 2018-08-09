@@ -11,6 +11,6 @@ class NetworkManager(private val context: Context) {
 
     val networkAvailable: Boolean
         get() =
-            (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected ?:
-            false
+            (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo?.isConnected
+            ?: false
 }

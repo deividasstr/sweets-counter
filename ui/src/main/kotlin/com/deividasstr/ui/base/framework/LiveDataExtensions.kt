@@ -2,8 +2,8 @@ package com.deividasstr.ui.base.framework
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-//https://medium.com/google-developers/livedata-beyond-the-viewmodel-reactive-patterns-using-transformations-and-mediatorlivedata-fda520ba00b7
-//Thanks goes to Jose Alcérreca
+// https://medium.com/google-developers/livedata-beyond-the-viewmodel-reactive-patterns-using-transformations-and-mediatorlivedata-fda520ba00b7
+// Thanks goes to Jose Alcérreca
 /**
  * Sets the value to the result of a function that is called when both `LiveData`s have data
  * or when they receive updates after that.

@@ -7,7 +7,7 @@ import com.deividasstr.data.utils.StringResException
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseViewModel: ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     protected var _errorMessage = MediatorLiveData<SingleEvent<StringResException>>()
 

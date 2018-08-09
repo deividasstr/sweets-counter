@@ -13,7 +13,7 @@ import com.deividasstr.data.BuildConfig
  * resets StrictMode settings and returns the result without triggering StrictMode.
  */
 object StrictModePermitter {
-    fun <T>permitDiskReads(func: () -> T) : T {
+    fun <T> permitDiskReads(func: () -> T): T {
         return if (BuildConfig.DEBUG) {
             val oldThreadPolicy = StrictMode.getThreadPolicy()
             StrictMode.setThreadPolicy(
@@ -28,7 +28,7 @@ object StrictModePermitter {
         }
     }
 
-    fun <T>permitAll(func: () -> T) : T {
+    fun <T> permitAll(func: () -> T): T {
         return if (BuildConfig.DEBUG) {
             val oldThreadPolicy = StrictMode.getThreadPolicy()
             StrictMode.setThreadPolicy(

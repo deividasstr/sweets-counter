@@ -9,5 +9,4 @@ class SaveDownloadSweetDateUseCase(private val repo: PrefsRepo) : CompletableUse
     override fun execute(): Completable {
         return repo.saveSweetsDownloadTime()
     }
-
 }

@@ -13,9 +13,11 @@ import io.reactivex.Single
 import javax.inject.Singleton
 
 @Singleton
-class SweetsRepoImpl(private val sweetsDb: SweetsDao,
+class SweetsRepoImpl(
+    private val sweetsDb: SweetsDao,
     private val sweetsService: SweetsService,
-    private val sharedPrefs: SharedPrefs)
+    private val sharedPrefs: SharedPrefs
+)
     : SweetsRepo {
 
     override fun getSweetsByIds(ids: LongArray): Single<List<Sweet>> {

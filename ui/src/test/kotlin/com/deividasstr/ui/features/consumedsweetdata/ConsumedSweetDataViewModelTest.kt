@@ -72,8 +72,8 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         val calsDay1 =
             (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100).roundToLong()
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100
-            + TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
 
         val cals = calsDay1 + calsDay3
 
@@ -113,8 +113,8 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         val calsDay1 =
             (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100).roundToLong()
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100
-            + TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek
 
@@ -163,8 +163,8 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         val calsDay1 =
             (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100).roundToLong()
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100
-            + TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek + calsDayLastMonth
 
@@ -267,8 +267,8 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         val calsDay1 =
             (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100).roundToLong()
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100
-            + TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100).roundToLong()
 
         val cals = calsDay1 + calsDay3
 
@@ -337,13 +337,15 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         testVals(cals, weight, range, 1, sweetsPopularity, sweetsRating, consumedData)
     }
 
-    fun testVals(cals: Long,
+    fun testVals(
+        cals: Long,
         weight: Long,
         range: DateRange,
         rangeInvokeTimes: Int,
         sweetsPopularity: List<PopularitySweetUi>,
         sweetsRating: Map<SweetRating, Int>,
-        consumedData: ConsumedBarData) {
+        consumedData: ConsumedBarData
+    ) {
 
         val calObserver: Observer<Long> = mock()
         viewModel.cals.observeForever(calObserver)

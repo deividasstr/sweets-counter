@@ -27,7 +27,7 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance fun application(application: Application): Builder
-        fun network(networkModule: NetworkModule):Builder
+        fun network(networkModule: NetworkModule): Builder
         fun build(): AppComponent
     }
 

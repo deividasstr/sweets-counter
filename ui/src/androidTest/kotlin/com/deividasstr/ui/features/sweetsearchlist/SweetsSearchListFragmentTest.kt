@@ -1,14 +1,10 @@
 package com.deividasstr.ui.features.sweetsearchlist
 
-import android.view.View
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.networking.manager.NetworkManager
@@ -25,8 +21,6 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willReturn
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import kotlinx.android.synthetic.main.activity_main.*
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule

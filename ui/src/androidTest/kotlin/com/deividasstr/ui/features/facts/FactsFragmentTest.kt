@@ -63,7 +63,7 @@ class FactsFragmentTest : AndroidTest() {
     fun pressNextFactButton_newRandomFactDisplayed() {
         startFragmentWithFact()
 
-        given { randomFactUseCase.execute(DataTestData.TEST_FACTMODEL_1.id) } willAnswer  {
+        given { randomFactUseCase.execute(DataTestData.TEST_FACTMODEL_1.id) } willAnswer {
             Single.just(DataTestData.TEST_FACTMODEL_2.toFact())
         }
 

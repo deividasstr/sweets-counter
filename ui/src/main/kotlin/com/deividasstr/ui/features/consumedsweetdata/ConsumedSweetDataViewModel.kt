@@ -23,9 +23,11 @@ import javax.inject.Inject
 import kotlin.math.roundToLong
 
 class ConsumedSweetDataViewModel
-@Inject constructor(private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase,
+@Inject constructor(
+    private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase,
     private val getSweetsByIdsUseCase: GetSweetsByIdsUseCase,
-    private val dateTimeHandler: DateTimeHandler) :
+    private val dateTimeHandler: DateTimeHandler
+) :
     BaseViewModel() {
 
     companion object {
@@ -170,8 +172,10 @@ class ConsumedSweetDataViewModel
         recalculateDependants()
     }
 
-    private fun getConsumedInRange(dateRange: DateRange,
-        consumedSweets: List<ConsumedSweetUi>): List<ConsumedSweetUi> {
+    private fun getConsumedInRange(
+        dateRange: DateRange,
+        consumedSweets: List<ConsumedSweetUi>
+    ): List<ConsumedSweetUi> {
         return consumedSweets.filter {
             dateRange.contains(it.date)
         }
@@ -214,8 +218,10 @@ class ConsumedSweetDataViewModel
         return getCalsInTimeUnit(7, Periods.DAY)
     }
 
-    private fun getCalsInTimeUnit(timeUnitLength: Int,
-        range: Periods): LongArray {
+    private fun getCalsInTimeUnit(
+        timeUnitLength: Int,
+        range: Periods
+    ): LongArray {
         val calsPerWeekDay = LongArray(timeUnitLength)
         val dateRange = DateRange(range, dateTimeHandler, dateRange.startDate)
 

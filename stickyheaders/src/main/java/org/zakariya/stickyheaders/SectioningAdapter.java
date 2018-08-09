@@ -2,15 +2,17 @@ package org.zakariya.stickyheaders;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -55,8 +57,8 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	}
 
 	private ArrayList<Section> sections;
-	private HashMap<Integer, Boolean> collapsedSections = new HashMap<>();
-	private HashMap<Integer, SectionSelectionState> selectionStateBySection = new HashMap<>();
+	private SparseBooleanArray collapsedSections = new SparseBooleanArray();
+	private SparseArray<SectionSelectionState> selectionStateBySection = new SparseArray<>();
 	private int[] sectionIndicesByAdapterPosition;
 	private int totalNumberOfItems;
 	private Handler mainThreadHandler;
@@ -490,7 +492,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	 * @return true if that section is collapsed
 	 */
 	public boolean isSectionCollapsed(int sectionIndex) {
-		if (collapsedSections.containsKey(sectionIndex)) {
+		if (collapsedSections.get(sectionIndex)) {
 			return collapsedSections.get(sectionIndex);
 		}
 
@@ -516,13 +518,13 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	 */
 	public void clearSelection(boolean notify) {
 
-		HashMap<Integer, SectionSelectionState> selectionState = notify ? new HashMap<>(selectionStateBySection) : null;
-		selectionStateBySection = new HashMap<>();
+		SparseArray<SectionSelectionState> selectionState = notify ? selectionStateBySection.clone() : null;
+		selectionStateBySection = new SparseArray<>();
 
 		if (notify) {
 
 			// walk the selection state and update the items which were selected
-			for (int sectionIndex : selectionState.keySet()) {
+			for (int sectionIndex : getKeysFromSparse(selectionState)) {
 				SectionSelectionState state = selectionState.get(sectionIndex);
 
 				if (state.section) {
@@ -554,7 +556,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	 * @return true iff the selection state is empty
 	 */
 	public boolean isSelectionEmpty() {
-		for (int sectionIndex : selectionStateBySection.keySet()) {
+		for (int sectionIndex : getKeysFromSparse(selectionStateBySection)) {
 			SectionSelectionState state = selectionStateBySection.get(sectionIndex);
 
 			if (state.section) {
@@ -576,7 +578,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 
 	public int getSelectedItemCount() {
 		int count = 0;
-		for (int sectionIndex : selectionStateBySection.keySet()) {
+		for (int sectionIndex : getKeysFromSparse(selectionStateBySection)) {
 			SectionSelectionState state = selectionStateBySection.get(sectionIndex);
 
 			if (state.section) {
@@ -622,7 +624,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	public void traverseSelection(SelectionVisitor visitor) {
 
 		// walk the section indices backwards
-		List<Integer> sectionIndices = new ArrayList<>(selectionStateBySection.keySet());
+		List<Integer> sectionIndices = Arrays.asList(getKeysFromSparse(selectionStateBySection));
 		java.util.Collections.sort(sectionIndices, Collections.<Integer>reverseOrder());
 
 		for (int sectionIndex : sectionIndices) {
@@ -1144,10 +1146,10 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	private void updateCollapseAndSelectionStateForSectionChange(int sectionIndex, int delta) {
 
 		// update section collapse state
-		HashMap<Integer, Boolean> collapseState = new HashMap<>(collapsedSections);
+		SparseBooleanArray collapseState = collapsedSections.clone();
 		collapsedSections.clear();
 
-		for (int i : collapseState.keySet()) {
+		for (int i : getKeysFromSparse(collapseState)) {
 			// erasure
 			if (delta < 0 && i == sectionIndex) {
 				continue;
@@ -1162,10 +1164,10 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		}
 
 		// update selection state
-		HashMap<Integer, SectionSelectionState> selectionState = new HashMap<>(selectionStateBySection);
+		SparseArray<SectionSelectionState> selectionState = selectionStateBySection.clone();
 		selectionStateBySection.clear();
 
-		for (int i : selectionState.keySet()) {
+		for (int i : getKeysFromSparse(selectionState)) {
 			// erasure
 			if (delta < 0 && i == sectionIndex) {
 				continue;
@@ -1293,8 +1295,9 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		}
 	}
 
-	@Override
-	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	@NonNull
+    @Override
+	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 		int baseViewType = unmaskBaseViewType(viewType);
 		int userViewType = unmaskUserViewType(viewType);
@@ -1314,7 +1317,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, int adapterPosition) {
+	public void onBindViewHolder(@NonNull ViewHolder holder, int adapterPosition) {
 		int section = getSectionForAdapterPosition(adapterPosition);
 
 		// bind the sections to this view holder
@@ -1363,6 +1366,22 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	void tagViewHolderItemView(ViewHolder holder, int section, int adapterPosition) {
 		View view = holder.itemView;
 		view.setTag(R.id.sectioning_adapter_tag_key_view_viewholder, holder);
+	}
+
+	private Integer[] getKeysFromSparse(SparseArray sparseArray) {
+		Integer[] array = new Integer[sparseArray.size()];
+		for (int i = 0; i < sparseArray.size(); i++) {
+			array[i] = sparseArray.keyAt(i);
+		}
+		return array;
+	}
+
+	private Integer[] getKeysFromSparse(SparseBooleanArray sparseArray) {
+		Integer[] array = new Integer[sparseArray.size()];
+		for (int i = 0; i < sparseArray.size(); i++) {
+			array[i] = sparseArray.keyAt(i);
+		}
+		return array;
 	}
 
 }

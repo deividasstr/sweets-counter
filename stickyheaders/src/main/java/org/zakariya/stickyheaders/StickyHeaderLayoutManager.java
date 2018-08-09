@@ -4,12 +4,12 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.Nullable;
@@ -61,7 +61,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 	private HashSet<View> headerViews = new HashSet<>();
 
 	// holds the HeaderPosition for each header
-	private HashMap<Integer, HeaderPosition> headerPositionsBySection = new HashMap<>();
+	private SparseArray<HeaderPosition> headerPositionsBySection = new SparseArray<>();
 
 	private HeaderPositionChangedCallback headerPositionChangedCallback;
 
@@ -153,8 +153,6 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 		if (state instanceof SavedState) {
 			pendingSavedState = (SavedState) state;
 			requestLayout();
-		} else {
-			Log.e(TAG, "onRestoreInstanceState: invalid saved state class, expected: " + SavedState.class.getCanonicalName() + " got: " + state.getClass().getCanonicalName());
 		}
 	}
 
@@ -306,7 +304,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 			while (scrolled > dy) {
 
 				// get the topmost view
-				int hangingTop = Math.max(-getDecoratedTop(topView), 0);
+				int hangingTop = Math.max(-getDecoratedTop(Objects.requireNonNull(topView)), 0);
 				int scrollBy = Math.min(scrolled - dy, hangingTop); // scrollBy is positive, causing content to move downwards
 
 				scrolled -= scrollBy;
@@ -345,7 +343,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 					boolean isGhostHeader = itemViewType == SectioningAdapter.TYPE_GHOST_HEADER;
 					if (isGhostHeader) {
 						View header = createSectionHeaderIfNeeded(recycler, adapter.getSectionForAdapterPosition(firstViewAdapterPosition));
-						top = bottom - getDecoratedMeasuredHeight(header); // header is already measured
+						top = bottom - getDecoratedMeasuredHeight(Objects.requireNonNull(header)); // header is already measured
 					} else {
 						measureChildWithMargins(v, 0, 0);
 						top = bottom - getDecoratedMeasuredHeight(v);
@@ -385,7 +383,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 
 						// get the header and measure it so we can followup immediately by vending the ghost header
 						View headerView = createSectionHeaderIfNeeded(recycler, adapter.getSectionForAdapterPosition(nextAdapterPosition));
-						int height = getDecoratedMeasuredHeight(headerView);
+						int height = getDecoratedMeasuredHeight(Objects.requireNonNull(headerView));
 						layoutDecorated(headerView, left, 0, right, height);
 
 						// but we need to vend the followup ghost header too
@@ -399,7 +397,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 
 						// get the header and measure it so we can followup immediately by vending the ghost header
 						View headerView = createSectionHeaderIfNeeded(recycler, adapter.getSectionForAdapterPosition(nextAdapterPosition));
-						int height = getDecoratedMeasuredHeight(headerView);
+						int height = getDecoratedMeasuredHeight(Objects.requireNonNull(headerView));
 						layoutDecorated(headerView, left, 0, right, height);
 
 						// but we need to vend the followup ghost header too
@@ -470,7 +468,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 	 * @return the viewholder for the first visible header (not item or footer)
 	 */
 	@Nullable
-	public SectioningAdapter.HeaderViewHolder getFirstVisibleHeaderViewHolder(boolean fullyVisibleOnly) {
+	private SectioningAdapter.HeaderViewHolder getFirstVisibleHeaderViewHolder(boolean fullyVisibleOnly) {
 		return (SectioningAdapter.HeaderViewHolder) getFirstVisibleViewHolderOfType(SectioningAdapter.TYPE_HEADER, fullyVisibleOnly);
 	}
 
@@ -518,7 +516,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 			}
 
 			// filter out items which are partially or fully obscured by a header
-			int t = getDecoratedTop(v);
+			int t = getDecoratedTop(Objects.requireNonNull(v));
 			int b = getDecoratedBottom(v);
 
 			if (fullyVisibleOnly) {
@@ -599,7 +597,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 			}
 
 			if (getViewBaseType(view) != SectioningAdapter.TYPE_HEADER) {
-				if (getDecoratedBottom(view) < 0 || getDecoratedTop(view) > height) {
+				if (getDecoratedBottom(Objects.requireNonNull(view)) < 0 || getDecoratedTop(view) > height) {
 					viewsToRecycle.add(view);
 				} else {
 					// this view is visible, therefore the section lives
@@ -621,7 +619,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 
 			int sectionIndex = getViewSectionIndex(view);
 			if (getViewBaseType(view) == SectioningAdapter.TYPE_HEADER && !remainingSections.contains(sectionIndex)) {
-				float translationY = view.getTranslationY();
+				float translationY = Objects.requireNonNull(view).getTranslationY();
 				if ((getDecoratedBottom(view) + translationY) < 0 || (getDecoratedTop(view) + translationY) > height) {
 					viewsToRecycle.add(view);
 					headerViews.remove(view);
@@ -661,7 +659,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 				continue;
 			}
 
-			int t = getDecoratedTop(v);
+			int t = getDecoratedTop(Objects.requireNonNull(v));
 			if (t < top) {
 				top = t;
 				topmostView = v;
@@ -693,7 +691,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 				continue;
 			}
 
-			int b = getDecoratedBottom(v);
+			int b = getDecoratedBottom(Objects.requireNonNull(v));
 			if (b > bottom) {
 				bottom = b;
 				bottommostView = v;
@@ -816,7 +814,7 @@ public class StickyHeaderLayoutManager extends RecyclerView.LayoutManager {
 	}
 
 	private void recordHeaderPositionAndNotify(int sectionIndex, View headerView, HeaderPosition newHeaderPosition) {
-		if (headerPositionsBySection.containsKey(sectionIndex)) {
+		if (headerPositionsBySection.valueAt(sectionIndex) != null) {
 			HeaderPosition currentHeaderPosition = headerPositionsBySection.get(sectionIndex);
 			if (currentHeaderPosition != newHeaderPosition) {
 				headerPositionsBySection.put(sectionIndex, newHeaderPosition);

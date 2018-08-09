@@ -89,19 +89,19 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     val xAxis = view.xAxis
     with(xAxis) {
         position = XAxis.XAxisPosition.BOTTOM
-        //typeface = mTfLight
+        // typeface = mTfLight
         setDrawGridLines(false)
         granularity = 1f // only intervals of 1 day
-        //labelCount = 7
+        // labelCount = 7
         valueFormatter = xAxisFormatter
     }
 
     val yAxisFormatter = YAxisFormatter()
 
     val leftAxis = view.axisLeft
-    //leftAxis.setTypeface(mTfLight)
+    // leftAxis.setTypeface(mTfLight)
     with(leftAxis) {
-        //setLabelCount(8, false)
+        // setLabelCount(8, false)
         valueFormatter = yAxisFormatter
         setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
         spaceTop = 15f
@@ -111,8 +111,8 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     val rightAxis = view.axisRight
     with(rightAxis) {
         setDrawGridLines(false)
-        //setTypeface(mTfLight)
-        //setLabelCount(8, false)
+        // setTypeface(mTfLight)
+        // setLabelCount(8, false)
         valueFormatter = yAxisFormatter
         spaceTop = 15f
         axisMinimum = 0f // this replaces setStartAtZero(true)
@@ -127,8 +127,8 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     val barData = BarData(dataSets)
 
     with(barData) {
-        //barData.setValueTextSize(10f)
-        //barData.setValueTypeface(mTfLight)
+        // barData.setValueTextSize(10f)
+        // barData.setValueTypeface(mTfLight)
         barData.barWidth = 0.9f
     }
 
@@ -140,4 +140,3 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
 fun setChartListener(view: BarChart, listener: OnChartValueSelectedListener?) {
     view.setOnChartValueSelectedListener(listener)
 }
-

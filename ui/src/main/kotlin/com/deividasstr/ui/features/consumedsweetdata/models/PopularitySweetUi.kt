@@ -2,7 +2,7 @@ package com.deividasstr.ui.features.consumedsweetdata.models
 
 import com.deividasstr.ui.base.models.SweetUi
 
-data class PopularitySweetUi(val sweet: SweetUi, var consumedG: Int){
+data class PopularitySweetUi(val sweet: SweetUi, var consumedG: Int) {
 
     override fun equals(other: Any?): Boolean {
         return sweet == (other as PopularitySweetUi).sweet

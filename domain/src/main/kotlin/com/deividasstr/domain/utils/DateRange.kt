@@ -3,9 +3,11 @@ package com.deividasstr.domain.utils
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 
-class DateRange(val period: Periods,
+class DateRange(
+    val period: Periods,
     dateTimeHandler: DateTimeHandler,
-    customStartDate: LocalDate? = null) : ClosedRange<Long> {
+    customStartDate: LocalDate? = null
+) : ClosedRange<Long> {
 
     override var start: Long = 0
         get() = startDate.atStartOfDay().toEpochSecond(OffsetDateTime.now().offset)

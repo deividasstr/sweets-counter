@@ -29,9 +29,11 @@ class ConsumedSweetsHistoryAdapter(private val dateTimeHandler: DateTimeHandler)
         return HeaderViewHolder(v)
     }
 
-    override fun onBindHeaderViewHolder(viewHolder: SectioningAdapter.HeaderViewHolder,
+    override fun onBindHeaderViewHolder(
+        viewHolder: SectioningAdapter.HeaderViewHolder,
         index: Int,
-        headerType: Int) {
+        headerType: Int
+    ) {
         viewHolder.itemView.date_consumed_sweet.text = consumedSweetsByDate[index].first
     }
 
@@ -41,10 +43,12 @@ class ConsumedSweetsHistoryAdapter(private val dateTimeHandler: DateTimeHandler)
         return ItemViewHolder(v)
     }
 
-    override fun onBindItemViewHolder(viewHolder: SectioningAdapter.ItemViewHolder,
+    override fun onBindItemViewHolder(
+        viewHolder: SectioningAdapter.ItemViewHolder,
         sectionIndex: Int,
         itemIndex: Int,
-        itemType: Int) {
+        itemType: Int
+    ) {
 
         val consumedSweet = consumedSweetsByDate[sectionIndex].second[itemIndex]
         val sweet = sweets.find { it.id == consumedSweet.sweetId.toLong() }!!

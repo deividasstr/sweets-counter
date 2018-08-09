@@ -42,36 +42,30 @@ internal abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(AddConsumedSweetViewModel::class)
-    internal abstract fun bindsAddConsumedSweetViewModel(addConsumedSweetViewModel: AddConsumedSweetViewModel)
-        : ViewModel
+    internal abstract fun bindsAddConsumedSweetViewModel(addConsumedSweetViewModel: AddConsumedSweetViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ConsumedSweetHistoryViewModel::class)
-    internal abstract fun bindsConsumedSweetHistoryViewModel(consumedSweetHistoryViewModel: ConsumedSweetHistoryViewModel)
-        : ViewModel
+    internal abstract fun bindsConsumedSweetHistoryViewModel(consumedSweetHistoryViewModel: ConsumedSweetHistoryViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ConsumedSweetDataViewModel::class)
-    internal abstract fun bindsConsumedSweetDataViewModel(consumedSweetDataViewModel: ConsumedSweetDataViewModel)
-        : ViewModel
+    internal abstract fun bindsConsumedSweetDataViewModel(consumedSweetDataViewModel: ConsumedSweetDataViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SweetDetailsViewModel::class)
-    internal abstract fun bindsSweetDetailsViewModel(sweetDetailsViewModel: SweetDetailsViewModel)
-        : ViewModel
+    internal abstract fun bindsSweetDetailsViewModel(sweetDetailsViewModel: SweetDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SweetsSearchListViewModel::class)
-    internal abstract fun bindsSweetsSearchListViewModel(sweetsSearchListViewModel: SweetsSearchListViewModel)
-        : ViewModel
+    internal abstract fun bindsSweetsSearchListViewModel(sweetsSearchListViewModel: SweetsSearchListViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
-    internal abstract fun bindsSplashActivityViewModel(mainActivityViewModel: MainActivityViewModel)
-        : ViewModel
+    internal abstract fun bindsSplashActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
 }

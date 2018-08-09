@@ -7,11 +7,9 @@ class SweetDetailsViewModelTest {
 
     @Before
     fun setUp() {
-
     }
 
     @After
     fun tearDown() {
-
     }
 }

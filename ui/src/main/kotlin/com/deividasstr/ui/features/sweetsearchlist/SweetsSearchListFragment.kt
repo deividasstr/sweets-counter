@@ -42,7 +42,7 @@ class SweetsSearchListFragment :
     }
 
     private val queriedBefore: Boolean
-        get() =  !viewModel.query.isEmpty()
+        get() = !viewModel.query.isEmpty()
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
         adapter.submitList(sweets)

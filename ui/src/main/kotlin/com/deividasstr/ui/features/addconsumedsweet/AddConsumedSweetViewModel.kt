@@ -9,6 +9,4 @@ class AddConsumedSweetViewModel
 @Inject constructor(
     private val addConsumedSweetUseCase: AddConsumedSweetUseCase,
     private val searchSweetUseCase: SearchSweetUseCase
-) : BaseViewModel() {
-
-}
+) : BaseViewModel()

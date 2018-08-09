@@ -28,7 +28,7 @@ class FactRepoImpl(private val factsDb: FactsDao, private val factsService: Fact
             .flatMapCompletable { saveFacts(it) }
     }
 
-    private fun saveFacts(facts: List<FactDb>) : Completable {
+    private fun saveFacts(facts: List<FactDb>): Completable {
         return factsDb.addFacts(facts)
     }
 }

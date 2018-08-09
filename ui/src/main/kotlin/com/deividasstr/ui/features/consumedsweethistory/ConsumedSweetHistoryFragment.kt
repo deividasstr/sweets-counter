@@ -49,8 +49,7 @@ class ConsumedSweetHistoryFragment :
 
     private fun setElevationToHeader(layoutManager: StickyHeaderLayoutManager) {
         layoutManager.headerPositionChangedCallback = StickyHeaderLayoutManager
-            .HeaderPositionChangedCallback { _, header, _
-                , newPosition ->
+            .HeaderPositionChangedCallback { _, header, _, newPosition ->
                 val elevated = newPosition == StickyHeaderLayoutManager.HeaderPosition.STICKY
                 header.elevation = (if (elevated) 8 else 0).toFloat()
             }

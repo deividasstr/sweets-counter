@@ -51,7 +51,7 @@ open class AndroidTest {
 
             provides { mockServerRetrofit() }
             provides { tempStore() }
-            //provides { spy(ConsumedSweetHistoryViewModel(mock(), mock())) }
+            // provides { spy(ConsumedSweetHistoryViewModel(mock(), mock())) }
 
             set {
                 it.inject(app) // Without this line single tests pass, but multiple tests might not
