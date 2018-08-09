@@ -52,7 +52,6 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
         given { dateTimeHandler.currentLocalDate() } willReturn {
             TestData.LOCAL_DATE_TIME.toLocalDate()
         }
-        given { dateTimeHandler.currentEpochSecs() } willReturn { TestData.CURRENT_EPOCH_SECS }
         given { getAllConsumedSweetsUseCase.execute() } willReturn {
             Single.just(TestData.TEST_LIST_CONSUMED_SWEETS3)
         }

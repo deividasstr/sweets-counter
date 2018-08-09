@@ -39,17 +39,17 @@ class ConsumedSweetHistoryViewModel
             .subscribeOn(Schedulers.io())
             .map { it.toConsumedSweetUis() }
             .subscribeBy(onSuccess = { sweets ->
-                val ids = sweets.map { it.sweetId.toLong() }.toLongArray()
-                getSweets(ids)
-                consumedSweets.postValue(sweets)
+                if (sweets.isEmpty()) {
+                    setError(StringResException(R.string.error_no_consumed_sweets))
+                } else {
+                    val ids = sweets.map { it.sweetId.toLong() }.toLongArray()
+                    getSweets(ids)
+                    consumedSweets.postValue(sweets)
+                }
             },
                 onError = {
                     val ex = it as StringResException
-                    if (ex.messageStringRes == com.deividasstr.data.R.string.error_db_no_items) {
-                        setError(StringResException(R.string.error_no_consumed_sweets))
-                    } else {
-                        setError(ex)
-                    }
+                    setError(ex)
                 }
             )
         addDisposable(disposable)

@@ -3,6 +3,7 @@ package com.deividasstr.data.store.dbs
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.FactDb
+import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.common.assertResultValue
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -35,7 +36,7 @@ class FactsDbTest : AbstractObjectBoxTest() {
         db.getRandomFact(-1).subscribe(testSubscriber)
 
         testSubscriber.assertNotComplete()
-        testSubscriber.assertError(NullPointerException::class.java)
+        testSubscriber.assertError(StringResException::class.java)
     }
 
     @Test

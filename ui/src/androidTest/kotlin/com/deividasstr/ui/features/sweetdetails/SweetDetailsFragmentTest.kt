@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.store.models.toSweet
-import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.entities.ConsumedSweet
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
@@ -163,25 +162,6 @@ class SweetDetailsFragmentTest : AndroidTest() {
         R.id.measure_servings.click()
 
         R.id.total_cals_value.containsText("250")
-    }
-
-    @Test
-    fun enterValue_clickComplete_showsSavingError() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-
-        given { addConsumedSweetUseCase.execute(any()) } willReturn {
-            Completable.error(StringResException(R.string.error_db_no_items))
-        }
-
-        launchFragment()
-
-        R.id.consumed_sweet_amount.type("2")
-
-        R.id.consume_sweet_fab.click()
-
-        activityRule.showsToastWithText(R.string.error_db_no_items)
     }
 
     @Test

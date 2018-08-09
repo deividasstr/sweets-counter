@@ -28,11 +28,11 @@ class DataTestData {
         val TEST_TIMESTAMP = 1234567989L
 
         val TEST_CONSUMED_SWEETMODEL =
-            ConsumedSweetDb(1, 2, 100, DATETIME.toEpochSecond(ZoneOffset.UTC))
+            ConsumedSweetDb(0, 2, 100, DATETIME.toEpochSecond(ZoneOffset.UTC))
         val TEST_CONSUMED_SWEETMODEL2 =
-            ConsumedSweetDb(2, 3, 65, DATETIME.toEpochSecond(ZoneOffset.UTC))
+            ConsumedSweetDb(0, 3, 65, DATETIME.toEpochSecond(ZoneOffset.UTC))
         val TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW = ConsumedSweetDb(
-            3, 1, 100,
+            0, 1, 100,
             DATETIME.plusDays(2).toEpochSecond(ZoneOffset.UTC)
         )
 

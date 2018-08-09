@@ -84,17 +84,17 @@ class ConsumedSweetDataViewModel
             .subscribeOn(Schedulers.io())
             .map { it.toConsumedSweetUis() }
             .subscribeBy(onSuccess = { it ->
-                val ids = it.map { it.sweetId.toLong() }.toLongArray()
-                consumedSweets = it
-                getSweets(ids)
+                if (it.isEmpty()) {
+                    setError(StringResException(R.string.error_no_consumed_sweets))
+                } else {
+                    val ids = it.map { it.sweetId.toLong() }.toLongArray()
+                    consumedSweets = it
+                    getSweets(ids)
+                }
             },
                 onError = {
                     val ex = it as StringResException
-                    if (ex.messageStringRes == com.deividasstr.data.R.string.error_db_no_items) {
-                        setError(StringResException(R.string.error_no_consumed_sweets))
-                    } else {
-                        setError(ex)
-                    }
+                    setError(ex)
                 }
             )
         addDisposable(disposable)

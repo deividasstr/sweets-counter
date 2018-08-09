@@ -1,7 +1,5 @@
 package com.deividasstr.data.store.utils
 
-import com.deividasstr.data.R
-import com.deividasstr.data.utils.StringResException
 import io.objectbox.query.Query
 import io.objectbox.reactive.DataObserver
 import io.reactivex.BackpressureStrategy
@@ -49,11 +47,7 @@ object RxObjectBoxQuery {
         return Single.create { emitter ->
             query.subscribe().single().observer { data ->
                 if (!emitter.isDisposed) {
-                    if (data.isEmpty()) {
-                        emitter.onError(StringResException(R.string.error_db_no_items))
-                    } else {
-                        emitter.onSuccess(data)
-                    }
+                    emitter.onSuccess(data)
                 }
             }
         }

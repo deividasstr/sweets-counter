@@ -16,9 +16,10 @@ object StrictModePermitter {
     fun <T> permitDiskReads(func: () -> T): T {
         return if (BuildConfig.DEBUG) {
             val oldThreadPolicy = StrictMode.getThreadPolicy()
-            StrictMode.setThreadPolicy(
-                StrictMode.ThreadPolicy.Builder(oldThreadPolicy)
-                    .permitDiskReads().build())
+            if (StrictMode.ThreadPolicy.Builder(oldThreadPolicy).permitDiskReads() != null) { // Only to pass the tests
+                StrictMode.setThreadPolicy(
+                    StrictMode.ThreadPolicy.Builder(oldThreadPolicy).permitDiskReads().build())
+            }
             val anyValue = func()
             StrictMode.setThreadPolicy(oldThreadPolicy)
 

@@ -1,4 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+<!--
+    https://github.com/DmitryMalkovich/material-design-dimens
+-->
     <!-- Default colors and dimens per Material Design guidelines (Last update: May 2016 release) -->
     <!-- Style -->
     <!-- Typography -->

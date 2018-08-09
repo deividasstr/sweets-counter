@@ -3,7 +3,6 @@ package com.deividasstr.data.prefs
 import android.content.Context
 import android.content.SharedPreferences
 import com.deividasstr.data.utils.DebugOpenClass
-import com.deividasstr.data.utils.StrictModePermitter
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
 import com.deividasstr.domain.repositories.PrefsRepo
 import io.reactivex.Completable
@@ -20,7 +19,7 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
     }
 
     private val prefs: SharedPreferences by lazy {
-        StrictModePermitter.permitDiskReads {
+        permitDiskReads {
             ctx.getSharedPreferences(
                 PREFS_NAME,
                 Context.MODE_PRIVATE
@@ -40,7 +39,8 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
 
     override fun saveSweetsDownloadTime(): Completable {
         return Completable.fromAction {
-            sweetsUpdatedDate = System.currentTimeMillis() }
+            sweetsUpdatedDate = System.currentTimeMillis()
+        }
     }
 
     override fun saveFactsDownloadTime(): Completable {

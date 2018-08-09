@@ -21,7 +21,7 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
 
     @Test
     fun shouldAddSweet() {
-        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL).subscribe(testSubscriber)
+        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL2).subscribe(testSubscriber)
 
         testSubscriber.await()
         testSubscriber.assertComplete()
@@ -30,15 +30,14 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
     @Test
     fun shouldGetAllConsumedSweets() {
         db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL).blockingAwait()
-        db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL2).blockingAwait()
         db.addSweet(DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW).blockingAwait()
 
         db.getAllConsumedSweets().subscribe(testSubscriber)
 
-        testSubscriber.assertResultValue(listOf(
-            DataTestData.TEST_CONSUMED_SWEETMODEL,
-            DataTestData.TEST_CONSUMED_SWEETMODEL2,
-            DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW))
+        testSubscriber.assertResultValue(
+            listOf(
+                DataTestData.TEST_CONSUMED_SWEETMODEL,
+                DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW))
     }
 
     @Test
