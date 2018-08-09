@@ -6,8 +6,6 @@
 /build
 /captures
 /gradle.properties
-/data/objectbox-models/default.json.bak
-libobjectbox-linux-x64.so
 libs/
 /utils.gradle
 google-services.json
