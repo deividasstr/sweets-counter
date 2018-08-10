@@ -45,7 +45,7 @@ references:
   setup_emulator: &setup_emulator
     run:
       name: Setup emulator
-      command: sdkmanager "system-images;android-28;google_apis_playstore;x86_64" && echo "no" | avdmanager create avd -n test -k "system-images;android-28;google_apis_playstore;x86_64"
+      command: sdkmanager "system-images;android-25;google_apis;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-25;google_apis;armeabi-v7a"
 
   launch_emulator: &launch_emulator
     run:
@@ -81,15 +81,15 @@ jobs:
     <<: *android_config
     steps:
       - checkout
-      - *print_emulator_images
+      ## - *print_emulator_images
 
-      ##- *restore_gradle_cache
+      - *restore_gradle_cache
 
-      ## - *android_dependencies
-      ## - *save_gradle_cache
+      - *android_dependencies
+      - *save_gradle_cache
 
-      ## - *setup_emulator
-      ## - *launch_emulator
+      - *setup_emulator
+      - *launch_emulator
 
       - store_artifacts:
           path: app/build/reports
