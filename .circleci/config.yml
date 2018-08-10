@@ -16,6 +16,7 @@ references:
       - image: circleci/android:api-27-alpha
     environment:
       TERM: dumb
+      ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx3072m -XX:MaxMetaspaceSize=1536m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
 
@@ -50,6 +51,10 @@ jobs:
       - *restore_gradle_cache
 
       - run:
+          name: Print
+          command: sdkmanager --list --verbose | grep system-images
+
+      - run:
           name: Setup emulator
           command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
       - run:
@@ -64,17 +69,17 @@ jobs:
       ##    name: Pre-check
       ##    command: ./gradlew ktlint lint
 
-      - run:
-          name: Run Unit Tests
-          command: ./gradlew testDebugUnitTest
+      ##- run:
+      ##    name: Run Unit Tests
+      ##    command: ./gradlew testDebugUnitTest
 
       - run:
           name: Run Instrumented Tests
           command: ./gradlew connectedDebugAndroidTest
 
-      - store_artifacts:
-          path: app/build/reports
-          destination: reports
+      ##- store_artifacts:
+      ##    path: app/build/reports
+      ##    destination: reports
 
-      - store_test_results:
-          path: app/build/test-results
+      ##- store_test_results:
+      ##    path: app/build/test-results
