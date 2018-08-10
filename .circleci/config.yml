@@ -72,11 +72,6 @@ references:
       name: Run Unit Tests
       command: ./gradlew testDebugUnitTest
 
-  integration_tests_domain: &integration_tests_domain
-    run:
-      name: Run Instrumented Domain Tests
-      command: ./gradlew :domain:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
-
   integration_tests_data: &integration_tests_data
     run:
       name: Run Instrumented Data Tests
@@ -104,7 +99,6 @@ jobs:
 
       - *unit_test
 
-      - *integration_tests_domain
       - *integration_tests_data
       - *integration_tests_ui
 
