@@ -4,7 +4,6 @@ import com.deividasstr.data.R
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.FactDb_
-import com.deividasstr.data.store.utils.RxObjectBoxQuery
 import com.deividasstr.data.utils.StringResException
 import io.objectbox.Box
 import io.objectbox.query.LazyList
@@ -15,11 +14,6 @@ import javax.inject.Singleton
 
 @Singleton
 class FactsDb(val db: Box<FactDb>) : FactsDao {
-
-    override fun getLastUpdateTimeStamp(): Single<Long> {
-        val query = db.query().orderDesc(FactDb_.addedTimestamp).build()
-        return RxObjectBoxQuery.singleItem(query).map { it.addedTimestamp }
-    }
 
     override fun addFacts(facts: List<FactDb>): Completable {
         return Completable.fromAction {

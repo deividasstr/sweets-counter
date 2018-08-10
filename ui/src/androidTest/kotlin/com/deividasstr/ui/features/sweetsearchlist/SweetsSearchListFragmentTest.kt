@@ -16,7 +16,7 @@ import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragmentArgs
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.di.TestAppComponent
 import com.deividasstr.ui.utils.di.TestApplication
-import com.deividasstr.utils.DataTestData
+import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willReturn
 import it.cosenonjaviste.daggermock.DaggerMockRule
@@ -48,7 +48,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
 
         given { networkManager.networkAvailable } willReturn { false }
 
-        sweetsRepo.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+        sweetsRepo.addSweets(UiTestData.TEST_LIST_SWEETMODELS).blockingAwait()
 
         activityRule.launchActivity(null)
         activityRule.activity.findNavController(R.id.fragment_container)
@@ -66,7 +66,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     @Test
     fun lists2Items() {
         assertEquals(
-            DataTestData.TEST_LIST_SWEETMODELS.size,
+            UiTestData.TEST_LIST_SWEETMODELS.size,
             countRecyclerViewItems(R.id.sweets_list)
         )
     }
@@ -74,7 +74,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     @Test
     fun enterSweetName_filters1Val() {
         onView(withId(androidx.appcompat.R.id.search_src_text))
-            .perform(typeText(DataTestData.TEST_SWEETMODEL.name))
+            .perform(typeText(UiTestData.TEST_SWEETMODEL.name))
         assertEquals(1, countRecyclerViewItems(R.id.sweets_list))
     }
 
@@ -97,6 +97,6 @@ class SweetsSearchListFragmentTest : AndroidTest() {
             activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments
         val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweetId.toLong()
 
-        assertEquals(DataTestData.TEST_SWEETMODEL.id, sweetId)
+        assertEquals(UiTestData.TEST_SWEETMODEL.id, sweetId)
     }
 }

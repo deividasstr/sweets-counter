@@ -54,20 +54,4 @@ class FactRepoImplTest : UnitTest() {
         verify(factsDb, Mockito.times(1)).addFacts(DataTestData.TEST_FACT_LIST)
         verifyNoMoreInteractions(factsDb)
     }
-
-    @Test
-    fun shouldDownloadNewFactsAndSave() {
-        given { factsService.getNewFacts(any()) }.willReturn(Single.just(DataTestData.TEST_FACT_LIST))
-        given { factsDb.addFacts(any()) }.willReturn(Completable.complete())
-        given { factsDb.getLastUpdateTimeStamp() }.willReturn(Single.just(3))
-
-        factRepo.downloadNewFactsAndSave().subscribe(testSubscriber)
-
-        testSubscriber.assertComplete()
-
-        verify(factsDb, Mockito.times(1)).addFacts(DataTestData.TEST_FACT_LIST)
-        verify(factsDb, Mockito.times(1)).getLastUpdateTimeStamp()
-
-        verifyNoMoreInteractions(factsDb)
-    }
 }

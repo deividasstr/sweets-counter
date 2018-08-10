@@ -29,11 +29,13 @@ import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.hamcrest.TypeSafeMatcher
+import org.junit.Ignore
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
+@Ignore
 open class AndroidTest {
 
     private val networkModule = NetworkModule("https://hello.world.com/api/")
@@ -51,7 +53,6 @@ open class AndroidTest {
 
             provides { mockServerRetrofit() }
             provides { tempStore() }
-            // provides { spy(ConsumedSweetHistoryViewModel(mock(), mock())) }
 
             set {
                 it.inject(app) // Without this line single tests pass, but multiple tests might not

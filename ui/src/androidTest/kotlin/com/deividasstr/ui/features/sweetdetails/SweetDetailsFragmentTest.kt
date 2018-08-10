@@ -1,6 +1,7 @@
 package com.deividasstr.ui.features.sweetdetails
 
 import android.os.Bundle
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.store.models.toSweet
@@ -12,7 +13,7 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity
 import com.deividasstr.ui.utils.di.TestAppComponent
-import com.deividasstr.utils.DataTestData
+import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
@@ -36,6 +37,11 @@ class SweetDetailsFragmentTest : AndroidTest() {
     @get:Rule
     val activityRule = ActivityTestRule(TestActivity::class.java, true, false)
 
+    @get:Rule
+    val instantLiveData = InstantTaskExecutorRule()
+    @get:Rule
+    val instantRx = AsyncTaskSchedulerRule()
+
     @Mock
     lateinit var getSweetByIdUseCase: GetSweetByIdUseCase
 
@@ -45,34 +51,36 @@ class SweetDetailsFragmentTest : AndroidTest() {
     @Mock
     lateinit var dateTimeHandler: DateTimeHandler
 
-    private val fragment = TestSweetDetailsFragment().apply {
-        val args = Bundle()
-        args.putInt("sweetId", id)
-        arguments = args
-    }
-
     @Before
     fun setUp() {
+        given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL.id) } willReturn {
+            Single.just(UiTestData.TEST_SWEETMODEL.toSweet())
+        }
+
+        given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL2.id) } willReturn {
+            Single.just(UiTestData.TEST_SWEETMODEL2.toSweet())
+        }
+
+        given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL3.id) } willReturn {
+            Single.just(UiTestData.TEST_SWEETMODEL3.toSweet())
+        }
     }
 
     @Test
     fun correctArgs() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
+        val initId = 2
+        val fragment = fragment(initId)
 
-        launchFragment()
+        launchFragment(fragment)
 
         val sweetId = SweetDetailsFragmentArgs.fromBundle(fragment.arguments).sweetId
-        assertEquals(UiTestData.UI_SWEET1.id.toInt(), sweetId)
+        assertEquals(initId, sweetId)
     }
 
     @Test
     fun correctFieldsFromSweet() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET1.id.toInt())
+        launchFragment(fragment)
 
         val sweet = UiTestData.UI_SWEET1
 
@@ -95,33 +103,24 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
     @Test
     fun sweetRatingAverage_yellowColor() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL2.toSweet())
-        }
-
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET2.id.toInt())
+        launchFragment(fragment)
 
         R.id.rating_value.backgroundColor(R.color.rating_average)
     }
 
     @Test
     fun sweetRatingGood_greenColor() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL3.toSweet())
-        }
-
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET3.id.toInt())
+        launchFragment(fragment)
 
         R.id.rating_value.backgroundColor(R.color.rating_good)
     }
 
     @Test
     fun enterNoValue_displays0() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET1.id.toInt())
+        launchFragment(fragment)
 
         R.id.consumed_sweet_amount.type("")
 
@@ -130,11 +129,8 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
     @Test
     fun enterNoValue_pressComplete_showsError() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET1.id.toInt())
+        launchFragment(fragment)
 
         R.id.consumed_sweet_amount.type("")
 
@@ -145,11 +141,8 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
     @Test
     fun enterValue_showsCorrectCals() {
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET1.id.toInt())
+        launchFragment(fragment)
 
         R.id.consumed_sweet_amount.type("2")
 
@@ -168,32 +161,38 @@ class SweetDetailsFragmentTest : AndroidTest() {
     fun enterValue_clickComplete_savesConsumedSweetAndNavigates() {
         val dateTimeMillis: Long = 123456789
 
-        given { getSweetByIdUseCase.execute(any()) } willReturn {
-            Single.just(DataTestData.TEST_SWEETMODEL.toSweet())
-        }
-
         given { addConsumedSweetUseCase.execute(any()) } willReturn {
             Completable.complete()
         }
 
         given { dateTimeHandler.currentEpochSecs() } willReturn { dateTimeMillis }
 
-        launchFragment()
+        val fragment = fragment(UiTestData.UI_SWEET1.id.toInt())
+        launchFragment(fragment)
 
         R.id.consumed_sweet_amount.type("2")
 
         R.id.consume_sweet_fab.click()
 
         val consumedSweet = ConsumedSweet(
-            sweetId = DataTestData.TEST_SWEETMODEL.id,
-            g = 250,
+            sweetId = UiTestData.TEST_SWEETMODEL.id,
+            g = 50,
             date = dateTimeMillis)
 
         then(addConsumedSweetUseCase).should().execute(consumedSweet)
-        then(fragment.navController).should().navigate(R.id.action_data)
+        then(fragment.navController).should()
+            .navigate(R.id.action_sweetDetailsFragment_to_consumedSweetHistoryFragment)
     }
 
-    private fun launchFragment() {
+    private fun fragment(id: Int): TestSweetDetailsFragment {
+        return TestSweetDetailsFragment().apply {
+            val args = Bundle()
+            args.putInt("sweetId", id)
+            arguments = args
+        }
+    }
+
+    private fun launchFragment(fragment: SweetDetailsFragment) {
         activityRule.launchActivity(null)
         activityRule.activity.replaceFragment(fragment)
     }

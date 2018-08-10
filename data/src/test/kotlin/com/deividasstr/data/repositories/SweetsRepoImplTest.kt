@@ -84,7 +84,7 @@ class SweetsRepoImplTest : UnitTest() {
 
     @Test
     fun shouldAddNewSweet() {
-        given { sweetsDb.addSweet(DataTestData.TEST_SWEETMODEL_ADDED_BY_USER) }.willReturn(Completable.complete())
+        given { sweetsDb.addSweet(DataTestData.TEST_SWEETMODEL) }.willReturn(Completable.complete())
         sweetsRepo.newSweet(TestData.TEST_SWEET).subscribe(testSubscriber)
 
         testSubscriber.await()

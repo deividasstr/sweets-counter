@@ -7,7 +7,6 @@ import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.domain.utils.Periods
-import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.SweetUi
@@ -84,13 +83,9 @@ class ConsumedSweetDataViewModel
             .subscribeOn(Schedulers.io())
             .map { it.toConsumedSweetUis() }
             .subscribeBy(onSuccess = { it ->
-                if (it.isEmpty()) {
-                    setError(StringResException(R.string.error_no_consumed_sweets))
-                } else {
-                    val ids = it.map { it.sweetId.toLong() }.toLongArray()
-                    consumedSweets = it
-                    getSweets(ids)
-                }
+                val ids = it.map { it.sweetId.toLong() }.toLongArray()
+                consumedSweets = it
+                getSweets(ids)
             },
                 onError = {
                     val ex = it as StringResException

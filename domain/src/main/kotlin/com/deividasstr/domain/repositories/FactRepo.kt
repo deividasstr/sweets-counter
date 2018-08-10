@@ -9,6 +9,4 @@ interface FactRepo {
     fun getRandomFact(currentFactId: Long): Single<Fact>
 
     fun downloadAllFactsAndSave(): Completable
-
-    fun downloadNewFactsAndSave(): Completable
 }

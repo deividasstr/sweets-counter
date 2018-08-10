@@ -32,7 +32,7 @@ class SweetDetailsViewModel
         }
     }
 
-    var measureUnitServing = true
+    private var measureUnitServing = true
 
     val enteredValue = MutableLiveData<String>().apply {
         value = "0"

@@ -47,13 +47,4 @@ class FactsDbTest : AbstractObjectBoxTest() {
 
         testSubscriber.assertResultValue(DataTestData.TEST_FACTMODEL_1)
     }
-
-    @Test
-    fun shouldGetLastUpdateTimeStamp() {
-        db.addFacts(DataTestData.TEST_FACT_LIST).blockingAwait()
-
-        db.getLastUpdateTimeStamp().subscribe(testSubscriber)
-
-        testSubscriber.assertResultValue(DataTestData.TEST_FACTMODEL_2.addedTimestamp)
-    }
 }

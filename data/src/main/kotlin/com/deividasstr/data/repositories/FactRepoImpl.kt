@@ -22,12 +22,6 @@ class FactRepoImpl(private val factsDb: FactsDao, private val factsService: Fact
         return factsService.getAllFacts().flatMapCompletable { saveFacts(it) }
     }
 
-    override fun downloadNewFactsAndSave(): Completable {
-        return factsDb.getLastUpdateTimeStamp()
-            .flatMap { factsService.getNewFacts(it) }
-            .flatMapCompletable { saveFacts(it) }
-    }
-
     private fun saveFacts(facts: List<FactDb>): Completable {
         return factsDb.addFacts(facts)
     }

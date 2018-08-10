@@ -5,7 +5,6 @@ import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
-import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.framework.combineAndCompute
 import com.deividasstr.ui.base.models.ConsumedSweetUi
@@ -39,13 +38,9 @@ class ConsumedSweetHistoryViewModel
             .subscribeOn(Schedulers.io())
             .map { it.toConsumedSweetUis() }
             .subscribeBy(onSuccess = { sweets ->
-                if (sweets.isEmpty()) {
-                    setError(StringResException(R.string.error_no_consumed_sweets))
-                } else {
-                    val ids = sweets.map { it.sweetId.toLong() }.toLongArray()
-                    getSweets(ids)
-                    consumedSweets.postValue(sweets)
-                }
+                val ids = sweets.map { it.sweetId.toLong() }.toLongArray()
+                getSweets(ids)
+                consumedSweets.postValue(sweets)
             },
                 onError = {
                     val ex = it as StringResException

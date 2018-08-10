@@ -9,6 +9,4 @@ interface FactsDao {
     fun addFacts(facts: List<FactDb>): Completable
 
     fun getRandomFact(currentFactId: Long): Single<FactDb>
-
-    fun getLastUpdateTimeStamp(): Single<Long>
 }

@@ -12,7 +12,7 @@ import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity
-import com.deividasstr.utils.DataTestData
+import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willAnswer
 import io.reactivex.Single
@@ -55,7 +55,7 @@ class FactsFragmentTest : AndroidTest() {
     fun onStart_factDisplayed() {
         startFragmentWithFact()
 
-        val factText = DataTestData.TEST_FACTMODEL_1.toFact().text
+        val factText = UiTestData.TEST_FACTMODEL_1.toFact().text
         onView(ViewMatchers.withId(R.id.fact)).check(matches(withText(factText)))
     }
 
@@ -63,11 +63,11 @@ class FactsFragmentTest : AndroidTest() {
     fun pressNextFactButton_newRandomFactDisplayed() {
         startFragmentWithFact()
 
-        given { randomFactUseCase.execute(DataTestData.TEST_FACTMODEL_1.id) } willAnswer {
-            Single.just(DataTestData.TEST_FACTMODEL_2.toFact())
+        given { randomFactUseCase.execute(UiTestData.TEST_FACTMODEL_1.id) } willAnswer {
+            Single.just(UiTestData.TEST_FACTMODEL_2.toFact())
         }
 
-        val factText = DataTestData.TEST_FACTMODEL_2.text
+        val factText = UiTestData.TEST_FACTMODEL_2.text
 
         onView(ViewMatchers.withId(R.id.next_fact_fab)).perform(ViewActions.click())
         onView(ViewMatchers.withId(R.id.fact)).check(matches(withText(factText)))
@@ -75,7 +75,7 @@ class FactsFragmentTest : AndroidTest() {
 
     private fun startFragmentWithFact() {
         given { randomFactUseCase.execute(0) } willAnswer {
-            Single.just(DataTestData.TEST_FACTMODEL_1.toFact())
+            Single.just(UiTestData.TEST_FACTMODEL_1.toFact())
         }
 
         activityRule.launchActivity(null)
