@@ -18,7 +18,6 @@ references:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx3072m -XX:MaxMetaspaceSize=1536m"
-      ## GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
 
   ## Cache
@@ -82,14 +81,15 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      - *print_emulator_images
 
-      - *restore_gradle_cache
+      ##- *restore_gradle_cache
 
-      - *android_dependencies
-      - *save_gradle_cache
+      ## - *android_dependencies
+      ## - *save_gradle_cache
 
-      - *setup_emulator
-      - *launch_emulator
+      ## - *setup_emulator
+      ## - *launch_emulator
 
       - store_artifacts:
           path: app/build/reports
