@@ -97,9 +97,9 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
 
-      ## - *unit_test
+      - *unit_test
 
-      ## - *integration_tests_data
+      - *integration_tests_data
 
       - run:
           name: Run assemble
