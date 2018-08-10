@@ -75,7 +75,7 @@ references:
   integration_tests: &integration_tests
     run:
       name: Run Instrumented Tests
-      command: ./gradlew :ui:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
+      command: ./gradlew :data:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
 
 jobs:
   build:
