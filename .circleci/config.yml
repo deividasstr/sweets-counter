@@ -85,11 +85,13 @@ jobs:
 
       - *restore_gradle_cache
 
+      - *setup_emulator
+      - *launch_emulator
+
       - *android_dependencies
       - *save_gradle_cache
 
-      - *setup_emulator
-      - *launch_emulator
+      - *integration_tests
 
       - store_artifacts:
           path: app/build/reports
