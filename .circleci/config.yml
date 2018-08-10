@@ -13,7 +13,7 @@ references:
   android_config: &android_config
     working_directory: *workspace
     docker:
-      - image: circleci/android:api-27-alpha
+      - image: circleci/android:api-28-alpha
     environment:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
