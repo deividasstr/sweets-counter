@@ -18,7 +18,8 @@ references:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx3072m -XX:MaxMetaspaceSize=1536m"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+      ## GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
 
   ## Cache
   gradle_key: &gradle_key
@@ -50,13 +51,13 @@ jobs:
 
       - *restore_gradle_cache
 
-      - run:
-          name: Print
-          command: sdkmanager --list --verbose | grep system-images
+      ##- run:
+      ##    name: Print available emulator images
+      ##    command: sdkmanager --list --verbose | grep system-images
 
       - run:
           name: Setup emulator
-          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+          command: sdkmanager "system-images;android-28;google_apis_playstore;x86_64" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
       - run:
           name: Launch emulator
           command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
