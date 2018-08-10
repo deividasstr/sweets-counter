@@ -72,10 +72,20 @@ references:
       name: Run Unit Tests
       command: ./gradlew testDebugUnitTest
 
-  integration_tests: &integration_tests
+  integration_tests_domain: &integration_tests_domain
     run:
-      name: Run Instrumented Tests
+      name: Run Instrumented Domain Tests
+      command: ./gradlew :domain:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
+
+  integration_tests_data: &integration_tests_data
+    run:
+      name: Run Instrumented Data Tests
       command: ./gradlew :data:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
+
+  integration_tests_ui: &integration_tests_ui
+    run:
+      name: Run Instrumented Ui Tests
+      command: ./gradlew :ui:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
 
 jobs:
   build:
@@ -92,7 +102,11 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
 
-      - *integration_tests
+      - *unit_test
+
+      - *integration_tests_domain
+      - *integration_tests_data
+      - *integration_tests_ui
 
       - store_artifacts:
           path: app/build/reports
