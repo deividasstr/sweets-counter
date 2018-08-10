@@ -17,6 +17,7 @@ references:
     environment:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
+      JVM_OPTS: '-Xmx4G'
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx3072m -XX:MaxMetaspaceSize=1536m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
 
@@ -74,7 +75,7 @@ references:
   integration_tests: &integration_tests
     run:
       name: Run Instrumented Tests
-      command: ./gradlew connectedDebugAndroidTest
+      command: ./gradlew connectedDebugAndroidTest --no-daemon --stacktrace
 
 jobs:
   build:
@@ -85,8 +86,8 @@ jobs:
 
       - *restore_gradle_cache
 
-      - *setup_emulator
-      - *launch_emulator
+      ##- *setup_emulator
+      ##- *launch_emulator
 
       - *android_dependencies
       - *save_gradle_cache
