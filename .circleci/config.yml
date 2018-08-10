@@ -61,7 +61,7 @@ references:
       command: sdkmanager --list --verbose | grep system-images
 
   ## Checks
-  check: $check
+  checka: &check
     run:
       name: Pre-check
       command: ./gradlew ktlint lint
