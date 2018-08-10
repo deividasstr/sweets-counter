@@ -42,6 +42,40 @@ references:
       name: Download Android Dependencies
       command: ./gradlew androidDependencies
 
+  ## Emulator
+  setup_emulator: &setup_emulator
+    run:
+      name: Setup emulator
+      command: sdkmanager "system-images;android-28;google_apis_playstore;x86_64" && echo "no" | avdmanager create avd -n test -k "system-images;android-28;google_apis_playstore;x86_64"
+
+  launch_emulator: &launch_emulator
+    run:
+      name: Launch emulator
+      command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+      background: true
+
+  ## Prints
+  print_emulator_images: &print_emulator_images
+    run:
+      name: Print available emulator images
+      command: sdkmanager --list --verbose | grep system-images
+
+  ## Checks
+  check: $check
+    run:
+      name: Pre-check
+      command: ./gradlew ktlint lint
+
+  ## Tests
+  unit_test: &unit_test
+    run:
+      name: Run Unit Tests
+      command: ./gradlew testDebugUnitTest
+
+  integration_tests: &integration_tests
+    run:
+      name: Run Instrumented Tests
+      command: ./gradlew connectedDebugAndroidTest
 
 jobs:
   build:
@@ -51,36 +85,15 @@ jobs:
 
       - *restore_gradle_cache
 
-      ##- run:
-      ##    name: Print available emulator images
-      ##    command: sdkmanager --list --verbose | grep system-images
-
-      - run:
-          name: Setup emulator
-          command: sdkmanager "system-images;android-28;google_apis_playstore;x86_64" && echo "no" | avdmanager create avd -n test -k "system-images;android-28;google_apis_playstore;x86_64"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-          background: true
-
       - *android_dependencies
       - *save_gradle_cache
 
-      ##- run:
-      ##    name: Pre-check
-      ##    command: ./gradlew ktlint lint
+      - *setup_emulator
+      - *launch_emulator
 
-      ##- run:
-      ##    name: Run Unit Tests
-      ##    command: ./gradlew testDebugUnitTest
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
 
-      - run:
-          name: Run Instrumented Tests
-          command: ./gradlew connectedDebugAndroidTest
-
-      ##- store_artifacts:
-      ##    path: app/build/reports
-      ##    destination: reports
-
-      ##- store_test_results:
-      ##    path: app/build/test-results
+      - store_test_results:
+          path: app/build/test-results
