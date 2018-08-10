@@ -18,7 +18,7 @@ references:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       ##JVM_OPTS: -Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
-      _JAVA_OPTIONS: "-Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
+      _JAVA_OPTIONS: "-Xmx2048m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
       ##GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m" -Dorg.gradle.daemon=false -Dkotlin.incremental=false -DdisablePreDex'
 
   ## Cache
@@ -75,7 +75,7 @@ references:
   integration_tests: &integration_tests
     run:
       name: Run Instrumented Tests
-      command: ./gradlew --stacktrace :ui:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
+      command: ./gradlew connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
 
 jobs:
   build:
