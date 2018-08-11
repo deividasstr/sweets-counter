@@ -16,8 +16,6 @@ references:
       - image: circleci/android:api-28-alpha
     environment:
       TERM: dumb
-      ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
-      ##JVM_OPTS: -Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
       _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx1g -Xms1g"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1g" -Dorg.gradle.daemon=false -Dkotlin.incremental=false -DdisablePreDex'
 
@@ -97,15 +95,15 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
 
-      ##- *unit_test
+      - *unit_test
 
-      ##- *integration_tests_data
+      - *integration_tests_data
 
-      - run:
-          name: Run assemble
-          command: ./gradlew :ui:assembleAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2
+      ##- run:
+      ##    name: Run assemble
+      ##    command: ./gradlew :ui:assembleAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2
 
-      - *integration_tests_ui
+      ##- *integration_tests_ui
 
       - store_artifacts:
           path: app/build/reports
