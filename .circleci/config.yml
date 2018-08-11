@@ -18,8 +18,8 @@ references:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       ##JVM_OPTS: -Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
-      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx512m -Xms512m"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m" -Dorg.gradle.daemon=false -Dkotlin.incremental=false -DdisablePreDex'
+      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx1g -Xms1g"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1g" -Dorg.gradle.daemon=false -Dkotlin.incremental=false -DdisablePreDex'
 
   ## Cache
   gradle_key: &gradle_key

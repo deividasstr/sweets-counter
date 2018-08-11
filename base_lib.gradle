@@ -36,7 +36,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
         unitTests.all {
-            jvmArgs '-Xmx512m'
+            jvmArgs '-Xmx1g'
         }
     }
 }
