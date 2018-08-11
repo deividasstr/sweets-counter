@@ -18,7 +18,7 @@ references:
       TERM: dumb
       ##_JAVA_OPTIONS: '-Xms512m -Xmx3072m'
       ##JVM_OPTS: -Xmx1024m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2
-      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx512m -Xms512m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m" -Dorg.gradle.daemon=false -Dkotlin.incremental=false -DdisablePreDex'
 
   ## Cache
@@ -97,9 +97,9 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
 
-      - *unit_test
+      ##- *unit_test
 
-      - *integration_tests_data
+      ##- *integration_tests_data
 
       - run:
           name: Run assemble
