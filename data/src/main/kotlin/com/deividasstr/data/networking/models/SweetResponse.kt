@@ -8,10 +8,9 @@ data class ResponseSweet(
     val id: Long,
     val name: String,
     val kcal_100: Double,
-    val serving_grams: Double,
     val fat_100: Double,
     val carbohydrate_100: Double,
-    var sugar_100: Double = 5.3,
+    var sugar_100: Double,
     val protein_100: Double
 )
 

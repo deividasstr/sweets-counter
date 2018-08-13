@@ -34,31 +34,12 @@
             tools:text="450" />
 
         <TextView
-            android:id="@+id/serving_size_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_serving_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cals_per_100_title"
-            tools:text="Serving size :" />
-
-        <TextView
-            android:id="@+id/serving_size_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{String.valueOf(Double.valueOf(viewmodel.sweet.servingG).intValue())}"
-            app:layout_constraintStart_toEndOf="@id/serving_size_title"
-            app:layout_constraintTop_toTopOf="@id/serving_size_title"
-            tools:text="80" />
-
-        <TextView
             android:id="@+id/rating_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_nutritional_rating"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/serving_size_title"
+            app:layout_constraintTop_toBottomOf="@id/cals_per_100_title"
             tools:text="Rating :" />
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -8,7 +8,7 @@ import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler
-import com.deividasstr.domain.utils.Periods
+import com.deividasstr.domain.enums.Periods
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.sweetdetails.SweetRating

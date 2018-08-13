@@ -3,9 +3,9 @@ package com.deividasstr.domain.common
 import com.deividasstr.domain.entities.ConsumedSweet
 import com.deividasstr.domain.entities.Fact
 import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.enums.Periods
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler
-import com.deividasstr.domain.utils.Periods
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.OffsetDateTime
 
@@ -39,9 +39,9 @@ class TestData {
             90,
             LocalDateTime.of(2017, 8, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset))
 
-        val TEST_SWEET = Sweet(2, "Choco", 500.0, 25.0, 50.0, 12.0, 8.0, 12.0)
-        val TEST_SWEET2 = Sweet(3, "Milka", 350.0, 25.0, 50.0, 12.0, 8.0, 12.0)
-        val TEST_SWEET3 = Sweet(8, "Raisins", 150.0, 25.0, 50.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET = Sweet(2, "Choco", 500.0, 25.0,12.0, 8.0, 12.0)
+        val TEST_SWEET2 = Sweet(3, "Milka", 350.0, 25.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET3 = Sweet(8, "Raisins", 150.0, 25.0, 12.0, 8.0, 12.0)
 
         val TEST_TOTAL_CALS = 3000
 

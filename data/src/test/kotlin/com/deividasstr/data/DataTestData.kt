@@ -44,12 +44,12 @@ class DataTestData {
         val TEST_LIST_SWEETMODELS = listOf(TEST_SWEETMODEL, TEST_SWEETMODEL2)
 
         val TEST_RESPONSE_SWEET1 = ResponseSweet(
-            sweet1.id, sweet1.name, sweet1.calsPer100, sweet1.servingG, sweet1.fatG, sweet1.carbsG,
+            sweet1.id, sweet1.name, sweet1.calsPer100, sweet1.fatG, sweet1.carbsG,
             sweet1.sugarG, sweet1.proteinG
         )
 
         val TEST_RESPONSE_SWEET2 = ResponseSweet(
-            sweet2.id, sweet2.name, sweet2.calsPer100, sweet2.servingG, sweet2.fatG, sweet2.carbsG,
+            sweet2.id, sweet2.name, sweet2.calsPer100, sweet2.fatG, sweet2.carbsG,
             sweet2.sugarG, sweet2.proteinG
         )
 

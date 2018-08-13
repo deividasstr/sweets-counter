@@ -1,6 +1,7 @@
 package com.deividasstr.domain.utils
 
 import com.deividasstr.domain.common.UnitTest
+import com.deividasstr.domain.enums.Periods
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willReturn
 import org.junit.Assert.assertEquals

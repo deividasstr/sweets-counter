@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.deividasstr.domain.enums.MeasurementUnit" />
 
         <variable
             name="viewmodel"
@@ -28,8 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
-                android:text="@={viewmodel.enteredValue}"
-                android:inputType="number" />
+                android:inputType="number"
+                android:text="@={viewmodel.enteredValue}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,24 +39,24 @@
             android:id="@+id/measure_unit_selection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@id/measure_servings"
-            android:orientation="horizontal"
+            android:checkedButton="@{viewmodel.measureUnitGrams() ? @id/measure_grams : @id/measure_ounces}"
             android:onCheckedChanged="@{() -> viewmodel.toggleMeasureUnit()}"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
-                android:id="@+id/measure_servings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_servings" />
-
-            <RadioButton
-                android:id="@+id/measure_units"
+                android:id="@+id/measure_grams"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_grams" />
+
+            <RadioButton
+                android:id="@+id/measure_ounces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_ounces" />
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,11 @@ package com.deividasstr.ui.features.sweetdetails
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.entities.ConsumedSweet
+import com.deividasstr.domain.enums.MeasurementUnit
+import com.deividasstr.domain.enums.toggle
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
@@ -21,7 +24,8 @@ class SweetDetailsViewModel
 @Inject constructor(
     private val getSweetByIdUseCase: GetSweetByIdUseCase,
     private val addConsumedSweetUseCase: AddConsumedSweetUseCase,
-    private val dateTimeHandler: DateTimeHandler
+    private val dateTimeHandler: DateTimeHandler,
+    private val sharedPrefs: SharedPrefs
 ) : BaseViewModel() {
 
     val sweet = MutableLiveData<SweetUi>()
@@ -32,7 +36,15 @@ class SweetDetailsViewModel
         }
     }
 
-    private var measureUnitServing = true
+    private var measureUnit = defaultMeasureUnit()
+
+    private fun defaultMeasureUnit(): MeasurementUnit {
+        return sharedPrefs.defaultMeasurementUnit
+    }
+
+    fun measureUnitGrams(): Boolean {
+        return measureUnit == MeasurementUnit.GRAM
+    }
 
     val enteredValue = MutableLiveData<String>().apply {
         value = "0"
@@ -68,15 +80,11 @@ class SweetDetailsViewModel
     }
 
     private fun getConsumedSweet(): ConsumedSweet {
-        val units: Int = if (measureUnitServing) {
-            (enteredValue.value!!.toInt() * sweet.value!!.servingG).roundToInt()
-        } else {
-            enteredValue.value!!.toInt()
-        }
+        val amount = (enteredValue.value!!.toDouble() * measureUnit.ratioWithGrams).roundToInt()
 
         return ConsumedSweet(
             sweetId = sweet.value!!.id,
-            g = units,
+            g = amount,
             date = dateTimeHandler.currentEpochSecs())
     }
 
@@ -85,7 +93,8 @@ class SweetDetailsViewModel
     }
 
     fun toggleMeasureUnit() {
-        measureUnitServing = !measureUnitServing
+        measureUnit = measureUnit.toggle()
+        sharedPrefs.defaultMeasurementUnit = measureUnit
         totalCals.value = getTotalCals()
     }
 
@@ -117,12 +126,9 @@ class SweetDetailsViewModel
             return BigDecimal.ZERO
         }
         val enteredValue = enteredValue.value!!.toBigDecimal()
-        return when {
-            measureUnitServing -> enteredValue
-                .multiply(BigDecimal(sweet.calsPer100))
-                .multiply(BigDecimal(sweet.servingG))
-                .divide(BigDecimal(100))
-            else -> enteredValue.multiply(BigDecimal(sweet.calsPer100)).divide(BigDecimal(100))
-        }
+        return enteredValue
+            .multiply(BigDecimal(measureUnit.ratioWithGrams))
+            .multiply(BigDecimal(sweet.calsPer100))
+            .divide(BigDecimal(100))
     }
 }

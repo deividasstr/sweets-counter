@@ -95,9 +95,9 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
 
-      - *unit_test
+      - *check
 
-      - *integration_tests_data
+      - *unit_test
 
       ##- run:
       ##    name: Run assemble
@@ -106,8 +106,8 @@ jobs:
       ##- *integration_tests_ui
 
       - store_artifacts:
-          path: app/build/reports
+          path: ui/build/reports
           destination: reports
 
       - store_test_results:
-          path: app/build/test-results
+          path: ui/build/test-results

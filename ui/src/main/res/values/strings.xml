@@ -12,10 +12,9 @@
     <string name="add_sweet_title">Add sweet</string>
     <string name="nutrition_info_title">Nutrition info</string>
     <string name="enter_the_amount_title">Enter the amount</string>
-    <string name="title_servings">Servings</string>
+    <string name="title_ounces">Ounces</string>
     <string name="title_grams">Grams</string>
     <string name="title_cals_per_100">Cals per 100:</string>
-    <string name="title_serving_size">Serving size:</string>
     <string name="title_nutritional_rating">Nutritional rating:</string>
     <string name="title_protein">Protein:</string>
     <string name="title_fat">Fat:</string>
@@ -26,7 +25,7 @@
     <string name="consumed_data_title_spinner">Period:</string>
     <string name="consumed_data_title_sweets_popularity">Sweets\' popularity</string>
     <string name="consumed_data_title_sweets_rating_title">Sweets\' rating average</string>
-    <string name="consumed_data_weight_gained">Weight gained:%d grams</string>
+    <string name="consumed_data_weight_gained">Weight gained:%d %s</string>
     <string name="image_description_arrow_previous">Arrow previous</string>
     <string name="image_description_arrow_next">Arrow next</string>
     <string name="week">Week</string>

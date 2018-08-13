@@ -1,6 +1,7 @@
 package com.deividasstr.domain.utils
 
 import com.deividasstr.domain.common.UnitTest
+import com.deividasstr.domain.enums.Periods
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.threeten.bp.LocalDate

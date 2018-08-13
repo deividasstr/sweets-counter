@@ -88,8 +88,6 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.cals_per_100_value.containsText(sweet.calsPer100.toInt().toString())
 
-        R.id.serving_size_value.containsText(sweet.servingG.toInt().toString())
-
         R.id.rating_value.backgroundColor(R.color.rating_bad)
 
         R.id.protein_value.containsText(sweet.proteinG.toInt().toString())
@@ -146,15 +144,15 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.consumed_sweet_amount.type("2")
 
-        R.id.total_cals_value.containsText("250")
-
-        R.id.measure_units.click()
-
         R.id.total_cals_value.containsText("10")
 
-        R.id.measure_servings.click()
+        R.id.measure_ounces.click()
 
-        R.id.total_cals_value.containsText("250")
+        R.id.total_cals_value.containsText("283.5")
+
+        R.id.measure_grams.click()
+
+        R.id.total_cals_value.containsText("10")
     }
 
     @Test
