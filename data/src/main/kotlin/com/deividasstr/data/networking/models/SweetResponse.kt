@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 data class ResponseSweet(
     val id: Long,
     val name: String,
-    val kcal_100: Double,
+    val kcal_100: Long,
     val fat_100: Double,
     val carbohydrate_100: Double,
     var sugar_100: Double,

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.SweetUi
 import kotlinx.android.synthetic.main.sweet_list_item.view.*
-import kotlin.math.roundToInt
 
 class SweetsSearchAdapter :
     PagedListAdapter<SweetUi, SweetsSearchAdapter.SweetViewHolder>(DIFF_CALLBACK) {
@@ -36,7 +35,7 @@ class SweetsSearchAdapter :
             with(itemView) {
                 candy_name.text = sweet.name
                 candy_cals.text =
-                    context.getString(R.string.cals_per_100g, sweet.calsPer100.roundToInt())
+                    context.getString(R.string.cals_per_100g, sweet.calsPer100)
                 setOnClickListener { clickListener(sweet.id) }
             }
         }

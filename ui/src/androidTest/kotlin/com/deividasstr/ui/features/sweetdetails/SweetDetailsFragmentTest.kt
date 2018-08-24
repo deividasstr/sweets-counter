@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.domain.entities.ConsumedSweet
+import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
@@ -51,8 +53,15 @@ class SweetDetailsFragmentTest : AndroidTest() {
     @Mock
     lateinit var dateTimeHandler: DateTimeHandler
 
+    @Mock
+    lateinit var sharedPrefs: SharedPrefs
+
     @Before
     fun setUp() {
+        given { sharedPrefs.defaultMeasurementUnit } willReturn {
+            MeasurementUnit.GRAM
+        }
+
         given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL.id) } willReturn {
             Single.just(UiTestData.TEST_SWEETMODEL.toSweet())
         }
@@ -86,15 +95,15 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.sweet_name.containsText(sweet.name)
 
-        R.id.cals_per_100_value.containsText(sweet.calsPer100.toInt().toString())
+        R.id.cals_per_100.containsText(sweet.calsPer100.toInt().toString())
 
-        R.id.rating_value.backgroundColor(R.color.rating_bad)
+        R.id.rating.backgroundColor(R.color.rating_bad)
 
-        R.id.protein_value.containsText(sweet.proteinG.toInt().toString())
+        R.id.protein.containsText(sweet.proteinG.toInt().toString())
 
-        R.id.fat_value.containsText(sweet.fatG.toInt().toString())
+        R.id.fat.containsText(sweet.fatG.toInt().toString())
 
-        R.id.carbs_value.containsText(sweet.carbsG.toInt().toString())
+        R.id.carbs.containsText(sweet.carbsG.toInt().toString())
 
         R.id.sugar_value.containsText(sweet.sugarG.toInt().toString())
     }
@@ -104,7 +113,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
         val fragment = fragment(UiTestData.UI_SWEET2.id.toInt())
         launchFragment(fragment)
 
-        R.id.rating_value.backgroundColor(R.color.rating_average)
+        R.id.rating.backgroundColor(R.color.rating_average)
     }
 
     @Test
@@ -112,7 +121,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
         val fragment = fragment(UiTestData.UI_SWEET3.id.toInt())
         launchFragment(fragment)
 
-        R.id.rating_value.backgroundColor(R.color.rating_good)
+        R.id.rating.backgroundColor(R.color.rating_good)
     }
 
     @Test
@@ -122,7 +131,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.consumed_sweet_amount.type("")
 
-        R.id.total_cals_value.containsText("0")
+        R.id.total_cals.containsText("0")
     }
 
     @Test
@@ -144,15 +153,15 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.consumed_sweet_amount.type("2")
 
-        R.id.total_cals_value.containsText("10")
+        R.id.total_cals.containsText("10")
 
         R.id.measure_ounces.click()
 
-        R.id.total_cals_value.containsText("283.5")
+        R.id.total_cals.containsText("280")
 
         R.id.measure_grams.click()
 
-        R.id.total_cals_value.containsText("10")
+        R.id.total_cals.containsText("10")
     }
 
     @Test
@@ -174,7 +183,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         val consumedSweet = ConsumedSweet(
             sweetId = UiTestData.TEST_SWEETMODEL.id,
-            g = 50,
+            g = 2,
             date = dateTimeMillis)
 
         then(addConsumedSweetUseCase).should().execute(consumedSweet)

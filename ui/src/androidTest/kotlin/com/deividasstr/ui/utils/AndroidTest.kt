@@ -28,6 +28,7 @@ import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
+import org.hamcrest.Matchers.containsString
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Ignore
 import org.junit.runner.RunWith
@@ -80,7 +81,7 @@ open class AndroidTest {
     }
 
     protected fun Int.containsText(text: String) {
-        onView(withId(this)).check(matches(withText(text)))
+        onView(withId(this)).check(matches(withText(containsString(text))))
     }
 
     protected fun Int.backgroundColor(@IntegerRes color: Int) {

@@ -58,7 +58,7 @@
 
         <include
             android:id="@+id/nutriton_info_cals_serving_rating"
-            layout="@layout/nutriton_info_cals_serving_rating"
+            layout="@layout/sweet_details_cals_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -68,7 +68,7 @@
 
         <include
             android:id="@+id/nutrition_info_nutrients"
-            layout="@layout/nutrition_info_nutrients"
+            layout="@layout/sweet_details_nutrients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -87,7 +87,7 @@
 
         <include
             android:id="@+id/add_sweet"
-            layout="@layout/add_sweet"
+            layout="@layout/sweet_details_add_sweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -97,22 +97,13 @@
             app:layout_constraintTop_toBottomOf="@id/add_sweet_title" />
 
         <TextView
-            android:id="@+id/total_cals_title"
+            android:id="@+id/total_cals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total_calories"
+            android:text="@{@string/total_calories(viewmodel.totalCals)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_sweet" />
-
-        <TextView
-            android:id="@+id/total_cals_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewmodel.totalCals.toString()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/total_cals_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

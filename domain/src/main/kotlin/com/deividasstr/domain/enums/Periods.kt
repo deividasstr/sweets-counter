@@ -8,35 +8,40 @@ import org.threeten.bp.temporal.TemporalUnit
 enum class Periods {
 
     DAY {
-        override val timeUnit: TemporalUnit = ChronoUnit.DAYS
-        override fun start(dateTimeHandler: DateTimeHandler): LocalDate {
-            return dateTimeHandler.currentLocalDate()
+        override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
+            return date
         }
+
+        override val timeUnit: TemporalUnit = ChronoUnit.DAYS
     },
     WEEK {
-        override val timeUnit: TemporalUnit = ChronoUnit.WEEKS
-        override fun start(dateTimeHandler: DateTimeHandler): LocalDate {
-            val now = dateTimeHandler.currentLocalDate()
-            val weekday = now.dayOfWeek.value
+        override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
+            val weekday = date.dayOfWeek.value
             val daysFromMonday = weekday - 1
-            return now.minusDays(daysFromMonday.toLong())
+            return date.minusDays(daysFromMonday.toLong())
         }
+
+        override val timeUnit: TemporalUnit = ChronoUnit.WEEKS
     },
     MONTH {
-        override val timeUnit: TemporalUnit = ChronoUnit.MONTHS
-        override fun start(dateTimeHandler: DateTimeHandler): LocalDate {
-            val now = dateTimeHandler.currentLocalDate()
-            return now.withDayOfMonth(1)
+        override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
+            return date.withDayOfMonth(1)
         }
+
+        override val timeUnit: TemporalUnit = ChronoUnit.MONTHS
     },
     YEAR {
-        override val timeUnit: TemporalUnit = ChronoUnit.YEARS
-        override fun start(dateTimeHandler: DateTimeHandler): LocalDate {
-            val now = dateTimeHandler.currentLocalDate()
-            return now.withMonth(1).withDayOfMonth(1)
+        override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
+            return date.withMonth(1).withDayOfMonth(1)
         }
+
+        override val timeUnit: TemporalUnit = ChronoUnit.YEARS
     };
 
     abstract val timeUnit: TemporalUnit
-    abstract fun start(dateTimeHandler: DateTimeHandler): LocalDate
+    abstract fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate
+
+    fun start(dateTimeHandler: DateTimeHandler): LocalDate {
+        return startFromDate(dateTimeHandler, dateTimeHandler.currentLocalDate())
+    }
 }

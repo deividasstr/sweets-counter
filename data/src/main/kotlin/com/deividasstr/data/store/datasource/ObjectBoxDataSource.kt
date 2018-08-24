@@ -14,12 +14,22 @@ open class ObjectBoxDataSource<T>(
         params: PositionalDataSource.LoadInitialParams,
         callback: PositionalDataSource.LoadInitialCallback<T>
     ) {
+
+        println(
+            "loadInitial start ${params.requestedStartPosition}" +
+                " loadsize ${params.requestedLoadSize} size $size")
+
+        val fromIndex =
+            if (params.requestedStartPosition > params.requestedLoadSize) 0
+            else params.requestedStartPosition
+
+        val toIndex = Math.min(params.requestedLoadSize, size)
+
+        println("from $fromIndex to $toIndex")
+
         callback.onResult(
-            lazyList.subList(
-                params.requestedStartPosition,
-                Math.min(params.requestedLoadSize, size)
-            ).map(converter),
-            params.requestedStartPosition,
+            lazyList.subList(fromIndex, toIndex).map(converter),
+            fromIndex,
             size
         )
     }

@@ -12,7 +12,7 @@ class GetAllConsumedSweetsCalsUseCaseTest {
 
     private lateinit var repo: ConsumedSweetsRepo
     private lateinit var useCase: GetAllConsumedSweetsCalsUseCase
-    private lateinit var testSubscriber: TestObserver<Int>
+    private lateinit var testSubscriber: TestObserver<Any>
 
     @Before
     @Throws(Exception::class)

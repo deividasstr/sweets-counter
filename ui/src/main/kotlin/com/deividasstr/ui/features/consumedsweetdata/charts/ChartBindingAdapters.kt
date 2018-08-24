@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.sweetdetails.SweetRating
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
@@ -31,23 +32,32 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
 
     val colors = ChartColors.get()
 
-    val dataSet = PieDataSet(entries, "Total cals")
-    dataSet.sliceSpace = 3f
-    dataSet.selectionShift = 5f
-    dataSet.colors = colors
+    val dataSet: PieDataSet
 
-    val pieData = PieData(dataSet)
-    pieData.setValueFormatter(PercentFormatter())
-    pieData.setValueTextSize(11f)
-    pieData.setValueTextColor(Color.WHITE)
+    if (view.data != null && view.data.dataSetCount > 0) {
+        dataSet = view.data.getDataSetByIndex(0) as PieDataSet
+        dataSet.values = entries
+        view.data.notifyDataChanged()
+        view.notifyDataSetChanged()
+    } else {
+        dataSet = PieDataSet(entries, "Total cals")
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+        dataSet.colors = colors
 
-    view.data = pieData
+        val pieData = PieData(dataSet)
+        pieData.setValueFormatter(PercentFormatter())
+        pieData.setValueTextSize(11f)
+        pieData.setValueTextColor(Color.BLACK)
+
+        view.data = pieData
+    }
     view.invalidate()
+    view.animateY(400)
 }
 
 @BindingAdapter("android:setRatingData")
-fun setRatingData(view: PieChart, data: Map<SweetRating, Int>?) {
-
+fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
     if (data == null) return
 
     val entries = mutableListOf<PieEntry>()
@@ -58,82 +68,97 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Int>?) {
 
     val colors = ChartColors.get()
 
-    val dataSet = PieDataSet(entries, "Rating")
-    dataSet.sliceSpace = 3f
-    dataSet.selectionShift = 5f
-    dataSet.colors = colors
+    val dataSet: PieDataSet
+    if (view.data != null && view.data.dataSetCount > 0) {
+        dataSet = view.data.getDataSetByIndex(0) as PieDataSet
+        dataSet.values = entries
+        view.data.notifyDataChanged()
+        view.notifyDataSetChanged()
+    } else {
+        dataSet = PieDataSet(entries, "Rating")
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+        dataSet.colors = colors
+        dataSet.valueTextColor = Color.BLACK
 
-    val pieData = PieData(dataSet)
-    pieData.setValueFormatter(PercentFormatter())
-    pieData.setValueTextSize(11f)
-    pieData.setValueTextColor(Color.WHITE)
-
-    view.data = pieData
+        val pieData = PieData(dataSet)
+        pieData.setValueFormatter(PercentFormatter())
+        pieData.setValueTextSize(11f)
+        view.data = pieData
+    }
     view.invalidate()
+    view.animateY(400)
 }
 
 @BindingAdapter("android:setConsumedData")
 fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     if (data == null) return
 
-    println("data $data")
+    if (data.isEmpty) {
+        view.data?.clearValues()
+        view.invalidate()
+    } else {
+        val entries = mutableListOf<BarEntry>()
 
-    val entries = mutableListOf<BarEntry>()
+        data.calsPerTimeUnit.forEachIndexed { index, value ->
+            entries.add(BarEntry(index.plus(1).toFloat(), value.toFloat()))
+        }
 
-    data.calsPerTimeUnit.forEachIndexed { index, value ->
-        entries.add(BarEntry(index.plus(1).toFloat(), value.toFloat()))
+        val dataSet: BarDataSet
+        if (view.data != null && view.data.dataSetCount > 0) {
+            dataSet = view.data.getDataSetByIndex(0) as BarDataSet
+            dataSet.values = entries
+            val xAxisFormatter = data.xAxisFormatterByRange()
+            view.xAxis.valueFormatter = xAxisFormatter
+            view.data.notifyDataChanged()
+            view.notifyDataSetChanged()
+        } else {
+            val xAxisFormatter = data.xAxisFormatterByRange()
+            val xAxis = view.xAxis
+            with(xAxis) {
+                position = XAxis.XAxisPosition.BOTTOM
+                // typeface = mTfLight
+                setDrawGridLines(false)
+                valueFormatter = xAxisFormatter
+            }
+
+            val yAxisFormatter = YAxisFormatter()
+
+            val leftYAxis = view.axisLeft
+            leftYAxis.isEnabled = false
+            leftYAxis.axisMinimum = 0f
+
+            val rightYAxis = view.axisRight
+            with(rightYAxis) {
+                // setTypeface(mTfLight)
+                valueFormatter = yAxisFormatter
+                axisMinimum = 0f
+            }
+
+            view.rendererRightYAxis = YAxisSplitStringRenderer(
+                view.viewPortHandler,
+                view.axisRight,
+                view.getTransformer(YAxis.AxisDependency.RIGHT))
+
+            dataSet = BarDataSet(entries, "Consumed data")
+            dataSet.colors = ChartColors.get()
+
+            val dataSets = mutableListOf<IBarDataSet>()
+            dataSets.add(dataSet)
+
+            val barData = BarData(dataSets)
+
+            with(barData) {
+                // barData.setValueTextSize(10f)
+                // barData.setValueTypeface(mTfLight)
+                setValueFormatter(BarValueFormatter())
+            }
+            view.data = barData
+        }
+        view.invalidate()
+        view.animateY(800, Easing.EasingOption.EaseInOutQuad)
+        view.animateX(800, Easing.EasingOption.EaseInOutQuad)
     }
-
-    val xAxisFormatter = data.xAxisFormatterByRange()
-
-    val xAxis = view.xAxis
-    with(xAxis) {
-        position = XAxis.XAxisPosition.BOTTOM
-        // typeface = mTfLight
-        setDrawGridLines(false)
-        granularity = 1f // only intervals of 1 day
-        // labelCount = 7
-        valueFormatter = xAxisFormatter
-    }
-
-    val yAxisFormatter = YAxisFormatter()
-
-    val leftAxis = view.axisLeft
-    // leftAxis.setTypeface(mTfLight)
-    with(leftAxis) {
-        // setLabelCount(8, false)
-        valueFormatter = yAxisFormatter
-        setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-        spaceTop = 15f
-        axisMinimum = 0f // this replaces setStartAtZero(true)
-    }
-
-    val rightAxis = view.axisRight
-    with(rightAxis) {
-        setDrawGridLines(false)
-        // setTypeface(mTfLight)
-        // setLabelCount(8, false)
-        valueFormatter = yAxisFormatter
-        spaceTop = 15f
-        axisMinimum = 0f // this replaces setStartAtZero(true)
-    }
-
-    val set = BarDataSet(entries, "Consumed data")
-    set.colors = ChartColors.get()
-
-    val dataSets = mutableListOf<IBarDataSet>()
-    dataSets.add(set)
-
-    val barData = BarData(dataSets)
-
-    with(barData) {
-        // barData.setValueTextSize(10f)
-        // barData.setValueTypeface(mTfLight)
-        barData.barWidth = 0.9f
-    }
-
-    view.data = barData
-    view.invalidate()
 }
 
 @BindingAdapter("android:chartListener")

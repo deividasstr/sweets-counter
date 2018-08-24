@@ -8,8 +8,8 @@ import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.ui.R
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment
-import com.deividasstr.ui.features.facts.FactsFragment
 import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment
+import com.deividasstr.ui.features.facts.FactsFragment
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.di.TestAppComponent
 import com.nhaarman.mockito_kotlin.given
@@ -46,7 +46,7 @@ class MainActivityTest : AndroidTest() {
         val currentDestination =
             activityRule.activity.findNavController(R.id.fragment_container).currentDestination
 
-        assertEquals(ConsumedSweetHistoryFragment::class.java.simpleName, currentDestination.label)
+        assertEquals(ConsumedSweetHistoryFragment::class.java.simpleName, currentDestination?.label)
     }
 
     @Test
@@ -56,7 +56,7 @@ class MainActivityTest : AndroidTest() {
         val currentDestination =
             activityRule.activity.findNavController(R.id.fragment_container).currentDestination
 
-        assertEquals(ConsumedSweetDataFragment::class.java.simpleName, currentDestination.label)
+        assertEquals(ConsumedSweetDataFragment::class.java.simpleName, currentDestination?.label)
     }
 
     @Test
@@ -66,7 +66,7 @@ class MainActivityTest : AndroidTest() {
         val currentDestination =
             activityRule.activity.findNavController(R.id.fragment_container).currentDestination
 
-        assertEquals(FactsFragment::class.java.simpleName, currentDestination.label)
+        assertEquals(FactsFragment::class.java.simpleName, currentDestination?.label)
     }
 
     @Test

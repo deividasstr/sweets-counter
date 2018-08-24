@@ -28,7 +28,6 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
             clickListener = View.OnClickListener {
                 onConsumeSweet()
             }
-            setLifecycleOwner(this@SweetDetailsFragment)
         }
     }
 

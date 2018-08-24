@@ -8,10 +8,11 @@ import com.deividasstr.ui.base.di.scopes.facts.FactsScope
 import com.deividasstr.ui.base.di.scopes.sweetdetails.SweetDetailsScope
 import com.deividasstr.ui.base.di.scopes.sweetsearchlist.SweetSearchListScope
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetFragment
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodFragment
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment
+import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment
 import com.deividasstr.ui.features.facts.FactsFragment
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsFragment
-import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -43,4 +44,8 @@ internal abstract class FragmentModule {
     @ContributesAndroidInjector()
     @SweetSearchListScope
     abstract fun sweetSearchListFragment(): SweetsSearchListFragment
+
+    @ContributesAndroidInjector()
+    @ConsumedSweetDataScope
+    abstract fun consumedDataPeriodFragment(): ConsumedDataPeriodFragment
 }

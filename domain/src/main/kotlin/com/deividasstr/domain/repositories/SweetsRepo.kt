@@ -19,4 +19,6 @@ interface SweetsRepo {
     fun downloadAndSaveAllSweets(): Completable
 
     fun downloadAndSaveNewSweets(): Completable
+
+    fun removeAll(): Completable
 }

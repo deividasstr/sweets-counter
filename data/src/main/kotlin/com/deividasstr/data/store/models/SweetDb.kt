@@ -9,7 +9,7 @@ import io.objectbox.annotation.Id
 data class SweetDb(
     @Id(assignable = true) var id: Long,
     val name: String,
-    val calsPer100: Double,
+    val calsPer100: Long,
     val fatG: Double,
     val carbsG: Double,
     val sugarG: Double,

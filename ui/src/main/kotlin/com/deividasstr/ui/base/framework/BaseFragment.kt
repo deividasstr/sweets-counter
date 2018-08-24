@@ -18,7 +18,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
 
     abstract fun getViewModelClass(): Class<VM>
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     abstract fun layoutId(): Int
 
@@ -28,7 +29,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[getViewModelClass()]
-        observe(viewModel.errorMessage) {
+        observe(viewModel.errorMessage) { it ->
             it?.getContentIfNotHandled()?.let {
                 context?.alert(getString(it.messageStringRes))
             }
@@ -40,8 +41,11 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        return binding.root
+        val view = inflater.inflate(layoutId(), container, false)
+        binding = DataBindingUtil.bind(view)!!
+        binding.setLifecycleOwner(this)
+
+        return view
     }
 
     fun navController() = findNavController(view!!)

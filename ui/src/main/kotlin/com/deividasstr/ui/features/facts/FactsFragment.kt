@@ -15,7 +15,6 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            setLifecycleOwner(this@FactsFragment)
             viewmodel = viewModel
         }
     }

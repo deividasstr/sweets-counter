@@ -17,4 +17,6 @@ interface SweetsDao {
     fun addSweet(sweet: SweetDb): Completable
 
     fun getSweetsByIds(ids: LongArray): Single<List<SweetDb>>
+
+    fun removeAll(): Completable
 }

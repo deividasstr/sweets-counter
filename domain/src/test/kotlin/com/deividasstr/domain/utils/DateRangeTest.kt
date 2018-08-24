@@ -27,7 +27,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun dayNextRange() {
         range = DateRange(Periods.DAY, dateTimeHandler)
-        range.nextRange()
+        range.advanceRange()
 
         assertEquals(LocalDate.of(2018, 8, 9), range.startDate)
         assertEquals(LocalDate.of(2018, 8, 9), range.endDate)
@@ -36,7 +36,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun dayNextRangex3() {
         range = DateRange(Periods.DAY, dateTimeHandler)
-        range.nextRange(3)
+        range.advanceRange(3)
 
         assertEquals(LocalDate.of(2018, 8, 11), range.startDate)
         assertEquals(LocalDate.of(2018, 8, 11), range.endDate)
@@ -45,7 +45,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun dayPreviousRange() {
         range = DateRange(Periods.DAY, dateTimeHandler)
-        range.previousRange()
+        range.advanceRange(-1)
 
         assertEquals(LocalDate.of(2018, 8, 7), range.startDate)
         assertEquals(LocalDate.of(2018, 8, 7), range.endDate)
@@ -54,7 +54,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun weekNextRange() {
         range = DateRange(Periods.WEEK, dateTimeHandler)
-        range.nextRange()
+        range.advanceRange()
 
         assertEquals(LocalDate.of(2018, 8, 13), range.startDate)
         assertEquals(LocalDate.of(2018, 8, 19), range.endDate)
@@ -63,7 +63,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun weekNextRangex3() {
         range = DateRange(Periods.WEEK, dateTimeHandler)
-        range.nextRange(3)
+        range.advanceRange(3)
 
         assertEquals(LocalDate.of(2018, 8, 27), range.startDate)
         assertEquals(LocalDate.of(2018, 9, 2), range.endDate)
@@ -72,7 +72,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun weekPreviousRange() {
         range = DateRange(Periods.WEEK, dateTimeHandler)
-        range.previousRange()
+        range.advanceRange(-1)
 
         assertEquals(LocalDate.of(2018, 7, 30), range.startDate)
         assertEquals(LocalDate.of(2018, 8, 5), range.endDate)
@@ -81,7 +81,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun monthNextRange() {
         range = DateRange(Periods.MONTH, dateTimeHandler)
-        range.nextRange()
+        range.advanceRange()
 
         assertEquals(LocalDate.of(2018, 9, 1), range.startDate)
         assertEquals(LocalDate.of(2018, 9, 30), range.endDate)
@@ -90,7 +90,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun monthNextRangex3() {
         range = DateRange(Periods.MONTH, dateTimeHandler)
-        range.nextRange(3)
+        range.advanceRange(3)
 
         assertEquals(LocalDate.of(2018, 11, 1), range.startDate)
         assertEquals(LocalDate.of(2018, 11, 30), range.endDate)
@@ -99,7 +99,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun monthPreviousRange() {
         range = DateRange(Periods.MONTH, dateTimeHandler)
-        range.previousRange()
+        range.advanceRange(-1)
 
         assertEquals(LocalDate.of(2018, 7, 1), range.startDate)
         assertEquals(LocalDate.of(2018, 7, 31), range.endDate)
@@ -108,7 +108,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun yearNextRange() {
         range = DateRange(Periods.YEAR, dateTimeHandler)
-        range.nextRange()
+        range.advanceRange()
 
         assertEquals(LocalDate.of(2019, 1, 1), range.startDate)
         assertEquals(LocalDate.of(2019, 12, 31), range.endDate)
@@ -117,7 +117,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun yearNextRangex3() {
         range = DateRange(Periods.YEAR, dateTimeHandler)
-        range.nextRange(3)
+        range.advanceRange(3)
 
         assertEquals(LocalDate.of(2021, 1, 1), range.startDate)
         assertEquals(LocalDate.of(2021, 12, 31), range.endDate)
@@ -126,7 +126,7 @@ class DateRangeTest : UnitTest() {
     @Test
     fun yearPreviousRange() {
         range = DateRange(Periods.YEAR, dateTimeHandler)
-        range.previousRange()
+        range.advanceRange(-1)
 
         assertEquals(LocalDate.of(2017, 1, 1), range.startDate)
         assertEquals(LocalDate.of(2017, 12, 31), range.endDate)

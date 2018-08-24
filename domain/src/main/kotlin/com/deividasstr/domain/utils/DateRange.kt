@@ -26,14 +26,9 @@ class DateRange(
 
     override fun contains(value: Long): Boolean = value in start..endInclusive
 
-    fun nextRange(times: Long = 1) {
+    fun advanceRange(times: Long = 1) {
         startDate = startDate.plus(times, period.timeUnit)
         endDate = endDate.plus(times, period.timeUnit)
-    }
-
-    fun previousRange() {
-        startDate = startDate.minus(1, period.timeUnit)
-        endDate = endDate.minus(1, period.timeUnit)
     }
 
     // For end date, to be inclusive
@@ -42,7 +37,9 @@ class DateRange(
     }
 
     override fun equals(other: Any?): Boolean {
-        return period == (other as DateRange).period
+        return period == (other as DateRange).period &&
+            startDate == other.startDate &&
+            endDate == other.endDate
     }
 
     override fun toString(): String {

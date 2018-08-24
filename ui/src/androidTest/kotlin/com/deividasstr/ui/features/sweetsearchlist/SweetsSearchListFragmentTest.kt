@@ -91,7 +91,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
         val currentDestination =
             activityRule.activity.findNavController(R.id.fragment_container).currentDestination
 
-        assertEquals(SweetDetailsFragment::class.java.simpleName, currentDestination.label)
+        assertEquals(SweetDetailsFragment::class.java.simpleName, currentDestination?.label)
 
         val arguments =
             activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments

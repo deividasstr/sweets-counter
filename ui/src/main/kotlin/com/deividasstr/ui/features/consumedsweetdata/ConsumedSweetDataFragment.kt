@@ -3,17 +3,22 @@ package com.deividasstr.ui.features.consumedsweetdata
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.deividasstr.domain.enums.Periods
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
+import com.deividasstr.ui.base.models.ConsumedSweetUi
+import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentConsumedSweetDataBinding
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
 
 class ConsumedSweetDataFragment :
-    BaseFragment<FragmentConsumedSweetDataBinding, ConsumedSweetDataViewModel>(),
-    OnChartValueSelectedListener {
+    BaseFragment<FragmentConsumedSweetDataBinding, ConsumedSweetDataViewModel>() {
+
+    lateinit var sweets: LiveData<Pair<List<ConsumedSweetUi>, List<SweetUi>>>
+    lateinit var currentPeriod: LiveData<Periods>
 
     override fun getViewModelClass(): Class<ConsumedSweetDataViewModel> =
         ConsumedSweetDataViewModel::class.java
@@ -21,42 +26,31 @@ class ConsumedSweetDataFragment :
     override fun layoutId(): Int = R.layout.fragment_consumed_sweet_data
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sweets = viewModel.sweetsPair
+        currentPeriod = viewModel.currentPeriod
+        currentPeriod.observe(this, Observer {
+            binding.consumedDetailsViewpager.currentItem = Consts.FIRST_ITEM
+        })
         with(binding) {
             viewmodel = viewModel
-            chartlistener = this@ConsumedSweetDataFragment
-            setLifecycleOwner(this@ConsumedSweetDataFragment)
 
-            val periods = listOf(
-                getString(R.string.week),
-                getString(R.string.month),
-                getString(R.string.year))
+            consumedDetailsViewpager.adapter = PeriodPagerAdapter(childFragmentManager)
+            consumedDetailsViewpager.currentItem = Consts.FIRST_ITEM
 
-            val adapter = ArrayAdapter(
-                context!!,
-                android.R.layout.simple_spinner_item,
-                periods
-            )
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            consumedDataPeriodSpinner.adapter = adapter
-
-            consumedDataSweetsPopularityChart.setUsePercentValues(true)
-            consumedDataSweetsPopularityChart.animateY(800, Easing.EasingOption.EaseInOutQuad)
-
-            consumedDataSweetsRatingChart.setUsePercentValues(true)
-            consumedDataSweetsRatingChart.animateY(600, Easing.EasingOption.EaseInElastic)
-
-            consumedDataPeriodChart.setDrawValueAboveBar(true)
-            consumedDataPeriodChart.animateY(400)
-            consumedDataPeriodChart.setScaleEnabled(false)
+            consumedDataPeriodSpinner.adapter = periodsSpinnerAdapter()
         }
     }
 
-    override fun onNothingSelected() {
-        viewModel.resetPeriod()
-    }
+    private fun periodsSpinnerAdapter(): SpinnerAdapter? {
+        val periods = listOf(
+            getString(R.string.week),
+            getString(R.string.month),
+            getString(R.string.year))
 
-    override fun onValueSelected(e: Entry?, h: Highlight?) {
-        e?.let { viewModel.timeUnitSelected(e.x.toInt()) }
+        return ArrayAdapter(
+            context!!,
+            android.R.layout.simple_spinner_item,
+            periods
+        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
     }
 }

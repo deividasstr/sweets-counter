@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface ConsumedSweetsRepo {
 
-    fun getTotalCalsConsumed(): Single<Int>
+    fun getTotalCalsConsumed(): Single<Long>
 
     fun addSweet(sweet: ConsumedSweet): Completable
 

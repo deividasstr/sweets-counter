@@ -1,11 +1,11 @@
 package com.deividasstr.ui.utils
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
+import android.widget.TextView
 import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -15,13 +15,13 @@ class CustomMachers {
 
     companion object {
         fun hasColor(colorResId: Int): Matcher<View> {
-            return object : BoundedMatcher<View, AppCompatImageView>(AppCompatImageView::class.java) {
+            return object : BoundedMatcher<View, TextView>(TextView::class.java) {
                 private var context: Context? = null
 
-                override fun matchesSafely(imageView: AppCompatImageView): Boolean {
-                    context = imageView.context
+                override fun matchesSafely(view: TextView): Boolean {
+                    context = view.context
 
-                    val textViewColor = (imageView.background as ColorDrawable).color
+                    val textViewColor = (view.compoundDrawables[2] as GradientDrawable).color?.defaultColor
                     val expectedColor = if (Build.VERSION.SDK_INT <= 22) {
                         context!!.resources.getColor(colorResId, null)
                     } else {

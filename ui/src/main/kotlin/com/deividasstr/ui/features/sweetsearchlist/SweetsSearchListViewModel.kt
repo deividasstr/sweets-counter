@@ -6,17 +6,15 @@ import androidx.paging.PagedList
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class SweetsSearchListViewModel
 @Inject constructor(private val dataSourceFactory: SweetSearchDataSourceFactory) : BaseViewModel() {
 
     var query: String = ""
 
     companion object {
-        private const val PAGE_SIZE = 10
-        private const val PREFETCH_DISTANCE = 20
+        private const val PAGE_SIZE = 30
+        private const val PREFETCH_DISTANCE = 30
     }
 
     val sweets: LiveData<PagedList<SweetUi>>

@@ -10,6 +10,6 @@ class MonthXAxisFormatter : IAxisValueFormatter {
     }
 
     private fun monthDayFromDay(day: Int): String {
-        return "$day"
+        return "$day d"
     }
 }

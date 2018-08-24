@@ -13,6 +13,12 @@ import javax.inject.Singleton
 @Singleton
 class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
 
+    override fun removeAll(): Completable {
+        return Completable.fromAction {
+            db.removeAll()
+        }
+    }
+
     fun query(query: String): LazyList<SweetDb> {
         return db.query().contains(SweetDb_.name, query).build().findLazyCached()
     }

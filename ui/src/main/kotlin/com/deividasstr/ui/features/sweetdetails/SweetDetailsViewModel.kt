@@ -18,7 +18,6 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 class SweetDetailsViewModel
 @Inject constructor(
@@ -50,8 +49,8 @@ class SweetDetailsViewModel
         value = "0"
     }
 
-    val totalCals = MediatorLiveData<BigDecimal>().apply {
-        value = BigDecimal.ZERO
+    val totalCals = MediatorLiveData<Long>().apply {
+        value = 0
         addSource(enteredValue) {
             postValue(getTotalCals())
         }
@@ -65,23 +64,32 @@ class SweetDetailsViewModel
 
     fun validate(navigationCallback: NavigationCallback) {
         if (validateConsumedSweet()) {
-            val consumedSweet = getConsumedSweet()
-            addConsumedSweetUseCase.execute(consumedSweet)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onComplete = {
-                    navigationCallback.onNavigate()
-                }, onError = {
-                    setError(it as StringResException)
-                })
+            if (realisticAmount()) {
+                val consumedSweet = getConsumedSweet()
+                addConsumedSweetUseCase.execute(consumedSweet)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(onComplete = {
+                        navigationCallback.onNavigate()
+                    }, onError = {
+                        setError(it as StringResException)
+                    })
+            } else {
+                setError(StringResException(R.string.add_sweet_validation_too_much))
+            }
         } else {
             setError(StringResException(R.string.add_sweet_validation_fail))
         }
     }
 
-    private fun getConsumedSweet(): ConsumedSweet {
-        val amount = (enteredValue.value!!.toDouble() * measureUnit.ratioWithGrams).roundToInt()
+    // Amount > 10kg is not realistic, c'mon
+    private fun realisticAmount(): Boolean {
+        return enteredValue.value!!.toLong() < 10 * 1000
+    }
 
+    private fun getConsumedSweet(): ConsumedSweet {
+        val amount = enteredValue.value!!.toLong() * measureUnit.ratioWithGrams
+        println("am $amount val ${enteredValue.value} meas rat ${measureUnit.ratioWithGrams}")
         return ConsumedSweet(
             sweetId = sweet.value!!.id,
             g = amount,
@@ -89,7 +97,7 @@ class SweetDetailsViewModel
     }
 
     private fun validateConsumedSweet(): Boolean {
-        return enteredValue.value!!.isNotEmpty() && enteredValue.value!!.toInt() > 0
+        return enteredValue.value!!.isNotEmpty() && enteredValue.value!!.toLong() > 0
     }
 
     fun toggleMeasureUnit() {
@@ -114,21 +122,21 @@ class SweetDetailsViewModel
 
     private fun rating(sweet: SweetUi): Int {
         return when {
-            sweet.sweetRating() == SweetRating.BAD -> R.color.rating_bad
-            sweet.sweetRating() == SweetRating.AVERAGE -> R.color.rating_average
-            else -> R.color.rating_good
+            sweet.sweetRating() == SweetRating.BAD -> R.drawable.rating_bad
+            sweet.sweetRating() == SweetRating.AVERAGE -> R.drawable.rating_average
+            else -> R.drawable.rating_good
         }
     }
 
-    private fun getTotalCals(): BigDecimal {
+    private fun getTotalCals(): Long {
         val sweet = sweet.value
         if (enteredValue.value.isNullOrEmpty() || sweet == null) {
-            return BigDecimal.ZERO
+            return 0
         }
         val enteredValue = enteredValue.value!!.toBigDecimal()
         return enteredValue
             .multiply(BigDecimal(measureUnit.ratioWithGrams))
             .multiply(BigDecimal(sweet.calsPer100))
-            .divide(BigDecimal(100))
+            .divide(BigDecimal(100)).toLong()
     }
 }

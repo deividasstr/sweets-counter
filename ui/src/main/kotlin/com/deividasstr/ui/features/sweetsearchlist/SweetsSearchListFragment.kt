@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.observe
 import com.deividasstr.ui.base.framework.openKeyboard
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
+import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.actionSweetDetails
 
 class SweetsSearchListFragment :
     BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>() {
@@ -26,6 +29,10 @@ class SweetsSearchListFragment :
         with(binding) {
             viewmodel = viewModel
             sweetsList.setHasFixedSize(true)
+
+            val itemDecor = DividerItemDecoration(sweetsList.context, VERTICAL)
+            sweetsList.addItemDecoration(itemDecor)
+
             sweetsList.adapter = adapter
             if (queriedBefore) {
                 sweetsSearchView.requestFocus()
@@ -36,7 +43,7 @@ class SweetsSearchListFragment :
     }
 
     private fun navigateToSweetDetails(sweetId: Long) {
-        val action = SweetsSearchListFragmentDirections.action_sweet_details()
+        val action = actionSweetDetails()
         action.setSweetId(sweetId.toInt())
         findNavController(this).navigate(action)
     }

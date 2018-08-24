@@ -7,7 +7,7 @@ import com.deividasstr.ui.features.consumedsweetdata.charts.YearXAxisFormatter
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import java.util.Arrays
 
-data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods) {
+data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods, val isEmpty: Boolean) {
 
     fun xAxisFormatterByRange(): IAxisValueFormatter {
         return when (period) {

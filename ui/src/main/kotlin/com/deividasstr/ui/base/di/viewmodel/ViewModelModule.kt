@@ -18,11 +18,12 @@ package com.deividasstr.ui.base.di.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodViewModel
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataViewModel
+import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
 import com.deividasstr.ui.features.main.MainActivityViewModel
 import com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel
-import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryViewModel
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListViewModel
 import dagger.Binds
 import dagger.Module
@@ -68,4 +69,9 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
     internal abstract fun bindsSplashActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ConsumedDataPeriodViewModel::class)
+    internal abstract fun bindsConsumedDataPeriodViewModel(consumedDataPeriodViewModel: ConsumedDataPeriodViewModel): ViewModel
 }

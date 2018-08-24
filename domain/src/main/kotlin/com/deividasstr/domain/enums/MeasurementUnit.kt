@@ -2,13 +2,13 @@ package com.deividasstr.domain.enums
 
 enum class MeasurementUnit {
     GRAM {
-        override val ratioWithGrams: Double = 1.0
+        override val ratioWithGrams: Int = 1
     },
     OUNCE {
-        override val ratioWithGrams: Double = 28.35
+        override val ratioWithGrams: Int = 28
     };
 
-    abstract val ratioWithGrams: Double
+    abstract val ratioWithGrams: Int
 }
 
 fun MeasurementUnit.toggle(): MeasurementUnit {

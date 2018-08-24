@@ -39,11 +39,11 @@ class TestData {
             90,
             LocalDateTime.of(2017, 8, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset))
 
-        val TEST_SWEET = Sweet(2, "Choco", 500.0, 25.0,12.0, 8.0, 12.0)
-        val TEST_SWEET2 = Sweet(3, "Milka", 350.0, 25.0, 12.0, 8.0, 12.0)
-        val TEST_SWEET3 = Sweet(8, "Raisins", 150.0, 25.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET = Sweet(2, "Choco", 500, 25.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET2 = Sweet(3, "Milka", 350, 25.0, 12.0, 8.0, 12.0)
+        val TEST_SWEET3 = Sweet(8, "Raisins", 150, 25.0, 12.0, 8.0, 12.0)
 
-        val TEST_TOTAL_CALS = 3000
+        val TEST_TOTAL_CALS = 3000L
 
         val TEST_LIST_CONSUMED_SWEETS = listOf(TEST_CONSUMED_SWEET, TEST_CONSUMED_SWEET)
         val TEST_LIST_CONSUMED_SWEETS2 = listOf(TEST_CONSUMED_SWEET, TEST_CONSUMED_SWEET2)

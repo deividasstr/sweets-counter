@@ -4,9 +4,9 @@ import com.deividasstr.domain.framework.SingleUseCase
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import io.reactivex.Single
 
-class GetAllConsumedSweetsCalsUseCase(private val repo: ConsumedSweetsRepo) : SingleUseCase<Int> {
+class GetAllConsumedSweetsCalsUseCase(private val repo: ConsumedSweetsRepo) : SingleUseCase<Long> {
 
-    override fun execute(): Single<Int> {
+    override fun execute(): Single<Long> {
         return repo.getTotalCalsConsumed()
     }
 }

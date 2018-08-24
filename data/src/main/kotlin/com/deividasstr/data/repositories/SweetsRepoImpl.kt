@@ -20,6 +20,10 @@ class SweetsRepoImpl(
 )
     : SweetsRepo {
 
+    override fun removeAll(): Completable {
+        return sweetsDb.removeAll()
+    }
+
     override fun getSweetsByIds(ids: LongArray): Single<List<Sweet>> {
         return sweetsDb.getSweetsByIds(ids).map { it.toSweets() }
     }

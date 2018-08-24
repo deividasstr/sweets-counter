@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
@@ -42,6 +43,8 @@ class ConsumedSweetHistoryFragment :
     private fun setRecyclerView(adapter: ConsumedSweetsHistoryAdapter) {
         with(binding.consumedSweetRecycler) {
             setElevationToHeader(layoutManager as StickyHeaderLayoutManager)
+            val itemDecor = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            addItemDecoration(itemDecor)
             setHasFixedSize(true)
             this.adapter = adapter
         }

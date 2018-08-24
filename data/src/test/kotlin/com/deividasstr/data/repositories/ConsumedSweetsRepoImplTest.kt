@@ -15,7 +15,6 @@ import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import kotlin.math.roundToInt
 
 class ConsumedSweetsRepoImplTest : UnitTest() {
 
@@ -64,7 +63,6 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
         val result =
             ((DataTestData.TEST_CONSUMED_SWEETMODEL.g * DataTestData.TEST_SWEETMODEL.calsPer100 / 100) +
                 (DataTestData.TEST_CONSUMED_SWEETMODEL2.g * DataTestData.TEST_SWEETMODEL2.calsPer100 / 100))
-                .roundToInt()
 
         testSubscriber.assertResultValue(result)
     }
@@ -75,6 +73,6 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
 
         sweetsRepo.getTotalCalsConsumed().subscribe(testSubscriber)
 
-        testSubscriber.assertResultValue(0)
+        testSubscriber.assertResultValue(0L)
     }
 }
