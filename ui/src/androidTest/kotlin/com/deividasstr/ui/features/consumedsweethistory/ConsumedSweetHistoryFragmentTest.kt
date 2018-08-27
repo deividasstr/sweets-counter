@@ -55,12 +55,7 @@ class ConsumedSweetHistoryFragmentTest : AndroidTest() {
 
         startFragment()
 
-        // 2 headers, 2 containers for items = 4 views
-        assertEquals(4, countRecyclerViewItems(R.id.consumed_sweet_recycler))
-
-        // Sticky headers lib makes header views not as containing text
-        /*R.id.consumed_sweet_recycler
-            .nthItemHasText(0, dateTimeHandler.formattedDateFull(TestData.TEST_CONSUMED_SWEET.date))*/
+        assertEquals(2, countRecyclerViewItems(R.id.consumed_sweet_recycler))
 
         R.id.consumed_sweet_recycler.nthItemHasText(1, TestData.TEST_SWEET.name)
         R.id.consumed_sweet_recycler

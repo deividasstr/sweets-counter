@@ -26,6 +26,7 @@ class ConsumedSweetHistoryViewModel
     private val sweets = MutableLiveData<List<SweetUi>>()
 
     val sweetsPair = sweets.combineAndCompute(consumedSweets) { sweets, consumedSweets ->
+        println("on combineAndCompute $sweets $consumedSweets")
         Pair(consumedSweets, sweets)
     }
 

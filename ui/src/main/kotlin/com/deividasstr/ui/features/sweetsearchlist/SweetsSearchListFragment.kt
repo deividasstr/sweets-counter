@@ -34,10 +34,8 @@ class SweetsSearchListFragment :
             sweetsList.addItemDecoration(itemDecor)
 
             sweetsList.adapter = adapter
-            if (queriedBefore) {
-                sweetsSearchView.requestFocus()
-                sweetsSearchView.openKeyboard()
-            }
+            sweetsSearchView.requestFocus()
+            sweetsSearchView.openKeyboard()
         }
         observe(viewModel.sweets, ::renderSweetsList)
     }
@@ -47,9 +45,6 @@ class SweetsSearchListFragment :
         action.setSweetId(sweetId.toInt())
         findNavController(this).navigate(action)
     }
-
-    private val queriedBefore: Boolean
-        get() = !viewModel.query.isEmpty()
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
         adapter.submitList(sweets)

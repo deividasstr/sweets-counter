@@ -25,7 +25,7 @@ ext {
     moshiVersion = '1.6.0'
 
     //Debugging
-    timberVersion = '4.7.0'
+    timberVersion = '4.7.1'
     leakCanaryVersion = '1.6.1'
 
     //Rx

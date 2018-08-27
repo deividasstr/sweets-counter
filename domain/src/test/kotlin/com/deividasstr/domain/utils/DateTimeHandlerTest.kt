@@ -3,6 +3,8 @@ package com.deividasstr.domain.utils
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.enums.Periods
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
@@ -49,5 +51,19 @@ class DateTimeHandlerTest : UnitTest() {
         val string = dateTimeHandler.formattedDateRange(dateRange)
 
         assertEquals("Aug 8, 2018 - Aug 9, 2018", string)
+    }
+
+    @Test
+    fun areDatesSameDay_same() {
+        val date1 = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+        val date2 = LocalDateTime.now().plusHours(2).toEpochSecond(ZoneOffset.UTC)
+        assertTrue(dateTimeHandler.areDatesSameDay(date1, date2))
+    }
+
+    @Test
+    fun areDatesSameDay_not_same() {
+        val date1 = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+        val date2 = LocalDateTime.now().plusDays(1).toEpochSecond(ZoneOffset.UTC)
+        assertFalse(dateTimeHandler.areDatesSameDay(date1, date2))
     }
 }

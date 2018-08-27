@@ -52,7 +52,6 @@ android {
 dependencies {
     implementation project(':data')
     implementation project(':devices')
-    implementation project(':stickyheaders')
 
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
 

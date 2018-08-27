@@ -39,4 +39,15 @@ class DateTimeHandler {
         return formattedDateShort(dateRange.startDate).plus(" - ")
             .plus(formattedDateShort(dateRange.endDate))
     }
+
+    fun areDatesSameDay(date1: Long, date2: Long): Boolean {
+        val dateTime1 = zonedDateTime(date1)
+        val dateTime2 = zonedDateTime(date2)
+
+        return with(dateTime1) {
+            year == dateTime2.year &&
+                monthValue == dateTime2.monthValue &&
+                dayOfMonth == dateTime2.dayOfMonth
+        }
+    }
 }

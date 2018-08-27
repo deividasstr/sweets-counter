@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/consumed_sweet_view"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="@string/enter_the_amount_title"

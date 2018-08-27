@@ -62,7 +62,7 @@ references:
   checka: &check
     run:
       name: Pre-check
-      command: ./gradlew ktlint lint
+      command: ./gradlew ktlint lint --stacktrace
 
   ## Tests
   unit_test: &unit_test

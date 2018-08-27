@@ -24,7 +24,7 @@ class DownloadAllSweetsWorker : Worker() {
                 .putBoolean(KEY_ERROR, true)
                 .build()
             outputData = output
-            return Result.FAILURE
+            return Result.RETRY
         }
         return Result.SUCCESS
     }

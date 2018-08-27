@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.deividasstr.data.utils.StringResException
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.SingleEvent
@@ -33,7 +34,11 @@ class MainActivity : BaseActivity() {
 
     private val errorObserver = Observer<SingleEvent<Throwable>> { it ->
         it?.getContentIfNotHandled()?.let {
-            alert(getString(R.string.error_network_server))
+            if (it is StringResException) {
+                alert(getString(it.messageStringRes))
+            } else {
+                alert(it.localizedMessage)
+            }
         }
     }
 

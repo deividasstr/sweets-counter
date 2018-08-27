@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.jaychang.srv.SimpleRecyclerView
             android:id="@+id/consumed_sweet_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,8 +20,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layoutManager="org.zakariya.stickyheaders.StickyHeaderLayoutManager">
-        </androidx.recyclerview.widget.RecyclerView>
+            app:srv_showDivider="true"
+            app:srv_showEmptyStateView="true"
+            app:srv_emptyStateView="@layout/consumed_history_no_data"
+            >
+        </com.jaychang.srv.SimpleRecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/period_details_fab"

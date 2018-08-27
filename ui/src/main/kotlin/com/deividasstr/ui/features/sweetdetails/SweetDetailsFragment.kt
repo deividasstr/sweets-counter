@@ -6,7 +6,9 @@ import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.closeKeyboard
+import com.deividasstr.ui.base.framework.openKeyboard
 import com.deividasstr.ui.databinding.FragmentSweetDetailsBinding
+import kotlinx.android.synthetic.main.sweet_details_add_sweet.*
 
 @DebugOpenClass
 class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDetailsViewModel>() {
@@ -28,6 +30,9 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
             clickListener = View.OnClickListener {
                 onConsumeSweet()
             }
+            consumed_sweet_view.closeKeyboard()
+            consumed_sweet_view.requestFocus()
+            consumed_sweet_view.openKeyboard()
         }
     }
 
