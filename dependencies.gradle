@@ -3,7 +3,7 @@ ext {
     androidMinSdkVersion = 21
     androidTargetSdkVersion = 28
     androidCompileSdkVersion = 28
-    androidBuildToolsVersion = '28.0.1'
+    androidBuildToolsVersion = '28.0.2'
 
     //Versioning
     versionCode = 1
