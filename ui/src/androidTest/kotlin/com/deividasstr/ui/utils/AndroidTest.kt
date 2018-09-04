@@ -11,9 +11,7 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -34,7 +32,6 @@ import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Ignore
@@ -79,13 +76,6 @@ open class AndroidTest {
         val storeFile = File.createTempFile("object-store-test", "")
         storeFile.delete()
         return MyObjectBox.builder().directory(storeFile).build()
-    }
-
-    protected fun ActivityTestRule<*>.showsToastWithText(@IntegerRes stringRes: Int) {
-        onView(
-            ViewMatchers.withText(stringRes))
-            .inRoot(RootMatchers.withDecorView(Matchers.not(activity.window.decorView)))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     protected fun ActivityTestRule<*>.showsSnackWithText(@IntegerRes stringRes: Int) {
@@ -140,8 +130,12 @@ open class AndroidTest {
         onView(withId(this)).check(matches(withText(containsString(text))))
     }
 
+    protected fun Int.tickerContainsText(text: String) {
+        onView(withId(this)).check(matches(CustomMatchers.tickerWithText(containsString(text))))
+    }
+
     protected fun Int.backgroundColor(@IntegerRes color: Int) {
-        onView(withId(this)).check(matches(CustomMachers.hasColor(color)))
+        onView(withId(this)).check(matches(CustomMatchers.hasColor(color)))
     }
 
     protected fun Int.type(text: String) {
@@ -168,7 +162,7 @@ open class AndroidTest {
     }
 
     protected fun Int.nthItemHasText(pos: Int, text: String) {
-        onView(CustomMachers.nthChildOf(withId(this), pos)).check(
+        onView(CustomMatchers.nthChildOf(withId(this), pos)).check(
             matches((ViewMatchers.hasDescendant(withText(containsString(text))))))
     }
 }

@@ -97,6 +97,6 @@ class SweetsSearchListFragmentTest : AndroidTest() {
             activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments
         val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweet
 
-        assertEquals(UiTestData.TEST_SWEETMODEL, sweetId)
+        assertEquals(UiTestData.UI_SWEET1, sweetId)
     }
 }

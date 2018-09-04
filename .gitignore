@@ -5,7 +5,12 @@
 .DS_Store
 /build
 /captures
-/gradle.properties
 libs/
-/utils.gradle
 google-services.json
+/keystore.properties
+data/src/androidTest/
+data/src/main/res/drawable/
+devices/src/androidTest/
+devices/src/main/res/drawable/
+keystore.jks
+ui/release/

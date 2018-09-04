@@ -24,23 +24,33 @@ allOpen {
     annotation 'com.deividasstr.data.utils.OpenClass'
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile rootProject.file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     defaultConfig {
         buildConfigField 'String', 'BASE_API_URL', getString(BASE_API_URL)
         applicationId "com.deividasstr.sweetscounter"
         testInstrumentationRunner "com.deividasstr.ui.utils.TestAppRunner"
+        signingConfig signingConfigs.config
     }
-
     dataBinding {
         enabled = true
     }
-
     testOptions {
         unitTests {
             includeAndroidResources = true
         }
     }
-
     sourceSets {
         String sharedTestDir = 'src/sharedTest/kotlin'
         String sharedTestResDir = 'src/sharedTest/res'
@@ -49,24 +59,27 @@ android {
         androidTest.java.srcDirs += sharedTestDir
         androidTest.res.srcDirs += sharedTestResDir
     }
+    productFlavors {
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+        }
+    }
 }
 
 dependencies {
     implementation project(':data')
     implementation project(':devices')
     implementation project(':MPChartLib')
-
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
-
     implementation "com.google.android.material:material:$supportLibraryVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.robinhood.ticker:ticker:2.0.0'
-
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
     implementation "androidx.paging:paging-runtime:$lifecycleVersion"
-
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation 'com.google.android.material:material:1.0.0-rc01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
@@ -74,25 +87,17 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     implementation "com.jakewharton.timber:timber:$timberVersion"
-
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-
     implementation "android.arch.work:work-runtime-ktx:$work_version"
-
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
-
     implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
 
     //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
     implementation 'com.google.firebase:firebase-core:16.0.3'
-
     implementation 'com.jaychang:simplerecyclerview:2.0.5'
     implementation 'com.jaychang:simplerecyclerview-kotlin-android-extensions:2.0.4'
-
     implementation "androidx.dynamicanimation:dynamicanimation:$supportLibraryVersion"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-perf:16.1.0'
@@ -100,34 +105,25 @@ dependencies {
     //Tests
 
     //implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
-
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "android.arch.work:work-testing:$work_version"
-
     androidTestImplementation "androidx.test:rules:$runnerVersion"
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
     androidTestImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
-
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     //androidTestImplementation 'com.agoda.kakao:kakao:1.3.0'
-
     androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
-
     androidTestImplementation project(path: ':domain', configuration: 'testOutput')
-
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     testImplementation "org.amshove.kluent:kluent:$kluentVersion"
-
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
-
     androidTestImplementation 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
-
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }

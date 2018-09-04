@@ -70,11 +70,6 @@ references:
       name: Run Unit Tests
       command: ./gradlew testDebugUnitTest
 
-  integration_tests_data: &integration_tests_data
-    run:
-      name: Run Instrumented Data Tests
-      command: ./gradlew :data:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
-
   integration_tests_ui: &integration_tests_ui
     run:
       name: Run Instrumented Ui Tests
@@ -84,6 +79,10 @@ jobs:
   build:
     <<: *android_config
     steps:
+      - run:
+        name: Add google-services
+        command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
+
       - checkout
       ## - *print_emulator_images
 

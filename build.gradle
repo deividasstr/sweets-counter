@@ -28,7 +28,6 @@ buildscript {
         classpath 'com.google.gms:google-services:4.1.0'
     }
 }
-apply plugin: "com.vanniktech.dependency.graph.generator"
 apply from: 'dependencies.gradle'
 
 allprojects {

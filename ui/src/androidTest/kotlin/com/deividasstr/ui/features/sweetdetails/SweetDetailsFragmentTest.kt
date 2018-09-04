@@ -42,6 +42,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
+
     @get:Rule
     val instantRx = AsyncTaskSchedulerRule()
 
@@ -132,7 +133,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.consumed_sweet_amount.type("")
 
-        R.id.total_cals_val.containsText("0")
+        R.id.total_cals_val.tickerContainsText("0")
     }
 
     @Test
@@ -144,7 +145,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.fab.click()
 
-        activityRule.showsToastWithText(R.string.add_sweet_validation_fail)
+        activityRule.showsSnackWithText(R.string.add_sweet_validation_fail)
     }
 
     @Test
@@ -154,15 +155,15 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.consumed_sweet_amount.type("2")
 
-        R.id.total_cals_val.containsText("10")
+        R.id.total_cals_val.tickerContainsText("10")
 
         R.id.measure_ounces.click()
 
-        R.id.total_cals_val.containsText("280")
+        R.id.total_cals_val.tickerContainsText("280")
 
         R.id.measure_grams.click()
 
-        R.id.total_cals_val.containsText("10")
+        R.id.total_cals_val.tickerContainsText("10")
     }
 
     @Test
