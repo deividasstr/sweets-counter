@@ -1,1 +1,1 @@
-include ':ui', ':domain', ':data', ':devices'
+include ':ui', ':domain', ':data', ':devices', ':MPChartLib'

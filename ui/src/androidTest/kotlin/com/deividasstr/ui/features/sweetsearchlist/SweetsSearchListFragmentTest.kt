@@ -67,7 +67,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     fun lists2Items() {
         assertEquals(
             UiTestData.TEST_LIST_SWEETMODELS.size,
-            countRecyclerViewItems(R.id.sweets_list)
+            countRecyclerViewItems(R.id.sweets_recycler)
         )
     }
 
@@ -75,12 +75,12 @@ class SweetsSearchListFragmentTest : AndroidTest() {
     fun enterSweetName_filters1Val() {
         onView(withId(androidx.appcompat.R.id.search_src_text))
             .perform(typeText(UiTestData.TEST_SWEETMODEL.name))
-        assertEquals(1, countRecyclerViewItems(R.id.sweets_list))
+        assertEquals(1, countRecyclerViewItems(R.id.sweets_recycler))
     }
 
     @Test
     fun clickRecyclerViewItem_goToSweetDetailFragmentWithCorrectSweetId() {
-        onView(withId(R.id.sweets_list))
+        onView(withId(R.id.sweets_recycler))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<SweetsSearchAdapter.SweetViewHolder>(
                     0,
@@ -95,8 +95,8 @@ class SweetsSearchListFragmentTest : AndroidTest() {
 
         val arguments =
             activityRule.activity.fragment_container.childFragmentManager.fragments.last().arguments
-        val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweetId.toLong()
+        val sweetId = SweetDetailsFragmentArgs.fromBundle(arguments).sweet
 
-        assertEquals(UiTestData.TEST_SWEETMODEL.id, sweetId)
+        assertEquals(UiTestData.TEST_SWEETMODEL, sweetId)
     }
 }

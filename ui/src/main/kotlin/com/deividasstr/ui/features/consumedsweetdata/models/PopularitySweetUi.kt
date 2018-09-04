@@ -1,15 +1,13 @@
 package com.deividasstr.ui.features.consumedsweetdata.models
 
-import com.deividasstr.ui.base.models.SweetUi
-
-data class PopularitySweetUi(val sweet: SweetUi, var consumedG: Long) {
+data class PopularitySweetUi(val name: String, var consumedG: Long) {
 
     override fun equals(other: Any?): Boolean {
-        return sweet == (other as PopularitySweetUi).sweet
+        return name == (other as PopularitySweetUi).name
     }
 
     override fun hashCode(): Int {
-        var result = sweet.hashCode()
+        var result = name.hashCode()
         result = 31 * result + consumedG.hashCode()
         return result
     }

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
-<!--
+    <!--
     https://github.com/DmitryMalkovich/material-design-dimens
 -->
     <!-- Default colors and dimens per Material Design guidelines (Last update: May 2016 release) -->
@@ -141,6 +141,7 @@
 
     <!--https://gist.github.com/AeroEchelon/f6c205e04b241b43c80b-->
     <!-- Margins & Padding, 8 dp baseline, https://material.io/guidelines/layout/metrics-keylines.html#metrics-keylines-baseline-grids -->
+    <dimen name="margin_padding_size_tiny">4dp</dimen>
     <dimen name="margin_padding_size_small">8dp</dimen>
     <dimen name="margin_padding_size_medium">16dp</dimen>
     <dimen name="margin_padding_size_large">24dp</dimen>
@@ -165,4 +166,8 @@
     <dimen name="text_size_xlarge">34sp</dimen>
     <dimen name="text_size_xxlarge">45sp</dimen>
     <dimen name="text_size_xxxlarge">56sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="chart_height">300dp</dimen>
 </resources>

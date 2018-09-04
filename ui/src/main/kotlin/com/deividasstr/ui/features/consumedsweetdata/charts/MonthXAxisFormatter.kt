@@ -6,10 +6,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 class MonthXAxisFormatter : IAxisValueFormatter {
 
     override fun getFormattedValue(value: Float, axis: AxisBase?): String {
-        return monthDayFromDay(value.toInt())
-    }
-
-    private fun monthDayFromDay(day: Int): String {
-        return "$day d"
+        return value.toInt().toString()
     }
 }

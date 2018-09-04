@@ -8,7 +8,6 @@ import com.deividasstr.domain.entities.ConsumedSweet
 import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.enums.toggle
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
-import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
@@ -21,19 +20,13 @@ import javax.inject.Inject
 
 class SweetDetailsViewModel
 @Inject constructor(
-    private val getSweetByIdUseCase: GetSweetByIdUseCase,
     private val addConsumedSweetUseCase: AddConsumedSweetUseCase,
     private val dateTimeHandler: DateTimeHandler,
     private val sharedPrefs: SharedPrefs
 ) : BaseViewModel() {
 
     val sweet = MutableLiveData<SweetUi>()
-    val sweetRating = MediatorLiveData<Int>().apply {
-        value = R.color.white
-        addSource(sweet) { it ->
-            it?.let { postValue(rating(it)) }
-        }
-    }
+    val sweetRating = MediatorLiveData<Int>()
 
     private var measureUnit = defaultMeasureUnit()
 
@@ -45,9 +38,7 @@ class SweetDetailsViewModel
         return measureUnit == MeasurementUnit.GRAM
     }
 
-    val enteredValue = MutableLiveData<String>().apply {
-        value = "0"
-    }
+    val enteredValue = MutableLiveData<String>()
 
     val totalCals = MediatorLiveData<Long>().apply {
         value = 0
@@ -55,12 +46,6 @@ class SweetDetailsViewModel
             postValue(getTotalCals())
         }
     }
-
-    var sweetId: Long = 0
-        set(value) {
-            field = value
-            getSweet()
-        }
 
     fun validate(navigationCallback: NavigationCallback) {
         if (validateConsumedSweet()) {
@@ -89,7 +74,6 @@ class SweetDetailsViewModel
 
     private fun getConsumedSweet(): ConsumedSweet {
         val amount = enteredValue.value!!.toLong() * measureUnit.ratioWithGrams
-        println("am $amount val ${enteredValue.value} meas rat ${measureUnit.ratioWithGrams}")
         return ConsumedSweet(
             sweetId = sweet.value!!.id,
             g = amount,
@@ -97,27 +81,15 @@ class SweetDetailsViewModel
     }
 
     private fun validateConsumedSweet(): Boolean {
-        return enteredValue.value!!.isNotEmpty() && enteredValue.value!!.toLong() > 0
+        return enteredValue.value?.let {
+            it.isNotEmpty() && it.toLong() > 0
+        } ?: false
     }
 
     fun toggleMeasureUnit() {
         measureUnit = measureUnit.toggle()
         sharedPrefs.defaultMeasurementUnit = measureUnit
         totalCals.value = getTotalCals()
-    }
-
-    private fun getSweet() {
-        val disposable = getSweetByIdUseCase.execute(sweetId)
-            .subscribeOn(Schedulers.io())
-            .map { SweetUi(it) }
-            .subscribeBy(onSuccess = {
-                sweet.postValue(it)
-            },
-                onError = {
-                    setError(it as StringResException)
-                }
-            )
-        addDisposable(disposable)
     }
 
     private fun rating(sweet: SweetUi): Int {
@@ -138,5 +110,10 @@ class SweetDetailsViewModel
             .multiply(BigDecimal(measureUnit.ratioWithGrams))
             .multiply(BigDecimal(sweet.calsPer100))
             .divide(BigDecimal(100)).toLong()
+    }
+
+    fun setSweet(sweet: SweetUi) {
+        this.sweet.value = sweet
+        sweetRating.value = rating(sweet)
     }
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.deividasstr.domain.enums.Periods
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
+import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentConsumedSweetDataBinding
@@ -16,6 +17,8 @@ import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
 
 class ConsumedSweetDataFragment :
     BaseFragment<FragmentConsumedSweetDataBinding, ConsumedSweetDataViewModel>() {
+
+    override val fabSetter: FabSetter? = null
 
     lateinit var sweets: LiveData<Pair<List<ConsumedSweetUi>, List<SweetUi>>>
     lateinit var currentPeriod: LiveData<Periods>

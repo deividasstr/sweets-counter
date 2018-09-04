@@ -5,52 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel" />
-
-        <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/margin_padding_size_large">
 
         <TextView
             android:id="@+id/sweet_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:paddingBottom="@dimen/margin_padding_size_medium"
             android:text="@{viewmodel.sweet.name}"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/consume_sweet_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_done_white_24dp"
-            android:onClick="@{(view) -> clickListener.onClick(view)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/nutrition_info_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:paddingBottom="@dimen/margin_padding_size_medium"
             android:text="@string/nutrition_info_title"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sweet_name"
@@ -61,7 +46,6 @@
             layout="@layout/sweet_details_cals_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nutrition_info_title"
             app:viewmodel="@{viewmodel}" />
@@ -71,7 +55,7 @@
             layout="@layout/sweet_details_nutrients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:paddingBottom="@dimen/margin_padding_size_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nutrition_info_title"
             app:viewmodel="@{viewmodel}" />
@@ -80,7 +64,9 @@
             android:id="@+id/add_sweet_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_padding_size_medium"
             android:text="@string/add_sweet_title"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nutrition_info_nutrients" />
@@ -90,20 +76,33 @@
             layout="@layout/sweet_details_add_sweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:viewmodel="@{viewmodel}"
+            android:paddingBottom="@dimen/margin_padding_size_large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_sweet_title" />
+            app:layout_constraintTop_toBottomOf="@id/add_sweet_title"
+            app:viewmodel="@{viewmodel}" />
 
         <TextView
-            android:id="@+id/total_cals"
+            android:id="@+id/total_cals_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/total_calories(viewmodel.totalCals)}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/total_calories"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_sweet" />
+
+        <com.robinhood.ticker.TickerView
+            android:id="@+id/total_cals_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_tiny"
+            android:text="@{viewmodel.totalCals.toString()}"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            app:layout_constraintBottom_toBottomOf="@id/total_cals_title"
+            app:layout_constraintStart_toEndOf="@id/total_cals_title"
+            app:layout_constraintTop_toBottomOf="@id/add_sweet"
+            app:ticker_animationDuration="@integer/duration_animation_longest"
+            app:ticker_defaultCharacterList="number" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

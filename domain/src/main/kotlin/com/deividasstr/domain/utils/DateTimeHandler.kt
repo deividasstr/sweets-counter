@@ -7,6 +7,7 @@ import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
+import java.util.Locale
 
 // All time calculations happen in epochSeconds!!!
 @OpenClass
@@ -15,18 +16,18 @@ class DateTimeHandler {
     fun currentEpochSecs(): Long = Instant.now(Clock.systemDefaultZone()).epochSecond
     fun currentLocalDate(): LocalDate = LocalDate.now(ZoneId.systemDefault())
 
-    fun formattedDateFull(seconds: Long): String {
-        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+    fun formattedDateFull(seconds: Long, locale: Locale = Locale.getDefault()): String {
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale)
         return zonedDateTime(seconds).format(formatter)
     }
 
-    fun formattedDateShort(localDate: LocalDate): String {
-        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    fun formattedDateShort(localDate: LocalDate, locale: Locale = Locale.getDefault()): String {
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
         return localDate.format(formatter)
     }
 
-    fun formattedTime(seconds: Long): String {
-        val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
+    fun formattedTime(seconds: Long, locale: Locale = Locale.getDefault()): String {
+        val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(locale)
         return zonedDateTime(seconds).format(formatter)
     }
 

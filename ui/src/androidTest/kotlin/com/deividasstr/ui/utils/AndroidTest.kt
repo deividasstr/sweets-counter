@@ -5,6 +5,9 @@ import androidx.annotation.IntegerRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.PerformException
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
@@ -12,8 +15,11 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.util.HumanReadables
+import androidx.test.espresso.util.TreeIterables
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.deividasstr.data.di.modules.DbModule
@@ -27,6 +33,7 @@ import io.objectbox.BoxStore
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.hamcrest.CoreMatchers
+import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.TypeSafeMatcher
@@ -34,6 +41,7 @@ import org.junit.Ignore
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
 import java.io.File
+import java.util.concurrent.TimeoutException
 
 @RunWith(AndroidJUnit4::class)
 @Ignore
@@ -80,6 +88,54 @@ open class AndroidTest {
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    protected fun ActivityTestRule<*>.showsSnackWithText(@IntegerRes stringRes: Int) {
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(stringRes)))
+    }
+
+    protected fun ActivityTestRule<*>.showsSnackWithText(string: String) {
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(withText(string)))
+    }
+
+    /** Perform action of waiting for a specific view id.  */
+    fun waitId(viewId: Int, millis: Long): ViewAction {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return isRoot()
+            }
+
+            override fun getDescription(): String {
+                return "wait for a specific view with id <$viewId> during $millis millis."
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                uiController.loopMainThreadUntilIdle()
+                val startTime = System.currentTimeMillis()
+                val endTime = startTime + millis
+                val viewMatcher = withId(viewId)
+
+                do {
+                    for (child in TreeIterables.breadthFirstViewTraversal(view)) {
+                        // found view with required ID
+                        if (viewMatcher.matches(child)) {
+                            return
+                        }
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50)
+                } while (System.currentTimeMillis() < endTime)
+
+                // timeout happens
+                throw PerformException.Builder()
+                    .withActionDescription(this.description)
+                    .withViewDescription(HumanReadables.describe(view))
+                    .withCause(TimeoutException())
+                    .build()
+            }
+        }
+    }
+
     protected fun Int.containsText(text: String) {
         onView(withId(this)).check(matches(withText(containsString(text))))
     }
@@ -113,8 +169,6 @@ open class AndroidTest {
 
     protected fun Int.nthItemHasText(pos: Int, text: String) {
         onView(CustomMachers.nthChildOf(withId(this), pos)).check(
-            matches(
-                (ViewMatchers.hasDescendant(
-                    withText(text)))))
+            matches((ViewMatchers.hasDescendant(withText(containsString(text))))))
     }
 }

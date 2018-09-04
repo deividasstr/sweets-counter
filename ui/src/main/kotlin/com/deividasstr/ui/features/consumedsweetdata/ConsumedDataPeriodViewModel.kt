@@ -14,7 +14,6 @@ import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
 import com.deividasstr.ui.features.sweetdetails.SweetRating
-import org.threeten.bp.LocalDate
 import javax.inject.Inject
 import kotlin.math.roundToLong
 
@@ -26,6 +25,7 @@ class ConsumedDataPeriodViewModel
 
     companion object {
         const val CALS_PER_G = 7.7
+        const val TOP_SWEETS_OTHER = "OTHER"
     }
 
     private lateinit var consumedSweets: List<ConsumedSweetUi>
@@ -36,9 +36,9 @@ class ConsumedDataPeriodViewModel
 
     private var clickRange: DateRange? = null
 
-    val cals = MutableLiveData<Long>()
-    val weight = MutableLiveData<Long>()
-    val unitsConsumed = MutableLiveData<Long>()
+    val cals = MutableLiveData<Long>().apply { value = 0 }
+    val weight = MutableLiveData<Long>().apply { value = 0 }
+    val unitsConsumed = MutableLiveData<Long>().apply { value = 0 }
     val sweetsPopularityData = MutableLiveData<List<PopularitySweetUi>>()
     val consumedBarData = MutableLiveData<ConsumedBarData>()
     val sweetsRatingData = MutableLiveData<Map<SweetRating, Long>>()
@@ -77,14 +77,26 @@ class ConsumedDataPeriodViewModel
     }
 
     private fun sweetPopularityByG(): List<PopularitySweetUi> {
-        val map = HashMap<SweetUi, Long>()
-        for (consumed in consumedInRange) {
+        val map = HashMap<String, Long>()
+        consumedInRange = consumedInRange.sortedByDescending { it.g }
+
+        consumedInRange.forEach { consumed ->
             val sweet = sweets.find { it.id.toInt() == consumed.sweetId }!!
 
-            if (map.containsKey(sweet)) {
-                map[sweet] = map[sweet]!!.plus(consumed.g)
+            if (map.containsKey(sweet.name)) {
+                map[sweet.name] = map[sweet.name]!!.plus(consumed.g)
             } else {
-                map[sweet] = consumed.g
+                when {
+                    map.size == 9 -> {
+                        map[TOP_SWEETS_OTHER] = consumed.g
+                    }
+                    map.size == 10 -> {
+                        map[TOP_SWEETS_OTHER] = map[TOP_SWEETS_OTHER]!!.plus(consumed.g)
+                    }
+                    else -> {
+                        map[sweet.name] = consumed.g
+                    }
+                }
             }
         }
 
@@ -99,17 +111,17 @@ class ConsumedDataPeriodViewModel
     }
 
     private fun sweetRatingPopularityByG(): Map<SweetRating, Long> {
-        val map = mutableMapOf(
-            Pair(SweetRating.GOOD, 0L),
-            Pair(SweetRating.AVERAGE, 0L),
-            Pair(SweetRating.BAD, 0L))
+        val map = mutableMapOf<SweetRating, Long>()
 
         for (consumed in consumedInRange) {
             val sweet = sweets.find { it.id.toInt() == consumed.sweetId }!!
             val sweetRating = sweet.sweetRating()
-            map[sweetRating] = map[sweetRating]!!.plus(consumed.g)
+            if (map.contains(sweetRating)) {
+                map[sweetRating] = map[sweetRating]!!.plus(consumed.g)
+            } else {
+                map[sweetRating] = consumed.g
+            }
         }
-
         return map
     }
 
@@ -160,11 +172,7 @@ class ConsumedDataPeriodViewModel
             Periods.MONTH -> getCalsInMonth()
             Periods.YEAR -> getCalsInYear()
         }
-        return ConsumedBarData(calsPerTimeUnits, dateRange.period, noData(calsPerTimeUnits))
-    }
-
-    private fun noData(calsPerTimeUnits: LongArray): Boolean {
-        return calsPerTimeUnits.max() == 0L
+        return ConsumedBarData(calsPerTimeUnits, dateRange.period)
     }
 
     private fun getCalsInYear(): LongArray {
@@ -172,8 +180,8 @@ class ConsumedDataPeriodViewModel
     }
 
     private fun getCalsInMonth(): LongArray {
-        val now = LocalDate.now()
-        val monthLength = now.month.length(now.isLeapYear)
+        val isLeapYear = dateRange.startDate.isLeapYear
+        val monthLength = dateRange.startDate.month.length(isLeapYear)
         return getCalsInTimeUnit(monthLength, Periods.DAY)
     }
 

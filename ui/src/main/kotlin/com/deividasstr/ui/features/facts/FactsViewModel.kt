@@ -32,7 +32,7 @@ class FactsViewModel
                 fact.postValue(it)
             },
                 onError = {
-                    fact.postValue(null)
+                    // fact.postValue(null)
                     setError(it as StringResException)
                 }
             )

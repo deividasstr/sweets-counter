@@ -36,8 +36,8 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
 
         testSubscriber.assertResultValue(
             listOf(
-                DataTestData.TEST_CONSUMED_SWEETMODEL,
-                DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW))
+                DataTestData.TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW,
+                DataTestData.TEST_CONSUMED_SWEETMODEL))
     }
 
     @Test

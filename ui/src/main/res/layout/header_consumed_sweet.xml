@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="16dp"
-        android:textSize="22sp" />
+        android:padding="@dimen/material_component_cards_top_and_bottom_padding"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textStyle="bold" />
 
 </FrameLayout>

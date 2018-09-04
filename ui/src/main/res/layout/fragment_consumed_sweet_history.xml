@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
         <variable
             name="viewmodel"
@@ -23,18 +22,9 @@
             app:srv_showDivider="true"
             app:srv_showEmptyStateView="true"
             app:srv_emptyStateView="@layout/consumed_history_no_data"
+            android:layoutAnimation="@anim/layout_slide_right_delayed"
             >
         </com.jaychang.srv.SimpleRecyclerView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/period_details_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_add_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

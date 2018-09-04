@@ -1,10 +1,12 @@
 package com.deividasstr.ui.features.consumedsweethistory
 
 import androidx.lifecycle.MutableLiveData
+import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
+import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.framework.combineAndCompute
 import com.deividasstr.ui.base.models.ConsumedSweetUi
@@ -19,15 +21,16 @@ import javax.inject.Inject
 class ConsumedSweetHistoryViewModel
 @Inject constructor(
     private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase,
-    private val getSweetsByIdsUseCase: GetSweetsByIdsUseCase
+    private val getSweetsByIdsUseCase: GetSweetsByIdsUseCase,
+    private val dateTimeHandler: DateTimeHandler,
+    private val sharedPrefs: SharedPrefs
 ) : BaseViewModel() {
 
     private val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
     private val sweets = MutableLiveData<List<SweetUi>>()
 
     val sweetsPair = sweets.combineAndCompute(consumedSweets) { sweets, consumedSweets ->
-        println("on combineAndCompute $sweets $consumedSweets")
-        Pair(consumedSweets, sweets)
+        makeCells(sweets, consumedSweets)
     }
 
     init {
@@ -63,5 +66,16 @@ class ConsumedSweetHistoryViewModel
                 }
             )
         addDisposable(disposable)
+    }
+
+    private fun makeCells(
+        sweets: List<SweetUi>,
+        consumedSweets: List<ConsumedSweetUi>
+    ): List<ConsumedSweetCell> {
+        return consumedSweets.map { consumedSweet ->
+            val sweet = sweets.find { it.id == consumedSweet.sweetId.toLong() }!!
+            val combinedSweet = CombinedSweet(consumedSweet, sweet)
+            ConsumedSweetCell(combinedSweet, dateTimeHandler, sharedPrefs.defaultMeasurementUnit)
+        }
     }
 }

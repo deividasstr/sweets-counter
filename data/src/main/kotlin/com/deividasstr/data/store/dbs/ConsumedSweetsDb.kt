@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class ConsumedSweetsDb(val db: Box<ConsumedSweetDb>) : ConsumedSweetsDao {
 
     override fun getAllConsumedSweets(): Single<List<ConsumedSweetDb>> {
-        return RxObjectBoxQuery.singleList(db.query().order(ConsumedSweetDb_.date).build())
+        return RxObjectBoxQuery.singleList(db.query().orderDesc(ConsumedSweetDb_.date).build())
     }
 
     override fun addSweet(sweet: ConsumedSweetDb): Completable {

@@ -10,6 +10,12 @@ import javax.inject.Inject
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    abstract fun setFab(fabSetter: FabSetter?)
+
+    abstract fun alert(stringRes: Int)
+    abstract fun alert(string: String)
+    abstract fun liftNavBar()
 }
 
 inline fun <reified T : ViewModel> FragmentActivity.viewModel(

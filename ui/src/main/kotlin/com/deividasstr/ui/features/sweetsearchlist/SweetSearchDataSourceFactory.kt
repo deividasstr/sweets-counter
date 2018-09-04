@@ -13,8 +13,7 @@ class SweetSearchDataSourceFactory(private val db: SweetsDb) :
     private var query = ""
 
     override fun create(): DataSource<Int, SweetUi> {
-        val lazyList = db.query(query)
-        return SweetSearchDataSource(lazyList).map { SweetUi(it) }
+        return SweetSearchDataSource(db.query(query)).get().map { SweetUi(it) }
     }
 
     fun search(text: String) {

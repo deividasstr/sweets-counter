@@ -36,6 +36,7 @@ allprojects {
         maven { url "http://objectbox.net/beta-repo/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
         maven { url 'https://jitpack.io' }
+        maven { url "https://dl.bintray.com/lion4ik/maven" }
     }
 
     configurations {

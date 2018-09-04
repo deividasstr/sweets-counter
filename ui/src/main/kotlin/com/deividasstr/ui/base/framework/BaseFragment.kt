@@ -23,6 +23,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
 
     abstract fun layoutId(): Int
 
+    abstract val fabSetter: FabSetter?
+
     protected lateinit var binding: VB
     protected lateinit var viewModel: VM
 
@@ -31,7 +33,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
         viewModel = ViewModelProviders.of(this, viewModelFactory)[getViewModelClass()]
         observe(viewModel.errorMessage) { it ->
             it?.getContentIfNotHandled()?.let {
-                context?.alert(getString(it.messageStringRes))
+                (activity as BaseActivity).alert(it.messageStringRes)
             }
         }
     }
@@ -44,6 +46,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFr
         val view = inflater.inflate(layoutId(), container, false)
         binding = DataBindingUtil.bind(view)!!
         binding.setLifecycleOwner(this)
+
+        (activity as BaseActivity).setFab(fabSetter)
 
         return view
     }

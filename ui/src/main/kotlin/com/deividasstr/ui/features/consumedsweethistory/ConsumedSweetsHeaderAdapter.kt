@@ -11,8 +11,7 @@ import kotlinx.android.synthetic.main.header_consumed_sweet.view.*
 class ConsumedSweetsHeaderAdapter(
     private val dateTimeHandler: DateTimeHandler,
     private val inflater: LayoutInflater
-) :
-    SimpleSectionHeaderProvider<CombinedSweet>() {
+) : SimpleSectionHeaderProvider<CombinedSweet>() {
 
     override fun isSameSection(
         item: CombinedSweet,

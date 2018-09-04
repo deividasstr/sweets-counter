@@ -49,7 +49,7 @@ class ConsumedSweetHistoryFragmentTest : AndroidTest() {
     @Test
     fun recyclerViewItems() {
         val sweets = TestData.TEST_LIST_SWEETS
-        val consumedSweets = TestData.TEST_LIST_CONSUMED_SWEETS
+        val consumedSweets = TestData.TEST_LIST_CONSUMED_SWEETS2
         given { getSweetsByIdsUseCase.execute(any()) } willReturn { Single.just(sweets) }
         given { getAllConsumedSweetsUseCase.execute() } willReturn { Single.just(consumedSweets) }
 
@@ -57,12 +57,12 @@ class ConsumedSweetHistoryFragmentTest : AndroidTest() {
 
         assertEquals(2, countRecyclerViewItems(R.id.consumed_sweet_recycler))
 
-        R.id.consumed_sweet_recycler.nthItemHasText(1, TestData.TEST_SWEET.name)
-        R.id.consumed_sweet_recycler
-            .nthItemHasText(1, dateTimeHandler.formattedTime(TestData.TEST_CONSUMED_SWEET.date))
-        R.id.consumed_sweet_recycler.nthItemHasText(1, TestData.TEST_CONSUMED_SWEET.g.toString())
+        R.id.consumed_sweet_recycler.nthItemHasText(0, TestData.TEST_SWEET.name)
+        R.id.consumed_sweet_recycler.nthItemHasText(
+            0, dateTimeHandler.formattedTime(TestData.TEST_CONSUMED_SWEET.date))
+        R.id.consumed_sweet_recycler.nthItemHasText(0, TestData.TEST_CONSUMED_SWEET.g.toString())
         val cals = BigDecimal(TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100)
-        R.id.consumed_sweet_recycler.nthItemHasText(1, cals.toString())
+        R.id.consumed_sweet_recycler.nthItemHasText(0, cals.toString())
     }
 
     private fun startFragment() {

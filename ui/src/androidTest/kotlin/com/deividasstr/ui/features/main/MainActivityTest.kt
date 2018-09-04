@@ -50,7 +50,7 @@ class MainActivityTest : AndroidTest() {
     }
 
     @Test
-    fun pressOn2ndBotNavItem_navigateToHistoryFragment() {
+    fun pressOn2ndBotNavItem_navigateToDataFragment() {
         onView(withId(R.id.action_data)).perform(click())
 
         val currentDestination =
@@ -60,7 +60,7 @@ class MainActivityTest : AndroidTest() {
     }
 
     @Test
-    fun pressOn3rdBotNavItem_navigateToHistoryFragment() {
+    fun pressOn3rdBotNavItem_navigateToFactFragment() {
         onView(withId(R.id.action_fact)).perform(click())
 
         val currentDestination =
@@ -70,7 +70,7 @@ class MainActivityTest : AndroidTest() {
     }
 
     @Test
-    fun noInternet_showsToast() {
-        activityRule.showsToastWithText(R.string.error_network_unavailable)
+    fun noInternet_alerts() {
+        activityRule.showsSnackWithText(R.string.error_network_unavailable)
     }
 }

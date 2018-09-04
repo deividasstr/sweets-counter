@@ -10,4 +10,5 @@
     <color name="rating_bad">#d50000</color>
     <color name="rating_average">#ffea00</color>
     <color name="rating_good">#558b2f</color>
+    <color name="light_gray">#f5f5f5</color>
 </resources>

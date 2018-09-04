@@ -1,16 +1,20 @@
 package com.deividasstr.data.store.datasource
 
+import androidx.paging.DataSource
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.domain.entities.Sweet
-import io.objectbox.query.LazyList
+import io.objectbox.android.ObjectBoxDataSource
+import io.objectbox.query.Query
 
-class SweetSearchDataSource(dbSweets: LazyList<SweetDb>) :
-    ObjectBoxDataSource<Sweet>(dbSweets, ::converter) {
+class SweetSearchDataSource(private val dbSweets: Query<SweetDb>) {
 
-    companion object {
-        fun converter(any: Any): Sweet {
-            return (any as SweetDb).toSweet()
-        }
+    fun get(): DataSource<Int, Sweet> {
+        return ObjectBoxDataSource.Factory<SweetDb>(dbSweets).map { ::converter.invoke(it) }
+            .create()
+    }
+
+    private fun converter(sweetDb: SweetDb): Sweet {
+        return sweetDb.toSweet()
     }
 }

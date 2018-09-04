@@ -7,6 +7,7 @@ apply from: rootDir.absolutePath + '/base_lib.gradle'
 apply from: rootDir.absolutePath + '/utils.gradle'
 
 apply plugin: 'kotlin-allopen'
+apply plugin: 'kotlin-android'
 
 buildscript {
     repositories {
@@ -52,11 +53,13 @@ android {
 dependencies {
     implementation project(':data')
     implementation project(':devices')
+    implementation project(':MPChartLib')
 
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
 
     implementation "com.google.android.material:material:$supportLibraryVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.robinhood.ticker:ticker:2.0.0'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
@@ -64,6 +67,8 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$lifecycleVersion"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
@@ -80,16 +85,18 @@ dependencies {
 
     implementation 'com.tbuonomo:morph-bottom-navigation:1.0.1'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
     //implementation 'com.google.firebase:firebase-core:16.0.1'
 
-    implementation 'com.jaychang:simplerecyclerview:2.0.4'
+    implementation 'com.jaychang:simplerecyclerview:2.0.5'
     implementation 'com.jaychang:simplerecyclerview-kotlin-android-extensions:2.0.4'
+
+    implementation "androidx.dynamicanimation:dynamicanimation:$supportLibraryVersion"
 
     //Tests
 
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
+    //implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
 
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
@@ -102,7 +109,7 @@ dependencies {
 
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
-    androidTestImplementation 'com.agoda.kakao:kakao:1.3.0'
+    //androidTestImplementation 'com.agoda.kakao:kakao:1.3.0'
 
     androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
 
@@ -117,10 +124,10 @@ dependencies {
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
 
     androidTestImplementation 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
-    androidTestImplementation 'com.squareup.rx.idler:rx2-idler:0.9.0'
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 //apply plugin: 'com.google.gms.google-services'
+

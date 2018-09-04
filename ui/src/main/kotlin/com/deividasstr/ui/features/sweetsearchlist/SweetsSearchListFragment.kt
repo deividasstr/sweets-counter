@@ -2,20 +2,29 @@ package com.deividasstr.ui.features.sweetsearchlist
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import android.widget.TextView
+import androidx.core.view.ViewCompat
+import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
+import com.deividasstr.ui.base.framework.FabSetter
+import com.deividasstr.ui.base.framework.closeKeyboard
 import com.deividasstr.ui.base.framework.observe
 import com.deividasstr.ui.base.framework.openKeyboard
 import com.deividasstr.ui.base.models.SweetUi
+import com.deividasstr.ui.base.sharedelements.HasSharedElements
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.actionSweetDetails
 
 class SweetsSearchListFragment :
-    BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>() {
+    BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>(), HasSharedElements {
+
+    override val fabSetter: FabSetter? = null
+
+    private val sharedElements: MutableMap<String, View> = mutableMapOf()
 
     override fun getViewModelClass(): Class<SweetsSearchListViewModel> =
         SweetsSearchListViewModel::class.java
@@ -28,22 +37,36 @@ class SweetsSearchListFragment :
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             viewmodel = viewModel
-            sweetsList.setHasFixedSize(true)
+            sweetsRecycler.setHasFixedSize(true)
 
-            val itemDecor = DividerItemDecoration(sweetsList.context, VERTICAL)
-            sweetsList.addItemDecoration(itemDecor)
-
-            sweetsList.adapter = adapter
-            sweetsSearchView.requestFocus()
-            sweetsSearchView.openKeyboard()
+            val itemDecor = DividerItemDecoration(sweetsRecycler.context, VERTICAL)
+            sweetsRecycler.addItemDecoration(itemDecor)
+            sweetsRecycler.adapter = adapter
         }
         observe(viewModel.sweets, ::renderSweetsList)
     }
 
-    private fun navigateToSweetDetails(sweetId: Long) {
-        val action = actionSweetDetails()
-        action.setSweetId(sweetId.toInt())
-        findNavController(this).navigate(action)
+    override fun onResume() {
+        super.onResume()
+        binding.sweetsSearchView.requestFocus()
+        binding.sweetsSearchView.openKeyboard()
+    }
+
+    override fun onPause() {
+        binding.sweetsSearchView.closeKeyboard()
+        super.onPause()
+    }
+
+    private fun navigateToSweetDetails(sweet: SweetUi, view: TextView) {
+        setSharedElement(view)
+
+        val action = actionSweetDetails(sweet)
+        Navigation.findNavController(view).navigate(action)
+    }
+
+    private fun setSharedElement(view: TextView) {
+        sharedElements.clear()
+        sharedElements[ViewCompat.getTransitionName(view)!!] = view
     }
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
@@ -52,9 +75,13 @@ class SweetsSearchListFragment :
 
     private fun createAdapter(): SweetsSearchAdapter {
         val adapter = SweetsSearchAdapter()
-        adapter.clickListener = { sweetId ->
-            navigateToSweetDetails(sweetId)
+        adapter.clickListener = { sweet, view ->
+            navigateToSweetDetails(sweet, view)
         }
         return adapter
     }
+
+    override fun getSharedElements(): Map<String, View> = sharedElements
+
+    override fun hasReorderingAllowed(): Boolean = false
 }

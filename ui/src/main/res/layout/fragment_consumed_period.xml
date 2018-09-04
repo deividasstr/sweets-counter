@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.content.Context"/>
+
+        <import type="android.content.Context" />
+
         <variable
             name="viewmodel"
             type="com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodViewModel" />
@@ -22,20 +24,23 @@
             android:id="@+id/period_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/material_component_cards_top_and_bottom_padding"
+                android:paddingBottom="@dimen/material_component_cards_top_and_bottom_padding">
 
                 <TextView
                     android:id="@+id/consumed_data_selected_date_range"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewmodel.dateRangeText}"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +48,7 @@
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/consumed_data_period_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="@dimen/chart_height"
                     android:chartListener="@{chartlistener}"
                     android:setConsumedData="@{viewmodel.consumedBarData}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +63,7 @@
             android:id="@+id/period_numbers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/period_bar">
@@ -66,28 +71,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/material_component_cards_top_and_bottom_padding">
 
-                <TextView
+                <com.robinhood.ticker.TickerView
                     android:id="@+id/consumed_data_period_total_cals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/total_calories(viewmodel.cals)}" />
+                    android:text="@{@string/total_calories(viewmodel.cals)}"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                    app:ticker_animationDuration="@integer/duration_animation_longest"
+                    app:ticker_defaultCharacterList="number" />
 
-                <TextView
+                <com.robinhood.ticker.TickerView
                     android:id="@+id/consumed_data_period_units_consumed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/consumed_data_sweets_consumed(viewmodel.unitsConsumed, context.getString(viewmodel.unitStringRes).toLowerCase())}" />
+                    android:text="@{@string/consumed_data_sweets_consumed(viewmodel.unitsConsumed, context.getString(viewmodel.unitStringRes).toLowerCase())}"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                    app:ticker_animationDuration="@integer/duration_animation_longest"
+                    app:ticker_defaultCharacterList="number" />
 
-                <TextView
+                <com.robinhood.ticker.TickerView
                     android:id="@+id/consumed_data_period_total_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/consumed_data_weight_gained(viewmodel.weight, context.getString(viewmodel.unitStringRes).toLowerCase())}" />
+                    android:text="@{@string/consumed_data_weight_gained(viewmodel.weight, context.getString(viewmodel.unitStringRes).toLowerCase())}"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                    app:ticker_animationDuration="@integer/duration_animation_longest"
+                    app:ticker_defaultCharacterList="number" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -96,7 +111,8 @@
             android:id="@+id/period_popularity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
+            android:padding="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/period_numbers">
@@ -104,15 +120,17 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/consumed_data_sweets_popularity_chart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
                 android:setPopularityData="@{viewmodel.sweetsPopularityData}" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
+            android:padding="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/period_popularity">
@@ -120,8 +138,9 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/consumed_data_sweets_rating_chart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
+                android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
                 android:setRatingData="@{viewmodel.sweetsRatingData}" />
         </com.google.android.material.card.MaterialCardView>
 

@@ -7,7 +7,7 @@ import com.deividasstr.ui.features.consumedsweetdata.charts.YearXAxisFormatter
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import java.util.Arrays
 
-data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods, val isEmpty: Boolean) {
+data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods) {
 
     fun xAxisFormatterByRange(): IAxisValueFormatter {
         return when (period) {
@@ -35,5 +35,15 @@ data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods, 
         var result = Arrays.hashCode(calsPerTimeUnit)
         result = 31 * result + period.hashCode()
         return result
+    }
+
+    fun xAxisLabelCountByRange(): Int {
+        return when (period) {
+            Periods.WEEK -> 7
+            Periods.MONTH -> 15
+            Periods.YEAR -> 12
+            Periods.DAY -> throw
+            IllegalArgumentException("DAY should not be passed to consumed data bar chart")
+        }
     }
 }

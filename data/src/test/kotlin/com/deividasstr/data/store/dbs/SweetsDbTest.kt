@@ -87,8 +87,7 @@ class SweetsDbTest : AbstractObjectBoxTest() {
     fun queryEmpty_returnsAll() {
         db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
 
-        val sweets = db.query("")
-        sweets.loadRemaining()
+        val sweets = db.query("").find()
 
         assert(DataTestData.TEST_LIST_SWEETMODELS[0] == sweets[0])
         assert(DataTestData.TEST_LIST_SWEETMODELS[1] == sweets[1])
@@ -99,8 +98,7 @@ class SweetsDbTest : AbstractObjectBoxTest() {
     fun queryCorrectName_returnsOne() {
         db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
 
-        val sweets = db.query(DataTestData.TEST_LIST_SWEETMODELS[1].name)
-        sweets.loadRemaining()
+        val sweets = db.query(DataTestData.TEST_LIST_SWEETMODELS[1].name).find()
 
         assert(DataTestData.TEST_LIST_SWEETMODELS[1] == sweets[0])
         assert(sweets.size == 1)

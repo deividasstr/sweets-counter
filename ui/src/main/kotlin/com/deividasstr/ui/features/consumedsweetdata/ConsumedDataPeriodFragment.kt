@@ -1,12 +1,17 @@
 package com.deividasstr.ui.features.consumedsweetdata
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
+import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.databinding.FragmentConsumedPeriodBinding
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
@@ -14,6 +19,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 class ConsumedDataPeriodFragment :
     BaseFragment<FragmentConsumedPeriodBinding, ConsumedDataPeriodViewModel>(),
     OnChartValueSelectedListener {
+
+    override val fabSetter: FabSetter? = null
 
     companion object {
         const val EXTRA_POS = "EXTRA_POS"
@@ -47,30 +54,43 @@ class ConsumedDataPeriodFragment :
             viewmodel = viewModel
             chartlistener = this@ConsumedDataPeriodFragment
 
-            consumedDataSweetsPopularityChart.setUsePercentValues(true)
-            consumedDataSweetsPopularityChart.setNoDataText("No data popularity")
-            consumedDataSweetsPopularityChart.legend.isEnabled = false
-            consumedDataSweetsPopularityChart.setEntryLabelColor(android.graphics.Color.BLACK)
-            consumedDataSweetsPopularityChart.description.isEnabled = false
-            consumedDataSweetsPopularityChart.isRotationEnabled = false
-            consumedDataSweetsPopularityChart.centerText =
-                getString(R.string.consumed_data_title_sweets_popularity)
+            val typeface = ResourcesCompat.getFont(context!!, R.font.montserrat)!!
 
-            consumedDataSweetsRatingChart.setUsePercentValues(true)
-            consumedDataSweetsRatingChart.setNoDataText("No data rating")
-            consumedDataSweetsRatingChart.legend.isEnabled = false
-            consumedDataSweetsRatingChart.setEntryLabelColor(android.graphics.Color.BLACK)
-            consumedDataSweetsRatingChart.description.isEnabled = false
-            consumedDataSweetsRatingChart.isRotationEnabled = false
-            consumedDataSweetsRatingChart.centerText =
-                getString(R.string.consumed_data_title_sweets_rating_title)
+            val topLabel = getString(R.string.consumed_data_title_sweets_popularity)
+            setupPie(consumedDataSweetsPopularityChart, typeface, "No data popularity", topLabel)
 
-            consumedDataPeriodChart.setDrawValueAboveBar(true)
-            consumedDataPeriodChart.setScaleEnabled(false)
-            consumedDataPeriodChart.legend.isEnabled = false
-            consumedDataPeriodChart.description.isEnabled = false
-            consumedDataPeriodChart.setNoDataText("No data bar")
+            val ratingLabel = getString(R.string.consumed_data_title_sweets_rating_title)
+            setupPie(consumedDataSweetsRatingChart, typeface, "No data Rating", ratingLabel)
+
+            setupBar(consumedDataPeriodChart, typeface, "No data")
         }
+    }
+
+    private fun setupPie(
+        view: PieChart,
+        typeface: Typeface,
+        noDataText: String,
+        labelText: String
+    ) {
+        view.setUsePercentValues(true)
+        view.setNoDataText(noDataText)
+        view.legend.isEnabled = false
+        view.setEntryLabelColor(android.graphics.Color.BLACK)
+        view.description.isEnabled = false
+        // view.isRotationEnabled = false
+        view.setNoDataTextTypeface(typeface)
+        view.centerText = labelText
+        view.setCenterTextTypeface(typeface)
+        view.setCenterTextSize(16f)
+    }
+
+    private fun setupBar(view: BarChart, typeface: Typeface, noDataText: String) {
+        view.setDrawValueAboveBar(true)
+        view.setScaleEnabled(false)
+        view.legend.isEnabled = false
+        view.description.isEnabled = false
+        view.setNoDataText(noDataText)
+        view.setNoDataTextTypeface(typeface)
     }
 
     override fun onNothingSelected() {

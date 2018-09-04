@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    app:startDestination="@id/consumedSweetHistoryFragment">
+    app:startDestination="@id/action_history">
 
     <fragment
         android:id="@+id/sweetsSearchListFragment"
@@ -10,50 +10,55 @@
         android:label="SweetsSearchListFragment">
         <action
             android:id="@+id/action_sweet_details"
-            app:destination="@id/sweetDetailsFragment" />
+            app:destination="@id/sweetDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
-        android:id="@+id/consumedSweetDataFragment"
+        android:id="@+id/action_data"
         android:name="com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment"
         android:label="ConsumedSweetDataFragment">
         <action
             android:id="@+id/action_consumedSweetDataFragment_to_sweetsSearchListFragment"
             app:destination="@id/sweetsSearchListFragment"
-            app:popUpTo="@+id/consumedSweetDataFragment" />
+            app:popUpTo="@+id/action_data" />
     </fragment>
 
     <fragment
-        android:id="@+id/factsFragment"
+        android:id="@+id/action_fact"
         android:name="com.deividasstr.ui.features.facts.FactsFragment"
         android:label="FactsFragment" />
 
     <fragment
-        android:id="@+id/consumedSweetHistoryFragment"
+        android:id="@+id/action_history"
         android:name="com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment"
         android:label="ConsumedSweetHistoryFragment">
         <action
             android:id="@+id/action_consumedSweetHistoryFragment_to_sweetsSearchListFragment"
             app:destination="@id/sweetsSearchListFragment"
-            app:popUpTo="@+id/consumedSweetHistoryFragment" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/action_history"
+            app:popUpToInclusive="false" />
     </fragment>
-    <action
-        android:id="@+id/action_data"
-        app:destination="@id/consumedSweetDataFragment" />
-    <action
-        android:id="@+id/action_history"
-        app:destination="@id/consumedSweetHistoryFragment" />
-    <action
-        android:id="@+id/action_fact"
-        app:destination="@id/factsFragment" />
+
     <fragment
         android:id="@+id/sweetDetailsFragment"
         android:name="com.deividasstr.ui.features.sweetdetails.SweetDetailsFragment"
         android:label="SweetDetailsFragment">
         <argument
-            android:name="sweetId"
-            android:defaultValue="0"
-            app:argType="integer" /><action android:id="@+id/action_sweetDetailsFragment_to_consumedSweetHistoryFragment" app:destination="@id/consumedSweetHistoryFragment"/>
+            android:name="sweet"
+            app:argType="com.deividasstr.ui.base.models.SweetUi" />
+
+        <action
+            android:id="@+id/action_sweetDetailsFragment_to_consumedSweetHistoryFragment"
+            app:clearTask="true"
+            app:destination="@id/action_history" />
     </fragment>
 
 </navigation>

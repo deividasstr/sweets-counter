@@ -72,23 +72,22 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val sweetsPopularity =
             listOf(
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET1,
+                    UiTestData.UI_SWEET1.name,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
-                PopularitySweetUi(UiTestData.UI_SWEET2, UiTestData.UI_CONSUMED_SWEET2.g))
+                PopularitySweetUi(UiTestData.UI_SWEET2.name, UiTestData.UI_CONSUMED_SWEET2.g))
 
         val sweetsRating =
             mapOf(
                 Pair(
                     SweetRating.BAD,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
-                Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET2.g),
-                Pair(SweetRating.GOOD, 0L)
+                Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET2.g)
             )
 
         val array = LongArray(7) { 0 }
         array[0] = calsDay1
         array[2] = calsDay3
-        val consumedData = ConsumedBarData(array, Periods.WEEK, false)
+        val consumedData = ConsumedBarData(array, Periods.WEEK)
 
         testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
     }
@@ -115,10 +114,10 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val sweetsPopularity =
             listOf(
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET1,
+                    UiTestData.UI_SWEET1.name,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET2,
+                    UiTestData.UI_SWEET2.name,
                     UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g))
 
         val sweetsRating =
@@ -128,16 +127,16 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
                 Pair(
                     SweetRating.AVERAGE,
-                    UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g),
-                Pair(SweetRating.GOOD, 0L)
-            )
+                    UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g))
 
+        val days =
+            TestData.LOCAL_DATE_TIME.month.length(TestData.LOCAL_DATE_TIME.toLocalDate().isLeapYear)
         val array =
-            LongArray(TestData.LOCAL_DATE_TIME.month.length(TestData.LOCAL_DATE_TIME.toLocalDate().isLeapYear)) { 0 }
+            LongArray(days) { 0 }
         array[4] = calsDayLastWeek
         array[5] = calsDay1
         array[7] = calsDay3
-        val consumedData = ConsumedBarData(array, Periods.MONTH, false)
+        val consumedData = ConsumedBarData(array, Periods.MONTH)
 
         viewModel.setPeriod(Periods.MONTH)
         testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
@@ -167,10 +166,10 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val sweetsPopularity =
             listOf(
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET1,
+                    UiTestData.UI_SWEET1.name,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g + UiTestData.UI_CONSUMED_SWEET5.g),
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET2,
+                    UiTestData.UI_SWEET2.name,
                     UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g))
 
         val sweetsRating =
@@ -180,15 +179,13 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g + UiTestData.UI_CONSUMED_SWEET5.g),
                 Pair(
                     SweetRating.AVERAGE,
-                    UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g),
-                Pair(SweetRating.GOOD, 0L)
-            )
+                    UiTestData.UI_CONSUMED_SWEET2.g + UiTestData.UI_CONSUMED_SWEET4.g))
 
         val array =
             LongArray(12) { 0 }
         array[6] = calsDayLastMonth
         array[7] = calsDay1 + calsDay3 + calsDayLastWeek
-        val consumedData = ConsumedBarData(array, Periods.YEAR, false)
+        val consumedData = ConsumedBarData(array, Periods.YEAR)
 
         viewModel.setPeriod(Periods.YEAR)
         testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
@@ -210,15 +207,10 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val sweetsPopularity = emptyList<PopularitySweetUi>()
 
-        val sweetsRating =
-            mapOf(
-                Pair(SweetRating.BAD, 0L),
-                Pair(SweetRating.AVERAGE, 0L),
-                Pair(SweetRating.GOOD, 0L)
-            )
+        val sweetsRating: Map<SweetRating, Long> = emptyMap()
 
         val array = LongArray(7) { 0 }
-        val consumedData = ConsumedBarData(array, Periods.WEEK, true)
+        val consumedData = ConsumedBarData(array, Periods.WEEK)
 
         testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
     }
@@ -238,18 +230,14 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         range.advanceRange(-1)
 
         val sweetsPopularity = listOf(
-            PopularitySweetUi(UiTestData.UI_SWEET2, UiTestData.UI_CONSUMED_SWEET4.g))
+            PopularitySweetUi(UiTestData.UI_SWEET2.name, UiTestData.UI_CONSUMED_SWEET4.g))
 
         val sweetsRating =
-            mapOf(
-                Pair(SweetRating.BAD, 0L),
-                Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET4.g),
-                Pair(SweetRating.GOOD, 0L)
-            )
+            mapOf(Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET4.g))
 
         val array = LongArray(7) { 0 }
         array[6] = cals
-        val consumedData = ConsumedBarData(array, Periods.WEEK, false)
+        val consumedData = ConsumedBarData(array, Periods.WEEK)
 
         viewModel.pos = -1
 
@@ -279,23 +267,21 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val sweetsPopularity =
             listOf(
                 PopularitySweetUi(
-                    UiTestData.UI_SWEET1,
+                    UiTestData.UI_SWEET1.name,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
-                PopularitySweetUi(UiTestData.UI_SWEET2, UiTestData.UI_CONSUMED_SWEET2.g))
+                PopularitySweetUi(UiTestData.UI_SWEET2.name, UiTestData.UI_CONSUMED_SWEET2.g))
 
         val sweetsRating =
             mapOf(
                 Pair(
                     SweetRating.BAD,
                     UiTestData.UI_CONSUMED_SWEET1.g + UiTestData.UI_CONSUMED_SWEET3.g),
-                Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET2.g),
-                Pair(SweetRating.GOOD, 0L)
-            )
+                Pair(SweetRating.AVERAGE, UiTestData.UI_CONSUMED_SWEET2.g))
 
         val array = LongArray(7) { 0 }
         array[0] = calsDay1
         array[2] = calsDay3
-        val consumedData = ConsumedBarData(array, Periods.WEEK, false)
+        val consumedData = ConsumedBarData(array, Periods.WEEK)
 
         testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
     }
@@ -319,20 +305,19 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val sweetsPopularity =
             listOf(
-                PopularitySweetUi(UiTestData.UI_SWEET1, UiTestData.UI_CONSUMED_SWEET1.g),
-                PopularitySweetUi(UiTestData.UI_SWEET2, UiTestData.UI_CONSUMED_SWEET2.g))
+                PopularitySweetUi(UiTestData.UI_SWEET1.name, UiTestData.UI_CONSUMED_SWEET1.g),
+                PopularitySweetUi(UiTestData.UI_SWEET2.name, UiTestData.UI_CONSUMED_SWEET2.g))
 
         val sweetsRating =
             mapOf(
                 Pair(SweetRating.BAD, 100L),
-                Pair(SweetRating.AVERAGE, 65L),
-                Pair(SweetRating.GOOD, 0L)
+                Pair(SweetRating.AVERAGE, 65L)
             )
 
         val array = LongArray(7) { 0 }
         array[0] = calsDay1
         array[2] = cals
-        val consumedData = ConsumedBarData(array, Periods.WEEK, false)
+        val consumedData = ConsumedBarData(array, Periods.WEEK)
 
         viewModel.barClicked(3)
 

@@ -3,15 +3,17 @@ package com.deividasstr.ui.base.framework
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
-fun Context.alert(@StringRes message: Int) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+fun View.alert(@StringRes message: Int) {
+    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
+    // Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
-fun Context.alert(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+fun View.alert(message: String) {
+    // Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
 }
 
 fun View.openKeyboard() {
@@ -22,4 +24,12 @@ fun View.openKeyboard() {
 fun View.closeKeyboard() {
     val keyboard = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     keyboard.hideSoftInputFromWindow(this.windowToken, 0)
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
 }
