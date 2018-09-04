@@ -93,7 +93,7 @@ jobs:
 
       - run:
           name: Add google-services
-          command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
+          command: echo $GOOGLE_SERVICES | base64 --decode > ~/ui/google-services.json
 
       - *check
 
