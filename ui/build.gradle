@@ -25,22 +25,15 @@ allOpen {
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 android {
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile rootProject.file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
+
     defaultConfig {
         buildConfigField 'String', 'BASE_API_URL', getString(BASE_API_URL)
         applicationId "com.deividasstr.sweetscounter"
         testInstrumentationRunner "com.deividasstr.ui.utils.TestAppRunner"
-        signingConfig signingConfigs.config
     }
     dataBinding {
         enabled = true
@@ -60,7 +53,14 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.config
+            if (keystorePropertiesFile.exists()) {
+                signingConfig {
+                    keyAlias keystoreProperties['keyAlias']
+                    keyPassword keystoreProperties['keyPassword']
+                    storeFile rootProject.file(keystoreProperties['storeFile'])
+                    storePassword keystoreProperties['storePassword']
+                }
+            }
         }
     }
 }

@@ -50,3 +50,7 @@
     <fields>;
 }
 -keepnames @com.squareup.moshi.JsonClass class *
+
+## Charts lib
+-keep class com.github.mikephil.charting.** { *; }
+
