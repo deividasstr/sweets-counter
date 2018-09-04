@@ -79,10 +79,6 @@ jobs:
   build:
     <<: *android_config
     steps:
-      - run:
-          name: Add google-services
-          command: echo $GOOGLE_SERVICES | base64 --decode > ~/repo/ui/google-services.json
-
       - checkout
       ## - *print_emulator_images
 
@@ -92,6 +88,9 @@ jobs:
       ##- *launch_emulator
 
       - *android_dependencies
+      - run:
+          name: Add google-services
+          command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
       - *save_gradle_cache
 
       - *check
