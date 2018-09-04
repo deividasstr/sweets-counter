@@ -81,7 +81,7 @@ jobs:
     steps:
       - run:
           name: Add google-services
-          command: echo $GOOGLE_SERVICES | base64 --decode > ~/ui/google-services.json
+          command: echo $GOOGLE_SERVICES | base64 --decode > ./ui/google-services.json
 
       - checkout
       ## - *print_emulator_images
