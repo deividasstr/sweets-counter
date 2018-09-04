@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.crashlytics.android.Crashlytics
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
@@ -45,7 +46,11 @@ class ConsumedSweetHistoryFragment :
     }
 
     private fun navigateToSearch() {
-        view?.findNavController()
-            ?.navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
+        try {
+            view?.findNavController()
+                ?.navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
+        }
     }
 }

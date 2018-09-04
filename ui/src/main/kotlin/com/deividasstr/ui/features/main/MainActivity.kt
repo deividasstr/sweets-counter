@@ -119,6 +119,7 @@ class MainActivity : BaseActivity() {
                 (fab as View).show()
             }
         } else {
+            fab.setOnClickListener { }
             fab.animate().apply {
                 cancel()
                 alpha(0f)

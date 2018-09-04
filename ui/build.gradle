@@ -29,6 +29,16 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            releaseConfig {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile rootProject.file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
 
     defaultConfig {
         buildConfigField 'String', 'BASE_API_URL', getString(BASE_API_URL)
@@ -54,12 +64,7 @@ android {
     buildTypes {
         release {
             if (keystorePropertiesFile.exists()) {
-                signingConfig {
-                    keyAlias keystoreProperties['keyAlias']
-                    keyPassword keystoreProperties['keyPassword']
-                    storeFile rootProject.file(keystoreProperties['storeFile'])
-                    storePassword keystoreProperties['storePassword']
-                }
+                signingConfig signingConfigs.releaseConfig
             }
         }
     }
