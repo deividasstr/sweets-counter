@@ -12,6 +12,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
@@ -22,10 +23,11 @@ buildscript {
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.vanniktech:gradle-dependency-graph-generator-plugin:0.5.0"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
-        //classpath 'com.google.gms:google-services:4.0.0'
+        classpath 'com.google.firebase:firebase-plugins:1.1.5'
+        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.google.gms:google-services:4.1.0'
     }
 }
-
 apply plugin: "com.vanniktech.dependency.graph.generator"
 apply from: 'dependencies.gradle'
 

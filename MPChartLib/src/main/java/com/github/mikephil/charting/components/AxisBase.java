@@ -203,7 +203,6 @@ public abstract class AxisBase extends ComponentBase {
     public void setGridColor(int color) {
         mGridColor = color;
     }
-
     /**
      * Returns the width of the axis line (line alongside the axis).
      *

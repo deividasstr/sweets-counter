@@ -207,17 +207,14 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
         if (mAxisLeft.isEnabled()) {
             mAxisRendererLeft.computeAxis(mAxisLeft.mAxisMinimum, mAxisLeft.mAxisMaximum, mAxisLeft.isInverted());
-            System.out.println("left " + mAxisLeft.mAxisMinimum + " inv " + mAxisLeft.isInverted());
         }
 
         if (mAxisRight.isEnabled()) {
             mAxisRendererRight.computeAxis(mAxisRight.mAxisMinimum, mAxisRight.mAxisMaximum, mAxisRight.isInverted());
-            System.out.println("right " + mAxisRight.mAxisMinimum + " inv " + mAxisLeft.isInverted());
         }
 
         if (mXAxis.isEnabled()) {
             mXAxisRenderer.computeAxis(mXAxis.mAxisMinimum, mXAxis.mAxisMaximum, false);
-            System.out.println("x " + mXAxis.mAxisMinimum + " inv " + mAxisLeft.isInverted());
         }
 
         mXAxisRenderer.renderAxisLine(canvas);
