@@ -16,7 +16,6 @@ buildscript {
     }
 
     dependencies {
-
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
     }
 }
@@ -58,8 +57,6 @@ android {
 
         androidTest.java.srcDirs += sharedTestDir
         androidTest.res.srcDirs += sharedTestResDir
-    }
-    productFlavors {
     }
     buildTypes {
         release {

@@ -80,8 +80,8 @@ jobs:
     <<: *android_config
     steps:
       - run:
-        name: Add google-services
-        command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
+          name: Add google-services
+          command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
 
       - checkout
       ## - *print_emulator_images
