@@ -89,11 +89,11 @@ jobs:
 
       - *android_dependencies
 
+      - *save_gradle_cache
+
       - run:
           name: Add google-services
           command: echo $GOOGLE_SERVICES | base64 --decode > ~/${HOME}/ui/google-services.json
-
-      - *save_gradle_cache
 
       - *check
 
