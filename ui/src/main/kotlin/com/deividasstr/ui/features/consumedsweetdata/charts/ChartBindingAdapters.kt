@@ -43,7 +43,7 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     } else {
         preparePie(entries, view, true)
     }
-    //view.invalidate()
+    // view.invalidate()
     view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
