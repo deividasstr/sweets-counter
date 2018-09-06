@@ -14,6 +14,7 @@
         },
         {
           "id": "2:5937141450121825685",
+          "indexId": "2:8874293342574499010",
           "name": "sweetId"
         },
         {
@@ -81,7 +82,7 @@
     }
   ],
   "lastEntityId": "6:376190631398563681",
-  "lastIndexId": "0:0",
+  "lastIndexId": "2:8874293342574499010",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
@@ -91,7 +92,9 @@
     6613061620204035198,
     3863291584517153950
   ],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    6109637201584965898
+  ],
   "retiredPropertyUids": [
     3895531729866145374,
     3842640498490089219,

@@ -7,11 +7,9 @@ import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.then
 import com.nhaarman.mockito_kotlin.willReturn
@@ -33,8 +31,6 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
     @Mock
     lateinit var getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
     @Mock
-    lateinit var getSweetsByIdsUseCase: GetSweetsByIdsUseCase
-    @Mock
     lateinit var dateTimeHandler: DateTimeHandler
     @Mock
     lateinit var sharedPrefs: SharedPrefs
@@ -47,10 +43,6 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
             Single.just(TestData.TEST_LIST_CONSUMED_SWEETS2)
         }
 
-        given { getSweetsByIdsUseCase.execute(any()) } willReturn {
-            Single.just(TestData.TEST_LIST_SWEETS)
-        }
-
         given { sharedPrefs.defaultMeasurementUnit } willReturn {
             MeasurementUnit.GRAM
         }
@@ -58,27 +50,25 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
         viewModel =
             ConsumedSweetHistoryViewModel(
                 getAllConsumedSweetsUseCase,
-                getSweetsByIdsUseCase,
                 dateTimeHandler,
                 sharedPrefs)
     }
 
     @Test
     fun sweetsPair() {
-        val sweets = UiTestData.UI_SWEET_LIST
         val consumedSweets = UiTestData.UI_CONSUMED_SWEET_LIST
         val result = listOf(
             ConsumedSweetCell(
-                CombinedSweet(consumedSweets[0], sweets[0]),
+                consumedSweets[0],
                 dateTimeHandler,
                 MeasurementUnit.GRAM),
             ConsumedSweetCell(
-                CombinedSweet(consumedSweets[1], sweets[1]),
+                consumedSweets[1],
                 dateTimeHandler,
                 MeasurementUnit.GRAM)
         )
 
-        viewModel.sweetsPair.observeForever(observer)
+        viewModel.sweetCells.observeForever(observer)
 
         then(observer).should().onChanged(result)
         then(observer).shouldHaveNoMoreInteractions()

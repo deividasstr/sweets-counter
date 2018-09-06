@@ -11,7 +11,6 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentConsumedSweetDataBinding
 import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
 
@@ -20,7 +19,7 @@ class ConsumedSweetDataFragment :
 
     override val fabSetter: FabSetter? = null
 
-    lateinit var sweets: LiveData<Pair<List<ConsumedSweetUi>, List<SweetUi>>>
+    lateinit var sweets: LiveData<List<ConsumedSweetUi>>
     lateinit var currentPeriod: LiveData<Periods>
 
     override fun getViewModelClass(): Class<ConsumedSweetDataViewModel> =
@@ -29,7 +28,7 @@ class ConsumedSweetDataFragment :
     override fun layoutId(): Int = R.layout.fragment_consumed_sweet_data
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        sweets = viewModel.sweetsPair
+        sweets = viewModel.consumedSweets
         currentPeriod = viewModel.currentPeriod
         currentPeriod.observe(this, Observer {
             binding.consumedDetailsViewpager.currentItem = Consts.FIRST_ITEM
@@ -39,7 +38,6 @@ class ConsumedSweetDataFragment :
 
             consumedDetailsViewpager.adapter = PeriodPagerAdapter(childFragmentManager)
             consumedDetailsViewpager.currentItem = Consts.FIRST_ITEM
-
             consumedDataPeriodSpinner.adapter = periodsSpinnerAdapter()
         }
     }

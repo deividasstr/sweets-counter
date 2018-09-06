@@ -101,7 +101,7 @@ dependencies {
     implementation 'com.jaychang:simplerecyclerview:2.0.5'
     implementation 'com.jaychang:simplerecyclerview-kotlin-android-extensions:2.0.4'
     implementation "androidx.dynamicanimation:dynamicanimation:$supportLibraryVersion"
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
+    //implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-perf:16.1.0'
 
     //Tests

@@ -12,6 +12,7 @@ import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
+import com.deividasstr.ui.base.models.toSweet
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -74,10 +75,13 @@ class SweetDetailsViewModel
 
     private fun getConsumedSweet(): ConsumedSweet {
         val amount = enteredValue.value!!.toLong() * measureUnit.ratioWithGrams
+        val sweetUi = sweet.value!!
         return ConsumedSweet(
-            sweetId = sweet.value!!.id,
+            sweetId = sweetUi.id,
             g = amount,
-            date = dateTimeHandler.currentEpochSecs())
+            date = dateTimeHandler.currentEpochSecs(),
+            sweet = sweetUi.toSweet()
+        )
     }
 
     private fun validateConsumedSweet(): Boolean {

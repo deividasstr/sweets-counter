@@ -186,7 +186,8 @@ class SweetDetailsFragmentTest : AndroidTest() {
         val consumedSweet = ConsumedSweet(
             sweetId = UiTestData.TEST_SWEETMODEL.id,
             g = 2,
-            date = dateTimeMillis)
+            date = dateTimeMillis,
+            sweet = UiTestData.TEST_SWEETMODEL.toSweet())
 
         then(addConsumedSweetUseCase).should().execute(consumedSweet)
         then(fragment.navController).should()

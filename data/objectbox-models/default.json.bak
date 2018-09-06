@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "4:2117280210939776831",
-      "lastPropertyId": "4:3559396880575774794",
+      "lastPropertyId": "5:7400809014350005681",
       "name": "ConsumedSweetDb",
       "properties": [
         {
@@ -17,12 +17,12 @@
           "name": "sweetId"
         },
         {
-          "id": "3:6385321008731857528",
-          "name": "g"
-        },
-        {
           "id": "4:3559396880575774794",
           "name": "date"
+        },
+        {
+          "id": "5:7400809014350005681",
+          "name": "g"
         }
       ],
       "relations": []
@@ -81,20 +81,19 @@
     }
   ],
   "lastEntityId": "6:376190631398563681",
-  "lastIndexId": "0:0",
+  "lastIndexId": "1:6109637201584965898",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,
-  "newUidPool": [
-    7400809014350005681
-  ],
   "retiredEntityUids": [
     4197684925020745054,
     6613061620204035198,
     3863291584517153950
   ],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    6109637201584965898
+  ],
   "retiredPropertyUids": [
     3895531729866145374,
     3842640498490089219,
@@ -114,7 +113,8 @@
     5684524536735002440,
     4406155032466880772,
     1406330814051678848,
-    8748466117519598281
+    8748466117519598281,
+    6385321008731857528
   ],
   "retiredRelationUids": [],
   "version": 1

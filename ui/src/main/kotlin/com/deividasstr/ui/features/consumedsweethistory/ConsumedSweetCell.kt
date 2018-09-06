@@ -5,17 +5,16 @@ import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.ui.base.models.SweetUi
 import com.jaychang.srv.kae.SimpleCell
 import com.jaychang.srv.kae.SimpleViewHolder
 import kotlinx.android.synthetic.main.item_consumed_sweet.view.*
 
 class ConsumedSweetCell(
-    val item: CombinedSweet,
+    val item: ConsumedSweetUi,
     private val dateTimeHandler: DateTimeHandler,
     private val measurementUnit: MeasurementUnit
 ) :
-    SimpleCell<CombinedSweet>(item) {
+    SimpleCell<ConsumedSweetUi>(item) {
 
     override fun getLayoutRes(): Int {
         return R.layout.item_consumed_sweet
@@ -30,8 +29,8 @@ class ConsumedSweetCell(
 
         val view = holder.itemView
         val sweet = item.sweet
-        val consumedSweet = item.consumedSweet
-        val data: String = formatDataText(context, consumedSweet, sweet)
+        val consumedSweet = item
+        val data: String = formatDataText(context, consumedSweet)
 
         view.name_consumed_sweet.text = sweet.name
         view.data_consumed_sweet.text = data
@@ -39,14 +38,13 @@ class ConsumedSweetCell(
 
     private fun formatDataText(
         context: Context,
-        consumedSweet: ConsumedSweetUi,
-        sweet: SweetUi
+        consumedSweet: ConsumedSweetUi
     ): String {
         val date = context.getString(
             R.string.at_time_formatted,
             dateTimeHandler.formattedTime(consumedSweet.date))
 
-        val cals = (consumedSweet.g * sweet.calsPer100 / 100).toInt()
+        val cals = (consumedSweet.g * consumedSweet.sweet.calsPer100 / 100).toInt()
         val calsString = context.getString(R.string.cals_formatted, cals)
 
         val consumedAmount = when (measurementUnit) {

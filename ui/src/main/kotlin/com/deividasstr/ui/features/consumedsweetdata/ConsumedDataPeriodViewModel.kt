@@ -9,7 +9,6 @@ import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
@@ -29,7 +28,6 @@ class ConsumedDataPeriodViewModel
     }
 
     private lateinit var consumedSweets: List<ConsumedSweetUi>
-    private lateinit var sweets: List<SweetUi>
 
     private lateinit var calsPerTimeUnits: LongArray
     private lateinit var consumedInRange: List<ConsumedSweetUi>
@@ -61,8 +59,7 @@ class ConsumedDataPeriodViewModel
         var cals = 0L
 
         for (consumedSweet in consumedSweets) {
-            val currCals =
-                consumedSweet.g * sweets.find { it.id.toInt() == consumedSweet.sweetId }!!.calsPer100 / 100
+            val currCals = consumedSweet.g * consumedSweet.sweet.calsPer100 / 100
             cals += currCals
         }
         return cals
@@ -80,42 +77,29 @@ class ConsumedDataPeriodViewModel
         val map = HashMap<String, Long>()
         consumedInRange = consumedInRange.sortedByDescending { it.g }
 
-        consumedInRange.forEach { consumed ->
-            val sweet = sweets.find { it.id.toInt() == consumed.sweetId }!!
+        val totalG: Int = consumedInRange.sumBy { it.g.toInt() }
 
-            if (map.containsKey(sweet.name)) {
-                map[sweet.name] = map[sweet.name]!!.plus(consumed.g)
-            } else {
-                when {
-                    map.size == 9 -> {
-                        map[TOP_SWEETS_OTHER] = consumed.g
-                    }
-                    map.size == 10 -> {
-                        map[TOP_SWEETS_OTHER] = map[TOP_SWEETS_OTHER]!!.plus(consumed.g)
-                    }
-                    else -> {
-                        map[sweet.name] = consumed.g
-                    }
+        consumedInRange.forEach { consumed ->
+            val sweet = consumed.sweet
+            val moreThan5Percent = totalG / consumed.g < 20
+
+            when {
+                map.size >= 7 || !moreThan5Percent -> {
+                    map[TOP_SWEETS_OTHER] = map[TOP_SWEETS_OTHER]?.plus(consumed.g) ?: consumed.g
+                }
+                else -> {
+                    map[sweet.name] = map[sweet.name]?.plus(consumed.g) ?: consumed.g
                 }
             }
         }
 
-        val list = mutableListOf<PopularitySweetUi>()
-        map.asIterable().forEach {
-            list.add(
-                PopularitySweetUi(
-                    it.key,
-                    it.value))
-        }
-        return list
+        return map.map { PopularitySweetUi(it.key, it.value) }
     }
 
-    private fun sweetRatingPopularityByG(): Map<SweetRating, Long> {
+    private fun sweetRatings(): Map<SweetRating, Long> {
         val map = mutableMapOf<SweetRating, Long>()
-
         for (consumed in consumedInRange) {
-            val sweet = sweets.find { it.id.toInt() == consumed.sweetId }!!
-            val sweetRating = sweet.sweetRating()
+            val sweetRating = consumed.sweet.sweetRating()
             if (map.contains(sweetRating)) {
                 map[sweetRating] = map[sweetRating]!!.plus(consumed.g)
             } else {
@@ -162,7 +146,7 @@ class ConsumedDataPeriodViewModel
         unitsConsumed.postValue(unitsConsumed(consumedInRange))
 
         sweetsPopularityData.postValue(sweetPopularityByG())
-        sweetsRatingData.postValue(sweetRatingPopularityByG())
+        sweetsRatingData.postValue(sweetRatings())
     }
 
     private fun generateConsumedBarData(): ConsumedBarData {
@@ -238,9 +222,8 @@ class ConsumedDataPeriodViewModel
         }
     }
 
-    fun setSweets(pair: Pair<List<ConsumedSweetUi>, List<SweetUi>>) {
-        consumedSweets = pair.first
-        sweets = pair.second
+    fun setSweets(sweets: List<ConsumedSweetUi>) {
+        consumedSweets = sweets
     }
 
     fun setPeriod(period: Periods) {

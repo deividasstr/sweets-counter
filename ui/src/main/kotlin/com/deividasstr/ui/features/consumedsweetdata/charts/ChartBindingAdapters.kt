@@ -93,11 +93,9 @@ private fun preparePie(entries: MutableList<PieEntry>, view: PieChart, pointedVa
     dataSet.valueTypeface = typeface
 
     if (pointedVals) {
-        dataSet.valueLinePart1OffsetPercentage = 70f
-        dataSet.valueLinePart1Length = 0.2f
-        dataSet.valueLinePart2Length = 0.2f
-        dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-        dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+
+        //dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        //dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
     }
 
     val pieData = PieData(dataSet)

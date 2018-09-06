@@ -40,6 +40,7 @@ class ConsumedDataPeriodFragment :
     override fun layoutId(): Int = R.layout.fragment_consumed_period
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("on created $pos")
         viewModel.pos = pos
         with(parentFragment as ConsumedSweetDataFragment) {
             sweets.observe(this@ConsumedDataPeriodFragment, Observer { it ->

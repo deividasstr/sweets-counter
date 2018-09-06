@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="sweet"
+            type="com.deividasstr.ui.base.models.SweetUi" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:onClick="@{clickListener}"
+        android:padding="@dimen/margin_padding_size_medium">
+
+        <!--A hack to evade id/candy_name flicker on shared transition pop-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_padding_size_large"
+            android:gravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/candy_cals"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/candy_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{sweet.name}"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/candy_cals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:text="@{@string/cals_per_100g(sweet.calsPer100)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
