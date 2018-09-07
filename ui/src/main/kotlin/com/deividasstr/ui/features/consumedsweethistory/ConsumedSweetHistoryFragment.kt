@@ -50,7 +50,7 @@ class ConsumedSweetHistoryFragment :
                 ?.navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
         } catch (e: Exception) {
             e.printStackTrace()
-            //TODO Crashlytics.logException(e)
+            // TODO Crashlytics.logException(e)
         }
     }
 }

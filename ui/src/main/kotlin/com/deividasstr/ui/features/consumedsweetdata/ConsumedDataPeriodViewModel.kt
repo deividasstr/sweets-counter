@@ -129,8 +129,7 @@ class ConsumedDataPeriodViewModel
         dateRangeText.postValue(dateTimeHandler.formattedDateRange(dateRange))
     }
 
-    private fun getConsumedInRange(dateRange: DateRange, consumedSweets: List<ConsumedSweetUi>)
-        : List<ConsumedSweetUi> {
+    private fun getConsumedInRange(dateRange: DateRange, consumedSweets: List<ConsumedSweetUi>): List<ConsumedSweetUi> {
         return consumedSweets.filter {
             dateRange.contains(it.date)
         }

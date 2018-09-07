@@ -42,10 +42,12 @@ class ConsumedDataPeriodFragment :
 
     override fun layoutId(): Int = R.layout.fragment_consumed_period
 
-    override fun onCreateView(inflater: LayoutInflater,
+    override fun onCreateView(
+        inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        val view =  super.onCreateView(inflater, container, savedInstanceState)
+        savedInstanceState: Bundle?
+    ): View {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
         viewModel.pos = pos
         with(parentFragment as ConsumedSweetDataFragment) {
             sweets.observe(this@ConsumedDataPeriodFragment, Observer { it ->
@@ -74,7 +76,6 @@ class ConsumedDataPeriodFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
     }
 
     private fun setupPie(

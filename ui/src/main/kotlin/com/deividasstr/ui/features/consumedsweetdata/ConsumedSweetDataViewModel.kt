@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 class ConsumedSweetDataViewModel
 @Inject constructor(
-    private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase) : BaseViewModel() {
+    private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
+) : BaseViewModel() {
 
     val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
 
