@@ -115,8 +115,8 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     } else {
         prepareBar(view, data, entries)
     }
-    view.invalidate()
-    view.animateY(800)
+    //view.invalidate()
+    view.animateY(400)
 }
 
 fun prepareBar(
@@ -155,7 +155,7 @@ fun prepareBar(
         view.axisRight,
         view.getTransformer(YAxis.AxisDependency.RIGHT))
 
-    val dataSet = BarDataSet(entries, "Consumed data")
+    val dataSet = BarDataSet(entries, null)
     dataSet.colors = ChartColors.get()
 
     val dataSets = mutableListOf<IBarDataSet>()

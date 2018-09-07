@@ -32,7 +32,8 @@
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:text="@={viewmodel.enteredValue}" />
+                android:text="@={viewmodel.enteredValue}"
+                android:cursorVisible="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

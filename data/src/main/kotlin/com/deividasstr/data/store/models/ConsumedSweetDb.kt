@@ -18,10 +18,6 @@ data class ConsumedSweetDb(
 
     val sweetDb: SweetDb
         get() = sweet.target
-
-    init {
-        sweet.targetId = sweetId
-    }
 }
 
 fun List<ConsumedSweetDb>.toConsumedSweets(): List<ConsumedSweet> {
