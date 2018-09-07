@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.max
 import kotlin.math.min
@@ -67,7 +68,7 @@ class BottomNavigationFABBehavior(context: Context?, attrs: AttributeSet?) :
         child: View,
         dependency: View
     ): Boolean {
-        return dependency is Snackbar.SnackbarLayout
+        return dependency is Snackbar.SnackbarLayout || dependency is FloatingActionButton
     }
 
     override fun onDependentViewRemoved(parent: CoordinatorLayout, child: View, dependency: View) {

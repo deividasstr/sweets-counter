@@ -4,6 +4,8 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -18,6 +20,7 @@ import com.deividasstr.ui.base.framework.alert
 import com.deividasstr.ui.base.framework.hide
 import com.deividasstr.ui.base.framework.show
 import com.deividasstr.ui.base.framework.viewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -110,20 +113,26 @@ class MainActivity : BaseActivity() {
     override fun setFab(fabSetter: FabSetter?) {
         if (fabSetter != null) {
             fab.setOnClickListener { fabSetter.onClick.invoke() }
-
             fab.animate().apply {
-                cancel()
-                alpha(1f)
-                fab.setImageResource(fabSetter.srcRes)
                 duration = resources.getInteger(R.integer.duration_animation_short).toLong()
-                (fab as View).show()
+
+                val snackbar = container.children.firstOrNull { it is Snackbar.SnackbarLayout }
+                if (snackbar != null && fab.translationY == 0f) {
+                    val height = snackbar.height.toFloat()
+                    translationY(-height)
+                }
+                fab.setImageResource(fabSetter.srcRes)
+                if (!fab.isVisible) {
+                    alpha(1f)
+                    (fab as View).show()
+                }
             }
         } else {
             fab.setOnClickListener { }
+
             fab.animate().apply {
-                cancel()
                 alpha(0f)
-                duration = resources.getInteger(R.integer.duration_animation_short).toLong()
+                duration = 0
                 withEndAction { (fab as View).hide() }
             }
         }
