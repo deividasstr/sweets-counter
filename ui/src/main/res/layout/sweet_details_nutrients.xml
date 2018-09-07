@@ -15,7 +15,7 @@
             android:id="@+id/protein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/title_protein(viewmodel.sweet.proteinG)}"
+            android:text="@{@string/title_protein(viewmodel.sweet.proteinG > 0.0 ? viewmodel.sweet.proteinG : 0.0)}"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
             android:id="@+id/fat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/title_fat(viewmodel.sweet.fatG)}"
+            android:text="@{@string/title_fat(viewmodel.sweet.fatG > 0.0 ? viewmodel.sweet.fatG : 0.0)}"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/protein" />
@@ -33,7 +33,7 @@
             android:id="@+id/carbs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/title_carbs(viewmodel.sweet.carbsG)}"
+            android:text="@{@string/title_carbs(viewmodel.sweet.carbsG > 0.0 ? viewmodel.sweet.carbsG : 0.0)}"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fat" />
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_medium"
-            android:text="@{@string/title_sugars(viewmodel.sweet.sugarG)}"
+            android:text="@{@string/title_sugars(viewmodel.sweet.sugarG > 0.0 ? viewmodel.sweet.sugarG : 0.0)}"
             android:textAppearance="@android:style/TextAppearance.Material.Body1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/carbs" />

@@ -41,9 +41,8 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     if (chartPrepared(view)) {
         refreshPieData(view, entries)
     } else {
-        preparePie(entries, view, true)
+        preparePie(entries, view)
     }
-    // view.invalidate()
     view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
@@ -64,7 +63,7 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
     if (view.data != null && view.data.dataSetCount > 0) {
         refreshPieData(view, entries)
     } else {
-        preparePie(entries, view, false)
+        preparePie(entries, view)
     }
     view.invalidate()
     view.animateY(400)
@@ -80,23 +79,18 @@ private fun refreshPieData(
     view.notifyDataSetChanged()
 }
 
-private fun preparePie(entries: MutableList<PieEntry>, view: PieChart, pointedVals: Boolean) {
-
+private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
     val typeface = ResourcesCompat.getFont(view.context, R.font.montserrat)
     val colors = ChartColors.get()
 
-    val dataSet = PieDataSet(entries, null)
+    val data = if (entries.isNotEmpty()) entries else null
+
+    val dataSet = PieDataSet(data, null)
     dataSet.sliceSpace = 3f
     dataSet.selectionShift = 5f
     dataSet.colors = colors
     dataSet.valueTextColor = Color.BLACK
     dataSet.valueTypeface = typeface
-
-    if (pointedVals) {
-
-        //dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-        //dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-    }
 
     val pieData = PieData(dataSet)
     pieData.setValueFormatter(PercentFormatter())
@@ -104,7 +98,6 @@ private fun preparePie(entries: MutableList<PieEntry>, view: PieChart, pointedVa
     pieData.setValueTypeface(typeface)
 
     view.data = pieData
-    view.data.dataSet
 }
 
 @BindingAdapter("android:setConsumedData")

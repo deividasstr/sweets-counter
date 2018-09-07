@@ -21,7 +21,7 @@ class FactsViewModel
     fun getNewFact() {
         fact.value?.let {
             getFact(it.id)
-        }
+        } ?: getFact(0)
     }
 
     private fun getFact(currentFactId: Long) {

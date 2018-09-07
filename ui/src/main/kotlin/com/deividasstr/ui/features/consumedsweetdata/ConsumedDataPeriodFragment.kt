@@ -1,8 +1,11 @@
 package com.deividasstr.ui.features.consumedsweetdata
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -39,8 +42,10 @@ class ConsumedDataPeriodFragment :
 
     override fun layoutId(): Int = R.layout.fragment_consumed_period
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("on created $pos")
+    override fun onCreateView(inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        val view =  super.onCreateView(inflater, container, savedInstanceState)
         viewModel.pos = pos
         with(parentFragment as ConsumedSweetDataFragment) {
             sweets.observe(this@ConsumedDataPeriodFragment, Observer { it ->
@@ -58,40 +63,44 @@ class ConsumedDataPeriodFragment :
             val typeface = ResourcesCompat.getFont(context!!, R.font.montserrat)!!
 
             val topLabel = getString(R.string.consumed_data_title_sweets_popularity)
-            setupPie(consumedDataSweetsPopularityChart, typeface, "No data popularity", topLabel)
+            setupPie(consumedDataSweetsPopularityChart, typeface, topLabel)
 
             val ratingLabel = getString(R.string.consumed_data_title_sweets_rating_title)
-            setupPie(consumedDataSweetsRatingChart, typeface, "No data Rating", ratingLabel)
+            setupPie(consumedDataSweetsRatingChart, typeface, ratingLabel)
 
-            setupBar(consumedDataPeriodChart, typeface, "No data")
+            setupBar(consumedDataPeriodChart)
         }
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
     }
 
     private fun setupPie(
         view: PieChart,
         typeface: Typeface,
-        noDataText: String,
         labelText: String
     ) {
+        val noDataText = getString(R.string.chart_no_data_no_sweets)
         view.setUsePercentValues(true)
         view.setNoDataText(noDataText)
+        view.setNoDataTextTypeface(typeface)
+        view.setNoDataTextColor(Color.BLACK)
         view.legend.isEnabled = false
         view.setEntryLabelColor(android.graphics.Color.BLACK)
         view.description.isEnabled = false
         // view.isRotationEnabled = false
-        view.setNoDataTextTypeface(typeface)
         view.centerText = labelText
         view.setCenterTextTypeface(typeface)
         view.setCenterTextSize(16f)
     }
 
-    private fun setupBar(view: BarChart, typeface: Typeface, noDataText: String) {
+    private fun setupBar(view: BarChart) {
         view.setDrawValueAboveBar(true)
         view.setScaleEnabled(false)
         view.legend.isEnabled = false
         view.description.isEnabled = false
-        view.setNoDataText(noDataText)
-        view.setNoDataTextTypeface(typeface)
     }
 
     override fun onNothingSelected() {

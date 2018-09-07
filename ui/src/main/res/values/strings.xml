@@ -7,7 +7,8 @@
     <string name="cals_per_100g">%d kcal/\n100g</string>
     <string name="error_network_server">Could not download data, please try again later</string>
     <string name="error_network_unavailable">Network is not available, cannot download data</string>
-    <string name="no_facts_available">No facts are available yet, please try again later</string>
+    <string name="no_facts_available">No facts are available, make sure you are connected to the network and please try again</string>
+    <string name="no_sweets_available">No sweets are available, make sure you are connected to the network and please try again</string>
     <string name="total_calories">Calories: </string>
     <string name="add_sweet_title">Add sweet</string>
     <string name="nutrition_info_title">Nutrition info</string>
@@ -39,4 +40,5 @@
     <string name="sweet_rating_bad">Bad</string>
     <string name="sweet_rating_average">Average</string>
     <string name="top_sweets_pie_other">Other</string>
+    <string name="chart_no_data_no_sweets">No consumed sweets</string>
 </resources>

@@ -19,22 +19,18 @@ class MainActivityViewModel @Inject constructor(
 
     fun tryDownloadSweets() {
         if (sharedPrefs.sweetsUpdatedDate == 0L) {
-            when {
-                networkManager.networkAvailable -> {
-                    scheduleDownload(backgroundWorkManager.downloadSweetsAndSaveDownloadDate())
-                }
-                else -> setError(StringResException(R.string.error_network_unavailable))
+            scheduleDownload(backgroundWorkManager.downloadSweetsAndSaveDownloadDate())
+            if (!networkManager.networkAvailable) {
+                setError(StringResException(R.string.error_network_unavailable))
             }
         }
     }
 
     fun tryDownloadFacts() {
         if (sharedPrefs.factsUpdatedDate == 0L) {
-            when {
-                networkManager.networkAvailable -> {
-                    scheduleDownload(backgroundWorkManager.downloadFactsAndSaveDownloadDate())
-                }
-                else -> setError(StringResException(R.string.error_network_unavailable))
+            scheduleDownload(backgroundWorkManager.downloadFactsAndSaveDownloadDate())
+            if (!networkManager.networkAvailable) {
+                setError(StringResException(R.string.error_network_unavailable))
             }
         }
     }

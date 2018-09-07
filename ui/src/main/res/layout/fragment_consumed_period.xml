@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.content.Context" />
+        <import type="android.view.View" />
 
         <variable
             name="viewmodel"
@@ -18,7 +19,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/period_bar"
@@ -60,13 +62,39 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/sub_period_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
+            android:paddingTop="@dimen/material_component_cards_top_and_bottom_padding"
+            android:paddingBottom="@dimen/material_component_cards_top_and_bottom_padding"
+            android:visibility="@{viewmodel.subDateRangeText != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/period_bar">
+
+            <TextView
+                android:id="@+id/sub_period_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{viewmodel.subDateRangeText}"
+                android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/period_numbers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/period_bar">
+            app:layout_constraintTop_toBottomOf="@id/sub_period_container">
 
             <LinearLayout
                 android:layout_width="match_parent"

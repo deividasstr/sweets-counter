@@ -9,6 +9,7 @@ import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.lifecycle.Observer
 import com.deividasstr.ui.R
+import com.deividasstr.ui.base.framework.AnimationEndListener
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.models.FactUi
@@ -41,8 +42,8 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
         initSpringAnimation()
         initTransitionAnimation()
 
-        viewModel.fact.observe(this@FactsFragment, Observer {
-            onNewFact(it)
+        viewModel.fact.observe(this@FactsFragment, Observer { fact ->
+            onNewFact(fact)
         })
     }
 
@@ -59,15 +60,11 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
 
     private fun initTransitionAnimation() {
         transitionBottomAnimation = AnimationUtils.loadAnimation(context, R.anim.transition_bottom)
-        transitionBottomAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(animation: Animation?) {}
-
-            override fun onAnimationEnd(animation: Animation?) {
+        transitionBottomAnimation.setAnimationListener(object : AnimationEndListener {
+            override fun onAnimationEnd() {
                 fact.text = viewModel.fact.value?.text
                 springAnimation.setStartValue(halfScreenHeight).start()
             }
-
-            override fun onAnimationStart(animation: Animation?) {}
         })
     }
 

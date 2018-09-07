@@ -62,10 +62,6 @@ data class SweetUi(
     }
 }
 
-fun List<Sweet>.toSweetUis(): List<SweetUi> {
-    return this.map { SweetUi(it) }
-}
-
 fun SweetUi.toSweet(): Sweet {
     return Sweet(id, name, calsPer100, fatG, carbsG, sugarG, proteinG)
 }

@@ -24,8 +24,11 @@ class DownloadAllSweetsWorker : Worker() {
                 .putBoolean(KEY_ERROR, true)
                 .build()
             outputData = output
+            println("retry")
             return Result.RETRY
         }
+        println("success")
+
         return Result.SUCCESS
     }
 }

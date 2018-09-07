@@ -27,7 +27,7 @@ class ConsumedDataPeriodViewModel
         const val TOP_SWEETS_OTHER = "OTHER"
     }
 
-    private lateinit var consumedSweets: List<ConsumedSweetUi>
+    lateinit var consumedSweets: List<ConsumedSweetUi>
 
     private lateinit var calsPerTimeUnits: LongArray
     private lateinit var consumedInRange: List<ConsumedSweetUi>
@@ -37,10 +37,11 @@ class ConsumedDataPeriodViewModel
     val cals = MutableLiveData<Long>().apply { value = 0 }
     val weight = MutableLiveData<Long>().apply { value = 0 }
     val unitsConsumed = MutableLiveData<Long>().apply { value = 0 }
-    val sweetsPopularityData = MutableLiveData<List<PopularitySweetUi>>()
+    val sweetsPopularityData = MutableLiveData<List<PopularitySweetUi>?>()
     val consumedBarData = MutableLiveData<ConsumedBarData>()
-    val sweetsRatingData = MutableLiveData<Map<SweetRating, Long>>()
+    val sweetsRatingData = MutableLiveData<Map<SweetRating, Long>?>()
     val dateRangeText = MutableLiveData<String>()
+    val subDateRangeText = MutableLiveData<String>()
 
     val unitStringRes: Int by lazy {
         when (unit) {
@@ -73,7 +74,8 @@ class ConsumedDataPeriodViewModel
         return unitsConsumed / unit.ratioWithGrams
     }
 
-    private fun sweetPopularityByG(): List<PopularitySweetUi> {
+    private fun sweetPopularityByG(): List<PopularitySweetUi>? {
+        if (consumedInRange.isEmpty()) return null
         val map = HashMap<String, Long>()
         consumedInRange = consumedInRange.sortedByDescending { it.g }
 
@@ -96,7 +98,8 @@ class ConsumedDataPeriodViewModel
         return map.map { PopularitySweetUi(it.key, it.value) }
     }
 
-    private fun sweetRatings(): Map<SweetRating, Long> {
+    private fun sweetRatings(): Map<SweetRating, Long>? {
+        if (consumedInRange.isEmpty()) return null
         val map = mutableMapOf<SweetRating, Long>()
         for (consumed in consumedInRange) {
             val sweetRating = consumed.sweet.sweetRating()
@@ -126,10 +129,8 @@ class ConsumedDataPeriodViewModel
         dateRangeText.postValue(dateTimeHandler.formattedDateRange(dateRange))
     }
 
-    private fun getConsumedInRange(
-        dateRange: DateRange,
-        consumedSweets: List<ConsumedSweetUi>
-    ): List<ConsumedSweetUi> {
+    private fun getConsumedInRange(dateRange: DateRange, consumedSweets: List<ConsumedSweetUi>)
+        : List<ConsumedSweetUi> {
         return consumedSweets.filter {
             dateRange.contains(it.date)
         }
@@ -137,6 +138,7 @@ class ConsumedDataPeriodViewModel
 
     private fun resetClickRange() {
         clickRange = null
+        subDateRangeText.postValue(null)
     }
 
     private fun recalculatePeriodLowerPeriod() {
@@ -206,6 +208,9 @@ class ConsumedDataPeriodViewModel
         clickRange = DateRange(period, dateTimeHandler, dateRange.startDate)
 
         advanceRange(barPos)
+
+        subDateRangeText.postValue(dateTimeHandler.formattedDateRange(clickRange!!))
+
         recalculateConsumedInRange(false)
     }
 

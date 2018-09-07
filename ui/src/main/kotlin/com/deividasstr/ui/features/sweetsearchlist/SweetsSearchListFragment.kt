@@ -9,6 +9,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import com.deividasstr.ui.R
+import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.closeKeyboard
@@ -70,7 +71,11 @@ class SweetsSearchListFragment :
     }
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
-        adapter.submitList(sweets)
+        if (sweets != null && sweets.isEmpty() && viewModel.query.isEmpty()) {
+            (activity as BaseActivity).alert(R.string.no_sweets_available)
+        } else {
+            adapter.submitList(sweets)
+        }
     }
 
     private fun createAdapter(): SweetsSearchAdapter {

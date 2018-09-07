@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:padding="@dimen/material_component_cards_top_and_bottom_padding"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
 </FrameLayout>
