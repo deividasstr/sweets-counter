@@ -41,4 +41,10 @@
     <string name="sweet_rating_average">Average</string>
     <string name="top_sweets_pie_other">Other</string>
     <string name="chart_no_data_no_sweets">No consumed sweets</string>
+    <string name="sweet_ratings_title">Sweet ratings</string>
+    <string name="got_it">Got it</string>
+    <string name="sweet_ratings_message">There are 3 unofficial sweet rating categories:</string>
+    <string name="description_rating_bad">Bad - >= 400kcal/100g or >= 30g of sugar per 100g</string>
+    <string name="description_rating_average">Average - >= 200kcal/100g or >= 10g of sugar per 100g</string>
+    <string name="description_rating_good">Good - &lt; 200kcal/100g and &lt; 10g of sugar per 100g</string>
 </resources>

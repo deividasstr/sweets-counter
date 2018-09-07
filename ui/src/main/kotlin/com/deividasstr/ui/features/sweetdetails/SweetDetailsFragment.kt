@@ -42,6 +42,7 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
             ViewCompat.setTransitionName(sweetName, sweet.name)
             viewModel.setSweet(sweet)
             viewmodel = viewModel
+            ratingclicklistener = ratingClickListener
 
             consumed_sweet_view.requestFocus()
             consumed_sweet_view.openKeyboard()
@@ -59,4 +60,9 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         }
         viewModel.validate(navigationCallback)
     }
+
+    private val ratingClickListener: View.OnClickListener =
+        View.OnClickListener {
+            RatingInfoDialogFragment().show(childFragmentManager, null)
+        }
 }

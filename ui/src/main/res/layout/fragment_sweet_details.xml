@@ -9,6 +9,10 @@
         <variable
             name="viewmodel"
             type="com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel" />
+
+        <variable
+            name="ratingclicklistener"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +52,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nutrition_info_title"
-            app:viewmodel="@{viewmodel}" />
+            app:viewmodel="@{viewmodel}"
+            app:ratingClickListener="@{ratingclicklistener}" />
 
         <include
             android:id="@+id/nutrition_info_nutrients"

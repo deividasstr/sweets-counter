@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/material_component_dialogs_padding_around_content_area">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/rating_bad"
+        android:drawablePadding="@dimen/text_view_drawable_padding"
+        android:text="@string/description_rating_bad"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:paddingBottom="@dimen/margin_padding_size_medium"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/rating_average"
+        android:drawablePadding="@dimen/text_view_drawable_padding"
+        android:text="@string/description_rating_average"
+        android:paddingBottom="@dimen/margin_padding_size_medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/rating_good"
+        android:drawablePadding="@dimen/text_view_drawable_padding"
+        android:text="@string/description_rating_good"
+        android:paddingBottom="@dimen/margin_padding_size_medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"/>
+
+</LinearLayout>

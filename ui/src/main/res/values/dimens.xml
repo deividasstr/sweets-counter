@@ -158,6 +158,8 @@
     <dimen name="toolbar_margin_size">4dp</dimen>
     <dimen name="toolbar_icon_size">24dp</dimen>
 
+    <dimen name="text_view_drawable_padding">8dp</dimen>
+
     <!-- Font sizes, https://material.io/guidelines/style/typography.html#typography-typeface -->
     <dimen name="text_size_micro">12sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
