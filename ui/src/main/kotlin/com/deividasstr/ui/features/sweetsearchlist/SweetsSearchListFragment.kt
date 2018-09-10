@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.BaseFragment
@@ -22,6 +23,11 @@ import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirec
 
 class SweetsSearchListFragment :
     BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>(), HasSharedElements {
+
+    companion object {
+        const val EXTRA_ENTERED_VAL = "EXTRA_ENTERED_VAL"
+        const val EXTRA_RECYCLER_POS = "EXTRA_RECYCLER_POS"
+    }
 
     override val fabSetter: FabSetter? = null
 
@@ -89,4 +95,28 @@ class SweetsSearchListFragment :
     override fun getSharedElements(): Map<String, View> = sharedElements
 
     override fun hasReorderingAllowed(): Boolean = false
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        val currPos = (binding.sweetsRecycler.layoutManager as LinearLayoutManager)
+            .findFirstCompletelyVisibleItemPosition()
+
+        outState.putString(EXTRA_ENTERED_VAL, viewModel.query)
+        outState.putInt(EXTRA_RECYCLER_POS, currPos)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            val enteredVal = it.getString(EXTRA_ENTERED_VAL)
+            if (!enteredVal.isNullOrEmpty()) {
+                viewModel.searchSweets(enteredVal!!)
+            }
+
+            val pos = it.getInt(EXTRA_RECYCLER_POS)
+            if (pos > 0) {
+                binding.sweetsRecycler.smoothScrollToPosition(pos + 4)
+            }
+        }
+    }
 }

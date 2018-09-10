@@ -114,6 +114,7 @@ class MainActivity : BaseActivity() {
         if (fabSetter != null) {
             fab.setOnClickListener { fabSetter.onClick.invoke() }
             fab.animate().apply {
+                cancel()
                 duration = resources.getInteger(R.integer.duration_animation_short).toLong()
 
                 val snackbar = container.children.firstOrNull { it is Snackbar.SnackbarLayout }
@@ -131,6 +132,7 @@ class MainActivity : BaseActivity() {
             fab.setOnClickListener { }
 
             fab.animate().apply {
+                cancel()
                 alpha(0f)
                 duration = 0
                 withEndAction { (fab as View).hide() }

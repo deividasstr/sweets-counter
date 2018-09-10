@@ -18,6 +18,10 @@ import kotlinx.android.synthetic.main.sweet_details_add_sweet.*
 @DebugOpenClass
 class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDetailsViewModel>() {
 
+    companion object {
+        const val EXTRA_ENTERED_VAL = "EXTRA_ENTERED_VAL"
+    }
+
     override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_done_white_24dp) { consumeSweet() }
 
     override fun getViewModelClass(): Class<SweetDetailsViewModel> =
@@ -41,6 +45,7 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         with(binding) {
             ViewCompat.setTransitionName(sweetName, sweet.name)
             viewModel.setSweet(sweet)
+
             viewmodel = viewModel
             ratingclicklistener = ratingClickListener
 
@@ -65,4 +70,16 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         View.OnClickListener {
             RatingInfoDialogFragment().show(childFragmentManager, null)
         }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(EXTRA_ENTERED_VAL, viewModel.enteredValue.value)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getString(EXTRA_ENTERED_VAL)?.let {
+            viewModel.restore(it)
+        }
+    }
 }

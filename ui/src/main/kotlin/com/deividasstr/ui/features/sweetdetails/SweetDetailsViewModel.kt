@@ -120,4 +120,8 @@ class SweetDetailsViewModel
         this.sweet.value = sweet
         sweetRating.value = rating(sweet)
     }
+
+    fun restore(enteredVal: String) {
+        enteredValue.postValue(enteredVal)
+    }
 }

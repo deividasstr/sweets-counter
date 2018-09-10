@@ -7,7 +7,6 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.sweetdetails.SweetRating
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.PieChart
@@ -43,7 +42,8 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     } else {
         preparePie(entries, view)
     }
-    view.animateY(400, Easing.EasingOption.EaseInQuad)
+    view.invalidate()
+    //view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
 private fun chartPrepared(view: Chart<*>) =
@@ -66,7 +66,7 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
         preparePie(entries, view)
     }
     view.invalidate()
-    view.animateY(400)
+    //view.animateY(400)
 }
 
 private fun refreshPieData(
@@ -115,8 +115,8 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     } else {
         prepareBar(view, data, entries)
     }
-    //view.invalidate()
-    view.animateY(400)
+     view.invalidate()
+    //view.animateY(400)
 }
 
 fun prepareBar(
