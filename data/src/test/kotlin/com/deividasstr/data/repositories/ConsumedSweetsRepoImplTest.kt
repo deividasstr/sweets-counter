@@ -35,10 +35,11 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
     @Test
     fun shouldAddSweet() {
         val sweet = DataTestData.TEST_CONSUMED_SWEETMODEL
+        sweet.sweet.target = DataTestData.TEST_SWEETMODEL
+
         given { db.addSweet(sweet) }.willReturn(Completable.complete())
 
-        sweetsRepo.addSweet(sweet.toConsumedSweet())
-            .subscribe(testSubscriber)
+        sweetsRepo.addSweet(sweet.toConsumedSweet()).subscribe(testSubscriber)
 
         testSubscriber.await()
         testSubscriber.assertComplete()

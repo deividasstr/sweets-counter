@@ -33,4 +33,3 @@ fun setSearchQueryListener(
 fun setQuery(view: SearchView, query: String) {
     view.setQuery(query, false)
 }
-

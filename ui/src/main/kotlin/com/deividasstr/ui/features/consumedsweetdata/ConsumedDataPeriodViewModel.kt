@@ -27,7 +27,7 @@ class ConsumedDataPeriodViewModel
         const val TOP_SWEETS_OTHER = "OTHER"
     }
 
-    lateinit var consumedSweets: List<ConsumedSweetUi>
+    private lateinit var consumedSweets: List<ConsumedSweetUi>
 
     private lateinit var calsPerTimeUnits: LongArray
     private lateinit var consumedInRange: List<ConsumedSweetUi>
@@ -79,14 +79,10 @@ class ConsumedDataPeriodViewModel
         val map = HashMap<String, Long>()
         consumedInRange = consumedInRange.sortedByDescending { it.g }
 
-        val totalG: Int = consumedInRange.sumBy { it.g.toInt() }
-
         consumedInRange.forEach { consumed ->
             val sweet = consumed.sweet
-            val moreThan5Percent = totalG / consumed.g < 20
-
             when {
-                map.size >= 7 || !moreThan5Percent -> {
+                map.size >= 7 -> {
                     map[TOP_SWEETS_OTHER] = map[TOP_SWEETS_OTHER]?.plus(consumed.g) ?: consumed.g
                 }
                 else -> {
@@ -231,6 +227,7 @@ class ConsumedDataPeriodViewModel
     }
 
     fun setPeriod(period: Periods) {
+        if (::dateRange.isInitialized && dateRange.period == period) return
         dateRange = DateRange(period, dateTimeHandler)
         dateRange.advanceRange((pos - Consts.FIRST_ITEM).toLong())
 

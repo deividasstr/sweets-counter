@@ -65,10 +65,11 @@ references:
       command: ./gradlew ktlint lint --stacktrace
 
   ## Tests
+  ## https://github.com/objectbox/objectbox-java/issues/555
   unit_test: &unit_test
     run:
       name: Run Unit Tests
-      command: ./gradlew testDebugUnitTest
+      command: ./gradlew testDebugUnitTest -x transformClassesWithObjectBoxAndroidTransformForDebug -ut
 
   integration_tests_ui: &integration_tests_ui
     run:

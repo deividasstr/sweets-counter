@@ -27,10 +27,8 @@ class DataTestData {
         private val consumed1 = TestData.TEST_CONSUMED_SWEET
         private val consumed2 = TestData.TEST_CONSUMED_SWEET2
 
-        val TEST_CONSUMED_SWEETMODEL =
-            ConsumedSweetDb(consumed1)
-        val TEST_CONSUMED_SWEETMODEL2 =
-            ConsumedSweetDb(consumed2)
+        val TEST_CONSUMED_SWEETMODEL = ConsumedSweetDb(consumed1)
+        val TEST_CONSUMED_SWEETMODEL2 = ConsumedSweetDb(consumed2)
         val TEST_CONSUMED_SWEETMODEL3_DAY_AFTER_TOMORROW = ConsumedSweetDb(
             0, consumed1.sweetId, consumed1.g,
             TestData.LOCAL_DATE_TIME.plusDays(2).toEpochSecond(ZoneOffset.UTC)

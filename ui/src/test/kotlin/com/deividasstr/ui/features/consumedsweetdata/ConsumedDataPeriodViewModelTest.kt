@@ -10,7 +10,6 @@ import com.deividasstr.domain.enums.Periods
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.sweetdetails.SweetRating
@@ -205,9 +204,9 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val range = DateRange(Periods.WEEK, dateTimeHandler)
         range.advanceRange()
 
-        val sweetsPopularity = emptyList<PopularitySweetUi>()
+        val sweetsPopularity = null
 
-        val sweetsRating: Map<SweetRating, Long> = emptyMap()
+        val sweetsRating = null
 
         val array = LongArray(7) { 0 }
         val consumedData = ConsumedBarData(array, Periods.WEEK)
@@ -325,8 +324,10 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
     }
 
     private fun defaultVMInit() {
-        viewModel.setSweets(Pair(TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) },
-            TestData.TEST_LIST_SWEETS.map { SweetUi(it) }))
+        /*Pair(TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) },
+            TestData.TEST_LIST_SWEETS.map { SweetUi(it) })*/
+
+        viewModel.setSweets(TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) })
         viewModel.setPeriod(Periods.WEEK)
     }
 
@@ -334,8 +335,8 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         cals: Long,
         weight: Long,
         range: DateRange,
-        sweetsPopularity: List<PopularitySweetUi>,
-        sweetsRating: Map<SweetRating, Long>,
+        sweetsPopularity: List<PopularitySweetUi>?,
+        sweetsRating: Map<SweetRating, Long>?,
         consumedData: ConsumedBarData
     ) {
 
@@ -351,11 +352,11 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         viewModel.dateRangeText.observeForever(textRangeObserver)
         then(dateTimeHandler).should().formattedDateRange(range)
 
-        val sweetsPopularityObserver: Observer<List<PopularitySweetUi>> = mock()
+        val sweetsPopularityObserver: Observer<List<PopularitySweetUi>?> = mock()
         viewModel.sweetsPopularityData.observeForever(sweetsPopularityObserver)
         then(sweetsPopularityObserver).should().onChanged(sweetsPopularity)
 
-        val sweetsRatingObserver: Observer<Map<SweetRating, Long>> = mock()
+        val sweetsRatingObserver: Observer<Map<SweetRating, Long>?> = mock()
         viewModel.sweetsRatingData.observeForever(sweetsRatingObserver)
         then(sweetsRatingObserver).should().onChanged(sweetsRating)
 

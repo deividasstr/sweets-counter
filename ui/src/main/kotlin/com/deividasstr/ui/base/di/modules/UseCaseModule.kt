@@ -23,6 +23,7 @@ import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 @DebugOpenClass
@@ -99,6 +100,7 @@ class UseCaseModule {
     }
 
     @Provides
+    @Singleton
     fun provideDateTimeHandler(): DateTimeHandler {
         return DateTimeHandler()
     }

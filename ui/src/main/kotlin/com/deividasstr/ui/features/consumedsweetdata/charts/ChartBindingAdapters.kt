@@ -42,8 +42,8 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     } else {
         preparePie(entries, view)
     }
-    view.invalidate()
-    //view.animateY(400, Easing.EasingOption.EaseInQuad)
+    // view.invalidate()
+    // view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
 private fun chartPrepared(view: Chart<*>) =
@@ -65,8 +65,8 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
     } else {
         preparePie(entries, view)
     }
-    view.invalidate()
-    //view.animateY(400)
+    // view.invalidate()
+    // view.animateY(400)
 }
 
 private fun refreshPieData(
@@ -115,8 +115,8 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     } else {
         prepareBar(view, data, entries)
     }
-     view.invalidate()
-    //view.animateY(400)
+    // view.invalidate()
+    // view.animateY(400)
 }
 
 fun prepareBar(

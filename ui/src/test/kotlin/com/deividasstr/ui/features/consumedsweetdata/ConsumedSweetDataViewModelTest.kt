@@ -6,11 +6,8 @@ import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.enums.Periods
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.utils.AsyncTaskSchedulerRule
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.then
@@ -34,31 +31,23 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
     @Mock
     lateinit var getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
 
-    @Mock
-    lateinit var getSweetsByIdsUseCase: GetSweetsByIdsUseCase
-
     // Sweets on days - 2 on current day, 1 day before yesterday, 1 last week, 1 last month, 1 last year
     @Before
     fun setUp() {
         given { getAllConsumedSweetsUseCase.execute() } willReturn {
             Single.just(TestData.TEST_LIST_CONSUMED_SWEETS3)
         }
-        given { getSweetsByIdsUseCase.execute(any()) } willReturn {
-            Single.just(TestData.TEST_LIST_SWEETS)
-        }
 
-        viewModel = ConsumedSweetDataViewModel(getAllConsumedSweetsUseCase, getSweetsByIdsUseCase)
+        viewModel = ConsumedSweetDataViewModel(getAllConsumedSweetsUseCase)
     }
 
     @Test
     fun sweetsPair() {
-        val pair = Pair(
-            TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) },
-            TestData.TEST_LIST_SWEETS.map { SweetUi(it) })
+        val consumedSweetUi = TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) }
 
-        val observer: Observer<Pair<List<ConsumedSweetUi>, List<SweetUi>>> = mock()
-        viewModel.sweetsPair.observeForever(observer)
-        then(observer).should().onChanged(pair)
+        val observer: Observer<List<ConsumedSweetUi>> = mock()
+        viewModel.consumedSweets.observeForever(observer)
+        then(observer).should().onChanged(consumedSweetUi)
     }
 
     @Test
