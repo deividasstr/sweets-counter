@@ -1,12 +1,12 @@
 package com.deividasstr.ui.features.consumedsweetdata.charts
 
-import android.graphics.Color
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.deividasstr.ui.R
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
 import com.deividasstr.ui.features.sweetdetails.SweetRating
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.PieChart
@@ -43,7 +43,7 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
         preparePie(entries, view)
     }
     // view.invalidate()
-    // view.animateY(400, Easing.EasingOption.EaseInQuad)
+    view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
 private fun chartPrepared(view: Chart<*>) =
@@ -66,7 +66,7 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
         preparePie(entries, view)
     }
     // view.invalidate()
-    // view.animateY(400)
+    view.animateY(400)
 }
 
 private fun refreshPieData(
@@ -80,7 +80,6 @@ private fun refreshPieData(
 }
 
 private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
-    val typeface = ResourcesCompat.getFont(view.context, R.font.montserrat)
     val colors = ChartColors.get()
 
     val data = if (entries.isNotEmpty()) entries else null
@@ -89,13 +88,13 @@ private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
     dataSet.sliceSpace = 3f
     dataSet.selectionShift = 5f
     dataSet.colors = colors
-    dataSet.valueTextColor = Color.BLACK
-    dataSet.valueTypeface = typeface
+    /* dataSet.valueTextColor = Color.BLACK
+     dataSet.valueTypeface = typeface*/
 
     val pieData = PieData(dataSet)
     pieData.setValueFormatter(PercentFormatter())
     pieData.setValueTextSize(11f)
-    pieData.setValueTypeface(typeface)
+    // pieData.setValueTypeface(typeface)
 
     view.data = pieData
 }
@@ -116,7 +115,7 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
         prepareBar(view, data, entries)
     }
     // view.invalidate()
-    // view.animateY(400)
+    view.animateY(400)
 }
 
 fun prepareBar(
@@ -193,4 +192,72 @@ private fun refreshBar(
 @BindingAdapter("android:chartListener")
 fun setChartListener(view: BarChart, listener: OnChartValueSelectedListener?) {
     view.setOnChartValueSelectedListener(listener)
+}
+
+@BindingAdapter("android:drawValueAboveBar")
+fun drawValueAboveBar(view: BarChart, draw: Boolean) {
+    view.setDrawValueAboveBar(draw)
+}
+
+@BindingAdapter("android:setScaleEnabled")
+fun setScaleEnabled(view: BarChart, enabled: Boolean) {
+    view.setScaleEnabled(enabled)
+}
+
+@BindingAdapter("android:setDescriptionEnabled")
+fun setDescriptionEnabled(view: Chart<*>, enabled: Boolean) {
+    view.description.isEnabled = enabled
+}
+
+@BindingAdapter("android:setLegendEnabled")
+fun setLegendEnabled(view: Chart<*>, enabled: Boolean) {
+    view.legend.isEnabled = enabled
+}
+
+@BindingAdapter("android:noDataText")
+fun noDataText(view: PieChart, text: String) {
+    view.setNoDataText(text)
+}
+
+@BindingAdapter("android:noDataTextColor")
+fun noDataTextColor(view: PieChart, color: Int) {
+    view.setNoDataTextColor(color)
+}
+
+@BindingAdapter("android:noDataTextTypeFace")
+fun noDataTextTypeFace(view: PieChart, typeFace: Int) {
+    val tf = ResourcesCompat.getFont(view.context, typeFace)
+    view.setNoDataTextTypeface(tf)
+}
+
+@BindingAdapter("android:usePercentVals")
+fun usePercentVals(view: PieChart, use: Boolean) {
+    view.setUsePercentValues(use)
+}
+
+@BindingAdapter("android:centerText")
+fun centerText(view: PieChart, text: String) {
+    view.centerText = text
+}
+
+@BindingAdapter("android:centerTextSize")
+fun centerTextSize(view: PieChart, size: Float) {
+    view.setCenterTextSizePixels(size)
+}
+
+@BindingAdapter("android:centerTextTypeFace")
+fun centerTextTypeFace(view: PieChart, typeFace: Int) {
+    val tf = ResourcesCompat.getFont(view.context, typeFace)
+    view.setCenterTextTypeface(tf)
+}
+
+@BindingAdapter("android:entryLabelColor")
+fun entryLabelColor(view: PieChart, color: Int) {
+    view.setEntryLabelColor(color)
+}
+
+@BindingAdapter("android:entryTypeFace")
+fun entryTypeFace(view: PieChart, typeFace: Int) {
+    val tf = ResourcesCompat.getFont(view.context, typeFace)
+    view.setEntryLabelTypeface(tf)
 }

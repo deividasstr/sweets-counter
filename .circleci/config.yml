@@ -69,12 +69,12 @@ references:
   unit_test: &unit_test
     run:
       name: Run Unit Tests
-      command: ./gradlew testDebugUnitTest -x transformClassesWithObjectBoxAndroidTransformForDebug -ut
+      command: ./gradlew testDebugUnitTest -x transformClassesWithObjectBoxAndroidTransformForDebug
 
   integration_tests_ui: &integration_tests_ui
     run:
       name: Run Instrumented Ui Tests
-      command: ./gradlew :ui:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2 --scan
+      command: ./gradlew :ui:connectedDebugAndroidTest --no-daemon -Pkotlin.incremental=false --max-workers=2
 
 jobs:
   build:

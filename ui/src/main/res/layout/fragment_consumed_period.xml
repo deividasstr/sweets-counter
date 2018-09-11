@@ -24,7 +24,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/period_bar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,10 +49,14 @@
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/consumed_data_period_chart"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/chart_height"
                     android:chartListener="@{chartlistener}"
                     android:setConsumedData="@{viewmodel.consumedBarData}"
+                    android:setDescriptionEnabled="@{false}"
+                    android:setLegendEnabled="@{false}"
+                    android:setScaleEnabled="@{false}"
+                    android:drawValueAboveBar="@{true}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/consumed_data_selected_date_range" />
@@ -63,7 +67,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/sub_period_container"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             android:paddingTop="@dimen/material_component_cards_top_and_bottom_padding"
@@ -88,7 +92,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/period_numbers"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +140,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/period_popularity"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             android:padding="@dimen/material_component_cards_top_and_bottom_padding"
@@ -150,11 +154,19 @@
                 android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
-                android:setPopularityData="@{viewmodel.sweetsPopularityData}" />
+                android:setPopularityData="@{viewmodel.sweetsPopularityData}"
+                android:setDescriptionEnabled="@{false}"
+                android:setLegendEnabled="@{false}"
+                android:usePercentVals="@{true}"
+                android:noDataTextColor="@{@color/black}"
+                android:noDataText="@{@string/chart_no_data_no_sweets}"
+                android:centerText="@{@string/consumed_data_title_sweets_popularity}"
+                android:centerTextSize="@{@dimen/text_size_medium}"
+                android:entryLabelColor="@{@color/black}"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             android:padding="@dimen/material_component_cards_top_and_bottom_padding"
@@ -168,7 +180,15 @@
                 android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
-                android:setRatingData="@{viewmodel.sweetsRatingData}" />
+                android:setRatingData="@{viewmodel.sweetsRatingData}"
+                android:setDescriptionEnabled="@{false}"
+                android:setLegendEnabled="@{false}"
+                android:usePercentVals="@{true}"
+                android:noDataTextColor="@{@color/black}"
+                android:noDataText="@{@string/chart_no_data_no_sweets}"
+                android:centerTextSize="@{@dimen/text_size_medium}"
+                android:centerText="@{@string/consumed_data_title_sweets_rating_title}"
+                android:entryLabelColor="@{@color/black}"/>
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

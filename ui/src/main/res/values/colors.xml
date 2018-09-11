@@ -6,6 +6,7 @@
     <color name="gray_transparent">#b1ffffff</color>
     <color name="gray">#9e9e9e</color>
     <color name="white">#FFFFFF</color>
+    <color name="default_gray">#fafafa</color>
     <color name="black">#000000</color>
     <color name="rating_bad">#d50000</color>
     <color name="rating_average">#ffea00</color>
