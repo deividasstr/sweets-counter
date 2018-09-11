@@ -6,11 +6,6 @@
             name="viewmodel"
             type="com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryViewModel" />
     </data>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <com.jaychang.srv.SimpleRecyclerView
             android:id="@+id/consumed_sweet_recycler"
             android:layout_width="match_parent"
@@ -18,10 +13,7 @@
             app:srv_showDivider="true"
             app:srv_showEmptyStateView="true"
             app:srv_emptyStateView="@layout/consumed_history_no_data"
-            android:layoutAnimation="@anim/layout_slide_right_instant"
-            >
+            android:layoutAnimation="@anim/layout_slide_right_instant">
         </com.jaychang.srv.SimpleRecyclerView>
-
-    </FrameLayout>
 </layout>
 

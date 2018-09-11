@@ -2,14 +2,11 @@ package com.deividasstr.ui.features.facts
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.lifecycle.Observer
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.AnimationEndListener
 import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.models.FactUi
@@ -24,9 +21,6 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
     }
 
     private lateinit var springAnimation: SpringAnimation
-    private lateinit var transitionBottomAnimation: Animation
-
-    private var isLaunch: Boolean = true
 
     override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_refresh_white_24dp) {
         viewModel.getNewFact()
@@ -40,8 +34,7 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
         super.onViewCreated(view, savedInstanceState)
 
         initSpringAnimation()
-        initTransitionAnimation()
-
+        binding.viewmodel = viewModel
         viewModel.fact.observe(this@FactsFragment, Observer { fact ->
             onNewFact(fact)
         })
@@ -58,26 +51,9 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
         }
     }
 
-    private fun initTransitionAnimation() {
-        transitionBottomAnimation = AnimationUtils.loadAnimation(context, R.anim.transition_bottom)
-        transitionBottomAnimation.setAnimationListener(object : AnimationEndListener {
-            override fun onAnimationEnd() {
-                fact.text = viewModel.fact.value?.text
-                springAnimation.setStartValue(halfScreenHeight).start()
-            }
-        })
-    }
-
     private fun onNewFact(fact: FactUi?) {
-        // Skips slide down animation on launch - it looked like lag
         fact?.let {
-            if (isLaunch) {
-                isLaunch = false
-                binding.fact.text = fact.text
-                springAnimation.setStartValue(halfScreenHeight).start()
-            } else {
-                binding.fact.startAnimation(transitionBottomAnimation)
-            }
+            springAnimation.setStartValue(halfScreenHeight).start()
         }
     }
 }

@@ -13,7 +13,7 @@ import com.deividasstr.ui.base.framework.closeKeyboard
 import com.deividasstr.ui.base.framework.openKeyboard
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetDetailsBinding
-import kotlinx.android.synthetic.main.sweet_details_add_sweet.*
+import kotlinx.android.synthetic.main.fragment_sweet_details.*
 
 @DebugOpenClass
 class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDetailsViewModel>() {

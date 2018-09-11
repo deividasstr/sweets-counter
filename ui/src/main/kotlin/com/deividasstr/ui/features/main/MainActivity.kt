@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -123,10 +122,8 @@ class MainActivity : BaseActivity() {
                     translationY(-height)
                 }
                 fab.setImageResource(fabSetter.srcRes)
-                if (!fab.isVisible) {
-                    alpha(1f)
-                    (fab as View).show()
-                }
+                alpha(1f)
+                (fab as View).show()
             }
         } else {
             fab.setOnClickListener { }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="androidx.core.content.ContextCompat" />
         <variable
             name="viewmodel"
             type="com.deividasstr.ui.features.sweetdetails.SweetDetailsViewModel" />
@@ -45,25 +45,64 @@
             app:layout_constraintTop_toBottomOf="@id/sweet_name"
             tools:text="Nutrition info" />
 
-        <include
-            android:id="@+id/nutriton_info_cals_serving_rating"
-            layout="@layout/sweet_details_cals_rating"
+        <TextView
+            android:id="@+id/cals_per_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{@string/title_cals_per_100(viewmodel.sweet.calsPer100)}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nutrition_info_title"
-            app:viewmodel="@{viewmodel}"
-            app:ratingClickListener="@{ratingclicklistener}" />
+            app:layout_constraintTop_toBottomOf="@id/nutrition_info_title" />
 
-        <include
-            android:id="@+id/nutrition_info_nutrients"
-            layout="@layout/sweet_details_nutrients"
+        <TextView
+            android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/margin_padding_size_large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nutrition_info_title"
-            app:viewmodel="@{viewmodel}" />
+            android:text="@string/title_nutritional_rating"
+            android:drawableEnd="@{ContextCompat.getDrawable(context, viewmodel.sweetRating)}"
+            android:drawablePadding="@dimen/margin_padding_size_small"
+            android:onClick="@{ratingclicklistener}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cals_per_100" />
+
+        <TextView
+            android:id="@+id/protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/title_protein(viewmodel.sweet.proteinG > 0.0 ? viewmodel.sweet.proteinG : 0.0)}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            app:layout_constraintStart_toEndOf="@id/nutrition_info_title"
+            app:layout_constraintTop_toBottomOf="@id/nutrition_info_title" />
+
+        <TextView
+            android:id="@+id/fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/title_fat(viewmodel.sweet.fatG > 0.0 ? viewmodel.sweet.fatG : 0.0)}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            app:layout_constraintStart_toEndOf="@id/nutrition_info_title"
+            app:layout_constraintTop_toBottomOf="@id/protein" />
+
+        <TextView
+            android:id="@+id/carbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/title_carbs(viewmodel.sweet.carbsG > 0.0 ? viewmodel.sweet.carbsG : 0.0)}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            app:layout_constraintStart_toEndOf="@id/nutrition_info_title"
+            app:layout_constraintTop_toBottomOf="@id/fat" />
+
+        <TextView
+            android:id="@+id/sugar_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
+            android:text="@{@string/title_sugars(viewmodel.sweet.sugarG > 0.0 ? viewmodel.sweet.sugarG : 0.0)}"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            app:layout_constraintStart_toEndOf="@id/nutrition_info_title"
+            app:layout_constraintTop_toBottomOf="@id/carbs"
+            android:paddingBottom="@dimen/margin_padding_size_large" />
 
         <TextView
             android:id="@+id/add_sweet_title"
@@ -74,17 +113,55 @@
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nutrition_info_nutrients" />
+            app:layout_constraintTop_toBottomOf="@id/sugar_value" />
 
-        <include
-            android:id="@+id/add_sweet"
-            layout="@layout/sweet_details_add_sweet"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/consumed_sweet_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:hint="@string/enter_the_amount_title"
+            android:textAppearance="@android:style/TextAppearance.Material.Body1"
+            android:layout_marginEnd="@dimen/margin_padding_size_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/measure_unit_selection"
+            app:layout_constraintTop_toBottomOf="@id/add_sweet_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/consumed_sweet_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:text="@={viewmodel.enteredValue}"
+                android:cursorVisible="false"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/measure_unit_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@{viewmodel.measureUnitGrams() ? @id/measure_grams : @id/measure_ounces}"
+            android:onCheckedChanged="@{() -> viewmodel.toggleMeasureUnit()}"
+            android:orientation="vertical"
             android:paddingBottom="@dimen/margin_padding_size_large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_sweet_title"
-            app:viewmodel="@{viewmodel}" />
+            app:layout_constraintTop_toBottomOf="@id/add_sweet_title">
+
+            <RadioButton
+                android:id="@+id/measure_grams"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                android:text="@string/unit_grams" />
+
+            <RadioButton
+                android:id="@+id/measure_ounces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Material.Body1"
+                android:text="@string/unit_ounces" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/total_cals_title"
@@ -94,7 +171,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_sweet" />
+            app:layout_constraintTop_toBottomOf="@id/consumed_sweet_view" />
 
         <com.robinhood.ticker.TickerView
             android:id="@+id/total_cals_val"
@@ -105,7 +182,7 @@
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             app:layout_constraintBottom_toBottomOf="@id/total_cals_title"
             app:layout_constraintStart_toEndOf="@id/total_cals_title"
-            app:layout_constraintTop_toBottomOf="@id/add_sweet"
+            app:layout_constraintTop_toBottomOf="@id/consumed_sweet_view"
             app:ticker_animationDuration="@integer/duration_animation_longest"
             app:ticker_defaultCharacterList="number" />
 
