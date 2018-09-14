@@ -8,25 +8,16 @@ import androidx.annotation.Nullable
 import androidx.annotation.RestrictTo
 import androidx.fragment.app.Fragment
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.FabSetter
-import com.deividasstr.ui.base.framework.alert
-import com.deividasstr.ui.base.framework.hide
-import com.deividasstr.ui.base.framework.show
+import com.deividasstr.ui.base.framework.base.BaseActivity
+import com.deividasstr.ui.base.framework.extensions.hide
+import com.deividasstr.ui.base.framework.extensions.show
 import kotlinx.android.synthetic.main.activity_main.*
 
 @RestrictTo(RestrictTo.Scope.TESTS)
 class TestActivity : BaseActivity() {
 
     override fun liftNavBar() {
-    }
-
-    override fun alert(stringRes: Int) {
-        container.alert(stringRes)
-    }
-
-    override fun alert(string: String) {
-        container.alert(string)
     }
 
     override fun setFab(fabSetter: FabSetter?) {

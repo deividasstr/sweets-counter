@@ -7,12 +7,14 @@ import com.github.mikephil.charting.renderer.YAxisRenderer
 import com.github.mikephil.charting.utils.Transformer
 import com.github.mikephil.charting.utils.ViewPortHandler
 
+/**
+ * Class splitting Y axis label text to two
+ */
 class YAxisSplitStringRenderer(
     viewPortHandler: ViewPortHandler?,
     yAxis: YAxis?,
     trans: Transformer?
-)
-    : YAxisRenderer(viewPortHandler, yAxis, trans) {
+) : YAxisRenderer(viewPortHandler, yAxis, trans) {
 
     // Splits text at \n and draws 2 labels
     override fun drawYLabels(
@@ -36,8 +38,16 @@ class YAxisSplitStringRenderer(
             val text = mYAxis.getFormattedLabel(i)
             val splitTexts = text.split("\n")
 
-            c.drawText(splitTexts[0], fixedPosition + textSize, positions[i * 2 + 1] + offset - halfTextSize, mAxisLabelPaint)
-            c.drawText(splitTexts[1], fixedPosition + textSize, positions[i * 2 + 1] + offset + halfTextSize, mAxisLabelPaint)
+            c.drawText(
+                splitTexts[0],
+                fixedPosition + textSize,
+                positions[i * 2 + 1] + offset - halfTextSize,
+                mAxisLabelPaint)
+            c.drawText(
+                splitTexts[1],
+                fixedPosition + textSize,
+                positions[i * 2 + 1] + offset + halfTextSize,
+                mAxisLabelPaint)
         }
     }
 }

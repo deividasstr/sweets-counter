@@ -1,6 +1,6 @@
 package com.deividasstr.ui.utils.di
 
-import com.deividasstr.ui.base.framework.BaseApplication
+import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 
 open class TestApplication : BaseApplication() {

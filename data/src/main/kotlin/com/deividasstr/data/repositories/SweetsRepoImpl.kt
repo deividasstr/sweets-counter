@@ -17,16 +17,7 @@ class SweetsRepoImpl(
     private val sweetsDb: SweetsDao,
     private val sweetsService: SweetsService,
     private val sharedPrefs: SharedPrefs
-)
-    : SweetsRepo {
-
-    override fun removeAll(): Completable {
-        return sweetsDb.removeAll()
-    }
-
-    override fun getSweetsByIds(ids: LongArray): Single<List<Sweet>> {
-        return sweetsDb.getSweetsByIds(ids).map { it.toSweets() }
-    }
+) : SweetsRepo {
 
     override fun downloadAndSaveAllSweets(): Completable {
         return sweetsService.getAllSweets().flatMapCompletable { saveSweets(it) }

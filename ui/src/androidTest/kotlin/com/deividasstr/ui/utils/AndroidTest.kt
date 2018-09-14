@@ -18,7 +18,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.util.HumanReadables
 import androidx.test.espresso.util.TreeIterables
-import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.deividasstr.data.di.modules.DbModule
 import com.deividasstr.data.di.modules.NetworkModule
@@ -78,12 +77,12 @@ open class AndroidTest {
         return MyObjectBox.builder().directory(storeFile).build()
     }
 
-    protected fun ActivityTestRule<*>.showsSnackWithText(@IntegerRes stringRes: Int) {
+    protected fun showsSnackWithText(@IntegerRes stringRes: Int) {
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(stringRes)))
     }
 
-    protected fun ActivityTestRule<*>.showsSnackWithText(string: String) {
+    protected fun showsSnackWithText(string: String) {
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(string)))
     }

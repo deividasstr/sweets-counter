@@ -8,6 +8,8 @@ import org.threeten.bp.temporal.TemporalUnit
 enum class Periods {
 
     DAY {
+        override val composingUnit: Periods = DAY
+
         override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
             return date
         }
@@ -15,6 +17,7 @@ enum class Periods {
         override val timeUnit: TemporalUnit = ChronoUnit.DAYS
     },
     WEEK {
+        override val composingUnit: Periods = DAY
         override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
             val weekday = date.dayOfWeek.value
             val daysFromMonday = weekday - 1
@@ -24,6 +27,7 @@ enum class Periods {
         override val timeUnit: TemporalUnit = ChronoUnit.WEEKS
     },
     MONTH {
+        override val composingUnit: Periods = DAY
         override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
             return date.withDayOfMonth(1)
         }
@@ -31,6 +35,7 @@ enum class Periods {
         override val timeUnit: TemporalUnit = ChronoUnit.MONTHS
     },
     YEAR {
+        override val composingUnit: Periods = MONTH
         override fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate {
             return date.withMonth(1).withDayOfMonth(1)
         }
@@ -38,10 +43,20 @@ enum class Periods {
         override val timeUnit: TemporalUnit = ChronoUnit.YEARS
     };
 
+    abstract val composingUnit: Periods
     abstract val timeUnit: TemporalUnit
     abstract fun startFromDate(dateTimeHandler: DateTimeHandler, date: LocalDate): LocalDate
 
     fun start(dateTimeHandler: DateTimeHandler): LocalDate {
         return startFromDate(dateTimeHandler, dateTimeHandler.currentLocalDate())
+    }
+}
+
+fun Periods.periodFromClickedBar(): Periods {
+    return when (this) {
+        Periods.DAY -> throw IllegalArgumentException("${Periods.DAY} should not be passed here")
+        Periods.WEEK -> Periods.DAY
+        Periods.MONTH -> Periods.DAY
+        Periods.YEAR -> Periods.MONTH
     }
 }

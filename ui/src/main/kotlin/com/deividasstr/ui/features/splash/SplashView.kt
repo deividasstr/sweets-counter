@@ -13,24 +13,30 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.deividasstr.ui.R
 
+/**
+ * Dynamic splash view - for animation on MainActivity start
+ */
 class SplashView(context: Context, attrs: AttributeSet?) :
     View(context, attrs) {
 
-    private val totalWidthPx = context.resources?.displayMetrics?.widthPixels!!
-    private val totalHeightPx = context.resources?.displayMetrics?.heightPixels!!
-
-    private val canvasBitmap =
-        Bitmap.createBitmap(totalWidthPx, totalHeightPx, Bitmap.Config.ARGB_8888)
+    private var canvasBitmap: Bitmap
 
     init {
+        val totalWidthPx = context.resources?.displayMetrics?.widthPixels!!
+        val totalHeightPx = context.resources?.displayMetrics?.heightPixels!!
+
         val paint = Paint().apply {
             xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
         }
 
-        val logoDrawable = context.getDrawable(R.mipmap.logo)!!
-        logoDrawable.setTint(Color.TRANSPARENT)
-        logoDrawable.setTintMode(PorterDuff.Mode.DST_OUT)
+        val logoDrawable = context.getDrawable(R.mipmap.logo)!!.apply {
+            setTint(Color.TRANSPARENT)
+            setTintMode(PorterDuff.Mode.DST_OUT)
+        }
+
         val logoBitmap = logoDrawable.toBitmap()
+
+        canvasBitmap = Bitmap.createBitmap(totalWidthPx, totalHeightPx, Bitmap.Config.ARGB_8888)
 
         val tempCanvas = Canvas(canvasBitmap)
         tempCanvas.drawColor(ContextCompat.getColor(context, R.color.colorPrimary))

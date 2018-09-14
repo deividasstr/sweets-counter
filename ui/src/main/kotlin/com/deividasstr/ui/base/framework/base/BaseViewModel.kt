@@ -1,9 +1,10 @@
-package com.deividasstr.ui.base.framework
+package com.deividasstr.ui.base.framework.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.deividasstr.data.utils.StringResException
+import com.deividasstr.ui.base.framework.SingleEvent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

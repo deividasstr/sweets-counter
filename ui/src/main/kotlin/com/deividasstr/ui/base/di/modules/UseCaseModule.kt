@@ -10,16 +10,15 @@ import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.AddNewSweetUseCase
 import com.deividasstr.domain.usecases.DownloadAllFactsUseCase
 import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
-import com.deividasstr.domain.usecases.GetAllConsumedSweetsCalsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
-import com.deividasstr.domain.usecases.GetSweetsByIdsUseCase
 import com.deividasstr.domain.usecases.SaveDownloadFactDateUseCase
 import com.deividasstr.domain.usecases.SaveDownloadSweetDateUseCase
 import com.deividasstr.domain.usecases.SearchSweetUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
 import dagger.Provides
@@ -42,11 +41,6 @@ class UseCaseModule {
     @Provides
     fun provideGetAllSweetsUseCase(repo: SweetsRepo): GetAllSweetsUseCase {
         return GetAllSweetsUseCase(repo)
-    }
-
-    @Provides
-    fun provideGetAllConsumedSweetsCalsUseCase(repo: ConsumedSweetsRepo): GetAllConsumedSweetsCalsUseCase {
-        return GetAllConsumedSweetsCalsUseCase(repo)
     }
 
     @Provides
@@ -90,11 +84,6 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetSweetsByIdsUseCase(repo: SweetsRepo): GetSweetsByIdsUseCase {
-        return GetSweetsByIdsUseCase(repo)
-    }
-
-    @Provides
     fun provideGetAllConsumedSweetsUseCase(repo: ConsumedSweetsRepo): GetAllConsumedSweetsUseCase {
         return GetAllConsumedSweetsUseCase(repo)
     }
@@ -103,5 +92,11 @@ class UseCaseModule {
     @Singleton
     fun provideDateTimeHandler(): DateTimeHandler {
         return DateTimeHandler()
+    }
+
+    @Provides
+    @Singleton
+    fun provideConsumedDataGenerator(): ConsumedDataGenerator {
+        return ConsumedDataGenerator
     }
 }

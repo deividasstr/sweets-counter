@@ -1,4 +1,4 @@
-package com.deividasstr.ui.base.framework
+package com.deividasstr.ui.base.framework.base
 
 import com.deividasstr.ui.base.di.AppComponent
 import dagger.android.support.DaggerApplication

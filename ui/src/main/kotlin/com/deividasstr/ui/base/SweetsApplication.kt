@@ -7,7 +7,7 @@ import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.BuildConfig
 import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
-import com.deividasstr.ui.base.framework.BaseApplication
+import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
@@ -31,7 +31,6 @@ class SweetsApplication : BaseApplication() {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
-            // AndroidDevMetrics.initWith(this);
             Handler().postAtFrontOfQueue(::initStrictMode)
             initStrictMode()
         }

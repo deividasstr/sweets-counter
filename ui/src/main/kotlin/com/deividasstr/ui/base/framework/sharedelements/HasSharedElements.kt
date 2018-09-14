@@ -1,4 +1,4 @@
-package com.deividasstr.ui.base.sharedelements
+package com.deividasstr.ui.base.framework.sharedelements
 
 import android.view.View
 

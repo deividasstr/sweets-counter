@@ -10,7 +10,7 @@
 
         <variable
             name="viewmodel"
-            type="com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodViewModel" />
+            type="com.deividasstr.ui.features.consumedsweetdata.ConsumedPeriodViewModel" />
 
         <variable
             name="chartlistener"

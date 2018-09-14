@@ -4,6 +4,7 @@ import androidx.navigation.findNavController
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.ui.R
@@ -70,7 +71,8 @@ class MainActivityTest : AndroidTest() {
     }
 
     @Test
+    @FlakyTest // must be run with wifi off
     fun noInternet_alerts() {
-        activityRule.showsSnackWithText(R.string.error_network_unavailable)
+        showsSnackWithText(R.string.error_network_unavailable)
     }
 }

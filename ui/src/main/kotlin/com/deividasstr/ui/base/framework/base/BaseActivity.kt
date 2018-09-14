@@ -1,10 +1,13 @@
-package com.deividasstr.ui.base.framework
+package com.deividasstr.ui.base.framework.base
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.deividasstr.ui.base.framework.FabSetter
+import com.deividasstr.ui.base.framework.extensions.alert
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -12,10 +15,10 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     abstract fun setFab(fabSetter: FabSetter?)
-
-    abstract fun alert(stringRes: Int)
-    abstract fun alert(string: String)
     abstract fun liftNavBar()
+
+    fun alert(stringRes: Int) { container.alert(stringRes) }
+    fun alert(string: String) { container.alert(string) }
 }
 
 inline fun <reified T : ViewModel> FragmentActivity.viewModel(

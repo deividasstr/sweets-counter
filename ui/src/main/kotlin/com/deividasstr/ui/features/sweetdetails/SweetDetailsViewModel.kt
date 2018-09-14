@@ -10,7 +10,7 @@ import com.deividasstr.domain.enums.toggle
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.base.models.toSweet
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,23 +29,13 @@ class SweetDetailsViewModel
     val sweet = MutableLiveData<SweetUi>()
     val sweetRating = MediatorLiveData<Int>()
 
-    private var measureUnit = defaultMeasureUnit()
-
-    private fun defaultMeasureUnit(): MeasurementUnit {
-        return sharedPrefs.defaultMeasurementUnit
-    }
-
-    fun measureUnitGrams(): Boolean {
-        return measureUnit == MeasurementUnit.GRAM
-    }
+    private var measureUnit = sharedPrefs.defaultMeasurementUnit
 
     val enteredValue = MutableLiveData<String>()
 
     val totalCals = MediatorLiveData<Long>().apply {
         value = 0
-        addSource(enteredValue) {
-            postValue(getTotalCals())
-        }
+        addSource(enteredValue) { postValue(getTotalCals()) }
     }
 
     fun validate(navigationCallback: NavigationCallback) {
@@ -66,6 +56,25 @@ class SweetDetailsViewModel
         } else {
             setError(StringResException(R.string.add_sweet_validation_fail))
         }
+    }
+
+    fun measureUnitGrams(): Boolean {
+        return measureUnit == MeasurementUnit.GRAM
+    }
+
+    fun setSweet(sweet: SweetUi) {
+        this.sweet.value = sweet
+        sweetRating.value = rating(sweet)
+    }
+
+    fun restore(enteredVal: String) {
+        enteredValue.postValue(enteredVal)
+    }
+
+    fun toggleMeasureUnit() {
+        measureUnit = measureUnit.toggle()
+        sharedPrefs.defaultMeasurementUnit = measureUnit
+        totalCals.value = getTotalCals()
     }
 
     // Amount > 10kg is not realistic, c'mon
@@ -90,12 +99,6 @@ class SweetDetailsViewModel
         } ?: false
     }
 
-    fun toggleMeasureUnit() {
-        measureUnit = measureUnit.toggle()
-        sharedPrefs.defaultMeasurementUnit = measureUnit
-        totalCals.value = getTotalCals()
-    }
-
     private fun rating(sweet: SweetUi): Int {
         return when {
             sweet.sweetRating() == SweetRating.BAD -> R.drawable.rating_bad
@@ -113,15 +116,7 @@ class SweetDetailsViewModel
         return enteredValue
             .multiply(BigDecimal(measureUnit.ratioWithGrams))
             .multiply(BigDecimal(sweet.calsPer100))
-            .divide(BigDecimal(100)).toLong()
-    }
-
-    fun setSweet(sweet: SweetUi) {
-        this.sweet.value = sweet
-        sweetRating.value = rating(sweet)
-    }
-
-    fun restore(enteredVal: String) {
-        enteredValue.postValue(enteredVal)
+            .divide(BigDecimal(100))
+            .toLong()
     }
 }

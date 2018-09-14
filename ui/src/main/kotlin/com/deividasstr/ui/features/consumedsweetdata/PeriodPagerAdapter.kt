@@ -11,7 +11,7 @@ class PeriodPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private var currentPosition = -1
 
     override fun getItem(position: Int): Fragment {
-        return ConsumedDataPeriodFragment.newInstance(position)
+        return ConsumedPeriodFragment.newInstance(position)
     }
 
     override fun getCount(): Int {

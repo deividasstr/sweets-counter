@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_container"
-        android:name="com.deividasstr.ui.base.sharedelements.NavHostSharedElementsTransitionFragment"
+        android:name="com.deividasstr.ui.base.framework.sharedelements.NavHostSharedElementsTransitionFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
@@ -24,7 +24,7 @@
         app:itemIconTint="@color/item_bottom_navigation"
         app:itemTextColor="@color/item_bottom_navigation"
         app:labelVisibilityMode="selected"
-        app:layout_behavior="com.deividasstr.ui.features.main.BottomNavigationBehavior"
+        app:layout_behavior="com.deividasstr.ui.features.main.BottomNavigationBarBehavior"
         app:menu="@menu/bottom_navigation_menu"
         app:morphCornerRadius="128dp"
         app:morphItemRadius="64dp"
@@ -37,7 +37,7 @@
         android:layout_gravity="top"
         app:layout_anchor="@id/bottom_navigation"
         app:layout_anchorGravity="top|end"
-        app:layout_behavior="com.deividasstr.ui.features.main.BottomNavigationFABBehavior"
+        app:layout_behavior="com.deividasstr.ui.features.main.BottomNavigationFabBehavior"
         app:useCompatPadding="true" />
 
     <com.deividasstr.ui.features.splash.SplashView

@@ -1,21 +1,23 @@
 package com.deividasstr.domain.usecases
 
+import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.repositories.SweetsRepo
 import io.reactivex.Completable
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
 import org.mockito.Mockito
 
-class DownloadAllSweetsUseCaseTest {
+class DownloadAllSweetsUseCaseTest : UnitTest() {
 
+    @Mock
     private lateinit var repo: SweetsRepo
     private lateinit var useCase: DownloadAllSweetsUseCase
     private lateinit var testSubscriber: TestObserver<Any>
 
     @Before
     fun setUp() {
-        repo = Mockito.mock(SweetsRepo::class.java)
         useCase = DownloadAllSweetsUseCase(repo)
         testSubscriber = TestObserver()
     }

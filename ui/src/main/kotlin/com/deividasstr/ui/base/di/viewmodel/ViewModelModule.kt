@@ -18,7 +18,7 @@ package com.deividasstr.ui.base.di.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetViewModel
-import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodViewModel
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedPeriodViewModel
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataViewModel
 import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryViewModel
 import com.deividasstr.ui.features.facts.FactsViewModel
@@ -72,6 +72,6 @@ internal abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ConsumedDataPeriodViewModel::class)
-    internal abstract fun bindsConsumedDataPeriodViewModel(consumedDataPeriodViewModel: ConsumedDataPeriodViewModel): ViewModel
+    @ViewModelKey(ConsumedPeriodViewModel::class)
+    internal abstract fun bindsConsumedDataPeriodViewModel(consumedDataPeriodViewModel: ConsumedPeriodViewModel): ViewModel
 }

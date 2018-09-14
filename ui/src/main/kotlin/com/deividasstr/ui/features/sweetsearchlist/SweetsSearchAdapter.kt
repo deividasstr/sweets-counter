@@ -14,7 +14,7 @@ import com.deividasstr.ui.databinding.ListItemSweetBinding
 class SweetsSearchAdapter :
     PagedListAdapter<SweetUi, SweetsSearchAdapter.SweetViewHolder>(SweetUiDiffCallback()) {
 
-    var clickListener: (SweetUi, TextView) -> Unit = { _, _ -> }
+    lateinit var clickListener: (SweetUi, TextView) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SweetViewHolder {
         return SweetViewHolder(

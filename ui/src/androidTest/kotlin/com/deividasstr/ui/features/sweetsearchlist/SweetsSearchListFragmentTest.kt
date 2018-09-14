@@ -52,7 +52,7 @@ class SweetsSearchListFragmentTest : AndroidTest() {
 
         activityRule.launchActivity(null)
         activityRule.activity.findNavController(R.id.fragment_container)
-            .navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
+            .navigate(R.id.action_history_to_search)
     }
 
     @Test

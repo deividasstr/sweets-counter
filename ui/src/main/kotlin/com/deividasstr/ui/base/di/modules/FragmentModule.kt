@@ -8,7 +8,7 @@ import com.deividasstr.ui.base.di.scopes.facts.FactsScope
 import com.deividasstr.ui.base.di.scopes.sweetdetails.SweetDetailsScope
 import com.deividasstr.ui.base.di.scopes.sweetsearchlist.SweetSearchListScope
 import com.deividasstr.ui.features.addconsumedsweet.AddConsumedSweetFragment
-import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataPeriodFragment
+import com.deividasstr.ui.features.consumedsweetdata.ConsumedPeriodFragment
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedSweetDataFragment
 import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment
 import com.deividasstr.ui.features.facts.FactsFragment
@@ -47,5 +47,5 @@ internal abstract class FragmentModule {
 
     @ContributesAndroidInjector()
     @ConsumedSweetDataScope
-    abstract fun consumedDataPeriodFragment(): ConsumedDataPeriodFragment
+    abstract fun consumedDataPeriodFragment(): ConsumedPeriodFragment
 }

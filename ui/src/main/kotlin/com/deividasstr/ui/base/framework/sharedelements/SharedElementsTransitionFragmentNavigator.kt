@@ -1,8 +1,7 @@
-package com.deividasstr.ui.base.sharedelements
+package com.deividasstr.ui.base.framework.sharedelements
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavOptions
@@ -61,9 +60,6 @@ class SharedElementsTransitionFragmentNavigator constructor(
             return false
         }
         if (fragmentManager.isStateSaved) {
-            Log.i(
-                TAG,
-                "Ignoring popBackStack() call: FragmentManager has already" + " saved its state")
             return false
         }
         var popped = false
@@ -88,7 +84,6 @@ class SharedElementsTransitionFragmentNavigator constructor(
         navOptions: NavOptions?
     ) {
         if (fragmentManager.isStateSaved) {
-            Log.i(TAG, "Ignoring navigate() call: FragmentManager has already" + " saved its state")
             return
         }
         val frag = destination.createFragment(args)

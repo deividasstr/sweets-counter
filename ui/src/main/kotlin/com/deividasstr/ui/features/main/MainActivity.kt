@@ -12,20 +12,18 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.AnimationEndListener
-import com.deividasstr.ui.base.framework.BaseActivity
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.SingleEvent
-import com.deividasstr.ui.base.framework.alert
-import com.deividasstr.ui.base.framework.hide
-import com.deividasstr.ui.base.framework.show
-import com.deividasstr.ui.base.framework.viewModel
+import com.deividasstr.ui.base.framework.base.BaseActivity
+import com.deividasstr.ui.base.framework.base.viewModel
+import com.deividasstr.ui.base.framework.extensions.hide
+import com.deividasstr.ui.base.framework.extensions.show
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
-
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +39,16 @@ class MainActivity : BaseActivity() {
 
         handleSplash(savedInstanceState)
         handleKeyBoardApparition()
+    }
+
+    private fun setupNavigation() {
+        navController = findNavController(R.id.fragment_container)
+        setupWithNavController(bottom_navigation, navController)
+    }
+
+    // Does not play animation when activity is recovering from kill
+    private fun handleSplash(savedInstanceState: Bundle?) {
+        savedInstanceState?.let { splash.hide() } ?: zoomOutSplash()
     }
 
     private fun handleKeyBoardApparition() {
@@ -66,16 +74,6 @@ class MainActivity : BaseActivity() {
     private fun isKeyboardOpen(windowAboveKeyboard: Rect) =
         container.bottom > windowAboveKeyboard.bottom
 
-    // Does not play animation when activity is recovering from kill
-    private fun handleSplash(savedInstanceState: Bundle?) {
-        savedInstanceState?.let { splash.hide() } ?: zoomOutSplash()
-    }
-
-    private fun setupNavigation() {
-        navController = findNavController(R.id.fragment_container)
-        setupWithNavController(bottom_navigation, navController)
-    }
-
     private fun zoomOutSplash() {
         val animation = AnimationUtils.loadAnimation(this, R.anim.zoom_in)
         animation.setAnimationListener(object : AnimationEndListener {
@@ -96,6 +94,45 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    override fun setFab(fabSetter: FabSetter?) {
+        if (fabSetter != null) {
+            fab.setOnClickListener { fabSetter.onClick.invoke() }
+            showFab(fabSetter)
+        } else {
+            fab.setOnClickListener { }
+            hideFab()
+        }
+    }
+
+    private fun hideFab() {
+        fab.animate().apply {
+            cancel()
+            alpha(0f)
+            duration = 0
+            withEndAction { (fab as View).hide() }
+        }
+    }
+
+    private fun showFab(fabSetter: FabSetter) {
+        fab.animate().apply {
+            cancel()
+            duration = resources.getInteger(R.integer.duration_animation_short).toLong()
+
+            val snackbar = container.children.firstOrNull { it is Snackbar.SnackbarLayout }
+            if (snackbar != null && fab.translationY == 0f) {
+                val height = snackbar.height.toFloat()
+                translationY(-height)
+            }
+            fab.setImageResource(fabSetter.srcRes)
+            alpha(1f)
+            (fab as View).show()
+        }
+    }
+
+    override fun liftNavBar() {
+        if (bottom_navigation.translationY > 0f) bottom_navigation.translationY = 0f
+    }
+
     override fun onBackPressed() {
         if (supportFragmentManager.fragments[0].childFragmentManager.backStackEntryCount == 1) {
             val menu = bottom_navigation.menu
@@ -107,47 +144,5 @@ class MainActivity : BaseActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.fragment_container).navigateUp()
-    }
-
-    override fun setFab(fabSetter: FabSetter?) {
-        if (fabSetter != null) {
-            fab.setOnClickListener { fabSetter.onClick.invoke() }
-            fab.animate().apply {
-                cancel()
-                duration = resources.getInteger(R.integer.duration_animation_short).toLong()
-
-                val snackbar = container.children.firstOrNull { it is Snackbar.SnackbarLayout }
-                if (snackbar != null && fab.translationY == 0f) {
-                    val height = snackbar.height.toFloat()
-                    translationY(-height)
-                }
-                fab.setImageResource(fabSetter.srcRes)
-                alpha(1f)
-                (fab as View).show()
-            }
-        } else {
-            fab.setOnClickListener { }
-
-            fab.animate().apply {
-                cancel()
-                alpha(0f)
-                duration = 0
-                withEndAction { (fab as View).hide() }
-            }
-        }
-    }
-
-    override fun liftNavBar() {
-        if (bottom_navigation.translationY > 0f) {
-            bottom_navigation.translationY = 0f
-        }
-    }
-
-    override fun alert(stringRes: Int) {
-        container.alert(stringRes)
-    }
-
-    override fun alert(string: String) {
-        container.alert(string)
     }
 }

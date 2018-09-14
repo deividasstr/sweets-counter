@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.enums.Periods
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.toConsumedSweetUis
 import io.reactivex.rxkotlin.subscribeBy
@@ -17,7 +17,6 @@ class ConsumedSweetDataViewModel
 ) : BaseViewModel() {
 
     val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
-
     val currentPeriod = MutableLiveData<Periods>().apply { postValue(Periods.WEEK) }
 
     init {
@@ -26,9 +25,7 @@ class ConsumedSweetDataViewModel
 
     fun changePeriod(pos: Int) {
         val period = Periods.values()[pos + 1]
-        if (currentPeriod.value != period) {
-            currentPeriod.postValue(period)
-        }
+        if (currentPeriod.value != period) currentPeriod.postValue(period)
     }
 
     private fun getConsumedSweets() {
@@ -39,8 +36,7 @@ class ConsumedSweetDataViewModel
                 consumedSweets.postValue(it)
             },
                 onError = {
-                    val ex = it as StringResException
-                    setError(ex)
+                    setError(it as StringResException)
                 }
             )
         addDisposable(disposable)

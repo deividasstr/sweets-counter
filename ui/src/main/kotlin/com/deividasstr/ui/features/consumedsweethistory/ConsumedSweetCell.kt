@@ -26,14 +26,13 @@ class ConsumedSweetCell(
         context: Context,
         payload: Any?
     ) {
-
-        val view = holder.itemView
-        val sweet = item.sweet
-        val consumedSweet = item
-        val data: String = formatDataText(context, consumedSweet)
-
-        view.name_consumed_sweet.text = sweet.name
-        view.data_consumed_sweet.text = data
+        with(holder.itemView) {
+            val sweet = item.sweet
+            val consumedSweet = item
+            val data: String = formatDataText(context, consumedSweet)
+            name_consumed_sweet.text = sweet.name
+            data_consumed_sweet.text = data
+        }
     }
 
     private fun formatDataText(
@@ -51,7 +50,6 @@ class ConsumedSweetCell(
             MeasurementUnit.GRAM -> context.getString(
                 R.string.unit_grams_short_formatted,
                 consumedSweet.g)
-
             MeasurementUnit.OUNCE -> context.getString(
                 R.string.unit_grams_short_formatted,
                 consumedSweet.g / MeasurementUnit.OUNCE.ratioWithGrams)

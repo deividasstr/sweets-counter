@@ -5,7 +5,7 @@ import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManager
 import com.deividasstr.ui.features.main.backgroundwork.DownloadAllSweetsWorker
 import java.util.UUID
@@ -20,18 +20,12 @@ class MainActivityViewModel @Inject constructor(
     fun tryDownloadSweets() {
         if (sharedPrefs.sweetsUpdatedDate == 0L) {
             scheduleDownload(backgroundWorkManager.downloadSweetsAndSaveDownloadDate())
-            if (!networkManager.networkAvailable) {
-                setError(StringResException(R.string.error_network_unavailable))
-            }
         }
     }
 
     fun tryDownloadFacts() {
         if (sharedPrefs.factsUpdatedDate == 0L) {
             scheduleDownload(backgroundWorkManager.downloadFactsAndSaveDownloadDate())
-            if (!networkManager.networkAvailable) {
-                setError(StringResException(R.string.error_network_unavailable))
-            }
         }
     }
 
@@ -42,6 +36,10 @@ class MainActivityViewModel @Inject constructor(
             if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
                 setError(StringResException(R.string.error_network_server))
             }
+        }
+
+        if (!networkManager.networkAvailable) {
+            setError(StringResException(R.string.error_network_unavailable))
         }
     }
 }

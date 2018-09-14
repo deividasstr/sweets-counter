@@ -7,17 +7,16 @@ import androidx.core.view.ViewCompat
 import androidx.navigation.Navigation
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseActivity
-import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
-import com.deividasstr.ui.base.framework.closeKeyboard
-import com.deividasstr.ui.base.framework.observe
-import com.deividasstr.ui.base.framework.openKeyboard
+import com.deividasstr.ui.base.framework.base.BaseActivity
+import com.deividasstr.ui.base.framework.base.BaseFragment
+import com.deividasstr.ui.base.framework.extensions.closeKeyboard
+import com.deividasstr.ui.base.framework.extensions.observe
+import com.deividasstr.ui.base.framework.extensions.openKeyboard
+import com.deividasstr.ui.base.framework.sharedelements.HasSharedElements
 import com.deividasstr.ui.base.models.SweetUi
-import com.deividasstr.ui.base.sharedelements.HasSharedElements
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.actionSweetDetails
 
@@ -29,27 +28,13 @@ class SweetsSearchListFragment :
         const val EXTRA_RECYCLER_POS = "EXTRA_RECYCLER_POS"
     }
 
-    override val fabSetter: FabSetter? = null
-
-    private val sharedElements: MutableMap<String, View> = mutableMapOf()
-
-    override fun getViewModelClass(): Class<SweetsSearchListViewModel> =
-        SweetsSearchListViewModel::class.java
-
-    override fun layoutId(): Int = R.layout.fragment_sweet_search_list
-
     private val adapter: SweetsSearchAdapter by lazy { createAdapter() }
+    private val sharedElements: MutableMap<String, View> = mutableMapOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding) {
-            viewmodel = viewModel
-            sweetsRecycler.setHasFixedSize(true)
-
-            val itemDecor = DividerItemDecoration(sweetsRecycler.context, VERTICAL)
-            sweetsRecycler.addItemDecoration(itemDecor)
-            sweetsRecycler.adapter = adapter
-        }
+        binding.viewmodel = viewModel
+        initRecycler()
         observe(viewModel.sweets, ::renderSweetsList)
     }
 
@@ -64,6 +49,25 @@ class SweetsSearchListFragment :
         super.onPause()
     }
 
+    private fun initRecycler() {
+        with(binding) {
+            sweetsRecycler.setHasFixedSize(true)
+
+            val itemDecor =
+                DividerItemDecoration(sweetsRecycler.context, DividerItemDecoration.VERTICAL)
+            sweetsRecycler.addItemDecoration(itemDecor)
+            sweetsRecycler.adapter = adapter
+        }
+    }
+
+    private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
+        if (sweets != null && sweets.isEmpty() && viewModel.query.isEmpty()) {
+            (activity as BaseActivity).alert(R.string.no_sweets_available)
+        } else {
+            adapter.submitList(sweets)
+        }
+    }
+
     private fun navigateToSweetDetails(sweet: SweetUi, view: TextView) {
         setSharedElement(view)
 
@@ -74,14 +78,6 @@ class SweetsSearchListFragment :
     private fun setSharedElement(view: TextView) {
         sharedElements.clear()
         sharedElements[ViewCompat.getTransitionName(view)!!] = view
-    }
-
-    private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
-        if (sweets != null && sweets.isEmpty() && viewModel.query.isEmpty()) {
-            (activity as BaseActivity).alert(R.string.no_sweets_available)
-        } else {
-            adapter.submitList(sweets)
-        }
     }
 
     private fun createAdapter(): SweetsSearchAdapter {
@@ -96,6 +92,13 @@ class SweetsSearchListFragment :
 
     override fun hasReorderingAllowed(): Boolean = false
 
+    override val fabSetter: FabSetter? = null
+
+    override fun getViewModelClass(): Class<SweetsSearchListViewModel> =
+        SweetsSearchListViewModel::class.java
+
+    override fun layoutId(): Int = R.layout.fragment_sweet_search_list
+
     override fun onSaveInstanceState(outState: Bundle) {
         val currPos = (binding.sweetsRecycler.layoutManager as LinearLayoutManager)
             .findFirstCompletelyVisibleItemPosition()
@@ -109,14 +112,10 @@ class SweetsSearchListFragment :
         super.onViewStateRestored(savedInstanceState)
         savedInstanceState?.let {
             val enteredVal = it.getString(EXTRA_ENTERED_VAL)
-            if (!enteredVal.isNullOrEmpty()) {
-                viewModel.searchSweets(enteredVal!!)
-            }
+            if (!enteredVal.isNullOrEmpty()) viewModel.searchSweets(enteredVal!!)
 
             val pos = it.getInt(EXTRA_RECYCLER_POS)
-            if (pos > 0) {
-                binding.sweetsRecycler.smoothScrollToPosition(pos + 4)
-            }
+            if (pos > 0) binding.sweetsRecycler.smoothScrollToPosition(pos + 4)
         }
     }
 }

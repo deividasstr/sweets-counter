@@ -6,11 +6,11 @@ import androidx.core.view.ViewCompat
 import androidx.transition.TransitionInflater
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseActivity
-import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
-import com.deividasstr.ui.base.framework.closeKeyboard
-import com.deividasstr.ui.base.framework.openKeyboard
+import com.deividasstr.ui.base.framework.base.BaseActivity
+import com.deividasstr.ui.base.framework.base.BaseFragment
+import com.deividasstr.ui.base.framework.extensions.closeKeyboard
+import com.deividasstr.ui.base.framework.extensions.openKeyboard
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetDetailsBinding
 import kotlinx.android.synthetic.main.fragment_sweet_details.*
@@ -22,16 +22,12 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         const val EXTRA_ENTERED_VAL = "EXTRA_ENTERED_VAL"
     }
 
-    override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_done_white_24dp) { consumeSweet() }
+    private val sweet: SweetUi by lazy { SweetDetailsFragmentArgs.fromBundle(arguments).sweet }
 
-    override fun getViewModelClass(): Class<SweetDetailsViewModel> =
-        SweetDetailsViewModel::class.java
-
-    override fun layoutId(): Int = R.layout.fragment_sweet_details
-
-    private val sweet: SweetUi by lazy {
-        SweetDetailsFragmentArgs.fromBundle(arguments).sweet
-    }
+    private val ratingClickListener: View.OnClickListener =
+        View.OnClickListener {
+            RatingInfoDialogFragment().show(childFragmentManager, null)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,18 +37,21 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        with(binding) {
-            ViewCompat.setTransitionName(sweetName, sweet.name)
-            viewModel.setSweet(sweet)
-
-            viewmodel = viewModel
-            ratingclicklistener = ratingClickListener
-
-            consumed_sweet_view.requestFocus()
-            consumed_sweet_view.openKeyboard()
-        }
+        viewModel.setSweet(sweet)
+        ViewCompat.setTransitionName(sweet_name, sweet.name)
+        setBinding()
+        openKeyboard()
         (activity as BaseActivity).liftNavBar()
+    }
+
+    private fun setBinding() {
+        binding.viewmodel = viewModel
+        binding.ratingclicklistener = ratingClickListener
+    }
+
+    private fun openKeyboard() {
+        consumed_sweet_view.requestFocus()
+        consumed_sweet_view.openKeyboard()
     }
 
     private fun consumeSweet() {
@@ -66,11 +65,6 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         viewModel.validate(navigationCallback)
     }
 
-    private val ratingClickListener: View.OnClickListener =
-        View.OnClickListener {
-            RatingInfoDialogFragment().show(childFragmentManager, null)
-        }
-
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(EXTRA_ENTERED_VAL, viewModel.enteredValue.value)
         super.onSaveInstanceState(outState)
@@ -82,4 +76,11 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
             viewModel.restore(it)
         }
     }
+
+    override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_done_white_24dp) { consumeSweet() }
+
+    override fun getViewModelClass(): Class<SweetDetailsViewModel> =
+        SweetDetailsViewModel::class.java
+
+    override fun layoutId(): Int = R.layout.fragment_sweet_details
 }

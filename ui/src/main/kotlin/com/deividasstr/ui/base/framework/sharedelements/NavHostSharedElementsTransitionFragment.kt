@@ -1,4 +1,4 @@
-package com.deividasstr.ui.base.sharedelements
+package com.deividasstr.ui.base.framework.sharedelements
 
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator

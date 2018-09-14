@@ -3,7 +3,7 @@ package com.deividasstr.ui.features.facts
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.FactUi
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -19,9 +19,7 @@ class FactsViewModel
     }
 
     fun getNewFact() {
-        fact.value?.let {
-            getFact(it.id)
-        } ?: getFact(0)
+        fact.value?.let { getFact(it.id) } ?: getFact(0)
     }
 
     private fun getFact(currentFactId: Long) {
@@ -32,7 +30,6 @@ class FactsViewModel
                 fact.postValue(it)
             },
                 onError = {
-                    // fact.postValue(null)
                     setError(it as StringResException)
                 }
             )

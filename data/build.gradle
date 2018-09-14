@@ -17,6 +17,8 @@ allOpen {
     annotation 'com.deividasstr.data.utils.OpenClass'
 }
 
+enableJacoco(project, 'Debug')
+
 android {
     sourceSets {
         debug.java.srcDirs += 'src/debug/kotlin'
@@ -31,25 +33,14 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
     implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
     implementation "androidx.paging:paging-common:$lifecycleVersion"
+
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+    
     androidTestImplementation "androidx.annotation:annotation:$supportLibraryVersion"
 }
-
-/*
-
-task testJar(type: Jar) {
-    baseName = "${project.name}-test"
-    from sourceSets.test.output
-}
-
-configurations {
-    testArtifacts
-}
-
-artifacts {
-    testArtifacts testJar
-}*/

@@ -1,5 +1,6 @@
 package com.deividasstr.ui.features.sweetdetails
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -8,6 +9,7 @@ import com.deividasstr.ui.R
 
 class RatingInfoDialogFragment : DialogFragment() {
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
         val inflater = activity!!.layoutInflater

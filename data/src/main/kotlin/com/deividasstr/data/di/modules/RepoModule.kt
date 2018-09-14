@@ -37,10 +37,7 @@ class RepoModule {
 
     @Singleton
     @Provides
-    fun provideConsumedSweetsRepo(
-        consumedSweetsDao: ConsumedSweetsDao,
-        sweetsDao: SweetsDao
-    ): ConsumedSweetsRepo {
-        return ConsumedSweetsRepoImpl(consumedSweetsDao, sweetsDao)
+    fun provideConsumedSweetsRepo(consumedSweetsDao: ConsumedSweetsDao): ConsumedSweetsRepo {
+        return ConsumedSweetsRepoImpl(consumedSweetsDao)
     }
 }

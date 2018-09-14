@@ -2,13 +2,13 @@ package com.deividasstr.ui.features.consumedsweethistory
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
+import com.deividasstr.ui.base.framework.base.BaseFragment
+import com.deividasstr.ui.base.framework.extensions.observe
 import com.deividasstr.ui.databinding.FragmentConsumedSweetHistoryBinding
 import javax.inject.Inject
 
@@ -16,41 +16,44 @@ import javax.inject.Inject
 class ConsumedSweetHistoryFragment :
     BaseFragment<FragmentConsumedSweetHistoryBinding, ConsumedSweetHistoryViewModel>() {
 
-    override val fabSetter: FabSetter? =
-        FabSetter(R.drawable.ic_add_white_24dp) { navigateToSearch() }
-
     @Inject
     lateinit var dateTimeHandler: DateTimeHandler
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setRecycler()
+        observe(viewModel.sweetCells, ::addSweetsToAdapter)
+    }
+
+    private fun setRecycler() {
+        val adapter = ConsumedSweetsHeaderAdapter(dateTimeHandler, layoutInflater)
+        binding.consumedSweetRecycler.setHasFixedSize(true)
+        binding.consumedSweetRecycler.setSectionHeader(adapter)
+    }
+
+    private fun addSweetsToAdapter(sweetCells: List<ConsumedSweetCell>?) {
+        if (sweetCells!!.isEmpty()) {
+            binding.consumedSweetRecycler.addCells(emptyList())
+            binding.consumedSweetRecycler.adapter?.notifyDataSetChanged()
+        } else {
+            binding.consumedSweetRecycler.addCells(sweetCells)
+        }
+    }
+
+    private fun navigateToSearch() {
+        try {
+            view?.findNavController()?.navigate(R.id.action_history_to_search)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // TODO Crashlytics.logException(e)
+        }
+    }
 
     override fun getViewModelClass(): Class<ConsumedSweetHistoryViewModel> =
         ConsumedSweetHistoryViewModel::class.java
 
     override fun layoutId(): Int = R.layout.fragment_consumed_sweet_history
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val adapter = ConsumedSweetsHeaderAdapter(dateTimeHandler, layoutInflater)
-        binding.consumedSweetRecycler.setSectionHeader(adapter)
-
-        viewModel.sweetCells.observe(this, Observer { cells ->
-            if (cells.isEmpty()) {
-                binding.consumedSweetRecycler.addCells(emptyList())
-                binding.consumedSweetRecycler.adapter?.notifyDataSetChanged()
-            } else {
-                binding.consumedSweetRecycler.addCells(cells)
-            }
-        })
-
-        binding.consumedSweetRecycler.setHasFixedSize(true)
-    }
-
-    private fun navigateToSearch() {
-        try {
-            view?.findNavController()
-                ?.navigate(R.id.action_consumedSweetHistoryFragment_to_sweetsSearchListFragment)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // TODO Crashlytics.logException(e)
-        }
-    }
+    override val fabSetter: FabSetter? =
+        FabSetter(R.drawable.ic_add_white_24dp) { navigateToSearch() }
 }

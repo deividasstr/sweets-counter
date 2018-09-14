@@ -3,14 +3,12 @@ package com.deividasstr.ui.features.main.backgroundwork
 import androidx.work.Data
 import androidx.work.Worker
 import com.deividasstr.domain.usecases.DownloadAllFactsUseCase
-import com.deividasstr.ui.base.framework.BaseApplication
+import com.deividasstr.ui.base.framework.base.BaseApplication
 import javax.inject.Inject
 
 class DownloadAllFactsWorker : Worker() {
 
-    companion object {
-        const val KEY_ERROR = "KEY_ERROR"
-    }
+    companion object { const val KEY_ERROR = "KEY_ERROR" }
 
     @Inject
     lateinit var downloadAllFactsUseCase: DownloadAllFactsUseCase
@@ -20,9 +18,7 @@ class DownloadAllFactsWorker : Worker() {
 
         val throwable = downloadAllFactsUseCase.execute().blockingGet()
         if (throwable != null) {
-            val output = Data.Builder()
-                .putBoolean(KEY_ERROR, true)
-                .build()
+            val output = Data.Builder().putBoolean(KEY_ERROR, true).build()
             outputData = output
             return Result.FAILURE
         }

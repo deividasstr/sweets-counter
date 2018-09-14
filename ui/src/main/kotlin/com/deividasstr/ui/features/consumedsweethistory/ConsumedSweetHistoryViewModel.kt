@@ -7,7 +7,7 @@ import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.toConsumedSweetUis
 import io.reactivex.rxkotlin.subscribeBy
@@ -24,10 +24,9 @@ class ConsumedSweetHistoryViewModel
 
     private val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
 
-    val sweetCells = MediatorLiveData<List<ConsumedSweetCell>>().apply {
-        addSource(consumedSweets) {
-            this.postValue(makeCells(it))
-        }
+    val sweetCells =
+        MediatorLiveData<List<ConsumedSweetCell>>().apply {
+        addSource(consumedSweets) { postValue(makeCells(it)) }
     }
 
     init {
@@ -42,8 +41,7 @@ class ConsumedSweetHistoryViewModel
                 consumedSweets.postValue(sweets)
             },
                 onError = {
-                    val ex = it as StringResException
-                    setError(ex)
+                    setError(it as StringResException)
                 }
             )
         addDisposable(disposable)

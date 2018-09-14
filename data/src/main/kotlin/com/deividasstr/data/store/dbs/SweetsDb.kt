@@ -14,22 +14,11 @@ import javax.inject.Singleton
 @Singleton
 class SweetsDb(val db: Box<SweetDb>) : SweetsDao {
 
-    override fun removeAll(): Completable {
-        return Completable.fromAction {
-            db.removeAll()
-        }
-    }
-
     fun query(query: String): Query<SweetDb> {
         return db.query {
             contains(SweetDb_.name, query)
             order(SweetDb_.name)
         }
-    }
-
-    override fun getSweetsByIds(ids: LongArray): Single<List<SweetDb>> {
-        val query = db.query().`in`(SweetDb_.id, ids).build()
-        return RxObjectBoxQuery.singleList(query)
     }
 
     override fun addSweet(sweet: SweetDb): Completable {

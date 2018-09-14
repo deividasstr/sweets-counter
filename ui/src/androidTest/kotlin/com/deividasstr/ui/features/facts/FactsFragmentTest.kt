@@ -57,7 +57,7 @@ class FactsFragmentTest : AndroidTest() {
         activityRule.launchActivity(null)
         activityRule.activity.replaceFragment(FactsFragment())
 
-        activityRule.showsSnackWithText(R.string.error_no_facts_available)
+        showsSnackWithText(R.string.error_no_facts_available)
     }
 
     @Test

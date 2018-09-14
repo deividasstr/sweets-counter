@@ -3,14 +3,12 @@ package com.deividasstr.ui.features.sweetsearchlist
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.deividasstr.ui.base.framework.BaseViewModel
+import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import javax.inject.Inject
 
 class SweetsSearchListViewModel
 @Inject constructor(private val dataSourceFactory: SweetSearchDataSourceFactory) : BaseViewModel() {
-
-    var query: String = ""
 
     companion object {
         private const val PAGE_SIZE = 30
@@ -18,6 +16,7 @@ class SweetsSearchListViewModel
     }
 
     val sweets: LiveData<PagedList<SweetUi>>
+    var query: String = ""
 
     init {
         val config = PagedList.Config.Builder()

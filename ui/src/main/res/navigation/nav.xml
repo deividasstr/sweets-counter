@@ -37,7 +37,7 @@
         android:name="com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFragment"
         android:label="ConsumedSweetHistoryFragment">
         <action
-            android:id="@+id/action_consumedSweetHistoryFragment_to_sweetsSearchListFragment"
+            android:id="@+id/action_history_to_search"
             app:destination="@id/sweetsSearchListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

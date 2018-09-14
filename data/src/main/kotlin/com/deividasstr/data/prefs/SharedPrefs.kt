@@ -31,7 +31,9 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
 
     var factsUpdatedDate: Long
         get() = permitDiskReads { prefs.getLong(PREF_FACT_DATE, 0) }
-        set(value) { prefs.edit().putLong(PREF_FACT_DATE, value).apply() }
+        set(value) {
+            prefs.edit().putLong(PREF_FACT_DATE, value).apply()
+        }
 
     var sweetsUpdatedDate: Long
         get() = permitDiskReads { prefs.getLong(PREF_SWEET_DATE, 0) }

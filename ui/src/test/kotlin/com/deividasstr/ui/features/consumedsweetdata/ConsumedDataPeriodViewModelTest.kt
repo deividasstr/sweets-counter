@@ -26,7 +26,7 @@ import kotlin.math.roundToLong
 
 class ConsumedDataPeriodViewModelTest : UnitTest() {
 
-    private lateinit var viewModel: ConsumedDataPeriodViewModel
+    private lateinit var viewModel: ConsumedPeriodViewModel
 
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
@@ -48,7 +48,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             MeasurementUnit.GRAM
         }
 
-        viewModel = ConsumedDataPeriodViewModel(dateTimeHandler, sharedPrefs)
+        viewModel = ConsumedPeriodViewModel(dateTimeHandler, sharedPrefs, ConsumedDataGenerator)
     }
 
     // Consumed 1 on monday and 2 wednesday
@@ -64,7 +64,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val cals = calsDay1 + calsDay3
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(Periods.WEEK, dateTimeHandler)
 
@@ -106,7 +106,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(Periods.MONTH, dateTimeHandler)
 
@@ -158,7 +158,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek + calsDayLastMonth
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(Periods.YEAR, dateTimeHandler)
 
@@ -223,7 +223,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val cals =
             (TestData.TEST_CONSUMED_SWEET4.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(Periods.WEEK, dateTimeHandler)
         range.advanceRange(-1)
@@ -259,7 +259,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val cals = calsDay1 + calsDay3
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(Periods.WEEK, dateTimeHandler)
 
@@ -296,7 +296,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val cals = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
-        val weight = (cals / ConsumedDataPeriodViewModel.CALS_PER_G).roundToLong()
+        val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
         val range = DateRange(
             Periods.WEEK,

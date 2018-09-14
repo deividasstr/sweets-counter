@@ -145,7 +145,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
         R.id.fab.click()
 
-        activityRule.showsSnackWithText(R.string.add_sweet_validation_fail)
+        showsSnackWithText(R.string.add_sweet_validation_fail)
     }
 
     @Test

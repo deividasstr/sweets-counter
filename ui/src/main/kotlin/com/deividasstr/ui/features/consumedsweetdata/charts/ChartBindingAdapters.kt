@@ -42,7 +42,6 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     } else {
         preparePie(entries, view)
     }
-    // view.invalidate()
     view.animateY(400, Easing.EasingOption.EaseInQuad)
 }
 
@@ -65,7 +64,6 @@ fun setRatingData(view: PieChart, data: Map<SweetRating, Long>?) {
     } else {
         preparePie(entries, view)
     }
-    // view.invalidate()
     view.animateY(400)
 }
 
@@ -88,13 +86,10 @@ private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
     dataSet.sliceSpace = 3f
     dataSet.selectionShift = 5f
     dataSet.colors = colors
-    /* dataSet.valueTextColor = Color.BLACK
-     dataSet.valueTypeface = typeface*/
 
     val pieData = PieData(dataSet)
     pieData.setValueFormatter(PercentFormatter())
     pieData.setValueTextSize(11f)
-    // pieData.setValueTypeface(typeface)
 
     view.data = pieData
 }
@@ -114,7 +109,6 @@ fun setConsumedData(view: BarChart, data: ConsumedBarData?) {
     } else {
         prepareBar(view, data, entries)
     }
-    // view.invalidate()
     view.animateY(400)
 }
 

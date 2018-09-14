@@ -5,10 +5,10 @@ import android.view.View
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
-import androidx.lifecycle.Observer
 import com.deividasstr.ui.R
-import com.deividasstr.ui.base.framework.BaseFragment
 import com.deividasstr.ui.base.framework.FabSetter
+import com.deividasstr.ui.base.framework.base.BaseFragment
+import com.deividasstr.ui.base.framework.extensions.observe
 import com.deividasstr.ui.base.models.FactUi
 import com.deividasstr.ui.databinding.FragmentFactsBinding
 import kotlinx.android.synthetic.main.fragment_facts.*
@@ -22,22 +22,11 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
 
     private lateinit var springAnimation: SpringAnimation
 
-    override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_refresh_white_24dp) {
-        viewModel.getNewFact()
-    }
-
-    override fun getViewModelClass(): Class<FactsViewModel> = FactsViewModel::class.java
-
-    override fun layoutId(): Int = R.layout.fragment_facts
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initSpringAnimation()
         binding.viewmodel = viewModel
-        viewModel.fact.observe(this@FactsFragment, Observer { fact ->
-            onNewFact(fact)
-        })
+        observe(viewModel.fact, ::onNewFact)
     }
 
     private fun initSpringAnimation() {
@@ -56,4 +45,12 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
             springAnimation.setStartValue(halfScreenHeight).start()
         }
     }
+
+    override val fabSetter: FabSetter? = FabSetter(R.drawable.ic_refresh_white_24dp) {
+        viewModel.getNewFact()
+    }
+
+    override fun getViewModelClass(): Class<FactsViewModel> = FactsViewModel::class.java
+
+    override fun layoutId(): Int = R.layout.fragment_facts
 }
