@@ -6,7 +6,7 @@ import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.data.store.models.toSweets
-import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.models.Sweet
 import com.deividasstr.domain.repositories.SweetsRepo
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -7,7 +7,7 @@ import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.common.assertResultValue
-import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.models.Sweet
 import com.deividasstr.domain.repositories.SweetsRepo
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given

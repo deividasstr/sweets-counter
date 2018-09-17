@@ -3,6 +3,7 @@ package com.deividasstr.ui.features.consumedsweethistory
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.findNavController
+import com.crashlytics.android.Crashlytics
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
@@ -45,7 +46,7 @@ class ConsumedSweetHistoryFragment :
             view?.findNavController()?.navigate(R.id.action_history_to_search)
         } catch (e: Exception) {
             e.printStackTrace()
-            // TODO Crashlytics.logException(e)
+            Crashlytics.logException(e)
         }
     }
 

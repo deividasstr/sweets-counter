@@ -3,7 +3,7 @@ package com.deividasstr.data.repositories
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.toConsumedSweets
-import com.deividasstr.domain.entities.ConsumedSweet
+import com.deividasstr.domain.models.ConsumedSweet
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import io.reactivex.Completable
 import io.reactivex.Single

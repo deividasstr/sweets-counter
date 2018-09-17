@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.models.toSweet
-import com.deividasstr.domain.entities.ConsumedSweet
+import com.deividasstr.domain.models.ConsumedSweet
 import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase

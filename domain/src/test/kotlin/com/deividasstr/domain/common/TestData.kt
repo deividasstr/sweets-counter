@@ -1,8 +1,8 @@
 package com.deividasstr.domain.common
 
-import com.deividasstr.domain.entities.ConsumedSweet
-import com.deividasstr.domain.entities.Fact
-import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.models.ConsumedSweet
+import com.deividasstr.domain.models.Fact
+import com.deividasstr.domain.models.Sweet
 import com.deividasstr.domain.enums.Periods
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler

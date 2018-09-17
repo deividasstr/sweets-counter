@@ -1,6 +1,6 @@
 package com.deividasstr.domain.usecases
 
-import com.deividasstr.domain.entities.Fact
+import com.deividasstr.domain.models.Fact
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.common.TestData
 import io.reactivex.Single

@@ -1,6 +1,6 @@
 package com.deividasstr.ui.base.models
 
-import com.deividasstr.domain.entities.ConsumedSweet
+import com.deividasstr.domain.models.ConsumedSweet
 
 data class ConsumedSweetUi(
     val id: Long,

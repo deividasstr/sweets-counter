@@ -1,4 +1,4 @@
-package com.deividasstr.domain.entities
+package com.deividasstr.domain.models
 
 data class Sweet(
     val id: Long,

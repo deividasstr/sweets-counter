@@ -3,7 +3,7 @@ package com.deividasstr.data.store.datasource
 import androidx.paging.DataSource
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
-import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.models.Sweet
 import io.objectbox.android.ObjectBoxDataSource
 import io.objectbox.query.Query
 

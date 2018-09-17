@@ -1,7 +1,7 @@
 package com.deividasstr.domain.usecases
 
 import com.deividasstr.domain.common.TestData
-import com.deividasstr.domain.entities.Sweet
+import com.deividasstr.domain.models.Sweet
 import com.deividasstr.domain.repositories.SweetsRepo
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
