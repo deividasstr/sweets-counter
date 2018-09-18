@@ -7,4 +7,4 @@ Android app created with MVVM, Android Architecture Components and other modern 
 ![User flow](art/userflow.gif)
 
 
- [article]: https://www.youtube.com/watch?v=0XHx9jtxIxU
+ [article]: https://proandroiddev.com/a-quest-for-comfy-android-app-architecture-pt-1-the-project-7fe7418303ff
