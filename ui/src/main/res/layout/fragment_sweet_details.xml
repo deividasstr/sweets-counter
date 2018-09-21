@@ -132,8 +132,8 @@
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:text="@={viewmodel.enteredValue}"
-                android:cursorVisible="false"/>
+                android:maxLength="5"
+                android:text="@={viewmodel.enteredValue}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

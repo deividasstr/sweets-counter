@@ -4,9 +4,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.StringResException
-import com.deividasstr.domain.models.ConsumedSweet
 import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.enums.toggle
+import com.deividasstr.domain.models.ConsumedSweet
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
@@ -40,19 +40,15 @@ class SweetDetailsViewModel
 
     fun validate(navigationCallback: NavigationCallback) {
         if (validateConsumedSweet()) {
-            if (realisticAmount()) {
-                val consumedSweet = getConsumedSweet()
-                addConsumedSweetUseCase.execute(consumedSweet)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeBy(onComplete = {
-                        navigationCallback.onNavigate()
-                    }, onError = {
-                        setError(it as StringResException)
-                    })
-            } else {
-                setError(StringResException(R.string.add_sweet_validation_too_much))
-            }
+            val consumedSweet = getConsumedSweet()
+            addConsumedSweetUseCase.execute(consumedSweet)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(onComplete = {
+                    navigationCallback.onNavigate()
+                }, onError = {
+                    setError(it as StringResException)
+                })
         } else {
             setError(StringResException(R.string.add_sweet_validation_fail))
         }
@@ -75,11 +71,6 @@ class SweetDetailsViewModel
         measureUnit = measureUnit.toggle()
         sharedPrefs.defaultMeasurementUnit = measureUnit
         totalCals.value = getTotalCals()
-    }
-
-    // Amount > 10kg is not realistic, c'mon
-    private fun realisticAmount(): Boolean {
-        return enteredValue.value!!.toLong() < 10 * 1000
     }
 
     private fun getConsumedSweet(): ConsumedSweet {

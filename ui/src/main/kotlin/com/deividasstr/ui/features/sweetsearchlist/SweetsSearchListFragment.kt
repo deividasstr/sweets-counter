@@ -62,6 +62,7 @@ class SweetsSearchListFragment :
 
     private fun renderSweetsList(sweets: PagedList<SweetUi>?) {
         if (sweets != null && sweets.isEmpty() && viewModel.query.isEmpty()) {
+            binding.sweetsSearchView.closeKeyboard()
             (activity as BaseActivity).alert(R.string.no_sweets_available)
         } else {
             adapter.submitList(sweets)
