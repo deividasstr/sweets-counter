@@ -51,12 +51,3 @@ enum class Periods {
         return startFromDate(dateTimeHandler, dateTimeHandler.currentLocalDate())
     }
 }
-
-fun Periods.periodFromClickedBar(): Periods {
-    return when (this) {
-        Periods.DAY -> throw IllegalArgumentException("${Periods.DAY} should not be passed here")
-        Periods.WEEK -> Periods.DAY
-        Periods.MONTH -> Periods.DAY
-        Periods.YEAR -> Periods.MONTH
-    }
-}

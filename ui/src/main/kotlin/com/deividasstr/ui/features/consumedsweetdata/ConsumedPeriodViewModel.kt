@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.enums.MeasurementUnit
 import com.deividasstr.domain.enums.Periods
-import com.deividasstr.domain.enums.periodFromClickedBar
 import com.deividasstr.domain.utils.DateRange
 import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
@@ -129,6 +128,11 @@ class ConsumedPeriodViewModel
     }
 
     private fun periodFromTimeUnit(): Periods {
-        return dateRange.period.periodFromClickedBar()
+        return when (dateRange.period) {
+            Periods.DAY -> throw IllegalArgumentException("${Periods.DAY} should not be passed here")
+            Periods.WEEK -> Periods.DAY
+            Periods.MONTH -> Periods.DAY
+            Periods.YEAR -> Periods.MONTH
+        }
     }
 }
