@@ -1,7 +1,9 @@
 package com.deividasstr.domain.utils
 
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.Periods
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

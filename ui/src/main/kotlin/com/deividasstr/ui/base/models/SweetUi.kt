@@ -2,7 +2,7 @@ package com.deividasstr.ui.base.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.deividasstr.domain.models.Sweet
+import com.deividasstr.domain.entities.models.Sweet
 import com.deividasstr.ui.features.sweetdetails.SweetRating
 
 data class SweetUi(

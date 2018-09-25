@@ -1,7 +1,7 @@
 package com.deividasstr.data.store.models
 
 import com.deividasstr.data.networking.models.ResponseFact
-import com.deividasstr.domain.models.Fact
+import com.deividasstr.domain.entities.models.Fact
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 

@@ -1,6 +1,6 @@
 package com.deividasstr.data.store.models
 
-import com.deividasstr.domain.models.ConsumedSweet
+import com.deividasstr.domain.entities.models.ConsumedSweet
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.relation.ToOne

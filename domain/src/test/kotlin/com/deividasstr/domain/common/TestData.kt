@@ -1,11 +1,11 @@
 package com.deividasstr.domain.common
 
-import com.deividasstr.domain.models.ConsumedSweet
-import com.deividasstr.domain.models.Fact
-import com.deividasstr.domain.models.Sweet
-import com.deividasstr.domain.enums.Periods
-import com.deividasstr.domain.utils.DateRange
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.models.ConsumedSweet
+import com.deividasstr.domain.entities.models.Fact
+import com.deividasstr.domain.entities.models.Sweet
+import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.OffsetDateTime
 
@@ -64,6 +64,7 @@ class TestData {
 
         val TEST_LIST_SWEETS = listOf(TEST_SWEET, TEST_SWEET2)
         val TEST_SWEET_NAME_SEARCH = "Choco coconut bun"
-        val TEST_DATERANGE: DateRange = DateRange(Periods.WEEK, DateTimeHandler())
+        val TEST_DATERANGE: DateRange =
+            DateRange(Periods.WEEK, DateTimeHandler())
     }
 }

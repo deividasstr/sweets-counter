@@ -1,4 +1,4 @@
-package com.deividasstr.domain.enums
+package com.deividasstr.domain.entities.enums
 
 enum class MeasurementUnit {
     GRAM {

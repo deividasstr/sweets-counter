@@ -4,11 +4,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.StringResException
-import com.deividasstr.domain.enums.MeasurementUnit
-import com.deividasstr.domain.enums.toggle
-import com.deividasstr.domain.models.ConsumedSweet
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.toggle
+import com.deividasstr.domain.entities.models.ConsumedSweet
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
-import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi

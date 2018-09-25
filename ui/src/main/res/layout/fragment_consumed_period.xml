@@ -7,6 +7,7 @@
 
         <import type="android.content.Context" />
         <import type="android.view.View" />
+        <import type="com.deividasstr.ui.features.consumedsweetdata.models.LowerPeriodModel" />
 
         <variable
             name="viewmodel"
@@ -41,7 +42,7 @@
                     android:id="@+id/consumed_data_selected_date_range"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewmodel.dateRangeText}"
+                    android:text="@{viewmodel.upperPeriodModel.rangeText}"
                     android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/chart_height"
                     android:chartListener="@{chartlistener}"
-                    android:setConsumedData="@{viewmodel.consumedBarData}"
+                    android:setConsumedData="@{viewmodel.upperPeriodModel.consumedBarData}"
                     android:setDescriptionEnabled="@{false}"
                     android:setLegendEnabled="@{false}"
                     android:setScaleEnabled="@{false}"
@@ -72,7 +73,7 @@
             android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
             android:paddingTop="@dimen/material_component_cards_top_and_bottom_padding"
             android:paddingBottom="@dimen/material_component_cards_top_and_bottom_padding"
-            android:visibility="@{viewmodel.subDateRangeText != null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewmodel.lowerPeriodModel.subDateRangeText != null ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/period_bar">
@@ -82,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@{viewmodel.subDateRangeText}"
+                android:text="@{viewmodel.lowerPeriodModel.subDateRangeText}"
                 android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/total_calories(viewmodel.cals)}"
+                    android:text="@{@string/total_calories(viewmodel.lowerPeriodModel.cals)}"
                     android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     app:ticker_animationDuration="@integer/duration_animation_longest"
                     app:ticker_defaultCharacterList="number" />
@@ -120,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/consumed_data_sweets_consumed(viewmodel.unitsConsumed, context.getString(viewmodel.unitStringRes).toLowerCase())}"
+                    android:text="@{@string/consumed_data_sweets_consumed(viewmodel.lowerPeriodModel.unitsConsumed, context.getString(viewmodel.lowerPeriodModel.unitStringRes).toLowerCase())}"
                     android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     app:ticker_animationDuration="@integer/duration_animation_longest"
                     app:ticker_defaultCharacterList="number" />
@@ -130,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{@string/consumed_data_weight_gained(viewmodel.weight, context.getString(viewmodel.unitStringRes).toLowerCase())}"
+                    android:text="@{@string/consumed_data_weight_gained(viewmodel.lowerPeriodModel.weight, context.getString(viewmodel.lowerPeriodModel.unitStringRes).toLowerCase())}"
                     android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     app:ticker_animationDuration="@integer/duration_animation_longest"
                     app:ticker_defaultCharacterList="number" />
@@ -154,7 +155,7 @@
                 android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
-                android:setPopularityData="@{viewmodel.sweetsPopularityData}"
+                android:setPopularityData="@{viewmodel.lowerPeriodModel.sweetsPopularityData}"
                 android:setDescriptionEnabled="@{false}"
                 android:setLegendEnabled="@{false}"
                 android:usePercentVals="@{true}"
@@ -180,7 +181,7 @@
                 android:layout_height="@dimen/chart_height"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/material_component_cards_top_and_bottom_padding"
-                android:setRatingData="@{viewmodel.sweetsRatingData}"
+                android:setRatingData="@{viewmodel.lowerPeriodModel.sweetsRatingData}"
                 android:setDescriptionEnabled="@{false}"
                 android:setLegendEnabled="@{false}"
                 android:usePercentVals="@{true}"

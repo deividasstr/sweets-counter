@@ -10,7 +10,6 @@ class ResizableViewPager(context: Context, attrs: AttributeSet?) : ViewPager(con
     private var currentView: View? = null
 
     public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-
         if (currentView == null) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return

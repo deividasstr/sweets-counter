@@ -5,9 +5,9 @@ import androidx.lifecycle.Observer
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given

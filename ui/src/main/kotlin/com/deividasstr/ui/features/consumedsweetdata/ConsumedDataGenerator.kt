@@ -1,9 +1,9 @@
 package com.deividasstr.ui.features.consumedsweetdata
 
-import com.deividasstr.domain.enums.MeasurementUnit
-import com.deividasstr.domain.enums.Periods
-import com.deividasstr.domain.utils.DateRange
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
@@ -36,9 +36,11 @@ object ConsumedDataGenerator {
         if (sweets.isEmpty()) return null
 
         val nameToConsumedG = sweets
+            .asSequence()
             .groupBy { it.sweet.name }
             .map { entry -> entry.key to entry.value.sumBy { it.g } }
             .sortedByDescending { it.second }
+            .toList()
             .toMap()
 
         val totalGConsumed = nameToConsumedG.map { it.value }.sum()
@@ -84,7 +86,10 @@ object ConsumedDataGenerator {
         dateRange: DateRange,
         consumedSweets: List<ConsumedSweetUi>
     ): List<ConsumedSweetUi> {
-        return consumedSweets.filter { dateRange.contains(it.date) }.sortedByDescending { it.g }
+        return consumedSweets
+            .asSequence()
+            .filter { dateRange.contains(it.date) }
+            .sortedByDescending { it.g }.toList()
     }
 
     fun generateConsumedBarData(

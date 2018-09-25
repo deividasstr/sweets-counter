@@ -2,10 +2,10 @@ package com.deividasstr.ui.features.consumedsweetdata
 
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.domain.enums.MeasurementUnit
-import com.deividasstr.domain.enums.Periods
-import com.deividasstr.domain.utils.DateRange
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
@@ -14,10 +14,9 @@ import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator.getCo
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator.sweetPopularityByG
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator.sweetRatings
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator.weightGFromCals
-import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
-import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
+import com.deividasstr.ui.features.consumedsweetdata.models.LowerPeriodModel
+import com.deividasstr.ui.features.consumedsweetdata.models.UpperPeriodModel
 import com.deividasstr.ui.features.consumedsweetdata.utils.Consts
-import com.deividasstr.ui.features.sweetdetails.SweetRating
 import javax.inject.Inject
 
 class ConsumedPeriodViewModel
@@ -34,22 +33,19 @@ class ConsumedPeriodViewModel
     private var clickRange: DateRange? = null
 
     // Observed by a view
-    val cals = MutableLiveData<Long>().apply { value = 0 }
-    val weight = MutableLiveData<Long>().apply { value = 0 }
-    val unitsConsumed = MutableLiveData<Long>().apply { value = 0 }
-    val sweetsPopularityData = MutableLiveData<List<PopularitySweetUi>?>()
-    val consumedBarData = MutableLiveData<ConsumedBarData>()
-    val sweetsRatingData = MutableLiveData<Map<SweetRating, Long>?>()
-    val dateRangeText = MutableLiveData<String>()
-    val subDateRangeText = MutableLiveData<String>()
-    val unitStringRes: Int by lazy {
+    val upperPeriodModel = MutableLiveData<UpperPeriodModel>()
+    val lowerPeriodModel = MutableLiveData<LowerPeriodModel>()
+        .apply { value = LowerPeriodModel() }
+
+    private val unit by lazy { sharedPrefs.defaultMeasurementUnit }
+
+    private val unitStringRes: Int by lazy {
         when (unit) {
             MeasurementUnit.GRAM -> R.string.unit_grams
             MeasurementUnit.OUNCE -> R.string.unit_ounces
         }
     }
 
-    private val unit by lazy { sharedPrefs.defaultMeasurementUnit }
     private lateinit var dateRange: DateRange
     var pos: Int = Consts.FIRST_ITEM
 
@@ -74,7 +70,7 @@ class ConsumedPeriodViewModel
         }
     }
 
-    fun barClicked(barPos: Int) {
+    fun toggleSubPeriod(barPos: Int) {
         if (clickedBarEmpty(barPos)) {
             resetPeriod()
             return
@@ -85,7 +81,6 @@ class ConsumedPeriodViewModel
 
         advanceRange(barPos)
 
-        subDateRangeText.postValue(dataGenerator.getSubDateText(clickRange!!, dateTimeHandler))
         recalculateConsumedInRange(false)
     }
 
@@ -102,23 +97,39 @@ class ConsumedPeriodViewModel
             dateRange, dateTimeHandler, consumedInRange)
         calsPerTimeUnits = barData.calsPerTimeUnit
 
-        consumedBarData.postValue(barData)
-        dateRangeText.postValue(dateTimeHandler.formattedDateRange(dateRange))
+        val dateRangeText = dateTimeHandler.formattedDateRange(dateRange)
+        val newUpperPeriodModel = UpperPeriodModel(dateRangeText, barData)
+
+        upperPeriodModel.postValue(newUpperPeriodModel)
     }
 
     private fun resetClickRange() {
         clickRange = null
-        subDateRangeText.postValue(null)
     }
 
     private fun recalculatePeriodLowerPeriod() {
         val consumedCals = calsFromConsumed(consumedInRange)
-        cals.postValue(consumedCals)
-        weight.postValue(weightGFromCals(consumedCals, unit))
-        unitsConsumed.postValue(dataGenerator.unitsConsumed(consumedInRange, unit))
+        val weight = weightGFromCals(consumedCals, unit)
+        val unitsConsumed = dataGenerator.unitsConsumed(consumedInRange, unit)
 
-        sweetsPopularityData.postValue(sweetPopularityByG(consumedInRange))
-        sweetsRatingData.postValue(sweetRatings(consumedInRange))
+        val sweetsPopularityData = sweetPopularityByG(consumedInRange)
+        val sweetsRatingData = sweetRatings(consumedInRange)
+
+        var subDateRangeText: String? = null
+        clickRange?.let {
+            subDateRangeText = dataGenerator.getSubDateText(it, dateTimeHandler)
+        }
+
+        val newLowerPeriodModel = LowerPeriodModel(
+            consumedCals,
+            weight,
+            unitsConsumed,
+            sweetsPopularityData,
+            sweetsRatingData,
+            subDateRangeText,
+            unitStringRes)
+
+        lowerPeriodModel.postValue(newLowerPeriodModel)
     }
 
     private fun clickedBarEmpty(barPos: Int) = calsPerTimeUnits[barPos - 1] == 0L

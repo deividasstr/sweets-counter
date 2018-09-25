@@ -1,6 +1,6 @@
-package com.deividasstr.domain.enums
+package com.deividasstr.domain.entities.enums
 
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.TemporalUnit
