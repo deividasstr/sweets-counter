@@ -12,14 +12,18 @@ import javax.inject.Inject
 class FactsViewModel
 @Inject constructor(private val getRandomFactUseCase: GetRandomFactUseCase) : BaseViewModel() {
 
+    companion object {
+        const val FIRST_FACT = 0L
+    }
+
     val fact = MutableLiveData<FactUi>()
 
     init {
-        getFact(0)
+        getFact(FIRST_FACT)
     }
 
     fun getNewFact() {
-        fact.value?.let { getFact(it.id) } ?: getFact(0)
+        fact.value?.let { getFact(it.id) } ?: getFact(FIRST_FACT)
     }
 
     private fun getFact(currentFactId: Long) {

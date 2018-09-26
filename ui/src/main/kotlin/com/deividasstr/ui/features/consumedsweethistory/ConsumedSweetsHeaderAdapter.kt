@@ -3,7 +3,7 @@ package com.deividasstr.ui.features.consumedsweethistory
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.jaychang.srv.decoration.SimpleSectionHeaderProvider

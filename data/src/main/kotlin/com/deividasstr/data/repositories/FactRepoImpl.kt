@@ -4,7 +4,7 @@ import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.toFact
-import com.deividasstr.domain.models.Fact
+import com.deividasstr.domain.entities.models.Fact
 import com.deividasstr.domain.repositories.FactRepo
 import io.reactivex.Completable
 import io.reactivex.Single

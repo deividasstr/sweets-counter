@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity

@@ -4,7 +4,7 @@ import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.data.store.models.ConsumedSweetDb_
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
-import com.deividasstr.domain.utils.DateRange
+import com.deividasstr.domain.entities.DateRange
 import io.objectbox.Box
 import io.reactivex.Completable
 import io.reactivex.Single

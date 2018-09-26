@@ -1,8 +1,8 @@
 package com.deividasstr.ui.features.consumedsweethistory
 
 import android.content.Context
-import com.deividasstr.domain.enums.MeasurementUnit
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.jaychang.srv.kae.SimpleCell

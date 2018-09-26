@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.base.BaseFragment
@@ -46,7 +46,6 @@ class ConsumedPeriodFragment :
         observe((parentFragment as ConsumedSweetDataFragment).currentPeriod, ::setPeriod)
 
         setBinding()
-
         setPies()
 
         return view
@@ -65,9 +64,8 @@ class ConsumedPeriodFragment :
     }
 
     private fun setPeriod(period: Periods) {
-        if (viewModel.sweetsPopularityData.value != null) {
+        // if (viewModel.lowerPeriodModel.value != null) {
             viewModel.setPeriod(period)
-        }
     }
 
     private fun setBinding() {
@@ -92,6 +90,6 @@ class ConsumedPeriodFragment :
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        e?.let { viewModel.barClicked(e.x.toInt()) }
+        e?.let { viewModel.toggleSubPeriod(e.x.toInt()) }
     }
 }

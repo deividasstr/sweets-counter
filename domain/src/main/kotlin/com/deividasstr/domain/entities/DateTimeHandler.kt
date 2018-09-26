@@ -1,5 +1,6 @@
-package com.deividasstr.domain.utils
+package com.deividasstr.domain.entities
 
+import com.deividasstr.domain.utils.OpenClass
 import org.threeten.bp.Clock
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate

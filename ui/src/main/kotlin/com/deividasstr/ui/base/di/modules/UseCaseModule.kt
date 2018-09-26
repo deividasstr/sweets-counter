@@ -1,7 +1,8 @@
 package com.deividasstr.ui.base.di.modules
 
-import com.deividasstr.data.store.dbs.SweetsDb
+import com.deividasstr.data.store.datasource.SweetSearchDataSource
 import com.deividasstr.data.utils.DebugOpenClass
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.repositories.PrefsRepo
@@ -17,7 +18,6 @@ import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.usecases.SaveDownloadFactDateUseCase
 import com.deividasstr.domain.usecases.SaveDownloadSweetDateUseCase
 import com.deividasstr.domain.usecases.SearchSweetUseCase
-import com.deividasstr.domain.utils.DateTimeHandler
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
@@ -64,8 +64,9 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideSweetSearchDataSourceFactory(db: SweetsDb): SweetSearchDataSourceFactory {
-        return SweetSearchDataSourceFactory(db)
+    fun provideSweetSearchDataSourceFactory(dataSource: SweetSearchDataSource):
+        SweetSearchDataSourceFactory {
+        return SweetSearchDataSourceFactory(dataSource)
     }
 
     @Provides

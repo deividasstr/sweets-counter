@@ -5,13 +5,16 @@ import androidx.lifecycle.Observer
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.enums.MeasurementUnit
-import com.deividasstr.domain.enums.Periods
-import com.deividasstr.domain.utils.DateRange
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData
+import com.deividasstr.ui.features.consumedsweetdata.models.LowerPeriodModel
 import com.deividasstr.ui.features.consumedsweetdata.models.PopularitySweetUi
+import com.deividasstr.ui.features.consumedsweetdata.models.UpperPeriodModel
 import com.deividasstr.ui.features.sweetdetails.SweetRating
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
@@ -22,17 +25,18 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Spy
 import kotlin.math.roundToLong
 
 class ConsumedDataPeriodViewModelTest : UnitTest() {
 
     private lateinit var viewModel: ConsumedPeriodViewModel
+    private val realDateTimeHandler = DateTimeHandler()
 
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
 
-    @Mock
-    private var dateTimeHandler = DateTimeHandler()
+    @Spy private var dateTimeHandler = DateTimeHandler()
 
     @Mock
     private lateinit var sharedPrefs: SharedPrefs
@@ -61,6 +65,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET2.g
 
         val cals = calsDay1 + calsDay3
 
@@ -88,7 +93,18 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         array[2] = calsDay3
         val consumedData = ConsumedBarData(array, Periods.WEEK)
 
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     // Consumed in 3 days
@@ -105,6 +121,7 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET4.g
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -138,7 +155,18 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val consumedData = ConsumedBarData(array, Periods.MONTH)
 
         viewModel.setPeriod(Periods.MONTH)
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     // Consumed in 2 months
@@ -157,6 +185,8 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek + calsDayLastMonth
+
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET4.g + TestData.TEST_CONSUMED_SWEET5.g
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -187,7 +217,18 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val consumedData = ConsumedBarData(array, Periods.YEAR)
 
         viewModel.setPeriod(Periods.YEAR)
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     // Next week - no consumed
@@ -201,6 +242,8 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         val weight = 0L
 
+        val unitsConsumed = 0L
+
         val range = DateRange(Periods.WEEK, dateTimeHandler)
         range.advanceRange()
 
@@ -211,7 +254,18 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val array = LongArray(7) { 0 }
         val consumedData = ConsumedBarData(array, Periods.WEEK)
 
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     // Last week - 1 consumed on sunday
@@ -224,6 +278,8 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             (TestData.TEST_CONSUMED_SWEET4.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
+
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET4.g
 
         val range = DateRange(Periods.WEEK, dateTimeHandler)
         range.advanceRange(-1)
@@ -240,14 +296,25 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
 
         viewModel.pos = -1
 
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     @Test
     fun resetPeriod() {
         defaultVMInit()
 
-        viewModel.barClicked(3)
+        viewModel.toggleSubPeriod(3)
 
         viewModel.resetPeriod()
 
@@ -258,6 +325,8 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3
+
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -282,13 +351,25 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         array[2] = calsDay3
         val consumedData = ConsumedBarData(array, Periods.WEEK)
 
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            null,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     // Wednesday with 2 consumed
     @Test
     fun timeUnitSelected() {
         defaultVMInit()
+        val selectedPeriod = 3
 
         val calsDay1 =
             (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
@@ -297,6 +378,9 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
             TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
+
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g
+        + TestData.TEST_CONSUMED_SWEET3.g
 
         val range = DateRange(
             Periods.WEEK,
@@ -318,50 +402,40 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         array[2] = cals
         val consumedData = ConsumedBarData(array, Periods.WEEK)
 
-        viewModel.barClicked(3)
+        viewModel.toggleSubPeriod(selectedPeriod)
 
-        testVals(cals, weight, range, sweetsPopularity, sweetsRating, consumedData)
+        val clickRange = DateRange(Periods.DAY, dateTimeHandler, range.startDate)
+        clickRange.advanceRange((selectedPeriod - 1).toLong())
+
+        val lowerPeriodDateRangeText = realDateTimeHandler.formattedDateShort(clickRange.startDate)
+
+        val upperPeriodModel =
+            UpperPeriodModel(realDateTimeHandler.formattedDateRange(range), consumedData)
+
+        val lowerPeriodModel = LowerPeriodModel(
+            cals,
+            weight,
+            unitsConsumed,
+            sweetsPopularity,
+            sweetsRating,
+            lowerPeriodDateRangeText,
+            R.string.unit_grams)
+
+        testVals(upperPeriodModel, lowerPeriodModel)
     }
 
     private fun defaultVMInit() {
-        /*Pair(TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) },
-            TestData.TEST_LIST_SWEETS.map { SweetUi(it) })*/
-
         viewModel.setSweets(TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) })
         viewModel.setPeriod(Periods.WEEK)
     }
 
-    private fun testVals(
-        cals: Long,
-        weight: Long,
-        range: DateRange,
-        sweetsPopularity: List<PopularitySweetUi>?,
-        sweetsRating: Map<SweetRating, Long>?,
-        consumedData: ConsumedBarData
-    ) {
+    private fun testVals(upperPeriodModel: UpperPeriodModel, lowerPeriodModel: LowerPeriodModel) {
+        val upperObserver: Observer<UpperPeriodModel> = mock()
+        viewModel.upperPeriodModel.observeForever(upperObserver)
+        then(upperObserver).should().onChanged(upperPeriodModel)
 
-        val calObserver: Observer<Long> = mock()
-        viewModel.cals.observeForever(calObserver)
-        then(calObserver).should().onChanged(cals)
-
-        val weightObserver: Observer<Long> = mock()
-        viewModel.weight.observeForever(weightObserver)
-        then(weightObserver).should().onChanged(weight)
-
-        val textRangeObserver: Observer<String> = mock()
-        viewModel.dateRangeText.observeForever(textRangeObserver)
-        then(dateTimeHandler).should().formattedDateRange(range)
-
-        val sweetsPopularityObserver: Observer<List<PopularitySweetUi>?> = mock()
-        viewModel.sweetsPopularityData.observeForever(sweetsPopularityObserver)
-        then(sweetsPopularityObserver).should().onChanged(sweetsPopularity)
-
-        val sweetsRatingObserver: Observer<Map<SweetRating, Long>?> = mock()
-        viewModel.sweetsRatingData.observeForever(sweetsRatingObserver)
-        then(sweetsRatingObserver).should().onChanged(sweetsRating)
-
-        val consumedObserver: Observer<ConsumedBarData> = mock()
-        viewModel.consumedBarData.observeForever(consumedObserver)
-        then(consumedObserver).should().onChanged(consumedData)
+        val lowerObserver: Observer<LowerPeriodModel> = mock()
+        viewModel.lowerPeriodModel.observeForever(lowerObserver)
+        then(lowerObserver).should().onChanged(lowerPeriodModel)
     }
 }

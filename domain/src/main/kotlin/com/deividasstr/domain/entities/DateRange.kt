@@ -1,6 +1,6 @@
-package com.deividasstr.domain.utils
+package com.deividasstr.domain.entities
 
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetDateTime
 
