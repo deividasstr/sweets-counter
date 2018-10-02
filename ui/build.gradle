@@ -110,7 +110,6 @@ dependencies {
     implementation "com.jaychang:simplerecyclerview-kotlin-android-extensions:$simpleRecyclerViewVersion"
 
     //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-perf:16.1.0'
 
