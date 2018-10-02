@@ -78,10 +78,12 @@ class SharedElementsTransitionFragmentNavigator constructor(
         return FragmentNavigator.Destination(this)
     }
 
-    override fun navigate(destination: FragmentNavigator.Destination,
+    override fun navigate(
+        destination: FragmentNavigator.Destination,
         args: Bundle?,
         navOptions: NavOptions?,
-        navigatorExtras: Extras?) {
+        navigatorExtras: Extras?
+    ) {
         if (fragmentManager.isStateSaved) {
             return
         }
