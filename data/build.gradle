@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply from: rootDir.absolutePath + '/base_lib.gradle'
-apply plugin: 'io.objectbox'
 
+apply plugin: 'io.objectbox'
 apply plugin: 'kotlin-allopen'
 
 buildscript {
