@@ -14,7 +14,6 @@ import com.deividasstr.ui.base.framework.base.BaseActivity
 import com.deividasstr.ui.base.framework.base.BaseFragment
 import com.deividasstr.ui.base.framework.extensions.closeKeyboard
 import com.deividasstr.ui.base.framework.extensions.observe
-import com.deividasstr.ui.base.framework.extensions.openKeyboard
 import com.deividasstr.ui.base.framework.sharedelements.HasSharedElements
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
@@ -36,17 +35,6 @@ class SweetsSearchListFragment :
         binding.viewmodel = viewModel
         initRecycler()
         observe(viewModel.sweets, ::renderSweetsList)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.sweetsSearchView.requestFocus()
-        binding.sweetsSearchView.openKeyboard()
-    }
-
-    override fun onPause() {
-        binding.sweetsSearchView.closeKeyboard()
-        super.onPause()
     }
 
     private fun initRecycler() {
