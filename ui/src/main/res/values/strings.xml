@@ -7,8 +7,8 @@
     <string name="cals_per_100g">%d kcal/\n100g</string>
     <string name="error_network_server">Could not download data, please try again later</string>
     <string name="error_network_unavailable">Network is not available, cannot download data</string>
-    <string name="no_facts_available">No facts are available, make sure you are connected to the network and please try again</string>
-    <string name="no_sweets_available">No sweets are available, make sure you are connected to the network and please try again</string>
+    <string name="no_facts_available">No facts are available, make sure you are connected to the network</string>
+    <string name="no_sweets_available">No sweets are available, make sure you are connected to the network</string>
     <string name="total_calories">Calories: </string>
     <string name="add_sweet_title">Add sweet</string>
     <string name="nutrition_info_title">Nutrition info</string>

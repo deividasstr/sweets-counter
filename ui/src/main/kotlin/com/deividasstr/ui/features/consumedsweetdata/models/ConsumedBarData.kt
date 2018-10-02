@@ -1,6 +1,6 @@
 package com.deividasstr.ui.features.consumedsweetdata.models
 
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.features.consumedsweetdata.charts.MonthXAxisFormatter
 import com.deividasstr.ui.features.consumedsweetdata.charts.WeekXAxisFormatter
 import com.deividasstr.ui.features.consumedsweetdata.charts.YearXAxisFormatter

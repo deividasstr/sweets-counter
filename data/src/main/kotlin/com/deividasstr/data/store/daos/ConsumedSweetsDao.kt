@@ -1,7 +1,7 @@
 package com.deividasstr.data.store.daos
 
 import com.deividasstr.data.store.models.ConsumedSweetDb
-import com.deividasstr.domain.utils.DateRange
+import com.deividasstr.domain.entities.DateRange
 import io.reactivex.Completable
 import io.reactivex.Single
 

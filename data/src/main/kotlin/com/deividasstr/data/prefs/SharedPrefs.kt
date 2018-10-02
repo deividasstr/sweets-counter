@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
-import com.deividasstr.domain.enums.MeasurementUnit
+import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.repositories.PrefsRepo
 import io.reactivex.Completable
 import javax.inject.Singleton

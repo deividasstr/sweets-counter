@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import androidx.lifecycle.LiveData
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.base.BaseFragment

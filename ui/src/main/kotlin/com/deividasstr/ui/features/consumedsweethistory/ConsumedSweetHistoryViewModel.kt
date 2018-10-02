@@ -6,7 +6,7 @@ import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.toConsumedSweetUis

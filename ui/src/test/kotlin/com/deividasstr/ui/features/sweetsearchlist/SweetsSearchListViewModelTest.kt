@@ -2,6 +2,7 @@ package com.deividasstr.ui.features.sweetsearchlist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagedList
+import com.deividasstr.data.store.datasource.SweetSearchDataSource
 import com.deividasstr.data.store.dbs.SweetsDb
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.ui.base.models.SweetUi
@@ -26,7 +27,7 @@ class SweetsSearchListViewModelTest : AbstractObjectBoxTest() {
     fun before() {
         db = SweetsDb(store.boxFor(SweetDb::class.java))
         db.addSweets(UiTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-        val factory = SweetSearchDataSourceFactory(db)
+        val factory = SweetSearchDataSourceFactory(SweetSearchDataSource(db))
         viewModel = SweetsSearchListViewModel(factory)
     }
 

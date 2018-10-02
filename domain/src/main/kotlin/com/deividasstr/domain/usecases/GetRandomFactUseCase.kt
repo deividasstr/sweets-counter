@@ -1,6 +1,6 @@
 package com.deividasstr.domain.usecases
 
-import com.deividasstr.domain.models.Fact
+import com.deividasstr.domain.entities.models.Fact
 import com.deividasstr.domain.framework.SingleUseCaseWithParameter
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.utils.OpenClass

@@ -1,6 +1,6 @@
 package com.deividasstr.domain.repositories
 
-import com.deividasstr.domain.models.Fact
+import com.deividasstr.domain.entities.models.Fact
 import io.reactivex.Completable
 import io.reactivex.Single
 

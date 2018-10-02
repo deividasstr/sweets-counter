@@ -121,6 +121,11 @@ dependencies {
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     testImplementation "org.amshove.kluent:kluent:$kluentVersion"
+
+    testImplementation "io.objectbox:objectbox-linux:$objectboxVersion"
+    testImplementation "io.objectbox:objectbox-macos:$objectboxVersion"
+    testImplementation "io.objectbox:objectbox-windows:$objectboxVersion"
+
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"

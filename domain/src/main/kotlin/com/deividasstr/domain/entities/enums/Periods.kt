@@ -1,6 +1,6 @@
-package com.deividasstr.domain.enums
+package com.deividasstr.domain.entities.enums
 
-import com.deividasstr.domain.utils.DateTimeHandler
+import com.deividasstr.domain.entities.DateTimeHandler
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.TemporalUnit
@@ -49,14 +49,5 @@ enum class Periods {
 
     fun start(dateTimeHandler: DateTimeHandler): LocalDate {
         return startFromDate(dateTimeHandler, dateTimeHandler.currentLocalDate())
-    }
-}
-
-fun Periods.periodFromClickedBar(): Periods {
-    return when (this) {
-        Periods.DAY -> throw IllegalArgumentException("${Periods.DAY} should not be passed here")
-        Periods.WEEK -> Periods.DAY
-        Periods.MONTH -> Periods.DAY
-        Periods.YEAR -> Periods.MONTH
     }
 }

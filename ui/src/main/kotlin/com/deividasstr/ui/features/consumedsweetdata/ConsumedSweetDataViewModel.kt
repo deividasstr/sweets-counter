@@ -2,7 +2,7 @@ package com.deividasstr.ui.features.consumedsweetdata
 
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.utils.StringResException
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
@@ -17,7 +17,7 @@ class ConsumedSweetDataViewModel
 ) : BaseViewModel() {
 
     val consumedSweets = MutableLiveData<List<ConsumedSweetUi>>()
-    val currentPeriod = MutableLiveData<Periods>().apply { postValue(Periods.WEEK) }
+    val currentPeriod = MutableLiveData<Periods>()
 
     init {
         getConsumedSweets()

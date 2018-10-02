@@ -1,7 +1,7 @@
 package com.deividasstr.data.store.models
 
 import com.deividasstr.data.networking.models.ResponseSweet
-import com.deividasstr.domain.models.Sweet
+import com.deividasstr.domain.entities.models.Sweet
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 

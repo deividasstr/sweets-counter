@@ -2,18 +2,15 @@ package com.deividasstr.ui.features.sweetsearchlist
 
 import androidx.paging.DataSource
 import com.deividasstr.data.store.datasource.SweetSearchDataSource
-import com.deividasstr.data.store.dbs.SweetsDb
 import com.deividasstr.ui.base.models.SweetUi
-import javax.inject.Singleton
 
-@Singleton
-class SweetSearchDataSourceFactory(private val db: SweetsDb) :
+class SweetSearchDataSourceFactory(private val dataSource: SweetSearchDataSource) :
     DataSource.Factory<Int, SweetUi>() {
 
     private var query = ""
 
     override fun create(): DataSource<Int, SweetUi> {
-        return SweetSearchDataSource(db.query(query)).get().map { SweetUi(it) }
+        return dataSource.get(query).map { SweetUi(it) }
     }
 
     fun search(text: String) {

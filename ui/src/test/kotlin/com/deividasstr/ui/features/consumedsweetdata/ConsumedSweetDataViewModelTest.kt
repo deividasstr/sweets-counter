@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.enums.Periods
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.utils.AsyncTaskSchedulerRule
@@ -44,7 +44,6 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
     @Test
     fun sweetsPair() {
         val consumedSweetUi = TestData.TEST_LIST_CONSUMED_SWEETS3.map { ConsumedSweetUi(it) }
-
         val observer: Observer<List<ConsumedSweetUi>> = mock()
         viewModel.consumedSweets.observeForever(observer)
         then(observer).should().onChanged(consumedSweetUi)
@@ -54,17 +53,8 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
     fun currentPeriod_shouldChange() {
         val observer: Observer<Periods> = mock()
         viewModel.currentPeriod.observeForever(observer)
-        then(observer).should().onChanged(Periods.WEEK)
         viewModel.changePeriod(1) // Clicking MONTH period
         then(observer).should().onChanged(Periods.MONTH)
-    }
-
-    @Test
-    fun currentPeriod_shouldNotChange() {
-        val observer: Observer<Periods> = mock()
-        viewModel.currentPeriod.observeForever(observer)
-        then(observer).should().onChanged(Periods.WEEK)
-        viewModel.changePeriod(0) // Clicking WEEK period
         then(observer).shouldHaveNoMoreInteractions()
     }
 }

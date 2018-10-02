@@ -3,15 +3,15 @@ ext {
     androidMinSdkVersion = 21
     androidTargetSdkVersion = 28
     androidCompileSdkVersion = 28
-    androidBuildToolsVersion = '28.0.2'
+    androidBuildToolsVersion = '28.0.3'
 
     //Framework
-    lifecycleVersion = '2.0.0-rc01'
-    supportLibraryVersion = '1.0.0-rc02'
-    work_version = "1.0.0-alpha08"
+    lifecycleVersion = '2.0.0'
+    supportLibraryVersion = '1.0.0'
+    work_version = "1.0.0-alpha09"
     materialVersion = "1.0.0-alpha3"
-    navigationVersion = "1.0.0-alpha05"
-    androidXVersion = "1.0.0-rc02"
+    navigationVersion = "1.0.0-alpha06"
+    androidXVersion = "1.0.0"
 
     //Other
     daggerVersion = '2.16'
@@ -19,6 +19,7 @@ ext {
     retrofitVersion = '2.4.0'
     glideVersion = '4.0.0'
     moshiVersion = '1.6.0'
+    objectboxVersion = '2.2.0'
 
     //Debugging
     timberVersion = '4.7.1'
