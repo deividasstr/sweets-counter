@@ -8,9 +8,5 @@
 libs/
 google-services.json
 /keystore.properties
-data/src/androidTest/
-data/src/main/res/drawable/
-devices/src/androidTest/
-devices/src/main/res/drawable/
 keystore.jks
 ui/release/
