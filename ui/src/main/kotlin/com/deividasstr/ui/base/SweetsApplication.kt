@@ -2,6 +2,9 @@ package com.deividasstr.ui.base
 
 import android.os.Handler
 import android.os.StrictMode
+import androidx.work.Configuration
+import androidx.work.WorkManager
+import androidx.work.WorkerFactory
 import com.deividasstr.data.di.modules.NetworkModule
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.BuildConfig
@@ -11,9 +14,12 @@ import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
+import javax.inject.Inject
 
 @DebugOpenClass
 class SweetsApplication : BaseApplication() {
+
+    @Inject lateinit var workersFactory: WorkerFactory
 
     override val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
         .application(this)
@@ -27,13 +33,24 @@ class SweetsApplication : BaseApplication() {
             return
         }
 
+        appComponent.inject(this)
+
         AndroidThreeTen.init(this)
+        initWorkManager()
+
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
             Handler().postAtFrontOfQueue(::initStrictMode)
             initStrictMode()
         }
+    }
+
+    private fun initWorkManager() {
+        val configuration = Configuration.Builder()
+            .setWorkerFactory(workersFactory)
+            .build()
+        WorkManager.initialize(applicationContext, configuration)
     }
 
     private fun initStrictMode() {

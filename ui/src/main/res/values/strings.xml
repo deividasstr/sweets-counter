@@ -30,8 +30,8 @@
     <string name="consumed_data_title_spinner">Period:</string>
     <string name="consumed_data_title_sweets_popularity">Top sweets</string>
     <string name="consumed_data_title_sweets_rating_title">Sweets rating</string>
-    <string name="consumed_data_sweets_consumed">Sweets consumed: %d %s</string>
-    <string name="consumed_data_weight_gained">Weight gained: %d %s</string>
+    <string name="consumed_data_sweets_consumed">Sweets consumed: %1$d %2$s</string>
+    <string name="consumed_data_weight_gained">Weight gained: %1$d %2$s</string>
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>

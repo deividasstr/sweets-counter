@@ -64,8 +64,7 @@ class ConsumedPeriodFragment :
     }
 
     private fun setPeriod(period: Periods) {
-        // if (viewModel.lowerPeriodModel.value != null) {
-            viewModel.setPeriod(period)
+        viewModel.setPeriod(period)
     }
 
     private fun setBinding() {

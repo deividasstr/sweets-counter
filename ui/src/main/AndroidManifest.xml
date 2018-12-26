@@ -36,6 +36,13 @@
         <activity
             android:name=".utils.TestActivity"
             android:screenOrientation="portrait" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities=".workmanager-init"
+            android:enabled="false"
+            android:exported="false"
+            tools:replace="android:authorities"/>
     </application>
 
 </manifest>

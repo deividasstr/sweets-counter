@@ -2,7 +2,8 @@ package com.deividasstr.ui.features.main.backgroundwork
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.InstrumentationRegistry
-import androidx.work.test.WorkManagerTestInitHelper
+import androidx.work.Configuration
+import androidx.work.testing.WorkManagerTestInitHelper
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.repositories.FactRepo
 import com.deividasstr.domain.repositories.PrefsRepo
@@ -27,7 +28,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import java.io.InputStream
 import javax.inject.Inject
 
 class BackgroundWorkManagerTest : AndroidTest() {
@@ -56,6 +56,9 @@ class BackgroundWorkManagerTest : AndroidTest() {
     @Inject
     lateinit var factsRepo: FactRepo
 
+    @Inject
+    lateinit var workerFactory: WorkersFactory
+
     @Before
     fun setUp() {
         server = MockWebServer()
@@ -63,10 +66,17 @@ class BackgroundWorkManagerTest : AndroidTest() {
 
         TestVals.mockUrl = server.url("/api/").toString()
 
-        WorkManagerTestInitHelper.initializeTestWorkManager(app)
+        println("url ${TestVals.mockUrl}")
+
+        app.appComponent.inject(this)
+
+        val configuration = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+
+        WorkManagerTestInitHelper.initializeTestWorkManager(app, configuration)
 
         backgroundWorkManager = BackgroundWorkManager()
-        app.appComponent.inject(this)
     }
 
     @Test
@@ -84,7 +94,10 @@ class BackgroundWorkManagerTest : AndroidTest() {
             .await()
             .assertNoErrors()
             .assertComplete()
-            .assertValue { it.size == 9 }
+            .assertValue {
+                println("items $it")
+                it.size == 9
+            }
 
         verify(prefsRepo, times(1)).saveSweetsDownloadTime()
         verifyNoMoreInteractions(prefsRepo)
@@ -97,7 +110,6 @@ class BackgroundWorkManagerTest : AndroidTest() {
         given { prefsRepo.saveFactsDownloadTime() } willReturn { Completable.complete() }
         given { sharedPrefs.factsUpdatedDate } willReturn { 1 }
 
-        WorkManagerTestInitHelper.initializeTestWorkManager(app)
         val downloadWorkId = backgroundWorkManager.downloadFactsAndSaveDownloadDate()
         WorkManagerTestInitHelper.getTestDriver().setAllConstraintsMet(downloadWorkId)
 
@@ -118,10 +130,9 @@ class BackgroundWorkManagerTest : AndroidTest() {
     }
 
     private fun enqueueJsonToResponse(jsonRes: Int) {
-        val json: InputStream = InstrumentationRegistry.getTargetContext()
-            .resources.openRawResource(jsonRes)
-        server.enqueue(
-            MockResponse().setResponseCode(200).setBody(Buffer().readFrom(json))
-        )
+        val json = InstrumentationRegistry.getTargetContext().resources
+            .openRawResource(jsonRes)
+        server.enqueue(MockResponse().setResponseCode(200).setBody(Buffer().readFrom(json)))
+        println("resp ${Buffer().readFrom(json)}")
     }
 }

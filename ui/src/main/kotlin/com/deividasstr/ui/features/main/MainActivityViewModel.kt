@@ -31,7 +31,7 @@ class MainActivityViewModel @Inject constructor(
 
     private fun scheduleDownload(workId: UUID) {
         val workManager = WorkManager.getInstance()
-        val workStatus = workManager.getStatusById(workId)
+        val workStatus = workManager.getWorkInfoByIdLiveData(workId)
         _errorMessage.addSource(workStatus) {
             if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
                 setError(StringResException(R.string.error_network_server))

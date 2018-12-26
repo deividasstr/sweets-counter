@@ -1,29 +1,30 @@
 package com.deividasstr.ui.features.main.backgroundwork
 
+import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Data
-import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
-import com.deividasstr.ui.base.framework.base.BaseApplication
-import javax.inject.Inject
 
-class DownloadAllSweetsWorker : Worker() {
+class DownloadAllSweetsWorker(
+    private val downloadAllSweetsUseCase: DownloadAllSweetsUseCase,
+    context: Context,
+    configuration: WorkerParameters
+) :
+    CoroutineWorker(context, configuration) {
 
-    companion object { const val KEY_ERROR = "KEY_ERROR" }
+    companion object {
+        const val KEY_ERROR = "KEY_ERROR"
+    }
 
-    @Inject
-    lateinit var downloadAllSweetsUseCase: DownloadAllSweetsUseCase
-
-    override fun doWork(): Result {
-        (applicationContext as BaseApplication).appComponent.inject(this)
-
-        val throwable = downloadAllSweetsUseCase.execute().blockingGet()
+    override suspend fun doWork(): Result {
+        val throwable = downloadAllSweetsUseCase.execute(). .blockingGet()
         if (throwable != null) {
             val output = Data.Builder()
                 .putBoolean(KEY_ERROR, true)
                 .build()
-            outputData = output
-            return Result.RETRY
+            return Result.failure(output)
         }
-        return Result.SUCCESS
+        return Result.success()
     }
 }

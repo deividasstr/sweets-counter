@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +15,12 @@ import com.deividasstr.ui.base.framework.base.BaseActivity
 import com.deividasstr.ui.base.framework.base.BaseFragment
 import com.deividasstr.ui.base.framework.extensions.closeKeyboard
 import com.deividasstr.ui.base.framework.extensions.observe
-import com.deividasstr.ui.base.framework.sharedelements.HasSharedElements
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
 import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.actionSweetDetails
 
 class SweetsSearchListFragment :
-    BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>(), HasSharedElements {
+    BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>() {
 
     companion object {
         const val EXTRA_ENTERED_VAL = "EXTRA_ENTERED_VAL"
@@ -28,7 +28,6 @@ class SweetsSearchListFragment :
     }
 
     private val adapter: SweetsSearchAdapter by lazy { createAdapter() }
-    private val sharedElements: MutableMap<String, View> = mutableMapOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,16 +57,13 @@ class SweetsSearchListFragment :
     }
 
     private fun navigateToSweetDetails(sweet: SweetUi, view: TextView) {
-        setSharedElement(view)
-
+        val navExtras = navExtrasFromView(view)
         val action = actionSweetDetails(sweet)
-        Navigation.findNavController(view).navigate(action)
+        Navigation.findNavController(view).navigate(action, navExtras)
     }
 
-    private fun setSharedElement(view: TextView) {
-        sharedElements.clear()
-        sharedElements[ViewCompat.getTransitionName(view)!!] = view
-    }
+    private fun navExtrasFromView(view: TextView) =
+        FragmentNavigatorExtras(view to ViewCompat.getTransitionName(view)!!)
 
     private fun createAdapter(): SweetsSearchAdapter {
         val adapter = SweetsSearchAdapter()
@@ -76,10 +72,6 @@ class SweetsSearchListFragment :
         }
         return adapter
     }
-
-    override fun getSharedElements(): Map<String, View> = sharedElements
-
-    override fun hasReorderingAllowed(): Boolean = false
 
     override val fabSetter: FabSetter? = null
 

@@ -1,17 +1,19 @@
 package com.deividasstr.ui.features.main.backgroundwork
 
-import androidx.work.Worker
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
 import com.deividasstr.domain.usecases.SaveDownloadSweetDateUseCase
-import com.deividasstr.ui.base.framework.base.BaseApplication
-import javax.inject.Inject
 
-class SaveDownloadSweetDateWorker : Worker() {
+class SaveDownloadSweetDateWorker(
+    private val saveDownloadSweetDateUseCase: SaveDownloadSweetDateUseCase,
+    context: Context,
+    configuration: WorkerParameters
+) :
+    CoroutineWorker(context, configuration) {
 
-    @Inject lateinit var saveDownloadSweetDateUseCase: SaveDownloadSweetDateUseCase
-
-    override fun doWork(): Result {
-        (applicationContext as BaseApplication).appComponent.inject(this)
+    override suspend fun doWork(): Result {
         saveDownloadSweetDateUseCase.execute().blockingAwait()
-        return Result.SUCCESS
+        return Result.success()
     }
 }

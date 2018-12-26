@@ -57,7 +57,6 @@
 
         <action
             android:id="@+id/action_sweetDetailsFragment_to_consumedSweetHistoryFragment"
-            app:clearTask="true"
             app:destination="@id/action_history" />
     </fragment>
 

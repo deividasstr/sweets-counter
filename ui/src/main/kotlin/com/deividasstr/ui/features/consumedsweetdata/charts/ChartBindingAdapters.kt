@@ -42,7 +42,7 @@ fun setPopularityData(view: PieChart, data: List<PopularitySweetUi>?) {
     } else {
         preparePie(entries, view)
     }
-    view.animateY(400, Easing.EasingOption.EaseInQuad)
+    view.animateY(400, Easing.EaseInQuad)
 }
 
 private fun chartPrepared(view: Chart<*>) =

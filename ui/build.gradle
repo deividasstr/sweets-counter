@@ -41,7 +41,6 @@ android {
             }
         }
     }
-
     defaultConfig {
         buildConfigField 'String', 'BASE_API_URL', getString(BASE_API_URL)
         applicationId "com.deividasstr.sweetscounter"
@@ -71,6 +70,15 @@ android {
             }
         }
     }
+    /*compileSdkVersion 28
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }*/
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 dependencies {
@@ -78,17 +86,17 @@ dependencies {
     implementation project(':devices')
     implementation project(':MPChartLib')
 
-    implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
-    implementation "com.google.android.material:material:$supportLibraryVersion"
+    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
-
     implementation "android.arch.work:work-runtime-ktx:$work_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
-    implementation "androidx.paging:paging-runtime:$lifecycleVersion"
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
     // Spring animation
     implementation "androidx.dynamicanimation:dynamicanimation:$supportLibraryVersion"
@@ -99,7 +107,6 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     //UI
@@ -110,9 +117,8 @@ dependencies {
     implementation "com.jaychang:simplerecyclerview-kotlin-android-extensions:$simpleRecyclerViewVersion"
 
     //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'com.google.firebase:firebase-perf:16.1.0'
-
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+    implementation 'com.google.firebase:firebase-perf:16.2.3'
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
@@ -120,13 +126,11 @@ dependencies {
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     testImplementation "org.amshove.kluent:kluent:$kluentVersion"
-
     testImplementation "io.objectbox:objectbox-linux:$objectboxVersion"
     testImplementation "io.objectbox:objectbox-macos:$objectboxVersion"
     testImplementation "io.objectbox:objectbox-windows:$objectboxVersion"
-
+    testImplementation "androidx.paging:paging-common-ktx:$pagingVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
-
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "android.arch.work:work-testing:$work_version"
@@ -135,7 +139,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
     androidTestImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
-    androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationVersion"
+    androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationTestVersion"
     androidTestImplementation project(path: ':domain', configuration: 'testOutput')
     androidTestImplementation "androidx.arch.core:core-testing:$lifecycleVersion"
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
