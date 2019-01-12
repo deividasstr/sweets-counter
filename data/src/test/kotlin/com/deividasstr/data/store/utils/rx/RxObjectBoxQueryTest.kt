@@ -15,7 +15,7 @@ package com.deividasstr.data.store.utils.rx
 
 import com.deividasstr.data.store.utils.RxObjectBoxQuery
 import com.deividasstr.data.store.utils.query.MockQuery
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.annotations.NonNull
@@ -122,7 +122,7 @@ class RxObjectBoxQueryTest : Observer<List<String>>, SingleObserver<List<String>
         publisher.queryResult = ArrayList()
         val single = RxObjectBoxQuery.singleItem(mockQuery.query)
         single.subscribe(observer)
-        assertTrue(error != null && error is StringResException)
+        assertTrue(error != null && error is Error)
         assertEquals(0, receivedChangesItem.size.toLong())
 
         receivedChangesItem.clear()

@@ -1,12 +1,12 @@
 package com.deividasstr.domain.repositories
 
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.entities.models.Fact
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.deividasstr.domain.monads.Either
 
 interface FactRepo {
 
-    fun getRandomFact(currentFactId: Long): Single<Fact>
+    suspend fun getRandomFact(currentFactId: Long): Either<Error, Fact>
 
-    fun downloadAllFactsAndSave(): Completable
+    suspend fun downloadAllFactsAndSave(): Either<Error, Either.None>
 }

@@ -17,7 +17,7 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
 
     // Bounce down animation distance
     private val halfScreenHeight: Float by lazy {
-        context?.resources?.displayMetrics?.heightPixels?.div(2f)!!
+        context?.resources?.displayMetrics?.heightPixels?.div(2f) ?: 0f
     }
 
     private lateinit var springAnimation: SpringAnimation
@@ -26,7 +26,7 @@ class FactsFragment : BaseFragment<FragmentFactsBinding, FactsViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         initSpringAnimation()
         binding.viewmodel = viewModel
-        observe(viewModel.fact, ::onNewFact)
+        observe(viewModel.liveFact, ::onNewFact)
     }
 
     private fun initSpringAnimation() {

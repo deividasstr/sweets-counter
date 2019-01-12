@@ -5,8 +5,9 @@ import android.content.SharedPreferences
 import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
 import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.PrefsRepo
-import io.reactivex.Completable
 import javax.inject.Singleton
 
 @Singleton
@@ -39,14 +40,14 @@ class SharedPrefs(private val ctx: Context) : PrefsRepo {
         get() = permitDiskReads { prefs.getLong(PREF_SWEET_DATE, 0) }
         set(value) = prefs.edit().putLong(PREF_SWEET_DATE, value).apply()
 
-    override fun saveSweetsDownloadTime(): Completable {
-        return Completable.fromAction {
-            sweetsUpdatedDate = System.currentTimeMillis()
-        }
+    override suspend fun saveSweetsDownloadTime(): Either<Error, Either.None> {
+        sweetsUpdatedDate = System.currentTimeMillis()
+        return Either.Right(Either.None())
     }
 
-    override fun saveFactsDownloadTime(): Completable {
-        return Completable.fromAction { factsUpdatedDate = System.currentTimeMillis() }
+    override suspend fun saveFactsDownloadTime(): Either<Error, Either.None> {
+        factsUpdatedDate = System.currentTimeMillis()
+        return Either.Right(Either.None())
     }
 
     var defaultMeasurementUnit: MeasurementUnit

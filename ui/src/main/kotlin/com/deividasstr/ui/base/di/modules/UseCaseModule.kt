@@ -12,12 +12,10 @@ import com.deividasstr.domain.usecases.AddNewSweetUseCase
 import com.deividasstr.domain.usecases.DownloadAllFactsUseCase
 import com.deividasstr.domain.usecases.DownloadAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.usecases.GetAllSweetsUseCase
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
 import com.deividasstr.domain.usecases.SaveDownloadFactDateUseCase
 import com.deividasstr.domain.usecases.SaveDownloadSweetDateUseCase
-import com.deividasstr.domain.usecases.SearchSweetUseCase
 import com.deividasstr.ui.features.consumedsweetdata.ConsumedDataGenerator
 import com.deividasstr.ui.features.sweetsearchlist.SweetSearchDataSourceFactory
 import dagger.Module
@@ -39,11 +37,6 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetAllSweetsUseCase(repo: SweetsRepo): GetAllSweetsUseCase {
-        return GetAllSweetsUseCase(repo)
-    }
-
-    @Provides
     fun provideGetRandomFactUseCase(repo: FactRepo): GetRandomFactUseCase {
         return GetRandomFactUseCase(repo)
     }
@@ -51,11 +44,6 @@ class UseCaseModule {
     @Provides
     fun provideGetSweetByIdUseCase(repo: SweetsRepo): GetSweetByIdUseCase {
         return GetSweetByIdUseCase(repo)
-    }
-
-    @Provides
-    fun provideSearchSweetUseCase(repo: SweetsRepo): SearchSweetUseCase {
-        return SearchSweetUseCase(repo)
     }
 
     @Provides

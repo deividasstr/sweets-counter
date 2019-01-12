@@ -1,8 +1,9 @@
 package com.deividasstr.domain.repositories
 
-import io.reactivex.Completable
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.monads.Either
 
 interface PrefsRepo {
-    fun saveSweetsDownloadTime(): Completable
-    fun saveFactsDownloadTime(): Completable
+    suspend fun saveSweetsDownloadTime(): Either<Error, Either.None>
+    suspend fun saveFactsDownloadTime(): Either<Error, Either.None>
 }

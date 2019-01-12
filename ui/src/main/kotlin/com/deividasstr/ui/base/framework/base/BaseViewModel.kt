@@ -3,33 +3,29 @@ package com.deividasstr.ui.base.framework.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.ui.base.framework.SingleEvent
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected var _errorMessage = MediatorLiveData<SingleEvent<StringResException>>()
+    private val job = Job()
+    protected val scope = CoroutineScope(job + Dispatchers.IO)
 
-    val errorMessage: LiveData<SingleEvent<StringResException>>
+    protected var _errorMessage = MediatorLiveData<SingleEvent<Error>>()
+
+    val errorMessage: LiveData<SingleEvent<Error>>
         get() = _errorMessage
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    protected fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
-
-    private fun clearDisposables() {
-        compositeDisposable.clear()
-    }
 
     override fun onCleared() {
-        clearDisposables()
+        super.onCleared()
+        job.cancel()
     }
 
-    protected fun setError(error: StringResException) {
+    protected fun setError(error: Error) {
         _errorMessage.postValue(SingleEvent(error))
     }
 }

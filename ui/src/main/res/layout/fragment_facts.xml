@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_padding_size_medium"
             android:textAlignment="center"
-            android:text="@{viewmodel.fact.text}"
+            android:text="@{viewmodel.liveFact.text}"
             android:textSize="@dimen/text_size_large"
             android:textAppearance="@android:style/TextAppearance.Material.Title"
             app:layout_constraintBottom_toBottomOf="parent"

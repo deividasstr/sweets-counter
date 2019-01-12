@@ -5,11 +5,10 @@ import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.daos.SweetsDao
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.data.store.models.toSweet
-import com.deividasstr.data.store.models.toSweets
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.entities.models.Sweet
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.SweetsRepo
-import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Singleton
 
 @Singleton
@@ -19,32 +18,31 @@ class SweetsRepoImpl(
     private val sharedPrefs: SharedPrefs
 ) : SweetsRepo {
 
-    override fun downloadAndSaveAllSweets(): Completable {
-        return sweetsService.getAllSweets().flatMapCompletable { saveSweets(it) }
+    override suspend fun downloadAndSaveAllSweets(): Either<Error, Either.None> {
+        val outcome = sweetsService.getAllSweets()
+        return when (outcome) {
+            is Either.Left -> outcome
+            is Either.Right -> saveSweets(outcome.b)
+        }
     }
 
-    override fun downloadAndSaveNewSweets(): Completable {
-        return sweetsService.getNewSweets(sharedPrefs.sweetsUpdatedDate)
-            .flatMapCompletable { saveSweets(it) }
+    override suspend fun downloadAndSaveNewSweets(): Either<Error, Either.None> {
+        val outcome = sweetsService.getNewSweets(sharedPrefs.sweetsUpdatedDate)
+        return when (outcome) {
+            is Either.Left -> outcome
+            is Either.Right -> saveSweets(outcome.b)
+        }
     }
 
-    override fun newSweet(sweet: Sweet): Completable {
+    override suspend fun newSweet(sweet: Sweet): Either<Error, Either.None> {
         return sweetsDb.addSweet(SweetDb(sweet))
     }
 
-    override fun getAllSweets(): Single<List<Sweet>> {
-        return sweetsDb.getAllSweets().map { it.toSweets() }
-    }
-
-    override fun getSweetById(id: Long): Single<Sweet> {
+    override suspend fun getSweetById(id: Long): Either<Error, Sweet> {
         return sweetsDb.getSweetById(id).map { it.toSweet() }
     }
 
-    override fun search(name: String): Single<List<Sweet>> {
-        return sweetsDb.search(name).map { it.toSweets() }
-    }
-
-    private fun saveSweets(sweets: List<SweetDb>): Completable {
+    private suspend fun saveSweets(sweets: List<SweetDb>): Either<Error, Either.None> {
         return sweetsDb.addSweets(sweets)
     }
 }

@@ -7,13 +7,13 @@ import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.networking.services.SweetsService
 import com.deividasstr.data.utils.DebugOpenClass
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
@@ -51,7 +51,7 @@ class NetworkModule(private val baseUrl: String) {
 
         return Retrofit.Builder()
             .client(clientBuilder.build())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
@@ -59,14 +59,14 @@ class NetworkModule(private val baseUrl: String) {
 
     @Singleton
     @Provides
-    fun provideSweetsService(retrofit: Retrofit): SweetsService {
-        return SweetsService(retrofit.create(SweetsApi::class.java))
+    fun provideSweetsService(retrofit: Retrofit, networkManager: NetworkManager): SweetsService {
+        return SweetsService(retrofit.create(SweetsApi::class.java), networkManager)
     }
 
     @Singleton
     @Provides
-    fun provideFactsService(retrofit: Retrofit): FactsService {
-        return FactsService(retrofit.create(FactsApi::class.java))
+    fun provideFactsService(retrofit: Retrofit, networkManager: NetworkManager): FactsService {
+        return FactsService(retrofit.create(FactsApi::class.java), networkManager)
     }
 
     @Singleton

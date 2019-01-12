@@ -3,19 +3,17 @@ package com.deividasstr.ui.features.sweetdetails
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.entities.enums.toggle
 import com.deividasstr.domain.entities.models.ConsumedSweet
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.base.models.toSweet
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -33,25 +31,32 @@ class SweetDetailsViewModel
 
     val enteredValue = MutableLiveData<String>()
 
+    private var navigationCallback: NavigationCallback? = null
+
     val totalCals = MediatorLiveData<Long>().apply {
         value = 0
         addSource(enteredValue) { postValue(getTotalCals()) }
     }
 
-    fun validate(navigationCallback: NavigationCallback) {
+    fun validate(callback: NavigationCallback) {
+        navigationCallback = callback
         if (validateConsumedSweet()) {
             val consumedSweet = getConsumedSweet()
-            addConsumedSweetUseCase.execute(consumedSweet)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onComplete = {
-                    navigationCallback.onNavigate()
-                }, onError = {
-                    setError(it as StringResException)
-                })
+            scope.launch {
+                addConsumedSweetUseCase(consumedSweet) { it.either(::handleError, ::handleSuccess) }
+            }
         } else {
-            setError(StringResException(R.string.add_sweet_validation_fail))
+            setError(Error(R.string.add_sweet_validation_fail))
         }
+    }
+
+    private fun handleSuccess() {
+        navigationCallback?.onNavigate()
+        navigationCallback = null
+    }
+
+    private fun handleError(error: Error) {
+        setError(error)
     }
 
     fun measureUnitGrams(): Boolean {

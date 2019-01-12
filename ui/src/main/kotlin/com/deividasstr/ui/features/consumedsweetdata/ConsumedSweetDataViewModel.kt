@@ -1,14 +1,14 @@
 package com.deividasstr.ui.features.consumedsweetdata
 
 import androidx.lifecycle.MutableLiveData
-import com.deividasstr.data.utils.StringResException
 import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.domain.entities.models.ConsumedSweet
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.toConsumedSweetUis
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ConsumedSweetDataViewModel
@@ -29,16 +29,16 @@ class ConsumedSweetDataViewModel
     }
 
     private fun getConsumedSweets() {
-        val disposable = getAllConsumedSweetsUseCase.execute()
-            .subscribeOn(Schedulers.io())
-            .map { it.toConsumedSweetUis() }
-            .subscribeBy(onSuccess = { it ->
-                consumedSweets.postValue(it)
-            },
-                onError = {
-                    setError(it as StringResException)
-                }
-            )
-        addDisposable(disposable)
+        scope.launch {
+            getAllConsumedSweetsUseCase { it.either(::handleError, ::handleSuccess) }
+        }
+    }
+
+    private fun handleSuccess(sweets: List<ConsumedSweet>) {
+        consumedSweets.postValue(sweets.toConsumedSweetUis())
+    }
+
+    private fun handleError(error: Error) {
+        setError(error)
     }
 }

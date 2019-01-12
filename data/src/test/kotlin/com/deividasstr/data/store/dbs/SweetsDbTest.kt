@@ -3,7 +3,7 @@ package com.deividasstr.data.store.dbs
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.SweetDb
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.common.TestData
 import io.reactivex.observers.TestObserver
 import org.junit.Before
@@ -58,7 +58,7 @@ class SweetsDbTest : AbstractObjectBoxTest() {
         db.getSweetById(DataTestData.TEST_SWEETMODEL.id).subscribe(testSubscriber)
 
         testSubscriber.await()
-        testSubscriber.assertError(StringResException::class.java)
+        testSubscriber.assertError(Error::class.java)
     }
 
     @Test

@@ -28,11 +28,7 @@ ext {
     leakCanaryVersion = '1.6.1'
 
     //Rx
-    coroutinesVersion = '1.0.1'
-    rxJavaVersion = '2.1.14'
-    rxAndroidVersion = '2.0.2'
-    rxLintVersion = '1.6.1'
-    rxKotlinVersion = '2.2.0'
+    coroutinesVersion = '1.1.0'
 
     //Calendar
     threeTenAndroidVersion = '1.1.0'
@@ -49,7 +45,7 @@ ext {
     jUnitVersion = '4.12'
     espressoVersion = '3.1.0-alpha3'
     testingSupportLibVersion = '0.1'
-    mockitoKotlinVersion = '1.5.0'
+    mockitoKotlinVersion = '2.0.0'
     mockitoAndroidVersion = '2.21.0'
     runnerVersion = '1.1.0-alpha3'
     kluentVersion = '1.14'

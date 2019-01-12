@@ -1,20 +1,16 @@
 package com.deividasstr.domain.repositories
 
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.entities.models.Sweet
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.deividasstr.domain.monads.Either
 
 interface SweetsRepo {
 
-    fun getAllSweets(): Single<List<Sweet>>
+    suspend fun getSweetById(id: Long): Either<Error, Sweet>
 
-    fun getSweetById(id: Long): Single<Sweet>
+    suspend fun newSweet(sweet: Sweet): Either<Error, Either.None>
 
-    fun search(name: String): Single<List<Sweet>>
+    suspend fun downloadAndSaveAllSweets(): Either<Error, Either.None>
 
-    fun newSweet(sweet: Sweet): Completable
-
-    fun downloadAndSaveAllSweets(): Completable
-
-    fun downloadAndSaveNewSweets(): Completable
+    suspend fun downloadAndSaveNewSweets(): Either<Error, Either.None>
 }

@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.store.models.toFact
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
@@ -17,7 +17,6 @@ import com.deividasstr.ui.utils.TestActivity
 import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.willAnswer
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -51,7 +50,7 @@ class FactsFragmentTest : AndroidTest() {
     @Test
     fun onStart_noFactsAvailable_alerts() {
         given { randomFactUseCase.execute(0) } willAnswer {
-            Single.error(StringResException(R.string.error_no_facts_available))
+            Single.error(Error(R.string.error_no_facts_available))
         }
 
         activityRule.launchActivity(null)

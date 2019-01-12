@@ -9,10 +9,6 @@ import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManager
 import com.deividasstr.ui.features.main.backgroundwork.WorkersFactory
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -23,19 +19,12 @@ class BackgroundModule {
         const val BACKGROUND_SCHEDULER = "background_scheduler"
     }
 
-    @Provides
-    @Singleton
-    @Named(BackgroundModule.MAIN_SCHEDULER)
-    fun provideMainScheduler(): Scheduler {
-        return AndroidSchedulers.mainThread()
-    }
-
-    @Provides
+    /*@Provides
     @Singleton
     @Named(BackgroundModule.BACKGROUND_SCHEDULER)
     fun provideBackgroundScheduler(): Scheduler {
         return Schedulers.io()
-    }
+    }*/
 
     @Provides
     @Singleton

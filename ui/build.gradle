@@ -70,11 +70,7 @@ android {
             }
         }
     }
-    /*compileSdkVersion 28
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }*/
+
     androidExtensions {
         experimental = true
     }
@@ -92,7 +88,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
     implementation "android.arch.work:work-runtime-ktx:$work_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
@@ -107,6 +102,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     //UI
@@ -137,7 +133,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$runnerVersion"
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
-    androidTestImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:' + mockitoKotlinVersion
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "android.arch.navigation:navigation-testing-ktx:$navigationTestVersion"
     androidTestImplementation project(path: ':domain', configuration: 'testOutput')

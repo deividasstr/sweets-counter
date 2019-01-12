@@ -1,12 +1,12 @@
 package com.deividasstr.ui.features.facts
 
 import androidx.lifecycle.MutableLiveData
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.entities.models.Fact
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.FactUi
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FactsViewModel
@@ -16,27 +16,27 @@ class FactsViewModel
         const val FIRST_FACT = 0L
     }
 
-    val fact = MutableLiveData<FactUi>()
+    val liveFact = MutableLiveData<FactUi>()
 
     init {
         getFact(FIRST_FACT)
     }
 
     fun getNewFact() {
-        fact.value?.let { getFact(it.id) } ?: getFact(FIRST_FACT)
+        liveFact.value?.let { getFact(it.id) } ?: getFact(FIRST_FACT)
     }
 
     private fun getFact(currentFactId: Long) {
-        val disposable = getRandomFactUseCase.execute(currentFactId)
-            .subscribeOn(Schedulers.io())
-            .map { FactUi(it) }
-            .subscribeBy(onSuccess = {
-                fact.postValue(it)
-            },
-                onError = {
-                    setError(it as StringResException)
-                }
-            )
-        addDisposable(disposable)
+        scope.launch {
+            getRandomFactUseCase(currentFactId) { it.either(::handleError, ::handleSuccess) }
+        }
+    }
+
+    private fun handleSuccess(fact: Fact) {
+        liveFact.postValue(FactUi(fact))
+    }
+
+    private fun handleError(error: Error) {
+        setError(error)
     }
 }

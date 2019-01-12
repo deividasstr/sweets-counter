@@ -1,15 +1,16 @@
 package com.deividasstr.domain.usecases
 
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.entities.models.Sweet
-import com.deividasstr.domain.framework.SingleUseCaseWithParameter
+import com.deividasstr.domain.framework.ParamsUseCase
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.SweetsRepo
 import com.deividasstr.domain.utils.OpenClass
-import io.reactivex.Single
 
 @OpenClass
-class GetSweetByIdUseCase(private val repo: SweetsRepo) : SingleUseCaseWithParameter<Sweet, Long> {
+class GetSweetByIdUseCase(private val repo: SweetsRepo) : ParamsUseCase<Sweet, Long> {
 
-    override fun execute(id: Long): Single<Sweet> {
-        return repo.getSweetById(id)
+    override suspend fun run(params: Long): Either<Error, Sweet> {
+        return repo.getSweetById(params)
     }
 }

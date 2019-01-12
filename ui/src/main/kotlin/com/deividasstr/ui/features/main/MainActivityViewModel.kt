@@ -3,7 +3,7 @@ package com.deividasstr.ui.features.main
 import androidx.work.WorkManager
 import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.features.main.backgroundwork.BackgroundWorkManager
@@ -34,12 +34,12 @@ class MainActivityViewModel @Inject constructor(
         val workStatus = workManager.getWorkInfoByIdLiveData(workId)
         _errorMessage.addSource(workStatus) {
             if (it.outputData.getBoolean(DownloadAllSweetsWorker.KEY_ERROR, false)) {
-                setError(StringResException(R.string.error_network_server))
+                setError(Error(R.string.error_network_server))
             }
         }
 
         if (!networkManager.networkAvailable) {
-            setError(StringResException(R.string.error_network_unavailable))
+            setError(Error(R.string.error_network_unavailable))
         }
     }
 }

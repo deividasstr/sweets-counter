@@ -1,18 +1,16 @@
 package com.deividasstr.data.store.daos
 
 import com.deividasstr.data.store.models.SweetDb
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.monads.Either
 
 interface SweetsDao {
 
-    fun getSweetById(id: Long): Single<SweetDb>
+    suspend fun getSweetById(id: Long): Either<Error, SweetDb>
 
-    fun getAllSweets(): Single<List<SweetDb>>
+    suspend fun getAllSweets(): Either<Error, List<SweetDb>>
 
-    fun search(name: String): Single<List<SweetDb>>
+    suspend fun addSweets(sweets: List<SweetDb>): Either<Error, Either.None>
 
-    fun addSweets(sweets: List<SweetDb>): Completable
-
-    fun addSweet(sweet: SweetDb): Completable
+    suspend fun addSweet(sweet: SweetDb): Either<Error, Either.None>
 }

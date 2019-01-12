@@ -1,12 +1,12 @@
 package com.deividasstr.domain.repositories
 
 import com.deividasstr.domain.entities.models.ConsumedSweet
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.monads.Either
 
 interface ConsumedSweetsRepo {
 
-    fun addSweet(sweet: ConsumedSweet): Completable
+    suspend fun addSweet(sweet: ConsumedSweet): Either<Error, Either.None>
 
-    fun getAllConsumedSweets(): Single<List<ConsumedSweet>>
+    suspend fun getAllConsumedSweets(): Either<Error, List<ConsumedSweet>>
 }

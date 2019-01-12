@@ -1,19 +1,30 @@
 package com.deividasstr.data.networking.services
 
 import com.deividasstr.data.networking.apis.FactsApi
+import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.networking.models.toFactModels
 import com.deividasstr.data.store.models.FactDb
-import io.reactivex.Single
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.monads.Either
 import javax.inject.Singleton
 
 @Singleton
-class FactsService(private val factsApi: FactsApi) {
+class FactsService(private val factsApi: FactsApi, private val networkManager: NetworkManager) :
+    BaseNetworkService {
 
-    fun getAllFacts(): Single<List<FactDb>> {
-        return factsApi.getAllFacts().map { it.toFactModels() }
+    suspend fun getAllFacts(): Either<Error, List<FactDb>> {
+        return request(
+            networkManager.networkAvailable,
+            factsApi.getAllFacts(),
+            { it.toFactModels() },
+            emptyList())
     }
 
-    fun getNewFacts(afterTimestamp: Long): Single<List<FactDb>> {
-        return factsApi.getNewFacts(afterTimestamp).map { it.toFactModels() }
+    suspend fun getNewFacts(afterTimestamp: Long): Either<Error, List<FactDb>> {
+        return request(
+            networkManager.networkAvailable,
+            factsApi.getNewFacts(afterTimestamp),
+            { it.toFactModels() },
+            emptyList())
     }
 }

@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.deividasstr.data.utils.StringResException
+import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.AnimationEndListener
 import com.deividasstr.ui.base.framework.FabSetter
@@ -84,13 +84,9 @@ class MainActivity : BaseActivity() {
         splash.startAnimation(animation)
     }
 
-    private val errorObserver = Observer<SingleEvent<Throwable>> { it ->
+    private val errorObserver = Observer<SingleEvent<Error>> { it ->
         it?.getContentIfNotHandled()?.let {
-            if (it is StringResException) {
-                alert(it.messageStringRes)
-            } else {
-                alert(it.localizedMessage)
-            }
+            alert(it.stringRes)
         }
     }
 

@@ -1,12 +1,14 @@
 package com.deividasstr.domain.usecases
 
-import com.deividasstr.domain.framework.CompletableUseCase
+import com.deividasstr.domain.entities.models.Error
+import com.deividasstr.domain.framework.NoParamsUseCase
+import com.deividasstr.domain.framework.ParamsUseCase
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.PrefsRepo
-import io.reactivex.Completable
 
-class SaveDownloadSweetDateUseCase(private val repo: PrefsRepo) : CompletableUseCase {
+class SaveDownloadSweetDateUseCase(private val repo: PrefsRepo) : NoParamsUseCase<Either.None> {
 
-    override fun execute(): Completable {
+    override suspend fun run(): Either<Error, Either.None> {
         return repo.saveSweetsDownloadTime()
     }
 }

@@ -1,6 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="error_no_facts_available">No facts available</string>
     <string name="error_db_no_items">No items in database</string>
-    <string name="error_item_not_found" tools:ignore="ExtraTranslation">Item not found</string>
-
+    <string name="error_item_not_found">Item not found</string>
+    <string name="error_network_unavailable">Network is not available, cannot download data</string>
+    <string name="error_server">Something went wrong, please try again</string>
 </resources>
