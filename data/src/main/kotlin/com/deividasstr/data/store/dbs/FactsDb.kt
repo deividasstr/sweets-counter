@@ -1,5 +1,6 @@
 package com.deividasstr.data.store.dbs
 
+import com.deividasstr.data.R
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.FactDb_
@@ -27,6 +28,8 @@ class FactsDb(private val db: Box<FactDb>) : FactsDao {
                 db.query().notEqual(FactDb_.id, currentFactId).build().findLazy()
             }
         }
+
+        if (factLazyList.isEmpty()) return Either.Left(Error(R.string.error_no_facts_available))
 
         val random = Random().nextInt(factLazyList.size)
         return Either.Right(factLazyList[random])

@@ -2,45 +2,59 @@ package com.deividasstr.data.networking.services
 
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.networking.apis.FactsApi
+import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.common.assertResultValue
-import com.nhaarman.mockito_kotlin.given
-import io.reactivex.Single
-import io.reactivex.observers.TestObserver
+import com.deividasstr.domain.utils.coGiven
+import com.deividasstr.domain.utils.runBlock
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.willReturn
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import retrofit2.Response
 
 class FactsServiceTest : UnitTest() {
 
     private lateinit var factService: FactsService
-    private lateinit var testSubscriber: TestObserver<Any>
 
-    @Mock private lateinit var factsApi: FactsApi
+    @Mock
+    private lateinit var factsApi: FactsApi
+    @Mock
+    private lateinit var networkManager: NetworkManager
 
     @Before
     fun setUp() {
-        factService = FactsService(factsApi)
-        testSubscriber = TestObserver()
+        factService = FactsService(factsApi, networkManager)
+        given { networkManager.networkAvailable } willReturn { true }
     }
 
     @Test
-    fun shouldGetAllFacts() {
-        given { factsApi.getAllFacts() }
-            .willReturn(Single.just(DataTestData.TEST_RESPONSE_FACT_LIST))
+    fun shouldGetAllFacts() = runBlock {
+        val testVal = DataTestData.TEST_RESPONSE_FACT_LIST
 
-        factService.getAllFacts().subscribe(testSubscriber)
+        coGiven { factsApi.getAllFacts() } willReturn { Response.success(testVal) }
 
-        testSubscriber.assertResultValue(DataTestData.TEST_FACT_LIST)
+        factService.getAllFacts().getValue() shouldEqual DataTestData.TEST_FACT_LIST
+
+        verify(factsApi).getAllFacts()
+        verifyNoMoreInteractions(factsApi)
     }
 
     @Test
-    fun shouldGetNewFacts() {
-        given { factsApi.getNewFacts(DataTestData.TEST_TIMESTAMP) }
-            .willReturn(Single.just(DataTestData.TEST_RESPONSE_FACT_LIST))
+    fun shouldGetNewFacts() = runBlock {
+        val testVal = DataTestData.TEST_RESPONSE_FACT_LIST
+        val testResult = DataTestData.TEST_FACT_LIST
 
-        factService.getNewFacts(DataTestData.TEST_TIMESTAMP).subscribe(testSubscriber)
+        coGiven { factsApi.getNewFacts(DataTestData.TEST_TIMESTAMP) } willReturn {
+            Response.success(testVal)
+        }
 
-        testSubscriber.assertResultValue(DataTestData.TEST_FACT_LIST)
+        factService.getNewFacts(DataTestData.TEST_TIMESTAMP).getValue() shouldEqual testResult
+
+        verify(factsApi).getNewFacts(DataTestData.TEST_TIMESTAMP)
+        verifyNoMoreInteractions(factsApi)
     }
 }

@@ -15,6 +15,10 @@
  */
 package com.deividasstr.domain.monads
 
+import com.deividasstr.domain.monads.Either.Left
+import com.deividasstr.domain.monads.Either.Right
+import org.jetbrains.annotations.TestOnly
+
 /**
  * Represents a value of one of two possible types (a disjoint union).
  * Instances of [Either] are either an instance of [Left] or [Right].
@@ -54,5 +58,21 @@ sealed class Either<out L, out R> {
         }
     }
 
-    class None
+    @TestOnly
+    fun getValue(): Any? {
+        return when (this) {
+            is Right -> this.b
+            is Left -> this.a
+        }
+    }
+
+    class None {
+        override fun equals(other: Any?): Boolean {
+            return other is None
+        }
+
+        override fun hashCode(): Int {
+            return javaClass.hashCode()
+        }
+    }
 }

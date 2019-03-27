@@ -8,6 +8,7 @@ import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.utils.AbstractObjectBoxTest
 import com.deividasstr.utils.UiTestData
+import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.`should be`
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -26,7 +27,7 @@ class SweetsSearchListViewModelTest : AbstractObjectBoxTest() {
     @Before
     fun before() {
         db = SweetsDb(store.boxFor(SweetDb::class.java))
-        db.addSweets(UiTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+        runBlocking { db.addSweets(UiTestData.TEST_LIST_SWEETMODELS) }
         val factory = SweetSearchDataSourceFactory(SweetSearchDataSource(db))
         viewModel = SweetsSearchListViewModel(factory)
     }

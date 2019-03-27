@@ -14,7 +14,6 @@ import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity
-import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
 import io.reactivex.Single

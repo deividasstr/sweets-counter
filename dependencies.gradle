@@ -18,7 +18,7 @@ ext {
     //Other
     daggerVersion = '2.19'
     okHttpVersion = '3.12.0'
-    retrofitVersion = '2.5.0'
+    retrofitVersion = '2.5.1-SNAPSHOT'
     glideVersion = '4.0.0'
     moshiVersion = '1.6.0'
     objectboxVersion = '2.2.0'
@@ -28,7 +28,7 @@ ext {
     leakCanaryVersion = '1.6.1'
 
     //Rx
-    coroutinesVersion = '1.1.0'
+    coroutinesVersion = '1.1.1'
 
     //Calendar
     threeTenAndroidVersion = '1.1.0'
@@ -48,7 +48,8 @@ ext {
     mockitoKotlinVersion = '2.0.0'
     mockitoAndroidVersion = '2.21.0'
     runnerVersion = '1.1.0-alpha3'
-    kluentVersion = '1.14'
+    kluentVersion = '1.47'
     jacocoVersion = '0.8.2'
     navigationTestVersion = "1.0.0-alpha06"
+    livedataTestVersion = "1.0.0"
 }

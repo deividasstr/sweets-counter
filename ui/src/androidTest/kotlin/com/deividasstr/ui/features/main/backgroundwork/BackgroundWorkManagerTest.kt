@@ -12,7 +12,6 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestVals
 import com.deividasstr.ui.utils.di.TestAppComponent
-import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify

@@ -26,7 +26,9 @@ class ConsumedSweetHistoryViewModel
 
     val sweetCells =
         MediatorLiveData<List<ConsumedSweetCell>>().apply {
-        addSource(consumedSweets) { postValue(makeCells(it)) }
+        addSource(consumedSweets) {
+            println("new val $it")
+            value = makeCells(it) }
     }
 
     init {
@@ -35,15 +37,21 @@ class ConsumedSweetHistoryViewModel
 
     private fun getConsumedSweets() {
         scope.launch {
-            getAllConsumedSweetsUseCase { it.either(::handleError, ::handleSuccess) }
+            println("on launch")
+            getAllConsumedSweetsUseCase {
+                println("on usecase")
+                it.either(::handleError, ::handleSuccess) }
         }
     }
 
     private fun handleSuccess(sweets: List<ConsumedSweet>) {
+        println("handleSuccess $sweets")
+
         consumedSweets.postValue(sweets.toConsumedSweetUis())
     }
 
     private fun handleError(error: Error) {
+        println("error $error")
         setError(error)
     }
 

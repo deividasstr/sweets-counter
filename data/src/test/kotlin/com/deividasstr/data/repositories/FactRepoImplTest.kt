@@ -5,53 +5,47 @@ import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.common.assertResultValue
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.observers.TestObserver
+import com.deividasstr.domain.monads.Either
+import com.deividasstr.domain.utils.coGiven
+import com.deividasstr.domain.utils.runBlock
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 
 class FactRepoImplTest : UnitTest() {
 
     private lateinit var factRepo: FactRepoImpl
-    private lateinit var testSubscriber: TestObserver<Any>
 
-    @Mock private lateinit var factsDb: FactsDao
-    @Mock private lateinit var factsService: FactsService
+    @Mock
+    private lateinit var factsDb: FactsDao
+    @Mock
+    private lateinit var factsService: FactsService
 
     @Before
     fun setUp() {
         factRepo = FactRepoImpl(factsDb, factsService)
-        testSubscriber = TestObserver()
     }
 
     @Test
-    fun shouldGetRandomFact() {
-        given { factsDb.getRandomFact(1) }
-                .willReturn(Single.just(DataTestData.TEST_FACTMODEL_1))
+    fun shouldGetRandomFact() = runBlock {
+        coGiven { factsDb.getRandomFact(1) }
+            .willReturn(Either.Right(DataTestData.TEST_FACTMODEL_1))
 
-        val fact = factRepo.getRandomFact(1)
-        fact.subscribe(testSubscriber)
-
-        testSubscriber.assertResultValue(TestData.TEST_FACT_1)
+        factRepo.getRandomFact(1).getValue() shouldEqual TestData.TEST_FACT_1
     }
 
     @Test
-    fun shouldDownloadAllFactsAndSave() {
-        given { factsService.getAllFacts() }.willReturn(Single.just(DataTestData.TEST_FACT_LIST))
-        given { factsDb.addFacts(any()) }.willReturn(Completable.complete())
+    fun shouldDownloadAllFactsAndSave() = runBlock {
+        coGiven { factsService.getAllFacts() }.willReturn(Either.Right(DataTestData.TEST_FACT_LIST))
+        coGiven { factsDb.addFacts(any()) }.willReturn(Either.Right(Either.None()))
 
-        factRepo.downloadAllFactsAndSave().subscribe(testSubscriber)
+        factRepo.downloadAllFactsAndSave() shouldEqual Either.Right(Either.None())
 
-        testSubscriber.assertComplete()
-        verify(factsDb, Mockito.times(1)).addFacts(DataTestData.TEST_FACT_LIST)
+        verify(factsDb).addFacts(DataTestData.TEST_FACT_LIST)
         verifyNoMoreInteractions(factsDb)
     }
 }

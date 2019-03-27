@@ -7,8 +7,7 @@ interface NoParamsUseCase<out Type : Any> {
 
     suspend fun run(): Either<Error, Type>
 
-    suspend operator fun invoke(
-        onResult: (Either<Error, Type>) -> Unit = {}) {
+    suspend operator fun invoke(onResult: (Either<Error, Type>) -> Unit = {}) {
         onResult(run())
     }
 }

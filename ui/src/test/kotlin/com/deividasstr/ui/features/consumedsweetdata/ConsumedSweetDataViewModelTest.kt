@@ -5,14 +5,13 @@ import androidx.lifecycle.Observer
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
+import com.deividasstr.domain.utils.coGiven
 import com.deividasstr.ui.base.models.ConsumedSweetUi
-import com.deividasstr.utils.AsyncTaskSchedulerRule
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.then
-import com.nhaarman.mockito_kotlin.willReturn
-import io.reactivex.Single
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.then
+import com.nhaarman.mockitokotlin2.willReturn
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,17 +24,14 @@ class ConsumedSweetDataViewModelTest : UnitTest() {
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
 
-    @get:Rule
-    val instantRx = AsyncTaskSchedulerRule()
-
     @Mock
     lateinit var getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
 
     // Sweets on days - 2 on current day, 1 day before yesterday, 1 last week, 1 last month, 1 last year
     @Before
     fun setUp() {
-        given { getAllConsumedSweetsUseCase.execute() } willReturn {
-            Single.just(TestData.TEST_LIST_CONSUMED_SWEETS3)
+        coGiven { getAllConsumedSweetsUseCase.run() } willReturn {
+            Either.Right(TestData.TEST_LIST_CONSUMED_SWEETS3)
         }
 
         viewModel = ConsumedSweetDataViewModel(getAllConsumedSweetsUseCase)

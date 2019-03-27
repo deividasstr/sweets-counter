@@ -1,19 +1,20 @@
 package com.deividasstr.ui.features.consumedsweethistory
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.domain.common.TestData
 import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.entities.enums.MeasurementUnit
-import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.entities.DateTimeHandler
-import com.deividasstr.utils.AsyncTaskSchedulerRule
+import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.monads.Either
+import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
+import com.deividasstr.domain.utils.coGiven
+import com.deividasstr.domain.utils.runBlock
 import com.deividasstr.utils.UiTestData
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.then
-import com.nhaarman.mockito_kotlin.willReturn
-import io.reactivex.Single
+import com.jraska.livedata.test
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.willReturn
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,8 +26,6 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
 
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
-    @get:Rule
-    val instantRx = AsyncTaskSchedulerRule()
 
     @Mock
     lateinit var getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
@@ -34,13 +33,11 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
     lateinit var dateTimeHandler: DateTimeHandler
     @Mock
     lateinit var sharedPrefs: SharedPrefs
-    @Mock
-    lateinit var observer: Observer<List<ConsumedSweetCell>>
 
     @Before
-    fun setUp() {
-        given { getAllConsumedSweetsUseCase.execute() } willReturn {
-            Single.just(TestData.TEST_LIST_CONSUMED_SWEETS2)
+    fun setUp() = runBlocking {
+        coGiven { getAllConsumedSweetsUseCase.run() } willReturn {
+            Either.Right(TestData.TEST_LIST_CONSUMED_SWEETS2)
         }
 
         given { sharedPrefs.defaultMeasurementUnit } willReturn {
@@ -55,7 +52,7 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
     }
 
     @Test
-    fun sweetsPair() {
+    fun sweetsPair() = runBlock {
         val consumedSweets = UiTestData.UI_CONSUMED_SWEET_LIST
         val result = listOf(
             ConsumedSweetCell(
@@ -68,9 +65,7 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
                 MeasurementUnit.GRAM)
         )
 
-        viewModel.sweetCells.observeForever(observer)
-
-        then(observer).should().onChanged(result)
-        then(observer).shouldHaveNoMoreInteractions()
+        viewModel.sweetCells.test()
+            .assertValue(result)
     }
 }

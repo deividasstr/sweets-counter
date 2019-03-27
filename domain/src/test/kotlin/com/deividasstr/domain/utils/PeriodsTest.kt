@@ -3,9 +3,9 @@ package com.deividasstr.domain.utils
 import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.Periods
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.willReturn
-import org.junit.Assert.assertEquals
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.willReturn
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -28,25 +28,25 @@ class PeriodsTest : UnitTest() {
     fun dayStart() {
         period = Periods.DAY
 
-        assertEquals(LocalDate.of(2018, 8, 8), period.start(dateTimeHandler))
+        period.start(dateTimeHandler) shouldEqual LocalDate.of(2018, 8, 8)
     }
 
     @Test
     fun weekStart() {
         period = Periods.WEEK
 
-        assertEquals(LocalDate.of(2018, 8, 6), period.start(dateTimeHandler))
+        period.start(dateTimeHandler) shouldEqual LocalDate.of(2018, 8, 6)
     }
 
     @Test
     fun monthStart() {
         period = Periods.MONTH
-        assertEquals(LocalDate.of(2018, 8, 1), period.start(dateTimeHandler))
+        period.start(dateTimeHandler) shouldEqual LocalDate.of(2018, 8, 1)
     }
 
     @Test
     fun yearStart() {
         period = Periods.YEAR
-        assertEquals(LocalDate.of(2018, 1, 1), period.start(dateTimeHandler))
+        period.start(dateTimeHandler) shouldEqual LocalDate.of(2018, 1, 1)
     }
 }

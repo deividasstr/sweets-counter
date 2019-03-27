@@ -34,10 +34,10 @@ class AddNewSweetUseCaseTest {
         runBlocking {
             given { runBlocking { repo.newSweet(testVal) } } willReturn { result }
 
-            verify(repo).newSweet(TestData.TEST_SWEET)
-            verifyNoMoreInteractions(repo)
+            useCase(testVal) { it shouldEqual result }
 
-            useCase(TestData.TEST_SWEET) { it shouldEqual result }
+            verify(repo).newSweet(testVal)
+            verifyNoMoreInteractions(repo)
         }
     }
 }

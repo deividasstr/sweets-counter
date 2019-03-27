@@ -4,12 +4,13 @@ import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.models.toConsumedSweet
 import com.deividasstr.domain.common.UnitTest
+import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.willReturn
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.observers.TestObserver
+import com.deividasstr.domain.utils.coGiven
+import com.deividasstr.domain.utils.runBlock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.willReturn
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -17,7 +18,6 @@ import org.mockito.Mock
 class ConsumedSweetsRepoImplTest : UnitTest() {
 
     private lateinit var sweetsRepo: ConsumedSweetsRepo
-    private lateinit var testSubscriber: TestObserver<Any>
 
     @Mock
     private lateinit var db: ConsumedSweetsDao
@@ -25,33 +25,32 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
     @Before
     fun setUp() {
         sweetsRepo = ConsumedSweetsRepoImpl(db)
-        testSubscriber = TestObserver()
     }
 
     @Test
-    fun shouldAddSweet() {
-        val sweet = DataTestData.TEST_CONSUMED_SWEETMODEL
-        sweet.sweet.target = DataTestData.TEST_SWEETMODEL
+    fun shouldAddSweet() = runBlock {
+        val testVal = DataTestData.TEST_CONSUMED_SWEETMODEL
+        val result = Either.Right(Either.None())
+        testVal.sweet.target = DataTestData.TEST_SWEETMODEL
 
-        given { db.addSweet(sweet) }.willReturn(Completable.complete())
+        coGiven { db.addSweet(testVal) } willReturn { result }
 
-        sweetsRepo.addSweet(sweet.toConsumedSweet()).subscribe(testSubscriber)
-
-        testSubscriber.await()
-        testSubscriber.assertComplete()
+        sweetsRepo.addSweet(testVal.toConsumedSweet()).getValue() shouldEqual Either.None()
+        verify(db).addSweet(testVal)
     }
 
     @Test
-    fun shouldReturnAllAddedSweets() {
+    fun shouldReturnAllAddedSweets() = runBlock {
         val sweet = DataTestData.TEST_CONSUMED_SWEETMODEL
         sweet.sweet.target = DataTestData.TEST_SWEETMODEL
 
         val sweet2 = DataTestData.TEST_CONSUMED_SWEETMODEL2
         sweet2.sweet.target = DataTestData.TEST_SWEETMODEL2
 
-        given { db.getAllConsumedSweets() } willReturn { Single.just(listOf(sweet, sweet2)) }
+        coGiven { db.getAllConsumedSweets() } willReturn { Either.Right(listOf(sweet, sweet2)) }
 
-        sweetsRepo.getAllConsumedSweets().test()
-            .assertValue(listOf(sweet.toConsumedSweet(), sweet2.toConsumedSweet()))
+        sweetsRepo.getAllConsumedSweets().getValue() shouldEqual listOf(
+            sweet.toConsumedSweet(),
+            sweet2.toConsumedSweet())
     }
 }

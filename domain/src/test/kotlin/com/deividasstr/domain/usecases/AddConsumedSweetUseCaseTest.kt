@@ -6,9 +6,9 @@ import com.deividasstr.domain.repositories.ConsumedSweetsRepo
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.willReturn
 import kotlinx.coroutines.runBlocking
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
-import org.mockito.BDDMockito.willReturn
 import org.mockito.Mockito
 
 class AddConsumedSweetUseCaseTest {
@@ -27,11 +27,10 @@ class AddConsumedSweetUseCaseTest {
     @Throws(Exception::class)
     fun shouldAddConsumedSweet() {
         val testVal = Either.Right(Either.None())
-        var result: Either.Right? = null
 
         runBlocking {
-            given { repo.addSweet(TestData.TEST_CONSUMED_SWEET) } willReturn { testVal }
-            useCase(TestData.TEST_CONSUMED_SWEET) {  }
+            given { runBlocking { repo.addSweet(TestData.TEST_CONSUMED_SWEET) } } willReturn { testVal }
+            useCase(TestData.TEST_CONSUMED_SWEET) { it shouldEqual testVal }
             Mockito.verify(repo, Mockito.times(1)).addSweet(TestData.TEST_CONSUMED_SWEET)
             Mockito.verifyNoMoreInteractions(repo)
         }

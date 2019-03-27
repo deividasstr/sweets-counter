@@ -1,91 +1,54 @@
 package com.deividasstr.data.store.dbs
 
 import com.deividasstr.data.DataTestData
+import com.deividasstr.data.R
 import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.entities.models.Error
-import com.deividasstr.domain.common.TestData
-import io.reactivex.observers.TestObserver
+import com.deividasstr.domain.monads.Either
+import com.deividasstr.domain.utils.runBlock
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
 
 class SweetsDbTest : AbstractObjectBoxTest() {
 
     private lateinit var db: SweetsDb
-    private lateinit var testSubscriber: TestObserver<Any>
 
     @Before
     fun setup() {
         db = SweetsDb(store.boxFor(SweetDb::class.java))
-        testSubscriber = TestObserver()
     }
 
     @Test
-    fun shouldAddSweets() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-        db.getAllSweets().subscribe(testSubscriber)
-
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(DataTestData.TEST_LIST_SWEETMODELS)
+    fun shouldAddSweets() = runBlock {
+        val result = DataTestData.TEST_LIST_SWEETMODELS
+        db.addSweets(result)
+        db.getAllSweets() shouldEqual Either.Right(result)
     }
 
     @Test
-    fun shouldAddSweet() {
-        db.addSweet(DataTestData.TEST_SWEETMODEL).blockingAwait()
-        db.getAllSweets().subscribe(testSubscriber)
-
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(listOf(DataTestData.TEST_SWEETMODEL))
+    fun shouldAddSweet() = runBlock {
+        val result = DataTestData.TEST_SWEETMODEL
+        db.addSweet(result)
+        db.getAllSweets() shouldEqual Either.Right(listOf(result))
     }
 
     @Test
-    fun shouldGetSweetById() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-
-        db.getSweetById(DataTestData.TEST_SWEETMODEL.id).subscribe(testSubscriber)
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(DataTestData.TEST_SWEETMODEL)
+    fun shouldGetSweetById() = runBlock {
+        val result = DataTestData.TEST_SWEETMODEL
+        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS)
+        db.getSweetById(result.id) shouldEqual Either.Right(result)
     }
 
     @Test
-    fun shouldGetSweetById_noItemFound() {
-        db.getSweetById(DataTestData.TEST_SWEETMODEL.id).subscribe(testSubscriber)
-
-        testSubscriber.await()
-        testSubscriber.assertError(Error::class.java)
+    fun shouldGetSweetById_noItemFound() = runBlock {
+        db.getSweetById(DataTestData.TEST_SWEETMODEL.id) shouldEqual Either.Left(Error(R.string.error_item_not_found))
     }
 
     @Test
-    fun searchEmpty_returnsAll() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-
-        db.search("").subscribe(testSubscriber)
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(DataTestData.TEST_LIST_SWEETMODELS)
-    }
-
-    @Test
-    fun searchCorrectName_returnsOne() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-
-        db.search(DataTestData.TEST_SWEETMODEL.name).subscribe(testSubscriber)
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(listOf(DataTestData.TEST_SWEETMODEL))
-    }
-
-    @Test
-    fun queryEmpty_returnsAll() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+    fun queryEmpty_returnsAll() = runBlock {
+        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS)
 
         val sweets = db.query("").find()
 
@@ -95,23 +58,12 @@ class SweetsDbTest : AbstractObjectBoxTest() {
     }
 
     @Test
-    fun queryCorrectName_returnsOne() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
+    fun queryCorrectName_returnsOne() = runBlock {
+        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS)
 
         val sweets = db.query(DataTestData.TEST_LIST_SWEETMODELS[1].name).find()
 
         assert(DataTestData.TEST_LIST_SWEETMODELS[1] == sweets[0])
         assert(sweets.size == 1)
-    }
-
-    @Test
-    fun searchIncorrectName_returnsNone() {
-        db.addSweets(DataTestData.TEST_LIST_SWEETMODELS).blockingAwait()
-
-        db.search(TestData.TEST_SWEET_NAME_SEARCH).subscribe(testSubscriber)
-        testSubscriber.await()
-
-        testSubscriber.assertComplete()
-        testSubscriber.assertValue(emptyList<SweetDb>())
     }
 }

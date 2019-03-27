@@ -16,7 +16,6 @@ import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity
 import com.deividasstr.ui.utils.di.TestAppComponent
-import com.deividasstr.utils.AsyncTaskSchedulerRule
 import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
