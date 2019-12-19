@@ -65,7 +65,6 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
                 MeasurementUnit.GRAM)
         )
 
-        viewModel.sweetCells.test()
-            .assertValue(result)
+        viewModel.sweetCells.test().assertValue(result)
     }
 }

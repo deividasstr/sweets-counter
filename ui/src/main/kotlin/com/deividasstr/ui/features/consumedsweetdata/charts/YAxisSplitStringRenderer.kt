@@ -6,6 +6,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.renderer.YAxisRenderer
 import com.github.mikephil.charting.utils.Transformer
 import com.github.mikephil.charting.utils.ViewPortHandler
+import timber.log.Timber
 
 /**
  * Class splitting Y axis label text to two
@@ -36,18 +37,21 @@ class YAxisSplitStringRenderer(
         val halfTextSize = textSize / 2
         for (i in from until to) {
             val text = mYAxis.getFormattedLabel(i)
+            Timber.d("aaaa $text")
             val splitTexts = text.split("\n")
+            Timber.d("aaaaa $splitTexts")
+
 
             c.drawText(
                 splitTexts[0],
                 fixedPosition + textSize,
                 positions[i * 2 + 1] + offset - halfTextSize,
                 mAxisLabelPaint)
-            c.drawText(
+            /*c.drawText(
                 splitTexts[1],
                 fixedPosition + textSize,
                 positions[i * 2 + 1] + offset + halfTextSize,
-                mAxisLabelPaint)
+                mAxisLabelPaint)*/
         }
     }
 }

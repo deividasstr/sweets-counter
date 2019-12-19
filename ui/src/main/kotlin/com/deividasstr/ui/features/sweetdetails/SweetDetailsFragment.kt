@@ -22,7 +22,7 @@ class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDeta
         const val EXTRA_ENTERED_VAL = "EXTRA_ENTERED_VAL"
     }
 
-    private val sweet: SweetUi by lazy { SweetDetailsFragmentArgs.fromBundle(arguments).sweet }
+    private val sweet: SweetUi by lazy { SweetDetailsFragmentArgs.fromBundle(arguments!!).sweet }
 
     private val ratingClickListener: View.OnClickListener =
         View.OnClickListener {

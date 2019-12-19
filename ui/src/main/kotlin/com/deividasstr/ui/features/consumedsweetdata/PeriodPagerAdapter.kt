@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.deividasstr.ui.features.consumedsweetdata.utils.Consts.INFINITY_IMITATION
 
-class PeriodPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class PeriodPagerAdapter(fm: FragmentManager) :
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private var currentPosition = -1
 

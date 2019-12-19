@@ -17,7 +17,7 @@ import com.deividasstr.ui.base.framework.extensions.closeKeyboard
 import com.deividasstr.ui.base.framework.extensions.observe
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetSearchListBinding
-import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.actionSweetDetails
+import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragmentDirections.Companion.actionSweetDetails
 
 class SweetsSearchListFragment :
     BaseFragment<FragmentSweetSearchListBinding, SweetsSearchListViewModel>() {
