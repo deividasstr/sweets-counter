@@ -23,12 +23,12 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-allopen:${Dependencies.Versions.kotlinVersion}")
         classpath("com.google.firebase:perf-plugin:1.3.1")
         classpath("io.fabric.tools:gradle:1.31.1")
-        classpath("com.google.gms:google-services:4.3.2")
+        classpath("com.google.gms:google-services:4.3.3")
     }
 }
 
 plugins {
-    id("com.palantir.jacoco-full-report") version ("0.4.0")
+    //id("com.palantir.jacoco-full-report") version ("0.4.0")
     id("de.fayard.refreshVersions") version "0.7.0"
 }
 

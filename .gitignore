@@ -10,3 +10,4 @@ google-services.json
 /keystore.properties
 keystore.jks
 ui/release/
+/buildSrc/build/
