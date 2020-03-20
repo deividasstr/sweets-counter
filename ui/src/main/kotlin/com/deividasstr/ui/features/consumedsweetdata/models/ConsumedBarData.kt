@@ -4,12 +4,12 @@ import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.ui.features.consumedsweetdata.charts.MonthXAxisFormatter
 import com.deividasstr.ui.features.consumedsweetdata.charts.WeekXAxisFormatter
 import com.deividasstr.ui.features.consumedsweetdata.charts.YearXAxisFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import java.util.Arrays
 
 data class ConsumedBarData(val calsPerTimeUnit: LongArray, val period: Periods) {
 
-    fun xAxisFormatterByRange(): ValueFormatter {
+    fun xAxisFormatterByRange(): IAxisValueFormatter {
         return when (period) {
             Periods.WEEK -> WeekXAxisFormatter()
             Periods.MONTH -> MonthXAxisFormatter()

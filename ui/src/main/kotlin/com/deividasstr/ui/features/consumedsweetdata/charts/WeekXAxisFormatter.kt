@@ -1,12 +1,12 @@
 package com.deividasstr.ui.features.consumedsweetdata.charts
 
 import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.format.TextStyle
 import java.util.Locale
 
-class WeekXAxisFormatter : ValueFormatter() {
+class WeekXAxisFormatter : IAxisValueFormatter {
 
     override fun getFormattedValue(value: Float, axis: AxisBase?): String {
         return weekDayFromDay(value.toInt())

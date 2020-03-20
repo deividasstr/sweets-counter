@@ -60,11 +60,10 @@ android {
 
 dependencies {
     implementation(project(":data"))
-    //implementation(project(":MPChartLib"))
+    implementation(project(":MPChartLib"))
 
     implementation ("androidx.core:core-ktx:1.1.0")
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementAndroidCoreLibs()
     implementUiWidgets()
