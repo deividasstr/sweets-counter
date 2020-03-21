@@ -6,24 +6,24 @@ import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.models.toSweet
-import com.deividasstr.domain.entities.models.ConsumedSweet
+import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.MeasurementUnit
+import com.deividasstr.domain.entities.models.ConsumedSweet
 import com.deividasstr.domain.usecases.AddConsumedSweetUseCase
 import com.deividasstr.domain.usecases.GetSweetByIdUseCase
-import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.testutils.coGiven
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.TestActivity
 import com.deividasstr.ui.utils.di.TestAppComponent
 import com.deividasstr.utils.UiTestData
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.then
-import com.nhaarman.mockito_kotlin.willReturn
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.then
+import com.nhaarman.mockitokotlin2.verifyBlocking
+import com.nhaarman.mockitokotlin2.willReturn
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -42,9 +42,6 @@ class SweetDetailsFragmentTest : AndroidTest() {
     @get:Rule
     val instantLiveData = InstantTaskExecutorRule()
 
-    @get:Rule
-    val instantRx = AsyncTaskSchedulerRule()
-
     @Mock
     lateinit var getSweetByIdUseCase: GetSweetByIdUseCase
 
@@ -59,12 +56,10 @@ class SweetDetailsFragmentTest : AndroidTest() {
 
     @Before
     fun setUp() {
-        given { sharedPrefs.defaultMeasurementUnit } willReturn {
-            MeasurementUnit.GRAM
-        }
+        given { sharedPrefs.defaultMeasurementUnit } willReturn { MeasurementUnit.GRAM }
 
-        given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL.id) } willReturn {
-            Single.just(UiTestData.TEST_SWEETMODEL.toSweet())
+        coGiven { getSweetByIdUseCase.run(UiTestData.TEST_SWEETMODEL.id) } willReturn {
+           SUiTestData.TEST_SWEETMODEL.toSweet()
         }
 
         given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL2.id) } willReturn {
@@ -169,9 +164,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
     fun enterValue_clickComplete_savesConsumedSweetAndNavigates() {
         val dateTimeMillis: Long = 123456789
 
-        given { addConsumedSweetUseCase.execute(any()) } willReturn {
-            Completable.complete()
-        }
+        coGiven { addConsumedSweetUseCase.run(any()) } willReturn { any() }
 
         given { dateTimeHandler.currentEpochSecs() } willReturn { dateTimeMillis }
 
@@ -188,8 +181,9 @@ class SweetDetailsFragmentTest : AndroidTest() {
             date = dateTimeMillis,
             sweet = UiTestData.TEST_SWEETMODEL.toSweet())
 
-        then(addConsumedSweetUseCase).should().execute(consumedSweet)
-        then(fragment.navController).should()
+        verifyBlocking(addConsumedSweetUseCase) { addConsumedSweetUseCase.run(consumedSweet) }
+        then(fragment.navController)
+            .should()
             .navigate(R.id.action_sweetDetailsFragment_to_consumedSweetHistoryFragment)
     }
 

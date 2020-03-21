@@ -13,8 +13,8 @@ import com.deividasstr.ui.features.consumedsweethistory.ConsumedSweetHistoryFrag
 import com.deividasstr.ui.features.facts.FactsFragment
 import com.deividasstr.ui.utils.AndroidTest
 import com.deividasstr.ui.utils.di.TestAppComponent
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.willReturn
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.willReturn
 import it.cosenonjaviste.daggermock.DaggerMockRule
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -36,7 +36,7 @@ class MainActivityTest : AndroidTest() {
     @Before
     fun setUp() {
         app.appComponent.inject(this)
-        given { networkManager.networkAvailable } willReturn { false }
+        given { networkManager.networkAvailable } willReturn  { false }
         activityRule.launchActivity(null)
     }
 
