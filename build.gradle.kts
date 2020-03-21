@@ -47,21 +47,6 @@ allprojects {
         maven("https://dl.bintray.com/lion4ik/maven")
     }
 
-    /*configurations {
-        ktlint
-    }*/
-
-    /*dependencies {
-        ktlint("com.github.shyiko:ktlint:0.29.0")
-    }*/
-
-    // https://github.com/google/dagger/issues/306
-    /*afterEvaluate {
-        tasks.withType(JavaCompile::class.java) {
-            options.compilerArgs  = options.compilerArgs << "-Xmaxerrs" << "500"
-        }
-    }*/
-
     tasks.withType(Test::class.java) {
         testLogging {
             events = setOf(

@@ -1,8 +1,8 @@
 package com.deividasstr.domain.utils
 
-import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.testutils.UnitTest
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.willReturn
 import org.amshove.kluent.shouldEqual

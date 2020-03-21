@@ -2,7 +2,8 @@ package com.deividasstr.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.deividasstr.domain.common.UnitTest
+import com.deividasstr.testutils.UnitTest
+
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.willReturn
 import junit.framework.TestCase.assertEquals
@@ -21,6 +22,7 @@ class SharedPrefsTest : UnitTest() {
 
     @Mock
     private lateinit var ctx: Context
+
     @Mock
     private lateinit var sharedPreferences: SharedPreferences
 

@@ -6,7 +6,7 @@ import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.monads.Either
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.runBlock
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
@@ -28,11 +28,12 @@ class FactsDbTest : AbstractObjectBoxTest() {
     }
 
     @Test
-    fun shouldGetRandomFact_whenEmptyDb_thenReturnsNPE() = runBlock {
-        db.addFacts(emptyList())
+    fun shouldGetRandomFact_whenEmptyDb_thenReturnsNPE() =
+        runBlock {
+            db.addFacts(emptyList())
 
-        db.getRandomFact(-1) shouldEqual Either.Left(Error(R.string.error_no_facts_available))
-    }
+            db.getRandomFact(-1) shouldEqual Either.Left(Error(R.string.error_no_facts_available))
+        }
 
     @Test
     fun shouldGetRandomFact() = runBlock {

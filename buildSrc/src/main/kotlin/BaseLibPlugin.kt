@@ -12,11 +12,7 @@ class BaseLibPlugin : Plugin<Project> {
         project.configurePlugins()
         project.configureAndroid()
         project.configureDependencies()
-        project.configureOther()
     }
-}
-
-private fun Project.configureOther() {
 }
 
 internal fun Project.configurePlugins() {
@@ -26,9 +22,8 @@ internal fun Project.configurePlugins() {
 
 internal fun Project.configureDependencies() = dependencies {
     add("implementation", project(":domain"))
-    //add("testImplementation", project(":domain", "testOutput"))
     implementKotlin()
-    add("implementation", Dependencies.Libraries.threeTen)
+    add("implementation", Dependencies.Libraries.threeTenAndroid)
     add("implementation", "com.jakewharton.timber:timber:$timberVersion")
 
     implementCoroutines()
@@ -45,10 +40,7 @@ fun Project.configureAndroid() {
             versionName = "1.0.3"
             testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         }
-        //implementation "androidx.core:core-ktx:1.0.2"
-        /*testImplementation "junit:junit:4.12"
-        androidTestImplementation "androidx.test.ext:junit:1.1.1"
-        androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"*/
+
         buildTypes {
             getByName("release") {
                 isMinifyEnabled = false
@@ -77,22 +69,3 @@ fun Project.configureAndroid() {
         }
     }
 }
-
-/*task ktlint (type: JavaExec, group: "verification") {
-    description = "Check Kotlin code style."
-    main = "com.github.shyiko.ktlint.Main"
-    classpath = configurations.ktlint
-    args "src/*
-//*.kt"
-}*/
-
-/*check.dependsOn ktlint
-
-    tasks.register("ktlintFormat", JavaExec::class.java) {
-        description = "Fix Kotlin code style deviations."
-        main = "com.github.shyiko.ktlint.Main"
-        classpath = configurations.ktlint
-        args = listOf("-F", "src/*
-//*.kt")
-    }
-}*/

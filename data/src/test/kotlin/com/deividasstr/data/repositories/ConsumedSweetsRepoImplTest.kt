@@ -3,11 +3,11 @@ package com.deividasstr.data.repositories
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.models.toConsumedSweet
-import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
-import com.deividasstr.domain.utils.coGiven
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.UnitTest
+import com.deividasstr.testutils.coGiven
+import com.deividasstr.testutils.runBlock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.willReturn
 import org.amshove.kluent.shouldEqual
@@ -47,7 +47,9 @@ class ConsumedSweetsRepoImplTest : UnitTest() {
         val sweet2 = DataTestData.TEST_CONSUMED_SWEETMODEL2
         sweet2.sweet.target = DataTestData.TEST_SWEETMODEL2
 
-        coGiven { db.getAllConsumedSweets() } willReturn { Either.Right(listOf(sweet, sweet2)) }
+        coGiven { db.getAllConsumedSweets() } willReturn {
+            Either.Right(listOf(sweet, sweet2))
+        }
 
         sweetsRepo.getAllConsumedSweets().getValue() shouldEqual listOf(
             sweet.toConsumedSweet(),

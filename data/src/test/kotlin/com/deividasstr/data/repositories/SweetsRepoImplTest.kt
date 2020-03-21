@@ -4,12 +4,12 @@ import com.deividasstr.data.DataTestData
 import com.deividasstr.data.networking.services.SweetsService
 import com.deividasstr.data.prefs.SharedPrefs
 import com.deividasstr.data.store.daos.SweetsDao
-import com.deividasstr.domain.common.TestData
-import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.SweetsRepo
-import com.deividasstr.domain.utils.coGiven
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.TestData
+import com.deividasstr.testutils.UnitTest
+import com.deividasstr.testutils.coGiven
+import com.deividasstr.testutils.runBlock
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
@@ -36,7 +36,8 @@ class SweetsRepoImplTest : UnitTest() {
 
     @Test
     fun shouldGetSweetById() = runBlock {
-        coGiven { sweetsDb.getSweetById(2) }.willReturn(Either.Right(DataTestData.TEST_SWEETMODEL))
+        coGiven { sweetsDb.getSweetById(2) }
+            .willReturn(Either.Right(DataTestData.TEST_SWEETMODEL))
 
         sweetsRepo.getSweetById(2).getValue() shouldEqual TestData.TEST_SWEET
     }
@@ -53,7 +54,8 @@ class SweetsRepoImplTest : UnitTest() {
     fun shouldDownloadAllSweetsAndSave() = runBlock {
         coGiven { sweetsService.getAllSweets() }
             .willReturn(Either.Right(DataTestData.TEST_LIST_SWEETMODELS))
-        coGiven { sweetsDb.addSweets(any()) }.willReturn(Either.Right(Either.None()))
+        coGiven { sweetsDb.addSweets(any()) }
+            .willReturn(Either.Right(Either.None()))
 
         sweetsRepo.downloadAndSaveAllSweets() shouldEqual Either.Right(Either.None())
 
@@ -65,7 +67,8 @@ class SweetsRepoImplTest : UnitTest() {
     fun shouldDownloadNewSweetsAndSave() = runBlock {
         coGiven { sweetsService.getNewSweets(any()) }
             .willReturn(Either.Right(DataTestData.TEST_LIST_SWEETMODELS))
-        coGiven { sweetsDb.addSweets(any()) }.willReturn(Either.Right(Either.None()))
+        coGiven { sweetsDb.addSweets(any()) }
+            .willReturn(Either.Right(Either.None()))
 
         sweetsRepo.downloadAndSaveNewSweets() shouldEqual Either.Right(Either.None())
         verify(sweetsDb).addSweets(DataTestData.TEST_LIST_SWEETMODELS)

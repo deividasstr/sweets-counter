@@ -82,8 +82,6 @@ dependencies {
     implementObjectBoxTesting()
     implementAppTesting()
     implementAppAndroidTesting()
-
-    //androidTestImplementation(project(":domain", "testOutput"))
 }
 
 fun BaseAppModuleExtension.createSigningConfigs(keystoreProperties: Properties) {

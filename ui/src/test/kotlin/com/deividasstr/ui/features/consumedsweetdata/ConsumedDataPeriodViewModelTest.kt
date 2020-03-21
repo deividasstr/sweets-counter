@@ -3,12 +3,12 @@ package com.deividasstr.ui.features.consumedsweetdata
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.domain.common.TestData
-import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.entities.DateRange
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.entities.enums.Periods
+import com.deividasstr.testutils.TestData
+import com.deividasstr.testutils.UnitTest
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.features.consumedsweetdata.models.ConsumedBarData

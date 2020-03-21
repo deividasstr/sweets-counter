@@ -1,11 +1,11 @@
-package com.deividasstr.domain.common
+package com.deividasstr.testutils
 
+import com.deividasstr.domain.entities.DateRange
+import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.entities.enums.Periods
 import com.deividasstr.domain.entities.models.ConsumedSweet
 import com.deividasstr.domain.entities.models.Fact
 import com.deividasstr.domain.entities.models.Sweet
-import com.deividasstr.domain.entities.enums.Periods
-import com.deividasstr.domain.entities.DateRange
-import com.deividasstr.domain.entities.DateTimeHandler
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.OffsetDateTime
 

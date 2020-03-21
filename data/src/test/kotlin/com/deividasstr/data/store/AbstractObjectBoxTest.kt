@@ -1,7 +1,7 @@
 package com.deividasstr.data.store
 
 import com.deividasstr.data.store.models.MyObjectBox
-import com.deividasstr.domain.common.UnitTest
+import com.deividasstr.testutils.UnitTest
 import io.objectbox.BoxStore
 import org.junit.After
 import org.junit.Before

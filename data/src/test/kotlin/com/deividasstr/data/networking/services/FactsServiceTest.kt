@@ -3,9 +3,8 @@ package com.deividasstr.data.networking.services
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.networking.apis.FactsApi
 import com.deividasstr.data.networking.manager.NetworkManager
-import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.utils.coGiven
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.UnitTest
+import com.deividasstr.testutils.runBlock
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
@@ -22,6 +21,7 @@ class FactsServiceTest : UnitTest() {
 
     @Mock
     private lateinit var factsApi: FactsApi
+
     @Mock
     private lateinit var networkManager: NetworkManager
 
@@ -35,7 +35,10 @@ class FactsServiceTest : UnitTest() {
     fun shouldGetAllFacts() = runBlock {
         val testVal = DataTestData.TEST_RESPONSE_FACT_LIST
 
-        coGiven { factsApi.getAllFacts() } willReturn { Response.success(testVal) }
+        com.deividasstr.testutils.coGiven { factsApi.getAllFacts() } willReturn {
+            Response.success(
+                testVal)
+        }
 
         factService.getAllFacts().getValue() shouldEqual DataTestData.TEST_FACT_LIST
 
@@ -48,7 +51,7 @@ class FactsServiceTest : UnitTest() {
         val testVal = DataTestData.TEST_RESPONSE_FACT_LIST
         val testResult = DataTestData.TEST_FACT_LIST
 
-        coGiven { factsApi.getNewFacts(DataTestData.TEST_TIMESTAMP) } willReturn {
+        com.deividasstr.testutils.coGiven { factsApi.getNewFacts(DataTestData.TEST_TIMESTAMP) } willReturn {
             Response.success(testVal)
         }
 

@@ -1,3 +1,4 @@
 /build
 /google-services.json
 /libobjectbox-jni-linux-x64.so
+/jacoco.exec

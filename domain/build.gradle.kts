@@ -25,10 +25,7 @@ dependencies {
     implementKotlin()
 
     implementation(Dependencies.Libraries.coreCoroutines)
-    implementation(Dependencies.Libraries.threeTen)
+    implementation(Dependencies.Libraries.threeTenAndroid)
 
     implementTesting()
 }
-
-/*sourceCompatibility = "1.8"
-targetCompatibility = "1.8"*/

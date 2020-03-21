@@ -1,4 +1,3 @@
-
 import Dependencies.Libraries.androidCoroutines
 import Dependencies.Libraries.coreCoroutines
 import Dependencies.Libraries.kotlinReflect
@@ -34,6 +33,7 @@ import Dependencies.Versions.threeTenJavaVersion
 import Dependencies.Versions.tickerVersion
 import Dependencies.Versions.workVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
 
 object Dependencies {
 
@@ -71,7 +71,7 @@ object Dependencies {
         const val leakCanaryVersion = "1.6.1"
 
         //Rx
-        const val coroutinesVersion = "1.1.1"
+        const val coroutinesVersion = "1.3.5"
 
         //Calendar
         const val threeTenAndroidVersion = "1.1.0"
@@ -88,8 +88,8 @@ object Dependencies {
         const val jUnitVersion = "4.12"
         const val espressoVersion = "3.1.0-alpha3"
         const val testingSupportLibVersion = "0.1"
-        const val mockitoKotlinVersion = "2.0.0"
-        const val mockitoAndroidVersion = "2.21.0"
+        const val mockitoKotlinVersion = "2.2.0"
+        const val mockitoAndroidVersion = "3.3.3"
         const val runnerVersion = "1.1.0-alpha3"
         const val kluentVersion = "1.47"
         const val jacocoVersion = "0.8.2"
@@ -100,7 +100,9 @@ object Dependencies {
         const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
         const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
-        const val threeTen = "com.jakewharton.threetenabp:threetenabp:$threeTenAndroidVersion"
+        const val threeTenJava = "org.threeten:threetenbp:$threeTenJavaVersion"
+        const val threeTenAndroid =
+            "com.jakewharton.threetenabp:threetenabp:$threeTenAndroidVersion"
         const val paging = "androidx.paging:paging-common:$lifecycleVersion"
         const val objectbox = "io.objectbox:objectbox-kotlin:$objectboxVersion"
 
@@ -114,6 +116,13 @@ object Dependencies {
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
         const val androidCoroutines =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+        const val testCoroutines =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+        const val junit = "junit:junit:$jUnitVersion"
+        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+        const val mockitoAndroid = "org.mockito:mockito-inline:$mockitoAndroidVersion"
+        const val kluent = "org.amshove.kluent:kluent:$kluentVersion"
     }
 }
 
@@ -127,11 +136,13 @@ fun DependencyHandler.implementNetworking() {
 }
 
 fun DependencyHandler.implementTesting() {
-    add("testImplementation", "junit:junit:$jUnitVersion")
-    add("testImplementation", "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
-    add("testImplementation", "org.amshove.kluent:kluent:$kluentVersion")
-    add("testImplementation", "org.mockito:mockito-inline:$mockitoAndroidVersion")
-    add("testImplementation", "org.threeten:threetenbp:$threeTenJavaVersion")
+    implementCommonTestUtils()
+    add("testImplementation", Dependencies.Libraries.kluent)
+    add("testImplementation", Dependencies.Libraries.junit)
+    add("testImplementation", Dependencies.Libraries.mockitoKotlin)
+    add("testImplementation", Dependencies.Libraries.mockitoAndroid)
+    add("testImplementation", Dependencies.Libraries.threeTenJava)
+    add("testImplementation", Dependencies.Libraries.testCoroutines)
 }
 
 fun DependencyHandler.implementObjectBoxTesting() {
@@ -205,7 +216,7 @@ fun DependencyHandler.implementDaggerAndroid() {
 }
 
 fun DependencyHandler.implementAppTesting() {
-    add("testImplementation", "org.amshove.kluent:kluent-android:$kluentVersion")
+    add("testImplementation", Dependencies.Libraries.kluent)
     add("testImplementation", "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion")
     add("testImplementation", "androidx.paging:paging-common-ktx:$pagingVersion")
     add("testImplementation", "androidx.arch.core:core-testing:$lifecycleVersion")
@@ -213,15 +224,20 @@ fun DependencyHandler.implementAppTesting() {
 }
 
 fun DependencyHandler.implementAppAndroidTesting() {
+    add("androidTestCompile", project(":testutils"))
     add("androidTestImplementation", "androidx.test.espresso:espresso-core:$espressoVersion")
     add("androidTestImplementation", "androidx.test.espresso:espresso-contrib:$espressoVersion")
     add("androidTestImplementation", "android.arch.work:work-testing:$workVersion")
     add("androidTestImplementation", "androidx.test:runner:$runnerVersion")
     add("androidTestImplementation", "androidx.test:rules:$runnerVersion")
-    add("androidTestImplementation", "org.mockito:mockito-android:$mockitoAndroidVersion")
-    add("androidTestImplementation", "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+    add("androidTestImplementation", Dependencies.Libraries.mockitoAndroid)
+    add("androidTestImplementation", Dependencies.Libraries.mockitoKotlin)
     add("androidTestImplementation", "com.squareup.okhttp3:mockwebserver:$okHttpVersion")
     add("androidTestImplementation", "androidx.arch.core:core-testing:$lifecycleVersion")
     add("androidTestImplementation", "com.google.dagger:dagger:$daggerVersion")
     add("androidTestImplementation", "com.github.fabioCollini.daggermock:daggermock-kotlin:$daggerMockVersion")
+}
+
+fun DependencyHandler.implementCommonTestUtils() {
+    add("testCompile", project(":testutils"))
 }

@@ -1,8 +1,9 @@
 package com.deividasstr.domain.usecases
 
-import com.deividasstr.domain.common.TestData
+
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.SweetsRepo
+import com.deividasstr.testutils.TestData
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions

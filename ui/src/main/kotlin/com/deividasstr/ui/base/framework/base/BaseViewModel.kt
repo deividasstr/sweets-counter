@@ -7,11 +7,11 @@ import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.ui.base.framework.SingleEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 
 abstract class BaseViewModel : ViewModel() {
 
-    private val job = Job()
+    private val job = SupervisorJob()
     protected val scope = CoroutineScope(job + Dispatchers.IO)
 
     protected var _errorMessage = MediatorLiveData<SingleEvent<Error>>()

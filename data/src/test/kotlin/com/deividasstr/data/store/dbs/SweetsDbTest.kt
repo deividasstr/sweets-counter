@@ -6,7 +6,7 @@ import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.monads.Either
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.runBlock
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test

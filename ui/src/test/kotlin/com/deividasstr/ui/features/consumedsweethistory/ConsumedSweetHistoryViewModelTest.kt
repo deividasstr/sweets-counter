@@ -2,16 +2,17 @@ package com.deividasstr.ui.features.consumedsweethistory
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.domain.common.TestData
-import com.deividasstr.domain.common.UnitTest
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
-import com.deividasstr.domain.utils.coGiven
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.TestData
+import com.deividasstr.testutils.UnitTest
+import com.deividasstr.testutils.coGiven
+import com.deividasstr.testutils.runBlock
 import com.deividasstr.utils.UiTestData
 import com.jraska.livedata.test
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.willReturn
 import kotlinx.coroutines.runBlocking
@@ -29,13 +30,16 @@ class ConsumedSweetHistoryViewModelTest : UnitTest() {
 
     @Mock
     lateinit var getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase
+
     @Mock
     lateinit var dateTimeHandler: DateTimeHandler
+
     @Mock
     lateinit var sharedPrefs: SharedPrefs
 
     @Before
     fun setUp() = runBlocking {
+        coGiven { getAllConsumedSweetsUseCase(any()) }.willCallRealMethod()
         coGiven { getAllConsumedSweetsUseCase.run() } willReturn {
             Either.Right(TestData.TEST_LIST_CONSUMED_SWEETS2)
         }

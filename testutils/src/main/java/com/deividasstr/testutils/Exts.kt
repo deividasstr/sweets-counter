@@ -1,4 +1,4 @@
-package com.deividasstr.domain.utils
+package com.deividasstr.testutils
 
 import com.nhaarman.mockitokotlin2.given
 import kotlinx.coroutines.CoroutineScope

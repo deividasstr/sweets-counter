@@ -4,7 +4,7 @@ import com.deividasstr.data.DataTestData
 import com.deividasstr.data.store.AbstractObjectBoxTest
 import com.deividasstr.data.store.models.ConsumedSweetDb
 import com.deividasstr.domain.monads.Either
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.runBlock
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
@@ -34,8 +34,9 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
     }
 
     @Test
-    fun shouldGetAllConsumedSweets_returnsEmptyList() = runBlock {
-        db.getAllConsumedSweets().getValue() shouldEqual emptyList<ConsumedSweetDb>()
-    }
+    fun shouldGetAllConsumedSweets_returnsEmptyList() =
+        runBlock {
+            db.getAllConsumedSweets().getValue() shouldEqual emptyList<ConsumedSweetDb>()
+        }
 }
 

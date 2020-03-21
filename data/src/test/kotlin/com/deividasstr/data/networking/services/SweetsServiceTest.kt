@@ -3,9 +3,9 @@ package com.deividasstr.data.networking.services
 import com.deividasstr.data.DataTestData
 import com.deividasstr.data.networking.apis.SweetsApi
 import com.deividasstr.data.networking.manager.NetworkManager
-import com.deividasstr.domain.common.UnitTest
-import com.deividasstr.domain.utils.coGiven
-import com.deividasstr.domain.utils.runBlock
+import com.deividasstr.testutils.UnitTest
+import com.deividasstr.testutils.coGiven
+import com.deividasstr.testutils.runBlock
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
@@ -23,6 +23,7 @@ class SweetsServiceTest : UnitTest() {
 
     @Mock
     private lateinit var sweetApi: SweetsApi
+
     @Mock
     private lateinit var networkManager: NetworkManager
 
