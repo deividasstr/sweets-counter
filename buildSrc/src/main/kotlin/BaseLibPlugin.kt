@@ -1,4 +1,4 @@
-import Dependencies.Versions.timberVersion
+
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -17,27 +17,27 @@ class BaseLibPlugin : Plugin<Project> {
 
 internal fun Project.configurePlugins() {
     plugins.apply("kotlin-android")
+    plugins.apply("kotlin-android-extensions")
     plugins.apply("kotlin-kapt")
 }
 
 internal fun Project.configureDependencies() = dependencies {
-    add("implementation", project(":domain"))
+    implementDomainModule()
     implementKotlin()
     add("implementation", Dependencies.Libraries.threeTenAndroid)
-    add("implementation", "com.jakewharton.timber:timber:$timberVersion")
-
-    implementCoroutines()
+    add("implementation", Dependencies.Libraries.timber)
+    add("implementation", Dependencies.Libraries.coreCoroutines)
     implementTesting()
 }
 
 fun Project.configureAndroid() {
     extensions.getByType<BaseExtension>().run {
-        compileSdkVersion(29)
+        compileSdkVersion(Dependencies.Versions.androidTargetSdkVersion)
         defaultConfig {
-            minSdkVersion(21)
-            targetSdkVersion(29)
-            versionCode = 5
-            versionName = "1.0.3"
+            minSdkVersion(Dependencies.Versions.androidMinSdkVersion)
+            targetSdkVersion(Dependencies.Versions.androidTargetSdkVersion)
+            versionCode = Dependencies.Versions.versionCode
+            versionName = Dependencies.Versions.versionName
             testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         }
 

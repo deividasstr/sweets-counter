@@ -2,7 +2,6 @@ package com.deividasstr.data.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
 import com.deividasstr.domain.entities.enums.MeasurementUnit
 import com.deividasstr.domain.entities.models.Error
@@ -11,7 +10,6 @@ import com.deividasstr.domain.repositories.PrefsRepo
 import javax.inject.Singleton
 
 @Singleton
-@DebugOpenClass
 class SharedPrefs(private val ctx: Context) : PrefsRepo {
 
     companion object {

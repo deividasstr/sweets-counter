@@ -1,6 +1,5 @@
 package com.deividasstr.domain.entities
 
-import com.deividasstr.domain.utils.OpenClass
 import org.threeten.bp.Clock
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
@@ -11,7 +10,6 @@ import org.threeten.bp.format.FormatStyle
 import java.util.Locale
 
 // All time calculations happen in epochSeconds!!!
-@OpenClass
 class DateTimeHandler {
 
     fun currentEpochSecs(): Long = Instant.now(Clock.systemDefaultZone()).epochSecond

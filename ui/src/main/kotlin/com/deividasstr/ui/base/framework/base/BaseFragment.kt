@@ -9,13 +9,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation.findNavController
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.extensions.observe
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-@DebugOpenClass
 abstract class BaseFragment<VB : ViewDataBinding, VM : BaseViewModel> : DaggerFragment() {
 
     abstract fun getViewModelClass(): Class<VM>

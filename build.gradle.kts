@@ -15,29 +15,17 @@ buildscript {
     }
 
     dependencies {
-        classpath(Dependencies.Libraries.buildGradle)
-        classpath(Dependencies.Libraries.gradlePlugin)
-
-        classpath(Dependencies.Libraries.objectboxGradlePlugin)
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Dependencies.Versions.navigationVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:${Dependencies.Versions.kotlinVersion}")
-        classpath("com.google.firebase:perf-plugin:1.3.1")
-        classpath("io.fabric.tools:gradle:1.31.1")
-        classpath("com.google.gms:google-services:4.3.3")
+        classpath(Dependencies.Plugins.androidGradle)
+        classpath(Dependencies.Plugins.kotlinGradle)
+        classpath(Dependencies.Plugins.objectboxGradle)
+        classpath(Dependencies.Plugins.navigationSafeArgs)
+        classpath(Dependencies.Plugins.firebasePerf)
+        classpath(Dependencies.Plugins.fabric)
+        classpath(Dependencies.Plugins.googleServices)
     }
 }
 
-plugins {
-    //id("com.palantir.jacoco-full-report") version ("0.4.0")
-    id("de.fayard.refreshVersions") version "0.7.0"
-}
-
-//http://engineering.rallyhealth.com/android/code-coverage/testing/2018/06/04/android-code-coverage.html
-//apply from: rootProject.file("jacoco.gradle")
-
 allprojects {
-    //val ktlint = "com.github.shyiko:ktlint:0.29.0"
-
     repositories {
         google()
         jcenter()

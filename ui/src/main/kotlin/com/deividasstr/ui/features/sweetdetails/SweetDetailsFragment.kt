@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.transition.TransitionInflater
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.base.BaseActivity
@@ -15,7 +14,6 @@ import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.databinding.FragmentSweetDetailsBinding
 import kotlinx.android.synthetic.main.fragment_sweet_details.*
 
-@DebugOpenClass
 class SweetDetailsFragment : BaseFragment<FragmentSweetDetailsBinding, SweetDetailsViewModel>() {
 
     companion object {

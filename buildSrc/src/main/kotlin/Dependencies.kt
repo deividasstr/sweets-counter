@@ -1,14 +1,18 @@
+
 import Dependencies.Libraries.androidCoroutines
 import Dependencies.Libraries.coreCoroutines
-import Dependencies.Libraries.kotlinReflect
-import Dependencies.Libraries.kotlinStandardLibrary
+import Dependencies.Libraries.retrofit
+import Dependencies.Versions.androidGradlePluginVersion
+import Dependencies.Versions.androidxKtxVersion
 import Dependencies.Versions.appCompatVersion
 import Dependencies.Versions.constraintLayoutVersion
 import Dependencies.Versions.coroutinesVersion
 import Dependencies.Versions.daggerMockVersion
 import Dependencies.Versions.daggerVersion
 import Dependencies.Versions.espressoVersion
-import Dependencies.Versions.gradleVersion
+import Dependencies.Versions.fabricVersion
+import Dependencies.Versions.firebasePerfVersion
+import Dependencies.Versions.googleServicesVersion
 import Dependencies.Versions.jUnitVersion
 import Dependencies.Versions.kluentVersion
 import Dependencies.Versions.kotlinVersion
@@ -31,23 +35,27 @@ import Dependencies.Versions.supportLibraryVersion
 import Dependencies.Versions.threeTenAndroidVersion
 import Dependencies.Versions.threeTenJavaVersion
 import Dependencies.Versions.tickerVersion
+import Dependencies.Versions.timberVersion
 import Dependencies.Versions.workVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.project
 
 object Dependencies {
 
     object Versions {
 
+        //app
+        const val versionCode = 5
+        const val versionName = "1.0.3"
+
         //base gradle
-        const val kotlinVersion = "1.3.50"
+        const val kotlinVersion = "1.3.70"
         const val objectboxVersion = "2.2.0"
-        const val gradleVersion = "3.5.2"
 
         //Android
         const val androidMinSdkVersion = 21
         const val androidTargetSdkVersion = 29
-        const val androidCompileSdkVersion = 29
 
         //Framework
         const val lifecycleVersion = "2.0.0"
@@ -56,11 +64,16 @@ object Dependencies {
         const val workVersion = "1.0.0-beta01"
         const val materialVersion = "1.0.0"
         const val navigationVersion = "2.2.0-rc02"
-        const val androidXVersion = "1.0.0"
         const val pagingVersion = "2.1.0-rc01"
+
+        //Firebase
+        const val firebasePerfVersion = "1.3.1"
+        const val fabricVersion = "1.31.1"
+        const val googleServicesVersion = "4.3.3"
 
         //Other
         const val daggerVersion = "2.19"
+        const val androidxKtxVersion = "1.2.0"
         const val okHttpVersion = "3.12.0"
         const val retrofitVersion = "2.5.1-SNAPSHOT"
         const val glideVersion = "4.0.0"
@@ -92,25 +105,21 @@ object Dependencies {
         const val mockitoAndroidVersion = "3.3.3"
         const val runnerVersion = "1.1.0-alpha3"
         const val kluentVersion = "1.47"
-        const val jacocoVersion = "0.8.2"
         const val livedataTestVersion = "1.0.0"
+        const val androidGradlePluginVersion = "3.6.1"
     }
 
     object Libraries {
-        const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-        const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
+        const val androidxKtx = "androidx.core:core-ktx:$androidxKtxVersion"
         const val threeTenJava = "org.threeten:threetenbp:$threeTenJavaVersion"
         const val threeTenAndroid =
             "com.jakewharton.threetenabp:threetenabp:$threeTenAndroidVersion"
         const val paging = "androidx.paging:paging-common:$lifecycleVersion"
         const val objectbox = "io.objectbox:objectbox-kotlin:$objectboxVersion"
 
-        const val buildGradle = "com.android.tools.build:gradle:$gradleVersion"
-        const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        const val objectboxGradlePlugin = "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-
         const val annotations = "androidx.annotation:annotation:$supportLibraryVersion"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
         const val coreCoroutines =
             "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
@@ -123,11 +132,22 @@ object Dependencies {
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
         const val mockitoAndroid = "org.mockito:mockito-inline:$mockitoAndroidVersion"
         const val kluent = "org.amshove.kluent:kluent:$kluentVersion"
+        const val timber = "com.jakewharton.timber:timber:$timberVersion"
+    }
+
+    object Plugins {
+        const val androidGradle = "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        const val objectboxGradle = "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        const val firebasePerf = "com.google.firebase:perf-plugin:$firebasePerfVersion"
+        const val fabric = "io.fabric.tools:gradle:$fabricVersion"
+        const val googleServices = "com.google.gms:google-services:$googleServicesVersion"
     }
 }
 
 fun DependencyHandler.implementNetworking() {
-    add("implementation", "com.squareup.retrofit2:retrofit:$retrofitVersion")
+    add("implementation", retrofit)
     add("implementation", "com.squareup.retrofit2:converter-moshi:$retrofitVersion")
     add("implementation", "com.squareup.moshi:moshi:$moshiVersion")
     add("implementation", "com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
@@ -157,8 +177,7 @@ fun DependencyHandler.implementCoroutines() {
 }
 
 fun DependencyHandler.implementKotlin() {
-    add("implementation", kotlinStandardLibrary)
-    add("implementation", kotlinReflect)
+    add("implementation", kotlin("stdlib"))
 }
 
 fun DependencyHandler.implementDagger() {
@@ -175,6 +194,7 @@ fun DependencyHandler.implementAndroidCoreLibs() {
     add("implementation", "androidx.appcompat:appcompat:$appCompatVersion")
     add("implementation", "com.google.android.material:material:$materialVersion")
     add("implementation", "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+    add("implementation", Dependencies.Libraries.androidxKtx)
 }
 
 fun DependencyHandler.implementLifecycle() {
@@ -240,4 +260,8 @@ fun DependencyHandler.implementAppAndroidTesting() {
 
 fun DependencyHandler.implementCommonTestUtils() {
     add("testCompile", project(":testutils"))
+}
+
+fun DependencyHandler.implementDomainModule() {
+    add("implementation", project(":domain"))
 }

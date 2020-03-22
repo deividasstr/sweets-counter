@@ -1,6 +1,5 @@
 package com.deividasstr.ui.base.di.modules
 
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.ui.base.di.scopes.addconsumedsweet.AddConsumedSweetScope
 import com.deividasstr.ui.base.di.scopes.consumedsweetdata.ConsumedSweetDataScope
 import com.deividasstr.ui.base.di.scopes.consumedsweethistory.ConsumedSweetHistoryScope
@@ -17,7 +16,6 @@ import com.deividasstr.ui.features.sweetsearchlist.SweetsSearchListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@DebugOpenClass
 @Module
 internal abstract class FragmentModule {
 

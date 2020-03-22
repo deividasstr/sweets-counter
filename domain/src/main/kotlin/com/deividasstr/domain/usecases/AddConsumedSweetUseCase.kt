@@ -5,9 +5,7 @@ import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.framework.ParamsUseCase
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
-import com.deividasstr.domain.utils.OpenClass
 
-@OpenClass
 class AddConsumedSweetUseCase(private val repo: ConsumedSweetsRepo) :
     ParamsUseCase<Either.None, ConsumedSweet> {
 

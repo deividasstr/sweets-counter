@@ -1,4 +1,4 @@
-import Dependencies.Versions.retrofitVersion
+
 import Properties.BASE_API_URL
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import java.io.FileInputStream
@@ -7,29 +7,12 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("baselibplugin")
-    id("kotlin-android-extensions")
+    `kotlin-android-extensions`
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
     id("com.google.firebase.firebase-perf")
-    id("kotlin-allopen")
     id("com.google.gms.google-services")
 }
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-allopen:1.3.50")
-    }
-}
-
-allOpen {
-    annotation("com.deividasstr.data.utils.OpenClass")
-}
-
-//enableJacoco(project, "Debug")
 
 android {
     val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -52,18 +35,15 @@ android {
         animationsDisabled = true
         unitTests.isIncludeAndroidResources = true
     }
-
-    setSourceSets()
-
     androidExtensions.isExperimental = true
+    setSourceSets()
 }
 
 dependencies {
     implementation(project(":data"))
     implementation(project(":MPChartLib"))
 
-    implementation ("androidx.core:core-ktx:1.1.0")
-    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation (Dependencies.Libraries.retrofit) //FIXME: Make sure it is removed from here
 
     implementAndroidCoreLibs()
     implementUiWidgets()

@@ -6,7 +6,6 @@ import com.deividasstr.data.networking.apis.SweetsApi
 import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.networking.services.FactsService
 import com.deividasstr.data.networking.services.SweetsService
-import com.deividasstr.data.utils.DebugOpenClass
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -18,7 +17,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-@DebugOpenClass
 class NetworkModule(private val baseUrl: String) {
 
     @Singleton

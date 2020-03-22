@@ -3,7 +3,6 @@ package com.deividasstr.ui.features.consumedsweethistory
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.deividasstr.data.prefs.SharedPrefs
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.models.ConsumedSweet
 import com.deividasstr.domain.entities.models.Error
@@ -14,7 +13,6 @@ import com.deividasstr.ui.base.models.toConsumedSweetUis
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@DebugOpenClass
 class ConsumedSweetHistoryViewModel
 @Inject constructor(
     private val getAllConsumedSweetsUseCase: GetAllConsumedSweetsUseCase,

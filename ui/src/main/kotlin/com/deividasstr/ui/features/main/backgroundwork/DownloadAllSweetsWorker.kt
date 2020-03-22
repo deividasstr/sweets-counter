@@ -11,8 +11,7 @@ class DownloadAllSweetsWorker(
     private val downloadAllSweetsUseCase: DownloadAllSweetsUseCase,
     context: Context,
     configuration: WorkerParameters
-) :
-    CoroutineWorker(context, configuration) {
+) : CoroutineWorker(context, configuration) {
 
     private lateinit var result: Result
 

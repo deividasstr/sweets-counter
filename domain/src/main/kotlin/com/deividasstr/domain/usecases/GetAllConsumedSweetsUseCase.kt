@@ -5,9 +5,7 @@ import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.framework.NoParamsUseCase
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.ConsumedSweetsRepo
-import com.deividasstr.domain.utils.OpenClass
 
-@OpenClass
 class GetAllConsumedSweetsUseCase(private val repo: ConsumedSweetsRepo) :
     NoParamsUseCase<List<ConsumedSweet>> {
 

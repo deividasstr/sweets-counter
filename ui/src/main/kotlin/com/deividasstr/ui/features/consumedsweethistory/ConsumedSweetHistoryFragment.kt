@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.findNavController
 import com.crashlytics.android.Crashlytics
-import com.deividasstr.data.utils.DebugOpenClass
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.FabSetter
@@ -13,7 +12,6 @@ import com.deividasstr.ui.base.framework.extensions.observe
 import com.deividasstr.ui.databinding.FragmentConsumedSweetHistoryBinding
 import javax.inject.Inject
 
-@DebugOpenClass
 class ConsumedSweetHistoryFragment :
     BaseFragment<FragmentConsumedSweetHistoryBinding, ConsumedSweetHistoryViewModel>() {
 
