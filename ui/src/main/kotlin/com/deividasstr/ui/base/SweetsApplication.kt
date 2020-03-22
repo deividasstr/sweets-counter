@@ -12,8 +12,8 @@ import com.deividasstr.ui.base.di.DaggerAppComponent
 import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class SweetsApplication : BaseApplication() {
 

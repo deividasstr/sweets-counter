@@ -41,7 +41,6 @@ class YAxisSplitStringRenderer(
             val splitTexts = text.split("\n")
             Timber.d("aaaaa $splitTexts")
 
-
             c.drawText(
                 splitTexts[0],
                 fixedPosition + textSize,

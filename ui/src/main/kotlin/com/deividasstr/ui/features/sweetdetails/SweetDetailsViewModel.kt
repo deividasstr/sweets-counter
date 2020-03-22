@@ -13,9 +13,9 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.base.models.toSweet
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class SweetDetailsViewModel
 @Inject constructor(

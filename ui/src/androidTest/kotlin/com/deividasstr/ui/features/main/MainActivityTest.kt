@@ -36,7 +36,7 @@ class MainActivityTest : AndroidTest() {
     @Before
     fun setUp() {
         app.appComponent.inject(this)
-        given { networkManager.networkAvailable } willReturn  { false }
+        given { networkManager.networkAvailable } willReturn { false }
         activityRule.launchActivity(null)
     }
 

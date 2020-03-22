@@ -2,7 +2,6 @@ package com.deividasstr.utils
 
 import com.deividasstr.data.store.models.FactDb
 import com.deividasstr.data.store.models.SweetDb
-
 import com.deividasstr.testutils.TestData
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.FactUi

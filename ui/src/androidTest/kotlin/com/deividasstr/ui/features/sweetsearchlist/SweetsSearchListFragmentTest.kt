@@ -20,13 +20,13 @@ import com.deividasstr.utils.UiTestData
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willReturn
 import it.cosenonjaviste.daggermock.DaggerMockRule
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import javax.inject.Inject
 
 class SweetsSearchListFragmentTest : AndroidTest() {
 

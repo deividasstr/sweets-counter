@@ -2,9 +2,9 @@ package com.deividasstr.ui.features.consumedsweetdata.charts
 
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import java.util.Locale
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.format.TextStyle
-import java.util.Locale
 
 class WeekXAxisFormatter : IAxisValueFormatter {
 

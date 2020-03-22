@@ -33,18 +33,14 @@ class FactRepoImplTest : UnitTest() {
 
     @Test
     fun shouldGetRandomFact() = runBlock {
-       coGiven { factsDb.getRandomFact(1) }
-            .willReturn(Either.Right(DataTestData.TEST_FACTMODEL_1))
-
+        coGiven { factsDb.getRandomFact(1) }.willReturn(Either.Right(DataTestData.TEST_FACTMODEL_1))
         factRepo.getRandomFact(1).getValue() shouldEqual TestData.TEST_FACT_1
     }
 
     @Test
     fun shouldDownloadAllFactsAndSave() = runBlock {
-        coGiven { factsService.getAllFacts() }
-            .willReturn(Either.Right(DataTestData.TEST_FACT_LIST))
-        coGiven { factsDb.addFacts(any()) }
-            .willReturn(Either.Right(Either.None()))
+        coGiven { factsService.getAllFacts() }.willReturn(Either.Right(DataTestData.TEST_FACT_LIST))
+        coGiven { factsDb.addFacts(any()) }.willReturn(Either.Right(Either.None()))
 
         factRepo.downloadAllFactsAndSave() shouldEqual Either.Right(Either.None())
 

@@ -1,11 +1,11 @@
 package com.deividasstr.testutils
 
 import com.nhaarman.mockitokotlin2.given
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 import org.mockito.BDDMockito
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 fun <T> coGiven(methodCall: suspend () -> T): BDDMockito.BDDMyOngoingStubbing<T> {
     return given(runBlocking { methodCall() })

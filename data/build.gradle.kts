@@ -8,7 +8,7 @@ dependencies {
     implementNetworking()
     implementDagger()
 
-    implementation(Dependencies.Libraries.paging) //FIXME: remove?
+    implementation(Dependencies.Libraries.paging) // FIXME: remove?
     implementation(Dependencies.Libraries.objectbox)
 
     androidTestImplementation(Dependencies.Libraries.annotations)

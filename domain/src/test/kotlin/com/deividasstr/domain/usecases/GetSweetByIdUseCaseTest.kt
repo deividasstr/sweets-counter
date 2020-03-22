@@ -1,6 +1,5 @@
 package com.deividasstr.domain.usecases
 
-
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.SweetsRepo
 import com.deividasstr.testutils.TestData

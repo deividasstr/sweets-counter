@@ -3,10 +3,10 @@ package com.deividasstr.data.store
 import com.deividasstr.data.store.models.MyObjectBox
 import com.deividasstr.testutils.UnitTest
 import io.objectbox.BoxStore
-import org.junit.After
-import org.junit.Before
 import java.io.File
 import java.io.IOException
+import org.junit.After
+import org.junit.Before
 
 abstract class AbstractObjectBoxTest : UnitTest() {
     private lateinit var boxStoreDir: File

@@ -11,7 +11,8 @@ interface BaseNetworkService {
         networkAvailable: Boolean,
         call: Response<T>,
         transform: (T) -> E,
-        default: T): Either<Error, E> {
+        default: T
+    ): Either<Error, E> {
 
         if (!networkAvailable)
             return Either.Left(Error(R.string.error_network_unavailable))

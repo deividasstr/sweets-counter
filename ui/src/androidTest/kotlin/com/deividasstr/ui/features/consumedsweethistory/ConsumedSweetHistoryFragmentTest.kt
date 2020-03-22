@@ -2,9 +2,8 @@ package com.deividasstr.ui.features.consumedsweethistory
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.rule.ActivityTestRule
-
-import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.domain.entities.DateTimeHandler
+import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.testutils.TestData
 import com.deividasstr.ui.R
 import com.deividasstr.ui.utils.AndroidTest
@@ -12,12 +11,12 @@ import com.deividasstr.ui.utils.TestActivity
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.willReturn
 import io.reactivex.Single
+import java.math.BigDecimal
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import java.math.BigDecimal
 
 class ConsumedSweetHistoryFragmentTest : AndroidTest() {
 

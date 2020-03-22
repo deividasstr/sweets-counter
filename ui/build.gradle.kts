@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":MPChartLib"))
 
-    implementation (Dependencies.Libraries.retrofit) //FIXME: Make sure it is removed from here
+    implementation(Dependencies.Libraries.retrofit) // FIXME: Make sure it is removed from here
 
     implementAndroidCoreLibs()
     implementUiWidgets()

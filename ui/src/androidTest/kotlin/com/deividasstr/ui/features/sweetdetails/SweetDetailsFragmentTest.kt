@@ -59,7 +59,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
         given { sharedPrefs.defaultMeasurementUnit } willReturn { MeasurementUnit.GRAM }
 
         coGiven { getSweetByIdUseCase.run(UiTestData.TEST_SWEETMODEL.id) } willReturn {
-           SUiTestData.TEST_SWEETMODEL.toSweet()
+            SUiTestData.TEST_SWEETMODEL.toSweet()
         }
 
         given { getSweetByIdUseCase.execute(UiTestData.TEST_SWEETMODEL2.id) } willReturn {

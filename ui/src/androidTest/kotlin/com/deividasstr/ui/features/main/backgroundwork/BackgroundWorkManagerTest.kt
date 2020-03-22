@@ -19,6 +19,7 @@ import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import com.nhaarman.mockito_kotlin.willReturn
 import io.reactivex.Completable
 import it.cosenonjaviste.daggermock.DaggerMockRule
+import javax.inject.Inject
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Buffer
@@ -27,7 +28,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import javax.inject.Inject
 
 class BackgroundWorkManagerTest : AndroidTest() {
 

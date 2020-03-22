@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.deividasstr.ui.base.framework.FabSetter
 import com.deividasstr.ui.base.framework.extensions.alert
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
 

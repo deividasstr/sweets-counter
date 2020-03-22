@@ -6,4 +6,5 @@ import javax.inject.Inject
 
 class AddConsumedSweetViewModel
 @Inject constructor(
-    private val addConsumedSweetUseCase: AddConsumedSweetUseCase) : BaseViewModel()
+    private val addConsumedSweetUseCase: AddConsumedSweetUseCase
+) : BaseViewModel()

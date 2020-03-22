@@ -105,7 +105,6 @@ object Dependencies {
         const val daggerMockVersion = "0.8.4"
         const val jUnitVersion = "4.12"
         const val espressoVersion = "3.1.0-alpha3"
-        const val testingSupportLibVersion = "0.1"
         const val mockitoKotlinVersion = "2.2.0"
         const val mockitoAndroidVersion = "3.3.3"
         const val runnerVersion = "1.1.0-alpha3"
@@ -118,20 +117,15 @@ object Dependencies {
 
         const val androidxKtx = "androidx.core:core-ktx:$androidxKtxVersion"
         const val threeTenJava = "org.threeten:threetenbp:$threeTenJavaVersion"
-        const val threeTenAndroid =
-            "com.jakewharton.threetenabp:threetenabp:$threeTenAndroidVersion"
+        const val threeTenAndroid = "com.jakewharton.threetenabp:threetenabp:$threeTenAndroidVersion"
         const val paging = "androidx.paging:paging-common:$lifecycleVersion"
         const val objectbox = "io.objectbox:objectbox-kotlin:$objectboxVersion"
-
         const val annotations = "androidx.annotation:annotation:$supportLibraryVersion"
         const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
-        const val coreCoroutines =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-        const val androidCoroutines =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-        const val testCoroutines =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+        const val coreCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+        const val androidCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+        const val testCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
         const val junit = "junit:junit:$jUnitVersion"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
@@ -183,7 +177,7 @@ fun DependencyHandler.implementCoroutines() {
 }
 
 fun DependencyHandler.apiKotlin() {
-    add("api", kotlin("stdlib"))
+    add("api", kotlin("stdlib-jdk8"))
 }
 
 fun DependencyHandler.implementDagger() {

@@ -1,8 +1,8 @@
 package com.deividasstr.domain.usecases
 
-import com.deividasstr.testutils.UnitTest
 import com.deividasstr.domain.monads.Either
 import com.deividasstr.domain.repositories.FactRepo
+import com.deividasstr.testutils.UnitTest
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.willReturn
 import kotlinx.coroutines.runBlocking

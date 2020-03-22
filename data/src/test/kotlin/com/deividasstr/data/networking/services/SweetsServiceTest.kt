@@ -46,7 +46,6 @@ class SweetsServiceTest : UnitTest() {
 
         verify(sweetApi).getAllSweets()
         verifyNoMoreInteractions(sweetApi)
-
     }
 
     @Test
@@ -62,6 +61,5 @@ class SweetsServiceTest : UnitTest() {
 
         verify(sweetApi).getNewSweets(any())
         verifyNoMoreInteractions(sweetApi)
-
     }
 }

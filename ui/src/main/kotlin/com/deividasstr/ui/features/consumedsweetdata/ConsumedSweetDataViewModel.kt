@@ -8,8 +8,8 @@ import com.deividasstr.domain.usecases.GetAllConsumedSweetsUseCase
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.ConsumedSweetUi
 import com.deividasstr.ui.base.models.toConsumedSweetUis
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class ConsumedSweetDataViewModel
 @Inject constructor(

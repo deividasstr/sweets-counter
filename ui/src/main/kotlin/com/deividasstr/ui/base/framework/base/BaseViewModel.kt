@@ -19,7 +19,6 @@ abstract class BaseViewModel : ViewModel() {
     val errorMessage: LiveData<SingleEvent<Error>>
         get() = _errorMessage
 
-
     override fun onCleared() {
         super.onCleared()
         job.cancel()

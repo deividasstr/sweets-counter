@@ -6,8 +6,8 @@ import com.deividasstr.domain.entities.models.Fact
 import com.deividasstr.domain.usecases.GetRandomFactUseCase
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.FactUi
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class FactsViewModel
 @Inject constructor(private val getRandomFactUseCase: GetRandomFactUseCase) : BaseViewModel() {

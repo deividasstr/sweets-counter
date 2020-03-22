@@ -21,12 +21,12 @@ import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.nhaarman.mockitokotlin2.willReturn
+import kotlin.math.roundToLong
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Spy
-import kotlin.math.roundToLong
 
 class ConsumedDataPeriodViewModelTest : UnitTest() {
 

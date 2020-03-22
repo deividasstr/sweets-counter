@@ -39,4 +39,3 @@ class ConsumedSweetsDbTest : AbstractObjectBoxTest() {
             db.getAllConsumedSweets().getValue() shouldEqual emptyList<ConsumedSweetDb>()
         }
 }
-

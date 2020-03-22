@@ -29,6 +29,8 @@ import com.deividasstr.ui.utils.di.TestApplication
 import io.objectbox.BoxStore
 import it.cosenonjaviste.daggermock.DaggerMock
 import it.cosenonjaviste.daggermock.DaggerMockRule
+import java.io.File
+import java.util.concurrent.TimeoutException
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.containsString
@@ -36,8 +38,6 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Ignore
 import org.junit.runner.RunWith
 import retrofit2.Retrofit
-import java.io.File
-import java.util.concurrent.TimeoutException
 
 @RunWith(AndroidJUnit4::class)
 @Ignore

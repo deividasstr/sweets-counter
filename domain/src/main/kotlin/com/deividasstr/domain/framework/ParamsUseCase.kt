@@ -24,7 +24,8 @@ interface ParamsUseCase<out Type : Any, in Params> {
 
     suspend operator fun invoke(
         params: Params,
-        onResult: (Either<Error, Type>) -> Unit = {}) {
+        onResult: (Either<Error, Type>) -> Unit = {}
+    ) {
         onResult(run(params))
     }
 }
