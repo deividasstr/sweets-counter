@@ -1,4 +1,3 @@
-
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -25,7 +24,11 @@ buildscript {
     }
 }
 
+plugins { ktlint() }
+
 allprojects {
+    setKtLint()
+
     repositories {
         google()
         jcenter()
@@ -53,4 +56,9 @@ allprojects {
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
+}
+
+fun Project.setKtLint() {
+    apply(plugin = Dependencies.Plugins.ktLint)
+    ktlint { debug.set(true) }
 }

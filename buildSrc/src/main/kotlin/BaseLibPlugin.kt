@@ -23,10 +23,6 @@ internal fun Project.configurePlugins() {
 
 internal fun Project.configureDependencies() = dependencies {
     implementDomainModule()
-    implementKotlin()
-    add("implementation", Dependencies.Libraries.threeTenAndroid)
-    add("implementation", Dependencies.Libraries.timber)
-    add("implementation", Dependencies.Libraries.coreCoroutines)
     implementTesting()
 }
 
@@ -46,14 +42,6 @@ fun Project.configureAndroid() {
                 isMinifyEnabled = false
                 proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             }
-
-            getByName("debug") {
-                isTestCoverageEnabled = true
-            }
-        }
-
-        packagingOptions {
-            exclude("META-INF/NOTICE.txt")
         }
 
         compileOptions {

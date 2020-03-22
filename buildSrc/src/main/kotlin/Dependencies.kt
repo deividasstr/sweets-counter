@@ -2,6 +2,7 @@
 import Dependencies.Libraries.androidCoroutines
 import Dependencies.Libraries.coreCoroutines
 import Dependencies.Libraries.retrofit
+import Dependencies.Plugins.ktLint
 import Dependencies.Versions.androidGradlePluginVersion
 import Dependencies.Versions.androidxKtxVersion
 import Dependencies.Versions.appCompatVersion
@@ -16,6 +17,7 @@ import Dependencies.Versions.googleServicesVersion
 import Dependencies.Versions.jUnitVersion
 import Dependencies.Versions.kluentVersion
 import Dependencies.Versions.kotlinVersion
+import Dependencies.Versions.ktLintVersion
 import Dependencies.Versions.leakCanaryVersion
 import Dependencies.Versions.lifecycleVersion
 import Dependencies.Versions.livedataTestVersion
@@ -40,6 +42,9 @@ import Dependencies.Versions.workVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.project
+import org.gradle.kotlin.dsl.version
+import org.gradle.plugin.use.PluginDependencySpec
+
 
 object Dependencies {
 
@@ -76,7 +81,7 @@ object Dependencies {
         const val androidxKtxVersion = "1.2.0"
         const val okHttpVersion = "3.12.0"
         const val retrofitVersion = "2.5.1-SNAPSHOT"
-        const val glideVersion = "4.0.0"
+        const val ktLintVersion = "9.2.1"
         const val moshiVersion = "1.6.0"
 
         //Debugging
@@ -143,6 +148,7 @@ object Dependencies {
         const val firebasePerf = "com.google.firebase:perf-plugin:$firebasePerfVersion"
         const val fabric = "io.fabric.tools:gradle:$fabricVersion"
         const val googleServices = "com.google.gms:google-services:$googleServicesVersion"
+        const val ktLint = "org.jlleitschuh.gradle.ktlint"
     }
 }
 
@@ -176,8 +182,8 @@ fun DependencyHandler.implementCoroutines() {
     add("implementation", androidCoroutines)
 }
 
-fun DependencyHandler.implementKotlin() {
-    add("implementation", kotlin("stdlib"))
+fun DependencyHandler.apiKotlin() {
+    add("api", kotlin("stdlib"))
 }
 
 fun DependencyHandler.implementDagger() {
@@ -265,3 +271,8 @@ fun DependencyHandler.implementCommonTestUtils() {
 fun DependencyHandler.implementDomainModule() {
     add("implementation", project(":domain"))
 }
+
+fun org.gradle.plugin.use.PluginDependenciesSpec.ktlint(): PluginDependencySpec {
+    return id (ktLint) version ktLintVersion
+}
+
