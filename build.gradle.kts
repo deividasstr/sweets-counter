@@ -24,7 +24,9 @@ buildscript {
     }
 }
 
-plugins { ktlint() }
+plugins {
+    ktlint()
+}
 
 allprojects {
     setKtLint()

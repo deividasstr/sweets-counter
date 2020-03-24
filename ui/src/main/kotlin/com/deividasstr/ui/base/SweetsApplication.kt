@@ -11,9 +11,8 @@ import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
 import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.squareup.leakcanary.LeakCanary
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 class SweetsApplication : BaseApplication() {
 
@@ -27,17 +26,12 @@ class SweetsApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return
-        }
-
         appComponent.inject(this)
 
         AndroidThreeTen.init(this)
         initWorkManager()
 
         if (BuildConfig.DEBUG) {
-            LeakCanary.install(this)
             Timber.plant(Timber.DebugTree())
             Handler().postAtFrontOfQueue(::initStrictMode)
             initStrictMode()

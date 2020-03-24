@@ -10,20 +10,29 @@
       "properties": [
         {
           "id": "1:3961561684724543021",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:5937141450121825685",
+          "name": "sweetId",
           "indexId": "2:8874293342574499010",
-          "name": "sweetId"
+          "type": 11,
+          "flags": 524,
+          "relationTarget": "SweetDb"
         },
         {
           "id": "4:3559396880575774794",
-          "name": "date"
+          "name": "date",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "5:7400809014350005681",
-          "name": "g"
+          "name": "g",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []
@@ -35,31 +44,44 @@
       "properties": [
         {
           "id": "1:7485985787057538040",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:6953072180682464676",
-          "name": "name"
+          "name": "name",
+          "type": 9
         },
         {
           "id": "5:5662202998099344141",
-          "name": "fatG"
+          "name": "fatG",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "6:4786410285093916373",
-          "name": "carbsG"
+          "name": "carbsG",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "7:6264130894987184665",
-          "name": "proteinG"
+          "name": "proteinG",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "9:2315202229660221517",
-          "name": "sugarG"
+          "name": "sugarG",
+          "type": 8,
+          "flags": 4
         },
         {
           "id": "10:3334290800366325640",
-          "name": "calsPer100"
+          "name": "calsPer100",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []
@@ -71,11 +93,14 @@
       "properties": [
         {
           "id": "1:5167597839227896950",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 129
         },
         {
           "id": "2:2539205605187749590",
-          "name": "text"
+          "name": "text",
+          "type": 9
         }
       ],
       "relations": []
@@ -85,8 +110,8 @@
   "lastIndexId": "2:8874293342574499010",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     4197684925020745054,
     6613061620204035198,
