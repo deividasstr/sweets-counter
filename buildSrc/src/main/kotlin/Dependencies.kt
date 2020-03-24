@@ -1,4 +1,3 @@
-
 import Dependencies.Libraries.androidCoroutines
 import Dependencies.Libraries.coreCoroutines
 import Dependencies.Libraries.retrofit
@@ -15,7 +14,6 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 import org.gradle.kotlin.dsl.version
 import org.gradle.plugin.use.PluginDependencySpec
-
 
 object Dependencies {
 
@@ -62,7 +60,8 @@ object Dependencies {
         const val androidGradle = "com.android.tools.build:gradle:$androidGradlePluginVersion"
         const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         const val objectboxGradle = "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-        const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        const val navigationSafeArgs =
+            "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         const val firebasePerf = "com.google.firebase:perf-plugin:$firebasePerfVersion"
         const val fabric = "io.fabric.tools:gradle:$fabricVersion"
         const val googleServices = "com.google.gms:google-services:$googleServicesVersion"
@@ -190,5 +189,5 @@ fun DependencyHandler.implementDomainModule() {
 }
 
 fun org.gradle.plugin.use.PluginDependenciesSpec.ktlint(): PluginDependencySpec {
-    return id (ktLint) version ktLintVersion
+    return id(ktLint) version ktLintVersion
 }

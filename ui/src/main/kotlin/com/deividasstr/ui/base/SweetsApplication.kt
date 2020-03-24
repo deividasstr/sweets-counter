@@ -11,17 +11,19 @@ import com.deividasstr.ui.base.di.AppComponent
 import com.deividasstr.ui.base.di.DaggerAppComponent
 import com.deividasstr.ui.base.framework.base.BaseApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 class SweetsApplication : BaseApplication() {
 
-    @Inject lateinit var workersFactory: WorkerFactory
+    @Inject
+    lateinit var workersFactory: WorkerFactory
 
-    override val appComponent: AppComponent by lazy { DaggerAppComponent.builder()
-        .application(this)
-        .network(NetworkModule(BuildConfig.BASE_API_URL))
-        .build()
+    override val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder()
+            .application(this)
+            .network(NetworkModule(BuildConfig.BASE_API_URL))
+            .build()
     }
 
     override fun onCreate() {
@@ -46,10 +48,11 @@ class SweetsApplication : BaseApplication() {
     }
 
     private fun initStrictMode() {
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder()
-            .detectAll()
-            .penaltyLog()
-            .build())
+        StrictMode.setVmPolicy(
+            StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build())
 
         StrictMode.setThreadPolicy(
             StrictMode.ThreadPolicy.Builder()
