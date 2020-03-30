@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.navigation.NavController
 import androidx.test.rule.ActivityTestRule
 import com.deividasstr.data.prefs.SharedPrefs
+import com.deividasstr.data.store.dbs.toSweet
 import com.deividasstr.data.store.models.toSweet
 import com.deividasstr.domain.entities.DateTimeHandler
 import com.deividasstr.domain.entities.enums.MeasurementUnit
@@ -176,8 +177,7 @@ class SweetDetailsFragmentTest : AndroidTest() {
         R.id.fab.click()
 
         val consumedSweet = ConsumedSweet(
-            sweetId = UiTestData.TEST_SWEETMODEL.id,
-            g = 2,
+            grams = 2,
             date = dateTimeMillis,
             sweet = UiTestData.TEST_SWEETMODEL.toSweet())
 

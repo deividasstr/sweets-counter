@@ -13,9 +13,9 @@ import com.deividasstr.ui.R
 import com.deividasstr.ui.base.framework.base.BaseViewModel
 import com.deividasstr.ui.base.models.SweetUi
 import com.deividasstr.ui.base.models.toSweet
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
-import kotlinx.coroutines.launch
 
 class SweetDetailsViewModel
 @Inject constructor(
@@ -82,8 +82,7 @@ class SweetDetailsViewModel
         val amount = enteredValue.value!!.toLong() * measureUnit.ratioWithGrams
         val sweetUi = sweet.value!!
         return ConsumedSweet(
-            sweetId = sweetUi.id,
-            g = amount,
+            grams = amount,
             date = dateTimeHandler.currentEpochSecs(),
             sweet = sweetUi.toSweet()
         )

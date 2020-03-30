@@ -1,0 +1,32 @@
+CREATE TABLE DbSweet(
+  id INTEGER NOT NULL PRIMARY KEY,
+  name TEXT NOT NULL,
+  calsPer100 INTEGER NOT NULL,
+  fatG REAL NOT NULL,
+  carbsG REAL NOT NULL,
+  sugarG REAL NOT NULL,
+  proteinG REAL NOT NULL
+);
+
+CREATE INDEX DbSweet_name ON DbSweet(name);
+
+insert:
+INSERT OR REPLACE INTO DbSweet(
+  id,
+  name,
+  calsPer100,
+  fatG,
+  carbsG,
+  sugarG,
+  proteinG
+)
+VALUES ?;
+
+getById:
+SELECT * FROM DbSweet WHERE id = ?;
+
+countSweets:
+SELECT count(*) FROM DbSweet WHERE name LIKE ?;
+
+searchByNamePaging:
+SELECT * FROM DbSweet WHERE name LIKE ? ORDER BY name LIMIT :limit OFFSET :offset;

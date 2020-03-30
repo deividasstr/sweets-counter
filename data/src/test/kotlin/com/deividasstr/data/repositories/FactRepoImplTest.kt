@@ -33,7 +33,7 @@ class FactRepoImplTest : UnitTest() {
 
     @Test
     fun shouldGetRandomFact() = runBlock {
-        coGiven { factsDb.getRandomFact(1) }.willReturn(Either.Right(DataTestData.TEST_FACTMODEL_1))
+        coGiven { factsDb.getFact(1) }.willReturn(Either.Right(DataTestData.TEST_FACTMODEL_1))
         factRepo.getRandomFact(1).getValue() shouldEqual TestData.TEST_FACT_1
     }
 

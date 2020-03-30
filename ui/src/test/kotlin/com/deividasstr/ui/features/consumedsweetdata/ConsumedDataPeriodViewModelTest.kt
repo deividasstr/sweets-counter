@@ -21,12 +21,12 @@ import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.nhaarman.mockitokotlin2.willReturn
-import kotlin.math.roundToLong
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Spy
+import kotlin.math.roundToLong
 
 class ConsumedDataPeriodViewModelTest : UnitTest() {
 
@@ -62,12 +62,12 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         defaultVMInit()
 
         val calsDay1 =
-            (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET3.grams * TestData.TEST_SWEET.calsPer100 / 100)
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
-            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.grams * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.grams * TestData.TEST_SWEET2.calsPer100 / 100)
         val unitsConsumed =
-            TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET2.g
+            TestData.TEST_CONSUMED_SWEET.grams + TestData.TEST_CONSUMED_SWEET3.grams + TestData.TEST_CONSUMED_SWEET2.grams
 
         val cals = calsDay1 + calsDay3
 
@@ -115,16 +115,16 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         defaultVMInit()
 
         val calsDayLastWeek =
-            (TestData.TEST_CONSUMED_SWEET4.g * TestData.TEST_SWEET2.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET4.grams * TestData.TEST_SWEET2.calsPer100 / 100)
         val calsDay1 =
-            (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET3.grams * TestData.TEST_SWEET.calsPer100 / 100)
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
-            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.grams * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.grams * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek
         val unitsConsumed =
-            TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET4.g
+            TestData.TEST_CONSUMED_SWEET.grams + TestData.TEST_CONSUMED_SWEET2.grams + TestData.TEST_CONSUMED_SWEET3.grams + TestData.TEST_CONSUMED_SWEET4.grams
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -178,19 +178,19 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         defaultVMInit()
 
         val calsDayLastMonth =
-            (TestData.TEST_CONSUMED_SWEET5.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET5.grams * TestData.TEST_SWEET.calsPer100 / 100)
         val calsDayLastWeek =
-            (TestData.TEST_CONSUMED_SWEET4.g * TestData.TEST_SWEET2.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET4.grams * TestData.TEST_SWEET2.calsPer100 / 100)
         val calsDay1 =
-            (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET3.grams * TestData.TEST_SWEET.calsPer100 / 100)
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
-            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.grams * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.grams * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3 + calsDayLastWeek + calsDayLastMonth
 
         val unitsConsumed =
-            TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g + TestData.TEST_CONSUMED_SWEET4.g + TestData.TEST_CONSUMED_SWEET5.g
+            TestData.TEST_CONSUMED_SWEET.grams + TestData.TEST_CONSUMED_SWEET2.grams + TestData.TEST_CONSUMED_SWEET3.grams + TestData.TEST_CONSUMED_SWEET4.grams + TestData.TEST_CONSUMED_SWEET5.grams
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -279,11 +279,11 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         defaultVMInit()
 
         val cals =
-            (TestData.TEST_CONSUMED_SWEET4.g * TestData.TEST_SWEET2.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET4.grams * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
-        val unitsConsumed = TestData.TEST_CONSUMED_SWEET4.g
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET4.grams
 
         val range = DateRange(Periods.WEEK, dateTimeHandler)
         range.advanceRange(-1)
@@ -323,15 +323,15 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         viewModel.resetPeriod()
 
         val calsDay1 =
-            (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET3.grams * TestData.TEST_SWEET.calsPer100 / 100)
 
-        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
-            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val calsDay3 = (TestData.TEST_CONSUMED_SWEET.grams * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.grams * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val cals = calsDay1 + calsDay3
 
         val unitsConsumed =
-            TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g + TestData.TEST_CONSUMED_SWEET3.g
+            TestData.TEST_CONSUMED_SWEET.grams + TestData.TEST_CONSUMED_SWEET2.grams + TestData.TEST_CONSUMED_SWEET3.grams
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
@@ -377,15 +377,15 @@ class ConsumedDataPeriodViewModelTest : UnitTest() {
         val selectedPeriod = 3
 
         val calsDay1 =
-            (TestData.TEST_CONSUMED_SWEET3.g * TestData.TEST_SWEET.calsPer100 / 100)
+            (TestData.TEST_CONSUMED_SWEET3.grams * TestData.TEST_SWEET.calsPer100 / 100)
 
-        val cals = (TestData.TEST_CONSUMED_SWEET.g * TestData.TEST_SWEET.calsPer100 / 100 +
-            TestData.TEST_CONSUMED_SWEET2.g * TestData.TEST_SWEET2.calsPer100 / 100)
+        val cals = (TestData.TEST_CONSUMED_SWEET.grams * TestData.TEST_SWEET.calsPer100 / 100 +
+            TestData.TEST_CONSUMED_SWEET2.grams * TestData.TEST_SWEET2.calsPer100 / 100)
 
         val weight = (cals / ConsumedDataGenerator.CALS_PER_G).roundToLong()
 
-        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.g + TestData.TEST_CONSUMED_SWEET2.g
-        +TestData.TEST_CONSUMED_SWEET3.g
+        val unitsConsumed = TestData.TEST_CONSUMED_SWEET.grams + TestData.TEST_CONSUMED_SWEET2.grams
+        +TestData.TEST_CONSUMED_SWEET3.grams
 
         val range = DateRange(
             Periods.WEEK,

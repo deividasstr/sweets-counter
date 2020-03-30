@@ -20,28 +20,21 @@ class TestData {
         val CURRENT_EPOCH_SECS = LOCAL_DATE_TIME.toEpochSecond(OffsetDateTime.now().offset)
 
         val TEST_CONSUMED_SWEET =
-            ConsumedSweet(0, 2, 100, CURRENT_EPOCH_SECS, TEST_SWEET)
-        val TEST_CONSUMED_SWEET2 = ConsumedSweet(0, 3, 65, CURRENT_EPOCH_SECS.minus(2 * 60 * 60), TEST_SWEET2)
+            ConsumedSweet(100, CURRENT_EPOCH_SECS, TEST_SWEET)
+        val TEST_CONSUMED_SWEET2 = ConsumedSweet(65, CURRENT_EPOCH_SECS.minus(2 * 60 * 60), TEST_SWEET2)
         val TEST_CONSUMED_SWEET3 = ConsumedSweet(
-            0,
-            2,
             12,
             LocalDateTime.of(2018, 8, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset), TEST_SWEET)
         val TEST_CONSUMED_SWEET4 = ConsumedSweet(
-            0,
-            3,
             120,
             LocalDateTime.of(2018, 8, 5, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset), TEST_SWEET2)
         val TEST_CONSUMED_SWEET5 = ConsumedSweet(
-            0,
-            2,
             66,
             LocalDateTime.of(2018, 7, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset), TEST_SWEET)
         val TEST_CONSUMED_SWEET6 = ConsumedSweet(
-            0,
-            3,
             90,
-            LocalDateTime.of(2017, 8, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset), TEST_SWEET2)
+            LocalDateTime.of(2017, 8, 6, 17, 15)!!.toEpochSecond(OffsetDateTime.now().offset),
+            TEST_SWEET2)
 
         val TEST_TOTAL_CALS = 3000L
 

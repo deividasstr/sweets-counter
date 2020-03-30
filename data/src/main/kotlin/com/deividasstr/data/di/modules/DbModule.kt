@@ -1,6 +1,7 @@
 package com.deividasstr.data.di.modules
 
 import android.content.Context
+import com.deividasstr.data.Database
 import com.deividasstr.data.store.daos.ConsumedSweetsDao
 import com.deividasstr.data.store.daos.FactsDao
 import com.deividasstr.data.store.daos.SweetsDao
@@ -8,52 +9,42 @@ import com.deividasstr.data.store.datasource.SweetSearchDataSource
 import com.deividasstr.data.store.dbs.ConsumedSweetsDb
 import com.deividasstr.data.store.dbs.FactsDb
 import com.deividasstr.data.store.dbs.SweetsDb
-import com.deividasstr.data.store.models.ConsumedSweetDb
-import com.deividasstr.data.store.models.FactDb
-import com.deividasstr.data.store.models.MyObjectBox
-import com.deividasstr.data.store.models.SweetDb
-import com.deividasstr.data.utils.StrictModePermitter.permitDiskReads
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import dagger.Module
 import dagger.Provides
-import io.objectbox.BoxStore
 import javax.inject.Singleton
 
 @Module
 class DbModule {
 
-    @Singleton
     @Provides
-    fun provideDatabase(context: Context): BoxStore {
-        return permitDiskReads { MyObjectBox.builder().androidContext(context).build() }
+    @Singleton
+    fun provideDatabase(context: Context): Database {
+        val driver = AndroidSqliteDriver(Database.Schema, context, "sweets_counter.db")
+        return Database(driver)
     }
 
     @Singleton
     @Provides
-    fun provideSweetsDao(store: BoxStore): SweetsDao {
-        return SweetsDb(store.boxFor(SweetDb::class.java))
+    fun provideSweetsDb(db: Database): SweetsDao {
+        return SweetsDb(db.sweetsDbQueries)
     }
 
     @Singleton
     @Provides
-    fun provideSweetsDb(store: BoxStore): SweetsDb {
-        return SweetsDb(store.boxFor(SweetDb::class.java))
+    fun provideFactsDb(db: Database): FactsDao {
+        return FactsDb(db.factsDbQueries)
     }
 
     @Singleton
     @Provides
-    fun provideFactsDb(store: BoxStore): FactsDao {
-        return FactsDb(store.boxFor(FactDb::class.java))
+    fun provideConsumedSweetsDb(db: Database): ConsumedSweetsDao {
+        return ConsumedSweetsDb(db.consumedSweetsDbQueries)
     }
 
     @Singleton
     @Provides
-    fun provideConsumedSweetsDb(store: BoxStore): ConsumedSweetsDao {
-        return ConsumedSweetsDb(store.boxFor(ConsumedSweetDb::class.java))
-    }
-
-    @Singleton
-    @Provides
-    fun provideSweetSearchDataSource(sweetsDb: SweetsDb): SweetSearchDataSource {
-        return SweetSearchDataSource(sweetsDb)
+    fun provideSweetSearchDataSource(sweetsDao: SweetsDao): SweetSearchDataSource {
+        return SweetSearchDataSource(sweetsDao)
     }
 }

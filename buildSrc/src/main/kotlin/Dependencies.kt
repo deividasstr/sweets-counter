@@ -1,3 +1,4 @@
+
 import Dependencies.Libraries.androidCoroutines
 import Dependencies.Libraries.coreCoroutines
 import Dependencies.Libraries.retrofit
@@ -9,7 +10,7 @@ import Dependencies.Versions.googleServicesVersion
 import Dependencies.Versions.kotlinVersion
 import Dependencies.Versions.ktLintVersion
 import Dependencies.Versions.navigationVersion
-import Dependencies.Versions.objectboxVersion
+import Dependencies.Versions.sqlDelightVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 import org.gradle.kotlin.dsl.version
@@ -30,16 +31,17 @@ object Dependencies {
 
         //Plugins
         const val kotlinVersion = "1.3.71"
-        const val objectboxVersion = "2.5.1"
         const val firebasePerfVersion = "1.3.1"
         const val fabricVersion = "1.31.2"
         const val googleServicesVersion = "4.3.3"
         const val androidGradlePluginVersion = "3.6.1"
         const val ktLintVersion = "9.2.1"
+        const val sqlDelightVersion = "1.2.2"
     }
 
     object Libraries {
-
+        const val sqlDelight = "com.squareup.sqldelight:android-driver:_"
+        const val sqlDelightPaging = "com.squareup.sqldelight:android-paging-extensions:_"
         const val androidxKtx = "androidx.core:core-ktx:_"
         const val threeTenJava = "org.threeten:threetenbp:_"
         const val threeTenAndroid = "com.jakewharton.threetenabp:threetenabp:_"
@@ -54,19 +56,18 @@ object Dependencies {
         const val mockitoAndroid = "org.mockito:mockito-inline:_"
         const val kluent = "org.amshove.kluent:kluent:_"
         const val timber = "com.jakewharton.timber:timber:_"
+        const val sqlDelightJvm = "com.squareup.sqldelight:sqlite-driver:_"
     }
 
     object Plugins {
         const val androidGradle = "com.android.tools.build:gradle:$androidGradlePluginVersion"
         const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        const val objectboxGradle = "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-        const val navigationSafeArgs =
-            "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         const val firebasePerf = "com.google.firebase:perf-plugin:$firebasePerfVersion"
         const val fabric = "io.fabric.tools:gradle:$fabricVersion"
         const val googleServices = "com.google.gms:google-services:$googleServicesVersion"
         const val ktLint = "org.jlleitschuh.gradle.ktlint"
-        const val objectbox = "io.objectbox:objectbox-kotlin:$objectboxVersion"
+        const val sqlDelight = "com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion"
     }
 }
 
@@ -87,12 +88,6 @@ fun DependencyHandler.implementTesting() {
     add("testImplementation", Dependencies.Libraries.mockitoAndroid)
     add("testImplementation", Dependencies.Libraries.threeTenJava)
     add("testImplementation", Dependencies.Libraries.testCoroutines)
-}
-
-fun DependencyHandler.implementObjectBoxTesting() {
-    add("testImplementation", "io.objectbox:objectbox-linux:$objectboxVersion")
-    add("testImplementation", "io.objectbox:objectbox-macos:$objectboxVersion")
-    add("testImplementation", "io.objectbox:objectbox-windows:$objectboxVersion")
 }
 
 fun DependencyHandler.implementCoroutines() {

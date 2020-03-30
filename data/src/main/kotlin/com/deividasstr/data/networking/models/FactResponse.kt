@@ -1,6 +1,6 @@
 package com.deividasstr.data.networking.models
 
-import com.deividasstr.data.store.models.FactDb
+import com.deividasstr.data.DbFact
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -10,6 +10,8 @@ data class ResponseFact(
     val timestamp: Long
 )
 
-fun List<ResponseFact>.toFactModels(): List<FactDb> {
-    return this.map { FactDb(it) }
+fun DbFact(responseFact: ResponseFact): DbFact = DbFact.Impl(responseFact.id, responseFact.fact)
+
+fun List<ResponseFact>.toFactModels(): List<DbFact> {
+    return map { DbFact(it) }
 }

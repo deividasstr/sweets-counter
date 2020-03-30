@@ -1,0 +1,28 @@
+CREATE TABLE DbConsumedSweet(
+  sweetId INTEGER NOT NULL,
+  grams INTEGER NOT NULL,
+  date INTEGER NOT NULL,
+  FOREIGN KEY (sweetId) REFERENCES DbSweet(id)
+);
+
+CREATE INDEX DbConsumedSweet_date ON DbConsumedSweet(date);
+
+getAll:
+SELECT grams, date, DbSweet.*
+FROM DbConsumedSweet
+JOIN DbSweet ON DbConsumedSweet.sweetId = DbSweet.id
+ORDER BY DbConsumedSweet.date DESC;
+
+insert:
+INSERT OR REPLACE INTO DbConsumedSweet(
+  sweetId,
+  grams,
+  date
+)
+VALUES (?, ?, ?);
+
+getBetweenDates:
+SELECT grams, date, DbSweet.*
+FROM DbConsumedSweet
+JOIN DbSweet ON DbConsumedSweet.sweetId = DbSweet.id
+WHERE date BETWEEN CAST(:start AS INTEGER) AND CAST(:end AS INTEGER);

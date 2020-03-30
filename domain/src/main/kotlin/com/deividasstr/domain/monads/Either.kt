@@ -31,29 +31,29 @@ import org.jetbrains.annotations.TestOnly
 sealed class Either<out L, out R> {
 
     /** * Represents the left side of [Either] class which by convention is a "Failure". */
-    data class Left<out L>(val a: L) : Either<L, Nothing>()
+    data class Left<out L>(val left: L) : Either<L, Nothing>()
 
     /** * Represents the right side of [Either] class which by convention is a "Success". */
-    data class Right<out R>(val b: R) : Either<Nothing, R>()
+    data class Right<out R>(val right: R) : Either<Nothing, R>()
 
     val isRight get() = this is Right<R>
     val isLeft get() = this is Left<L>
 
     fun either(fnL: (L) -> Any, fnR: (R) -> Any): Any =
         when (this) {
-            is Left -> fnL(a)
-            is Right -> fnR(b)
+            is Left -> fnL(left)
+            is Right -> fnR(right)
         }
 
     fun either(fnL: (L) -> Any, fnR: () -> Any): Any =
         when (this) {
-            is Left -> fnL(a)
+            is Left -> fnL(left)
             is Right -> fnR()
         }
 
     fun <N> map(map: (R) -> N): Either<L, N> {
         return when (this) {
-            is Right -> Right(map(b))
+            is Right -> Right(map(right))
             is Left -> this
         }
     }
@@ -61,8 +61,8 @@ sealed class Either<out L, out R> {
     @TestOnly
     fun getValue(): Any? {
         return when (this) {
-            is Right -> this.b
-            is Left -> this.a
+            is Right -> this.right
+            is Left -> this.left
         }
     }
 

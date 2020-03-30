@@ -1,6 +1,6 @@
 package com.deividasstr.data.networking.models
 
-import com.deividasstr.data.store.models.SweetDb
+import com.deividasstr.data.DbSweet
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -14,6 +14,8 @@ data class ResponseSweet(
     val protein_100: Double
 )
 
-fun List<ResponseSweet>.toSweetDbs(): List<SweetDb> {
-    return this.map { SweetDb(it) }
+fun List<ResponseSweet>.toSweetDbs(): List<DbSweet> {
+    return map { (id, name, kcal_100, fat_100, carbohydrate_100, sugar_100, protein_100) ->
+        DbSweet.Impl(id, name, kcal_100, fat_100, carbohydrate_100, sugar_100, protein_100)
+    }
 }

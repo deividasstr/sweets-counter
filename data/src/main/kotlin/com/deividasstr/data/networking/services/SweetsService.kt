@@ -1,9 +1,9 @@
 package com.deividasstr.data.networking.services
 
+import com.deividasstr.data.DbSweet
 import com.deividasstr.data.networking.apis.SweetsApi
 import com.deividasstr.data.networking.manager.NetworkManager
 import com.deividasstr.data.networking.models.toSweetDbs
-import com.deividasstr.data.store.models.SweetDb
 import com.deividasstr.domain.entities.models.Error
 import com.deividasstr.domain.monads.Either
 import javax.inject.Singleton
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class SweetsService(private val sweetsApi: SweetsApi, private val networkManager: NetworkManager) :
     BaseNetworkService {
 
-    suspend fun getAllSweets(): Either<Error, List<SweetDb>> {
+    suspend fun getAllSweets(): Either<Error, List<DbSweet>> {
         return request(
             networkManager.networkAvailable,
             sweetsApi.getAllSweets(),
@@ -20,7 +20,7 @@ class SweetsService(private val sweetsApi: SweetsApi, private val networkManager
             emptyList())
     }
 
-    suspend fun getNewSweets(afterTimestamp: Long): Either<Error, List<SweetDb>> {
+    suspend fun getNewSweets(afterTimestamp: Long): Either<Error, List<DbSweet>> {
         return request(
             networkManager.networkAvailable,
             sweetsApi.getNewSweets(afterTimestamp),

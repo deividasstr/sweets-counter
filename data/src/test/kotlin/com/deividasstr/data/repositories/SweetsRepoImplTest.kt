@@ -46,7 +46,6 @@ class SweetsRepoImplTest : UnitTest() {
     fun shouldAddNewSweet() = runBlock {
         coGiven { sweetsDb.addSweet(DataTestData.TEST_SWEETMODEL) }
             .willReturn(Either.Right(Either.None()))
-
         sweetsRepo.newSweet(TestData.TEST_SWEET) shouldEqual Either.Right(Either.None())
     }
 

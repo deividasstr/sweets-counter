@@ -59,7 +59,6 @@ dependencies {
     implementFirebase()
     implementLeakCanary()
 
-    implementObjectBoxTesting()
     implementAppTesting()
     implementAppAndroidTesting()
 }

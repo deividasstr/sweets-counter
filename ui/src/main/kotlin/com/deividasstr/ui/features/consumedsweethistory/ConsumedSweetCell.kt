@@ -10,7 +10,7 @@ import com.jaychang.srv.kae.SimpleViewHolder
 import kotlinx.android.synthetic.main.item_consumed_sweet.view.*
 
 class ConsumedSweetCell(
-    val item: ConsumedSweetUi,
+    private val item: ConsumedSweetUi,
     private val dateTimeHandler: DateTimeHandler,
     private val measurementUnit: MeasurementUnit
 ) :
@@ -27,10 +27,9 @@ class ConsumedSweetCell(
         payload: Any?
     ) {
         with(holder.itemView) {
-            val sweet = item.sweet
             val consumedSweet = item
             val data: String = formatDataText(context, consumedSweet)
-            name_consumed_sweet.text = sweet.name
+            name_consumed_sweet.text = item.sweet.name
             data_consumed_sweet.text = data
         }
     }

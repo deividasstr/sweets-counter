@@ -1,0 +1,16 @@
+CREATE TABLE DbFact(
+  id INTEGER NOT NULL PRIMARY KEY,
+  text TEXT NOT NULL
+);
+
+insert:
+INSERT OR REPLACE INTO DbFact(
+  id,
+  text
+)
+VALUES ?;
+
+getRandom:
+SELECT * FROM DbFact
+ORDER BY RANDOM()
+LIMIT 1;
