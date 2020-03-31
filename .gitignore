@@ -6,7 +6,7 @@
 /build
 /captures
 libs/
-google-services.json
+ui/google-services.json
 /keystore.properties
 keystore.jks
 ui/release/
