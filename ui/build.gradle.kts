@@ -40,8 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(files("libs/MPChartLib.aar"))
     implementation(project(":data"))
-    implementation(project(":MPChartLib"))
 
     implementation(Dependencies.Libraries.retrofit) // FIXME: Make sure it is removed from here
 

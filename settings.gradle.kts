@@ -9,4 +9,4 @@ buildscript {
 
 bootstrapRefreshVersionsAndDependencies()
 
-include(":ui", ":domain", ":data", ":MPChartLib", ":testutils")
+include(":ui", ":domain", ":data",  ":testutils")
